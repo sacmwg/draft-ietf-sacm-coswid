@@ -66,7 +66,7 @@ Table of Contents
 
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
      1.1.  Requirements notation . . . . . . . . . . . . . . . . . .   3
-   2.  Concise SWID data definition  . . . . . . . . . . . . . . . .   4
+   2.  Concise SWID CDDL specification . . . . . . . . . . . . . . .   4
    3.  Encoding hashes for Concise SWID tags . . . . . . . . . . . .   8
    4.  COSE signatures for Concise SWID tags . . . . . . . . . . . .   8
    5.  IANA considerations . . . . . . . . . . . . . . . . . . . . .   9
@@ -170,18 +170,18 @@ Birkholz, et al.          Expires July 14, 2017                 [Page 3]
 Internet-Draft                   COSWID                     January 2017
 
 
-2.  Concise SWID data definition
+2.  Concise SWID CDDL specification
 
    The following is a CDDL representation of the ISO-19770-2:2015 [SWID]
    XML schema definition of SWID tags.  This representation includes all
    SWID tag fields and thus supports all SWID tag use cases.  The
    CamelCase notation used in the XML schema definition is changed to
    hyphen-separated notation (e.g.  ResourceCollection is named
-   resource-collection in the Concise SWID data definition).  The human-
+   resource-collection in the COSWID CDDL specification).  The human-
    readable names of members are mapped to integer indices via a block
-   of rules at the bottom of the Concise SWID data definition.  The 48
-   character strings of the SWID vocabulary that would have to be stored
-   or transported in full if using the original vocabulary are replaced.
+   of rules at the bottom of the CDDL specification.  The 56 character
+   strings of the SWID vocabulary that would have to be stored or
+   transported in full if using the original vocabulary are replaced.
 
    concise-software-identity = {
      global-attributes,
