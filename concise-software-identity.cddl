@@ -69,10 +69,12 @@ directory = {
 firmware = {
   firmware-name,
   ? firmware-version,
-  ? component-index,
+  ? dependency, ; inherited from RFC4108
+  ? component-index, ; equivalent to RFC 4108 fwPkgType
   ? block-device-identifier,
   model-label,
-  firmware-hash,
+  ? firmware-hash, ; a hash for 
+  ? cms-firmware-package, ; RCF4108, experimental, this is an actual firmware blob!
 }
 
 process = {
@@ -211,3 +213,8 @@ firmware-version = (60 : text / int)
 component-index = (61 : int)
 model-label = (62: text / int)
 block-device-identifier = (63 : text / int) 
+cms-firmware-package = (64: bstr)
+dependency = (65: { ? firmware-name,
+                    firmware-version,
+                  }
+             )

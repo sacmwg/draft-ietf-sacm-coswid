@@ -122,7 +122,7 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
 
 # Concise SWID CDDL specification
 
-The following is a CDDL representation of the ISO-19770-2:2015 {{SWID}} XML schema definition of SWID tags. This representation includes all SWID tag fields and thus supports all SWID tag use cases. The CamelCase notation used in the XML schema definition is changed to hyphen-separated notation (e.g. ResourceCollection is named resource-collection in the COSWID CDDL specification). The human-readable names of members are mapped to integer indices via a block of rules at the bottom of the CDDL specification. The 56 character strings of the SWID vocabulary that would have to be stored or transported in full if using the original vocabulary are replaced.
+The following is a CDDL representation of the ISO-19770-2:2015 {{SWID}} XML schema definition of SWID tags. This representation includes all SWID tag fields and thus supports all SWID tag use cases. The CamelCase notation used in the XML schema definition is changed to hyphen-separated notation (e.g. ResourceCollection is named resource-collection in the COSWID CDDL specification). The human-readable names of members are mapped to integer indices via a block of rules at the bottom of the CDDL specification. The 65 character strings of the SWID vocabulary that would have to be stored or transported in full if using the original vocabulary are replaced.
 
 ~~~~ CDDL
 <CODE BEGINS>
@@ -140,32 +140,11 @@ SWID tags, as defined in the ISO-19770-2:2015 XML schema, can include cryptograp
 
 The ISO-19770-2:2015 XML schema uses XML DSIG to support cryptographic signatures. Concise SWID tags require a different signature scheme than this. COSE (CBOR Encoded Message Syntax) provides the required mechanism {{-cose-msg}}. Concise SWID can be wrapped in a COSE Single Signer Data Object (cose-sign1) that contains a single signature. The following CDDL defines a more restrictive subset of header attributes allowed by COSE tailored to suit the requirements of Concise SWID.
 
-~~~ CDDL
-
-signed-software-identity = #6.997(COSE-Sign1-coswid) ; see TBS7 in current COSE I-D
-
-label = int / tstr  ; see COSE I-D 1.4.
-values = any        ; see COSE I-D 1.4.
-
-unprotected-signed-coswid-header = {
-    1 => int,                   ; algorithm identifier
-    3 => "application/coswid",  ; request for CoAP IANA registry to become an int
-    * label => values,
-}
-
-protected-signed-coswid-header = {
-    4 => bstr,                  ; key identifier
-    * label => values,
-}
-
-COSE-Sign1-coswid = [
-    protected: bstr .cbor protected-signed-coswid-header,
-    unprotected: unprotected-signed-coswid-header,
-    payload: bstr .cbor concise-software-identity,
-    signature: bstr,
-]
-
-~~~
+~~~~ CDDL
+<CODE BEGINS>
+{::include signed-coswid.cddl}
+<CODE ENDS>
+~~~~
 
 <!--  which will be addressed in a future iteration of this draft and most likely result in additional attributes to be included in the general Concise SWID data definition, e.g. signature-type (“compat”, “cose”, etc.). Note that, by their natures, cryptographic signatures will not remain valid if a SWID tag is translated from one representation to another. -->
 
