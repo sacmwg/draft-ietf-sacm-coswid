@@ -67,14 +67,16 @@ directory = {
 }
 
 firmware = {
-  firmware-name,
+  firmware-name,                  ; inherited from RFC4108 
   ? firmware-version,
-  ? dependency, ; inherited from RFC4108
-  ? component-index, ; equivalent to RFC 4108 fwPkgType
+  ? firmware-package-identifier,  ; inherited from RFC4108
+  ? dependency,                   ; inherited from RFC4108
+  ? component-index,              ; equivalent to RFC4108 fwPkgType
   ? block-device-identifier,
+  ? target-hardware-identifier,   ; an RFC4108 alternative to model-label
   model-label,
-  ? firmware-hash, ; a hash for 
-  ? cms-firmware-package, ; RCF4108, experimental, this is an actual firmware blob!
+  ? firmware-hash,                ; a hash for a single, incl. NI hash-algo index
+  ? cms-firmware-package,         ; RCF4108, experimental, this is an actual firmware blob!
 }
 
 process = {
@@ -214,7 +216,10 @@ component-index = (61 : int)
 model-label = (62: text / int)
 block-device-identifier = (63 : text / int) 
 cms-firmware-package = (64: bstr)
-dependency = (65: { ? firmware-name,
-                    firmware-version,
+firmware-package-identifier = (65: text)
+target-hardware-identifier = (66: text)
+dependency = (67: { ? firmware-name,
+                    ? firmware-version,
+                    ? firmware-package-identifier,
                   }
              )
