@@ -166,8 +166,8 @@ key = (21: bool)
 location = (22: text)
 fs-name = (23: text)
 root = (24: text)
-path-elements = (25: { ? directory-entry,
-                       ? file-entry,
+path-elements = (25: { * directory-entry,
+                       * file-entry,
                      }
                 )
 process-name = (26: text)
@@ -205,7 +205,7 @@ file-hash = (56: [ hash-alg-id: int,
                  ]
             )
 
-firmware-entry = (57: firmware / [ * firmware ])
+firmware-entry = (57: firmware / [ 2* firmware ])
 firmware-hash = (58: [ hash-alg-id: int,
                       hash-value: bstr,
                      ]
