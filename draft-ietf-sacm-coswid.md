@@ -71,9 +71,11 @@ normative:
     seriesinfo:
       ISO/IEC: 19770-2:2015
   I-D.ietf-cose-msg: cose-msg
+  I-D.ietf-ace-cbor-web-token: cwt
 
 informative:
   I-D.greevenbosch-appsawg-cbor-cddl: cddl
+  I-D.banghart-sacm-rolie-softwaredescriptor: sw-desc
   I-D-birkholz-tuda:
     -: tuda
     title: Time-Based Uni-Directional Attestation
@@ -104,7 +106,7 @@ SWID tags have several use-applications including but not limited to:
 
 * Vulnerability Assessment, which requires a semantic link between standardized vulnerability descriptions and IT-assets {{X.1520}}.
 
-* Remote Attestation, which requires a link between golden (well-known) measurements and software instances {{-tuda}}.
+* Remote Attestation, which requires a link between golden (reference integrity) measurements and software components {{-tuda}}.
 
 SWID tags, as defined in ISO-19770-2:2015 {{SWID}}, provide a standardized format for a record that identifies and describes a specific release of a software product. Different software products, and even different releases of a particular software product, each have a different SWID tag record associated with them. In addition to defining the format of these records, ISO-19770-2:2015 defines requirements concerning the SWID tag lifecycle. Specifically, when a software product is installed on an endpoint, that product's SWID tag is also installed. Likewise, when the product is uninstalled or replaced, the SWID tag is deleted or replaced, as appropriate. As a result, ISO-19770-2:2015 describes a system wherein there is a correspondence between the set of installed software products on an endpoint, and the presence on that endpoint of the SWID tags corresponding to those products.
 
@@ -135,6 +137,10 @@ The following is a CDDL representation of the ISO-19770-2:2015 {{SWID}} XML sche
 
 Concise SWID add explicit support for the representation of file-hashes using algorithms that are registered at the Named Information Hash Algorithm Registry via the file-hash item (label 56). The number used as a value for hash-alg-id refers the ID in the Named Information Hash Algorithm table.
 
+# CoSWID used as Reference Integrity Measurements (CoSWID RIM)
+
+A vendor supplied signed CoSWID tag that includes hash-values for the files that compose a software component can be used as a RIM (reference integrity measurement). A RIM is a type of declarative guidance that can be used ti assess the compliance of an endpoint by assessing the installed software. In the context of remote attestation based on an attestation via a hardware security module (hardware rooted trust), a verifier can appraise the integrity of the conveyed measurements of software components using a CoSWID RIM provided by a source, such as {{-sw-desc}}.
+
 # Firmware SWID tags
 
 The metadata defined in {{-cms-fw-pkgs}} is incorporated in the set of resource-collection defined by Concise Software Identifier. The inclusion of the byte string that constitutes a firmware addresses specific characteristics of firmware on a block-device in contrast to software deployed in a file-system. Trees of retaliative paths expressed by the filesystem-item structure if CoSWID tags might be unable to represent the location of a firmware on a constrained-node (small thing). In addition, it might not be possible (or feasible) to store a CoSWID (permanently) on small thing. Hence, the CoSWID can be used as a concise and flexible metadata document that constitutes a container to store a (potentially compressed) firmware in. The CoSWID tag can be transmitted as an identifying document between endpoints or used as an reference integrity measurement as usual, and it can also convey a piece of firmware, serve its intended purpose as a SWID tag and then - due to the lack of a location to store it - be discarded.
@@ -155,7 +161,7 @@ The ISO-19770-2:2015 XML schema uses XML DSIG to support cryptographic signature
 
 # CBOR Web Token for Concise SWID tags
 
-A typical requirement regarding specific instantiations of endpoint - and as a result, specific instantiations of software components - is a representation of the absolute path of a CoSWID tag in a file system in order to derive absolute paths of files represented in a CoSWID tags. The absolute path of an evidence CoSWID tag can be included as a claim in the header of a CBOR Web Token. Depending on the source of the token, the claim can be in the protected or unprotected header portion.
+A typical requirement regarding specific instantiations of endpoints – and, as a result, specific instantiations of software components - is a representation of the absolute path of a CoSWID tag document in a file system in order to derive absolute paths of files represented in the corresponding CoSWID tag. The absolute path of an evidence CoSWID tag can be included as a claim in the header of a CBOR Web Token {{-cwt}}. Depending on the source of the token, the claim can be in the protected or unprotected header portion.
 
 ~~~~ CDDL
 <CODE BEGINS>
