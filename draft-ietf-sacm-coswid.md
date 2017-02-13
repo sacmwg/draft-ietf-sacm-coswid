@@ -94,7 +94,7 @@ informative:
 
 --- abstract 
 
-This document defines a concise representation of ISO 19770-2:2015 Software Identifiers (SWID tags) that is interoperable with the XML schema definition of ISO 19770-2:2015. 
+This document defines a concise representation of ISO 19770-2:2015 Software Identifiers (SWID tags) that is interoperable with the XML schema definition of ISO 19770-2:2015 and augmented for application in Constrained-Node Networks.
 
 --- middle
 
@@ -106,7 +106,7 @@ SWID tags have several use-applications including but not limited to:
 
 * Vulnerability Assessment, which requires a semantic link between standardized vulnerability descriptions and IT-assets {{X.1520}}.
 
-* Remote Attestation, which requires a link between golden (reference integrity) measurements and software components {{-tuda}}.
+* Remote Attestation, which requires a link between reference integrity measurements (RIM) and security logs of measured software components {{-tuda}}.
 
 SWID tags, as defined in ISO-19770-2:2015 {{SWID}}, provide a standardized format for a record that identifies and describes a specific release of a software product. Different software products, and even different releases of a particular software product, each have a different SWID tag record associated with them. In addition to defining the format of these records, ISO-19770-2:2015 defines requirements concerning the SWID tag lifecycle. Specifically, when a software product is installed on an endpoint, that product's SWID tag is also installed. Likewise, when the product is uninstalled or replaced, the SWID tag is deleted or replaced, as appropriate. As a result, ISO-19770-2:2015 describes a system wherein there is a correspondence between the set of installed software products on an endpoint, and the presence on that endpoint of the SWID tags corresponding to those products.
 
@@ -127,6 +127,8 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
 
 The following is a CDDL representation of the ISO-19770-2:2015 {{SWID}} XML schema definition of SWID tags. This representation includes all SWID tag fields and thus supports all SWID tag use cases. The CamelCase notation used in the XML schema definition is changed to hyphen-separated notation (e.g. ResourceCollection is named resource-collection in the COSWID CDDL specification). The human-readable names of members are mapped to integer indices via a block of rules at the bottom of the CDDL specification. The 66 character strings of the SWID vocabulary that would have to be stored or transported in full if using the original vocabulary are replaced.
 
+Concise Software Identifiers are tailored to be used in the domain of constrained-node networks. A typical endpoint is capable of storing the CoSWID tag of installed software, a constrained-node might lack that capability. CoSWID address these constraints and the corresponding specification is augmented to retain their usefulness in the thing-2-thing domain. Specific examples include, but are not limited to limiting the scope of hash algorithms to the IANA Named Information tables or including firmware attributes addressing devices that do not necessarily provide a file-system to store a CoSWID tag in.
+
 ~~~~ CDDL
 <CODE BEGINS>
 {::include concise-software-identity.cddl}
@@ -143,7 +145,7 @@ A vendor supplied signed CoSWID tag that includes hash-values for the files that
 
 # Firmware SWID tags
 
-The metadata defined in {{-cms-fw-pkgs}} is incorporated in the resource-collection structure that  semantically differentiates content stored in a Concise Software Identifier. The optional byte string that constitutes a firmware package addresses specific characteristics of firmware stored directly on a block-device in contrast to software deployed in a file-system. Trees of relative path-elements expressed by the directory and file structure in CoSWID tags are typically unable to represent the location of a firmware on a constrained-node (small thing). The composite nature of firmware and also the constitution of small things requires a set of options to identify the correct component in a composite thing for each piece of firmware. A single component also potentially requires a number of distinct firmware parts potentially depending on each other(s version). The dependencies cab be limited to the scope of the component itself or extend to the scope of the composite thing. In addition, it might not be possible (or feasible) to store a CoSWID tag document (permanently) on a small thing along with the corresponding peace of firmware. Hence, the CoSWID tag can be used as a concise and flexible metadata document that functions as a wrapper containing a (potentially compressed, signed, and/or encrypted) piece of firmware and its corresponding CoSWID attributes. A CoSWID tag about firmware can be transmitted as an identifying document across endpoints or used as an reference integrity measurement as usual. Alternatively, it can also convey a piece of firmware, serve its intended purpose as a SWID tag and then - due to the lack of a location to store it - be discarded.
+The metadata defined in {{-cms-fw-pkgs}} is incorporated in the resource-collection structure that semantically differentiates content stored in a Concise Software Identifier. The optional attributes that annoate a firmware package addresse specific characteristics of pieces of firmware stored directly on a block-device in contrast to software deployed in a file-system. Trees of relative path-elements expressed by the directory and file structure in CoSWID tags are typically unable to represent the location of a firmware on a constrained-node (small thing). The composite nature of firmware and also the actual composition of small things require a set of attributes to identify the correct component in a composite thing for each individual piece of firmware. A single component also potentially requires a number of distinct firmware parts that might depend on each other(s version). These dependencies can be limited to the scope of the component itself or extend to the scope of a small composite device. In addition, it might not be possible (or feasible) to store a CoSWID tag document (permanently) on a small thing along with the corresponding piece of firmware. Hence, CoSWID tags can be used as a concise and flexible metadata document that functions as a wrapper containing a (potentially compressed, signed, and/or encrypted) piece of firmware and its corresponding CoSWID attributes. A CoSWID tag about firmware can be transmitted as an identifying document across endpoints or used as an reference integrity measurement as usual. Alternatively, it can also convey an actual piece of firmware, serve its intended purpose as a SWID tag and then - due to the lack of a location to store it - be discarded.
 
 # COSE signatures for Concise SWID tags
 
