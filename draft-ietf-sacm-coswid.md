@@ -53,6 +53,7 @@ author:
 
 normative:
   RFC2119:
+  RFC4108: cms-fw-pkgs
   RFC7049: cbor
   X.1520:
     title: "Recommendation ITU-T X.1520 (2014), Common vulnerabilities and exposures"
@@ -134,6 +135,10 @@ The following is a CDDL representation of the ISO-19770-2:2015 {{SWID}} XML sche
 
 Concise SWID add explicit support for the representation of file-hashes using algorithms that are registered at the Named Information Hash Algorithm Registry via the file-hash item (label 56). The number used as a value for hash-alg-id refers the ID in the Named Information Hash Algorithm table.
 
+# Firmware SWID tags
+
+The metadata defined in {{-cms-fw-pkgs}} is incorporated in the set of resource-collection defined by Concise Software Identifier. The inclusion of the byte string that constitutes a firmware addresses specific characteristics of firmware on a block-device in contrast to software deployed in a file-system. Trees of retaliative paths expressed by the filesystem-item structure if CoSWID tags might be unable to represent the location of a firmware on a constrained-node (small thing). In addition, it might not be possible (or feasible) to store a CoSWID (permanently) on small thing. Hence, the CoSWID can be used as a concise and flexible metadata document that constitutes a container to store a (potentially compressed) firmware in. The CoSWID tag can be transmitted as an identifying document between endpoints or used as an reference integrity measurement as usual, and it can also convey a piece of firmware, serve its intended purpose as a SWID tag and then - due to the lack of a location to store it - be discarded.
+
 # COSE signatures for Concise SWID tags
 
 SWID tags, as defined in the ISO-19770-2:2015 XML schema, can include cryptographic signatures to protect the integrity of the SWID tag. In general, tags are signed by the tag creator (typically, although not exclusively, the vendor of the software product that the SWID tag identifies). Cryptographic signatures can make any modification of the tag detectable, which is especially important if the integrity of the tag is important, such as when the tag is providing golden measurements for files.
@@ -147,6 +152,16 @@ The ISO-19770-2:2015 XML schema uses XML DSIG to support cryptographic signature
 ~~~~
 
 <!--  which will be addressed in a future iteration of this draft and most likely result in additional attributes to be included in the general Concise SWID data definition, e.g. signature-type (“compat”, “cose”, etc.). Note that, by their natures, cryptographic signatures will not remain valid if a SWID tag is translated from one representation to another. -->
+
+# CBOR Web Token for Concise SWID tags
+
+A typical requirement regarding specific instantiations of endpoint - and as a result, specific instantiations of software components - is a representation of the absolute path of a CoSWID tag in a file system in order to derive absolute paths of files represented in a CoSWID tags. The absolute path of an evidence CoSWID tag can be included as a claim in the header of a CBOR Web Token. Depending on the source of the token, the claim can be in the protected or unprotected header portion.
+
+~~~~ CDDL
+<CODE BEGINS>
+ CDDL TBD
+<CODE ENDS>
+~~~~
 
 #  IANA considerations
 
