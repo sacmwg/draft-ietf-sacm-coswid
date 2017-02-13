@@ -139,7 +139,7 @@ Concise SWID add explicit support for the representation of file-hashes using al
 
 # CoSWID used as Reference Integrity Measurements (CoSWID RIM)
 
-A vendor supplied signed CoSWID tag that includes hash-values for the files that compose a software component can be used as a RIM (reference integrity measurement). A RIM is a type of declarative guidance that can be used ti assess the compliance of an endpoint by assessing the installed software. In the context of remote attestation based on an attestation via a hardware security module (hardware rooted trust), a verifier can appraise the integrity of the conveyed measurements of software components using a CoSWID RIM provided by a source, such as {{-sw-desc}}.
+A vendor supplied signed CoSWID tag that includes hash-values for the files that compose a software component can be used as a RIM (reference integrity measurement). A RIM is a type of declarative guidance that can be used to assert the compliance of an endpoint by assessing the installed software. In the context of remote attestation based on an attestation via a hardware security module (hardware rooted trust), a verifier can appraise the integrity of the conveyed measurements of software components using a CoSWID RIM provided by a source, such as {{-sw-desc}}.
 
 # Firmware SWID tags
 
