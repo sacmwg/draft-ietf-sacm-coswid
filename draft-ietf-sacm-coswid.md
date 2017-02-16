@@ -76,6 +76,7 @@ normative:
 informative:
   I-D.greevenbosch-appsawg-cbor-cddl: cddl
   I-D.birkholz-tuda: tuda
+  I-D.banghart-sacm-rolie-softwaredescriptor : sw-desc
 
 --- abstract 
 
