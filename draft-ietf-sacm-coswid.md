@@ -73,21 +73,7 @@ normative:
 
 informative:
   I-D.greevenbosch-appsawg-cbor-cddl: cddl
-  I-D-birkholz-tuda:
-    -: tuda
-    title: Time-Based Uni-Directional Attestation
-    date: 2017-01-09
-    seriesinfo:
-      Internet-Draft: draft-birkholz-tuda-03
-    author:
-      - ins: A. Fuchs
-        name: Andreas Fuchs
-      - ins: H. Birkholz
-        name: Henk Birkholz
-      - ins: I. McDonald
-        name: Ira E McDonald
-      - ins: C. Bormann
-        name: Carsten Bormann
+  I-D.birkholz-tuda: tuda
 
 --- abstract 
 
@@ -434,6 +420,12 @@ if creating non-deterministic states during validation or processing of SWID tag
 #  Acknowledgements
 
 #  Change Log
+
+Changes from version 00 to version 01:
+
+* Added CWT usage for absolute SWID paths on a device
+* Fixed cardinality of type-choices including arrays
+* Included first iteration of firmware resource-collection
 
 Changes since adopted as a WG I-D -00:
 
