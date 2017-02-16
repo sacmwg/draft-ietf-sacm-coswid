@@ -53,6 +53,7 @@ author:
 
 normative:
   RFC2119:
+  RFC4108: cms-fw-pkgs
   RFC7049: cbor
   X.1520:
     title: "Recommendation ITU-T X.1520 (2014), Common vulnerabilities and exposures"
@@ -70,6 +71,7 @@ normative:
     seriesinfo:
       ISO/IEC: 19770-2:2015
   I-D.ietf-cose-msg: cose-msg
+  I-D.ietf-ace-cbor-web-token: cwt
 
 informative:
   I-D.greevenbosch-appsawg-cbor-cddl: cddl
@@ -77,7 +79,7 @@ informative:
 
 --- abstract 
 
-This document defines a concise representation of ISO 19770-2:2015 Software Identifiers (SWID tags) that is interoperable with the XML schema definition of ISO 19770-2:2015. 
+This document defines a concise representation of ISO 19770-2:2015 Software Identifiers (SWID tags) that is interoperable with the XML schema definition of ISO 19770-2:2015 and augmented for application in Constrained-Node Networks.
 
 --- middle
 
@@ -89,7 +91,7 @@ SWID tags have several use-applications including but not limited to:
 
 * Vulnerability Assessment, which requires a semantic link between standardized vulnerability descriptions and IT-assets {{X.1520}}.
 
-* Remote Attestation, which requires a link between golden (well-known) measurements and software instances {{-tuda}}.
+* Remote Attestation, which requires a link between reference integrity measurements (RIM) and security logs of measured software components {{-tuda}}.
 
 SWID tags, as defined in ISO-19770-2:2015 {{SWID}}, provide a standardized format for a record that identifies and describes a specific release of a software product. Different software products, and even different releases of a particular software product, each have a different SWID tag record associated with them. In addition to defining the format of these records, ISO-19770-2:2015 defines requirements concerning the SWID tag lifecycle. Specifically, when a software product is installed on an endpoint, that product's SWID tag is also installed. Likewise, when the product is uninstalled or replaced, the SWID tag is deleted or replaced, as appropriate. As a result, ISO-19770-2:2015 describes a system wherein there is a correspondence between the set of installed software products on an endpoint, and the presence on that endpoint of the SWID tags corresponding to those products.
 
@@ -108,208 +110,27 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
 
 # Concise SWID CDDL specification
 
-The following is a CDDL representation of the ISO-19770-2:2015 {{SWID}} XML schema definition of SWID tags. This representation includes all SWID tag fields and thus supports all SWID tag use cases. The CamelCase notation used in the XML schema definition is changed to hyphen-separated notation (e.g. ResourceCollection is named resource-collection in the COSWID CDDL specification). The human-readable names of members are mapped to integer indices via a block of rules at the bottom of the CDDL specification. The 56 character strings of the SWID vocabulary that would have to be stored or transported in full if using the original vocabulary are replaced.
+The following is a CDDL representation of the ISO-19770-2:2015 {{SWID}} XML schema definition of SWID tags. This representation includes all SWID tag fields and thus supports all SWID tag use cases. The CamelCase notation used in the XML schema definition is changed to hyphen-separated notation (e.g. ResourceCollection is named resource-collection in the COSWID CDDL specification). The human-readable names of members are mapped to integer indices via a block of rules at the bottom of the CDDL specification. The 66 character strings of the SWID vocabulary that would have to be stored or transported in full if using the original vocabulary are replaced.
 
-~~~ CDDL
+Concise Software Identifiers are tailored to be used in the domain of constrained-node networks. A typical endpoint is capable of storing the CoSWID tag of installed software, a constrained-node might lack that capability. CoSWID address these constraints and the corresponding specification is augmented to retain their usefulness in the thing-2-thing domain. Specific examples include, but are not limited to limiting the scope of hash algorithms to the IANA Named Information tables or including firmware attributes addressing devices that do not necessarily provide a file-system to store a CoSWID tag in.
 
-concise-software-identity = {
-  global-attributes,
-  ? entity-entry,
-  ? evidence-entry,
-  ? link-entry,
-  ? software-meta-entry,
-  ? payload-entry,
-  ? any-element-entry,
-  ? corpus,
-  ? patch,
-  ? media,
-  swid-name,
-  ? supplemental,
-  tag-id,
-  ? tag-version,
-  ? version,
-  ? version-scheme,
-}
-
-NMTOKEN = text
-NMTOKENS = text
-
-date-time = time
-any-uri = text
-label = text / int
-
-any-attribute = (
-  label => text / int / [ 2* text ] / [ 2* int ]
-)
-
-any-element-map = {
-  global-attributes,
-  * label => any-element-map / [ * any-element-map ],
-} 
-
-global-attributes = (
-  ? lang,
-  * any-attribute,
-)
-
-resource-collection = (
-  ? directory-entry,
-  ? file-entry,
-  ? process-entry,
-  ? resource-entry
-)
-
-file = {
-  filesystem-item,
-  ? size,
-  ? version,
-  ? file-hash,
-}
-
-filesystem-item = (
-  global-attributes,
-  ? key,
-  ? location,
-  fs-name,
-  ? root,
-)
-
-directory = {
-  filesystem-item,
-  path-elements,
-}
-
-process = {
-  global-attributes,
-  process-name,
-  ? pid,
-}
-
-resource = {
-  global-attributes,
-  type,
-}
-
-entity = {
-  global-attributes,
-  meta-elements,
-  entity-name,
-  ? reg-id,
-  role,
-  ? thumbprint,
-}
-
-evidence = {
-  global-attributes,
-  resource-collection,
-  ? date,
-  ? device-id,
-}
-
-link = {
-  global-attributes,
-  ? artifact,
-  href,
-  ? media,
-  ? ownership,
-  rel,
-  ? type,
-  ? use,
-}
-
-software-meta = {
-  global-attributes,
-  ? activation-status,
-  ? channel-type,
-  ? colloquial-version,
-  ? description,
-  ? edition,
-  ? entitlement-data-required,
-  ? entitlement-key,
-  ? generator,
-  ? persistent-id,
-  ? product,
-  ? product-family,
-  ? revision,
-  ? summary,
-  ? unspsc-code,
-  ? unspsc-version,
-}
-
-payload = {
-  global-attributes,
-  resource-collection,
-}
-
-tag-id = (0: text)
-swid-name = (1: text)
-entity-entry = (2: entity / [ * entity ])
-evidence-entry = (3: evidence / [ * evidence ])
-link-entry = (4: link / [ * link ])
-software-meta-entry = (5: software-meta / [ * software-meta ])
-payload-entry = (6: payload / [ * payload ])
-any-element-entry = (7: any-element-map / [ * any-element-map ])
-corpus = (8: bool)
-patch = (9: bool)
-media = (10: text)
-supplemental = (11: bool)
-tag-version = (12: integer)
-version = (13: text)
-version-scheme = (14: NMTOKEN)
-lang = (15: text)
-directory-entry = (16: directory / [ * directory ])
-file-entry = (17: file / [ * file ])
-process-entry = (18: process / [ * process ])
-resource-entry = (19: resource / [ * resource ])
-size = (20: integer)
-key = (21: bool)
-location = (22: text)
-fs-name = (23: text)
-root = (24: text)
-path-elements = (25: { ? directory-entry,
-                       ? file-entry,
-                     }
-                )
-process-name = (26: text)
-pid = (27: integer)
-type = (28: text)
-meta-elements = (29: any-element-map / [ * any-element-map ])
-entity-name = (30: text)
-reg-id = (31: any-uri)
-role = (32: NMTOKENS)
-thumbprint = (33: text)
-date = (34: date-time)
-device-id = (35: text)
-artifact = (36: text)
-href = (37: any-uri)
-ownership = (38: "shared" / "private" / "abandon")
-rel = (39: NMTOKEN)
-use = (40: "optional" / "required" / "recommended")
-activation-status = (41: text)
-channel-type = (42: text)
-colloquial-version = (43: text)
-description = (44: text)
-edition = (45: text)
-entitlement-data-required = (46: bool)
-entitlement-key = (47: text)
-generator = (48: text)
-persistent-id = (49: text)
-product = (50: text)
-product-family = (51: text)
-revision = (52: text)
-summary = (53: text)
-unspsc-code = (54: text)
-unspsc-version = (55: text)
-file-hash = (56: [ hash-alg-id: int,
-                   hash-value: bstr,
-                 ]
-            )
-
-~~~
+~~~~ CDDL
+<CODE BEGINS>
+{::include concise-software-identity.cddl}
+<CODE ENDS>
+~~~~
 
 # Encoding hashes for Concise SWID tags
 
 Concise SWID add explicit support for the representation of file-hashes using algorithms that are registered at the Named Information Hash Algorithm Registry via the file-hash item (label 56). The number used as a value for hash-alg-id refers the ID in the Named Information Hash Algorithm table.
+
+# CoSWID used as Reference Integrity Measurements (CoSWID RIM)
+
+A vendor supplied signed CoSWID tag that includes hash-values for the files that compose a software component can be used as a RIM (reference integrity measurement). A RIM is a type of declarative guidance that can be used to assert the compliance of an endpoint by assessing the installed software. In the context of remote attestation based on an attestation via a hardware security module (hardware rooted trust), a verifier can appraise the integrity of the conveyed measurements of software components using a CoSWID RIM provided by a source, such as {{-sw-desc}}.
+
+# Firmware SWID tags
+
+The metadata defined in {{-cms-fw-pkgs}} is incorporated in the resource-collection structure that semantically differentiates content stored in a Concise Software Identifier. The optional attributes that annoate a firmware package addresse specific characteristics of pieces of firmware stored directly on a block-device in contrast to software deployed in a file-system. Trees of relative path-elements expressed by the directory and file structure in CoSWID tags are typically unable to represent the location of a firmware on a constrained-node (small thing). The composite nature of firmware and also the actual composition of small things require a set of attributes to identify the correct component in a composite thing for each individual piece of firmware. A single component also potentially requires a number of distinct firmware parts that might depend on each other(s version). These dependencies can be limited to the scope of the component itself or extend to the scope of a small composite device. In addition, it might not be possible (or feasible) to store a CoSWID tag document (permanently) on a small thing along with the corresponding piece of firmware. Hence, CoSWID tags can be used as a concise and flexible metadata document that functions as a wrapper containing a (potentially compressed, signed, and/or encrypted) piece of firmware and its corresponding CoSWID attributes. A CoSWID tag about firmware can be transmitted as an identifying document across endpoints or used as an reference integrity measurement as usual. Alternatively, it can also convey an actual piece of firmware, serve its intended purpose as a SWID tag and then - due to the lack of a location to store it - be discarded.
 
 # COSE signatures for Concise SWID tags
 
@@ -317,34 +138,23 @@ SWID tags, as defined in the ISO-19770-2:2015 XML schema, can include cryptograp
 
 The ISO-19770-2:2015 XML schema uses XML DSIG to support cryptographic signatures. Concise SWID tags require a different signature scheme than this. COSE (CBOR Encoded Message Syntax) provides the required mechanism {{-cose-msg}}. Concise SWID can be wrapped in a COSE Single Signer Data Object (cose-sign1) that contains a single signature. The following CDDL defines a more restrictive subset of header attributes allowed by COSE tailored to suit the requirements of Concise SWID.
 
-~~~ CDDL
-
-signed-software-identity = #6.997(COSE-Sign1-coswid) ; see TBS7 in current COSE I-D
-
-label = int / tstr  ; see COSE I-D 1.4.
-values = any        ; see COSE I-D 1.4.
-
-unprotected-signed-coswid-header = {
-    1 => int,                   ; algorithm identifier
-    3 => "application/coswid",  ; request for CoAP IANA registry to become an int
-    * label => values,
-}
-
-protected-signed-coswid-header = {
-    4 => bstr,                  ; key identifier
-    * label => values,
-}
-
-COSE-Sign1-coswid = [
-    protected: bstr .cbor protected-signed-coswid-header,
-    unprotected: unprotected-signed-coswid-header,
-    payload: bstr .cbor concise-software-identity,
-    signature: bstr,
-]
-
-~~~
+~~~~ CDDL
+<CODE BEGINS>
+{::include signed-coswid.cddl}
+<CODE ENDS>
+~~~~
 
 <!--  which will be addressed in a future iteration of this draft and most likely result in additional attributes to be included in the general Concise SWID data definition, e.g. signature-type (“compat”, “cose”, etc.). Note that, by their natures, cryptographic signatures will not remain valid if a SWID tag is translated from one representation to another. -->
+
+# CBOR Web Token for Concise SWID tags
+
+A typical requirement regarding specific instantiations of endpoints – and, as a result, specific instantiations of software components - is a representation of the absolute path of a CoSWID tag document in a file system in order to derive absolute paths of files represented in the corresponding CoSWID tag. The absolute path of an evidence CoSWID tag can be included as a claim in the header of a CBOR Web Token {{-cwt}}. Depending on the source of the token, the claim can be in the protected or unprotected header portion.
+
+~~~~ CDDL
+<CODE BEGINS>
+ CDDL TBD
+<CODE ENDS>
+~~~~
 
 #  IANA considerations
 
