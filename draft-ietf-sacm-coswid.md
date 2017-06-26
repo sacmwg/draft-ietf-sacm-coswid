@@ -55,6 +55,8 @@ normative:
   RFC2119:
   RFC4108: cms-fw-pkgs
   RFC7049: cbor
+  RFC4949:
+  RFC7228:
   X.1520:
     title: "Recommendation ITU-T X.1520 (2014), Common vulnerabilities and exposures"
     date: 2011-04-20
