@@ -348,10 +348,10 @@ scope of the component itself or extend to the scope of a larger composite devic
 might not be possible (or feasible) to store a CoSWID tag document (permanently) on a small thing
 along with the corresponding piece of firmware.
 
-To address the specific characteristics of firmware, the extension point $$resource-extension is
+To address the specific characteristics of firmware, the extension point `$$resource-extension` is
 used to allow for an additional type of resource description---firmware-entry---thereby increasing
 the self-descriptiveness and flexibility of CoSWID. The optional use of the extension point
-$$resource-extension in respect to firmware MUST adhere to the following CDDL data definition.
+`$$resource-extension` in respect to firmware MUST adhere to the following CDDL data definition.
 
 ~~~~ CDDL
 <CODE BEGINS>
