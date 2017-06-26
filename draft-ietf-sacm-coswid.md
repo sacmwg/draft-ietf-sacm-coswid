@@ -1,7 +1,7 @@
 ---
 title: Concise Software Identifiers
 abbrev: COSWID
-docname: draft-ietf-sacm-coswid-latest
+docname: draft-ietf-sacm-coswid-01
 stand_alone: true
 ipr: trust200902
 area: Security

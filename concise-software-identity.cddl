@@ -17,10 +17,6 @@ concise-software-identity = {
   ? version-scheme,
 }
 
-NMTOKEN = text
-NMTOKENS = text
-
-date-time = time
 any-uri = text
 label = text / int
 
@@ -43,7 +39,7 @@ resource-collection = (
   ? file-entry,
   ? process-entry,
   ? resource-entry
-  ? firmware-entry 
+  * $$resource-extension 
 )
 
 file = {
@@ -66,19 +62,6 @@ directory = {
   path-elements,
 }
 
-firmware = {
-  firmware-name,                  ; inherited from RFC4108 
-  ? firmware-version,
-  ? firmware-package-identifier,  ; inherited from RFC4108
-  ? dependency,                   ; inherited from RFC4108
-  ? component-index,              ; equivalent to RFC4108 fwPkgType
-  ? block-device-identifier,
-  ? target-hardware-identifier,   ; an RFC4108 alternative to model-label
-  model-label,
-  ? firmware-hash,                ; a hash for a single, incl. NI hash-algo index
-  ? cms-firmware-package,         ; RCF4108, experimental, this is an actual firmware blob!
-}
-
 process = {
   global-attributes,
   process-name,
@@ -92,7 +75,7 @@ resource = {
 
 entity = {
   global-attributes,
-  meta-elements,
+  extended-data,
   entity-name,
   ? reg-id,
   role,
@@ -155,7 +138,7 @@ media = (10: text)
 supplemental = (11: bool)
 tag-version = (12: integer)
 version = (13: text)
-version-scheme = (14: NMTOKEN)
+version-scheme = (14: text)
 lang = (15: text)
 directory-entry = (16: directory / [ 2* directory ])
 file-entry = (17: file / [ 2* file ])
@@ -166,24 +149,24 @@ key = (21: bool)
 location = (22: text)
 fs-name = (23: text)
 root = (24: text)
-path-elements = (25: { * directory-entry,
-                       * file-entry,
+path-elements = (25: { * file-entry,
+                       * directory-entry,
                      }
                 )
 process-name = (26: text)
 pid = (27: integer)
 type = (28: text)
-meta-elements = (29: any-element-map / [ 2* any-element-map ])
+extended-data = (29: any-element-map / [ 2* any-element-map ])
 entity-name = (30: text)
 reg-id = (31: any-uri)
-role = (32: NMTOKENS)
+role = (32: text / [2* text])
 thumbprint = (33: text)
-date = (34: date-time)
+date = (34: time)
 device-id = (35: text)
 artifact = (36: text)
 href = (37: any-uri)
 ownership = (38: "shared" / "private" / "abandon")
-rel = (39: NMTOKEN)
+rel = (39: text)
 use = (40: "optional" / "required" / "recommended")
 activation-status = (41: text)
 channel-type = (42: text)
@@ -204,22 +187,3 @@ file-hash = (56: [ hash-alg-id: int,
                    hash-value: bstr,
                  ]
             )
-
-firmware-entry = (57: firmware / [ 2* firmware ])
-firmware-hash = (58: [ hash-alg-id: int,
-                      hash-value: bstr,
-                     ]
-                )
-firmware-name = (59 : text)
-firmware-version = (60 : text / int)
-component-index = (61 : int)
-model-label = (62: text / int)
-block-device-identifier = (63 : text / int) 
-cms-firmware-package = (64: bstr)
-firmware-package-identifier = (65: text)
-target-hardware-identifier = (66: text)
-dependency = (67: { ? firmware-name,
-                    ? firmware-version,
-                    ? firmware-package-identifier,
-                  }
-             )
