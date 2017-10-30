@@ -13,7 +13,7 @@ concise-software-identity = {
   ? supplemental,
   tag-id,
   ? tag-version,
-  ? version,
+  ? software-version,
   ? version-scheme,
 }
 
@@ -45,7 +45,7 @@ resource-collection = (
 file = {
   filesystem-item,
   ? size,
-  ? version,
+  ? file-version,
   ? file-hash,
 }
 
@@ -137,7 +137,7 @@ patch = (9: bool)
 media = (10: text)
 supplemental = (11: bool)
 tag-version = (12: integer)
-version = (13: text)
+software-version = (13: text)
 version-scheme = (14: text)
 lang = (15: text)
 directory-entry = (16: directory / [ 2* directory ])
@@ -145,45 +145,47 @@ file-entry = (17: file / [ 2* file ])
 process-entry = (18: process / [ 2* process ])
 resource-entry = (19: resource / [ 2* resource ])
 size = (20: integer)
-key = (21: bool)
-location = (22: text)
-fs-name = (23: text)
-root = (24: text)
-path-elements = (25: { * file-entry,
+file-version = (21: text)
+key = (22: bool)
+location = (23: text)
+fs-name = (24: text)
+root = (25: text)
+path-elements = (26: { * file-entry,
                        * directory-entry,
                      }
                 )
-process-name = (26: text)
-pid = (27: integer)
-type = (28: text)
-extended-data = (29: any-element-map / [ 2* any-element-map ])
-entity-name = (30: text)
-reg-id = (31: any-uri)
-role = (32: text / [2* text])
-thumbprint = (33: text)
-date = (34: time)
-device-id = (35: text)
-artifact = (36: text)
-href = (37: any-uri)
-ownership = (38: "shared" / "private" / "abandon")
-rel = (39: text)
-use = (40: "optional" / "required" / "recommended")
-activation-status = (41: text)
-channel-type = (42: text)
-colloquial-version = (43: text)
-description = (44: text)
-edition = (45: text)
-entitlement-data-required = (46: bool)
-entitlement-key = (47: text)
-generator = (48: text)
-persistent-id = (49: text)
-product = (50: text)
-product-family = (51: text)
-revision = (52: text)
-summary = (53: text)
-unspsc-code = (54: text)
-unspsc-version = (55: text)
-file-hash = (56: [ hash-alg-id: int,
+process-name = (27: text)
+pid = (28: integer)
+type = (29: text)
+extended-data = (30: any-element-map / [ 2* any-element-map ])
+entity-name = (31: text)
+reg-id = (32: any-uri)
+role = (33: text / [2* text])
+thumbprint = (34: text)
+date = (35: time)
+device-id = (36: text)
+artifact = (37: text)
+href = (38: any-uri)
+ownership = (39: "shared" / "private" / "abandon")
+rel = (40: text)
+media-type = (41: text)
+use = (42: "optional" / "required" / "recommended")
+activation-status = (43: text)
+channel-type = (44: text)
+colloquial-version = (45: text)
+description = (46: text)
+edition = (47: text)
+entitlement-data-required = (48: bool)
+entitlement-key = (49: text)
+generator = (50: text)
+persistent-id = (51: text)
+product = (52: text)
+product-family = (53: text)
+revision = (54: text)
+summary = (55: text)
+unspsc-code = (56: text)
+unspsc-version = (57: text)
+file-hash = (58: [ hash-alg-id: int,
                    hash-value: bstr,
                  ]
             )
