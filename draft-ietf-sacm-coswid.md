@@ -1,4 +1,4 @@
----
+﻿---
 title: Concise Software Identifiers
 abbrev: COSWID
 docname: draft-ietf-sacm-coswid-latest
@@ -175,9 +175,9 @@ Installation     Product       Product      Product       Product
  
  Corpus         Primary        Primary      xPrimary      xPrimary
                 Supplemental   Supplemental xSupplemental xSuplemental
-				               Patch        xPatch
-							                Primary
-										    Supplemental
+                               Patch        xPatch
+                                            Primary
+                                            Supplemental
 
 ~~~~
 
