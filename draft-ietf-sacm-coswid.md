@@ -68,10 +68,33 @@ normative:
       ISO/IEC: 19770-5:2013
   SWID:
     title: >
-      Information technology - Software asset management - Part 2: Software identification tag'
+      Information technology - Software asset management - Part 2: Software identification tag
     date: 2015-10-01
     seriesinfo:
       ISO/IEC: 19770-2:2015
+  SWID-GUIDANCE:
+    target: https://doi.org/10.6028/NIST.IR.8060
+	title: Guidelines for the Creation of Interoperable Software Identification (SWID) Tags
+	author:
+	  -
+		ins: D. Waltermire
+		name: David Waltermire
+		org: National Institute for Standards and Technology
+	  -
+		ins: B. A. Cheikes
+		name: Brant A. Cheikes
+		org: The MITRE Corporation
+	  -
+		ins: L. Feldman
+		name: Larry Feldman
+		org: G2, Inc
+	  -
+		ins: G. Witte
+		name: Greg Witte
+		org: G2, Inc
+	date: 2016-04
+	seriesinfo:
+	  NISTIR: 8060
   I-D.ietf-cose-msg: cose-msg
   I-D.ietf-ace-cbor-web-token: cwt
 
@@ -83,8 +106,8 @@ informative:
 
 --- abstract
 
-This document defines a concise representation of ISO 19770-2:2015 Software Identifiers (SWID tags)
-that is interoperable with the XML schema definition of ISO 19770-2:2015 and augmented for
+This document defines a concise representation of ISO/IEC 19770-2:2015 Software Identifiers (SWID tags)
+that is interoperable with the XML schema definition of ISO/IEC 19770-2:2015 and augmented for
 application in Constrained-Node Networks. Next to the inherent capability of SWID tags to express
 arbitrary context information, CoSWID support the definition of additional semantics via
 well-defined data definitions incorporated by extension points.
@@ -108,37 +131,10 @@ SWID tags have several use-applications including but not limited to:
 
 SWID tags, as defined in ISO-19770-2:2015 {{SWID}}, provide a standardized
 format for a record that identifies and describes a specific release of a
-software product. Different software products, and even different releases of a
-particular software product, each have a different SWID tag record associated
-with them. In addition to defining the format of these records, ISO-19770-2:2015
-defines requirements concerning the SWID tag life-cycle. Specifically, when a
-software product is installed on an endpoint, that product's SWID tag is also
-installed. Likewise, when the product is uninstalled or replaced, the SWID tag
-is deleted or replaced, as appropriate. As a result, ISO-19770-2:2015 describes
-a system wherein there is a correspondence between the set of installed software
-products on an endpoint, and the presence on that endpoint of the SWID tags
-corresponding to those products.
-
-SWID tags are meant to be flexible and able to express a broad set of metadata
-about a software product. Moreover, there are multiple types of SWID tags, each
-providing different types of information. For example, a "corpus tag" is used to
-describe an application's installation image on an installation media, while a
-"patch tag" is meant to describe a patch that modifies some other application.
-While there are very few required fields in SWID tags, there are many optional
-fields that support different uses of these different types of tags. While a
-SWID tag that consisted only of required fields could be a few hundred bytes in
-size, a tag containing many of the optional fields could be many orders of
-magnitude larger.
-
-This document defines a more concise representation of SWID tags in the Concise
-Binary Object Representation (CBOR) {{-cbor}}. This is described via the Concise
-Data Definition Language (CDDL) {{-cddl}}. The resulting Concise SWID data
-definition is interoperable with the XML schema definition of ISO-19770-2:2015
-{{SWID}}. The vocabulary, i.e., the CDDL names of the types and members used in
-the CoSWID data definition, is mapped to more concise labels represented as
-small integers. The names used in the CDDL data definition and the mapping to
-the CBOR representation using integer labels is based on the vocabulary of the
-XML attribute and element names defined in ISO-19770-2:2015.
+software component. Different software components, and even different releases of a
+particular software component, each have a different SWID tag record associated
+with them. SWID tags are meant to be flexible and able to express a broad set of metadata
+about a software component. 
 
 Real-world instances of SWID tags can be fairly large, and the communication of
 SWID tags in use-applications such as those described earlier can cause a large
@@ -149,9 +145,74 @@ through the use of CBOR, which maps human-readable labels of that content to
 more concise integer labels (indices). This allows SWID tags to be part of an
 enterprise security solution for a wider range of endpoints and environments.
 
+## The SWID Tag Lifecycle
+
+In addition to defining the format of these records, ISO/IEC 19770-2:2015
+defines requirements concerning the SWID tag life-cycle. Specifically, when a
+software component is installed on an endpoint, that product's SWID tag is also
+installed. Likewise, when the product is uninstalled or replaced, the SWID tag
+is deleted or replaced, as appropriate. As a result, ISO/IEC 19770-2:2015 describes
+a system wherein there is a correspondence between the set of installed software
+products on an endpoint, and the presence on that endpoint of the SWID tags
+corresponding to those products.
+
+The following is an excerpt (with some modifications and reordering) from NIST Interagency Report (NISTIR) 8060: Guidelines for the Creation of Interoperable SWID Tags {{SWID-GUIDANCE}}, which describes the tag types used within the lifecycle defined in ISO-19770-2:2015.
+
+> The SWID specification defines four types of SWID tags: primary, patch, corpus, and supplemental. 
+
+> 1.	Primary Tag - A SWID tag that identifies and describes a software component is installed on a computing device.
+> 2.	Patch Tag - A SWID tag that identifies and describes an installed patch which has made incremental changes to a software component installed on a computing device. 
+> 3.	Corpus Tag - A SWID tag that identifies and describes an installable software component in its pre-installation state. A corpus tag can be used to represent metadata about an installation package or installer for a software component, a software update, or a patch.
+> 4.	Supplemental Tag - A SWID tag that allows additional information to be associated with a referenced SWID tag. This helps to ensure that SWID Primary and Patch Tags provided by a software provider are not modified by software management tools, while allowing these tools to provide their own software metadata.
+
+> Corpus, primary, and patch tags have similar functions in that they describe the existence and/or presence of different types of software (e.g., software installers, software installations, software patches), and, potentially, different states of software components. In contrast, supplemental tags furnish additional information not contained in corpus, primary, or patch tags. All four tag types come into play at various points in the software lifecycle, and support software management processes that depend on the ability to accurately determine where each software component is in its lifecycle.
+
+~~~~
+
+Installation     Product       Product      Product       Product
+  Media      -> Installed  ->  Patched   -> Upgraded   -> Removed
+ Deployed
+ 
+ Corpus         Primary        Primary      xPrimary      xPrimary
+                Supplemental   Supplemental xSupplemental xSuplemental
+				               Patch        xPatch
+							                Primary
+										    Supplemental
+
+~~~~
+
+> The figure above illustrates the steps in the software lifecycle and the relationships among those lifecycle events supported by the four types of SWID tags, as follows:
+> * Software Deployment. Before the software component is installed (i.e., pre-installation), and while the product is being deployed, a corpus tag provides information about the installation files and distribution media (e.g., CD/DVD, distribution package).
+> * Software Installation. A primary tag will be installed with the software component (or subsequently created) to uniquely identify and describe the software component. Supplemental tags are created to augment primary tags with additional site-specific or extended information. While not illustrated in the figure, patch tags may also be installed during software installation to provide information about software fixes deployed along with the base software installation.
+> * Software Patching. When a new patch is applied to the software component, a new patch tag is provided, supplying details about the patch and its dependencies. While not illustrated in the figure, a corpus tag can also provide information about the patch installer, and patching dependencies that need to be installed before the patch.
+> * Software Upgrading. As a software component is upgraded to a new version, new primary and supplemental tags replace existing tags, enabling timely and accurate tracking of updates to software inventory. While not illustrated in the figure, a corpus tag can also provide information about the upgrade installer, and dependencies that need to be installed before the upgrade.
+> * Software Removal. Upon removal of the software component, relevant SWID tags are removed. This removal event can trigger timely updates to software inventory reflecting the removal of the product and any associated patch or supplemental tags.
+
+Note: While not fully illustrated in the figure, supplemental tags can be associated with any corpus, primary, or patch tag to provide additional metadata about an installer, installed software, or installed patch respectively.
+
+Each of the different SWID tag types of SWID tags provide different types of
+information. For example, a "corpus tag" is used to
+describe an application's installation image on an installation media, while a
+"patch tag" is meant to describe a patch that modifies some other application.
+While there are very few required fields in SWID tags, there are many optional
+fields that support different uses of these different types of tags. While a
+SWID tag that consisted only of required fields could be a few hundred bytes in
+size, a tag containing many of the optional fields could be many orders of
+magnitude larger.
+
 ## Concise SWID Extensions
 
-This document specifies a standard equivalent to the ISO-19770-2:2015 standard.
+This document defines a more concise representation of SWID tags in the Concise
+Binary Object Representation (CBOR) {{-cbor}}. This is described via the Concise
+Data Definition Language (CDDL) {{-cddl}}. The resulting Concise SWID data
+definition is interoperable with the XML schema definition of ISO-19770-2:2015
+{{SWID}}. The vocabulary, i.e., the CDDL names of the types and members used in
+the CoSWID data definition, is mapped to more concise labels represented as
+small integers. The names used in the CDDL data definition and the mapping to
+the CBOR representation using integer labels is based on the vocabulary of the
+XML attribute and element names defined in ISO/IEC 19770-2:2015.
+
+This document specifies a standardized equivalent to the ISO-19770-2:2015 standard.
 The corresponding CoSWID data definition includes two kinds of augmentation.
 
 * the explicit definition of types for attributes that are typically stored in
@@ -171,8 +232,8 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
 
 # Concise SWID Data Definition
 
-The following is a CDDL representation of the ISO-19770-2:2015 {{SWID}} XML schema definition of
-SWID tags. This representation includes every SWID tag fields and attribute and thus supports all SWID tag use
+The following is a CDDL representation of the ISO/IEC 19770-2:2015 {{SWID}} XML schema definition of
+SWID tags. This representation includes every SWID tag field and attribute and thus supports all SWID tag use
 cases. The CamelCase notation used in the XML schema definition is changed to a hyphen-separated
 notation (e.g. ResourceCollection is named resource-collection in the CoSWID data definition).
 This deviation from the original notation used in the XML representation reduces ambiguity when referencing
@@ -182,7 +243,7 @@ hyphen-separated notation explicitly relates to CoSWID tags. This approach simpl
 composition of further work that reference both XML SWID and CoSWID documents.
 
 Human-readable names of members in the CDDL data definition are mapped to integer indices via a block of rules at the bottom
-of the definition. The 66 character strings of the SWID vocabulary that would have to be
+of the definition. The 67 character strings of the SWID vocabulary that would have to be
 stored or transported in full if using the original vocabulary are replaced.
 
 Concise Software Identifiers are tailored to be used in the domain of constrained-node networks. A
@@ -193,6 +254,120 @@ not limited to limiting the scope of hash algorithms to the IANA Named Informati
 including firmware attributes addressing devices that do not necessarily provide a file-system to
 store a CoSWID tag in.
 
+The following subsections describe the different parts of the CoSWID model.
+
+## The concise-software-identity Definition
+
+The CDDL for the main concise-software-identity object is as follows:
+
+~~~~ CDDL
+<CODE BEGINS>
+concise-software-identity = {
+  global-attributes,
+  tag-id,
+  tag-version,
+  ? corpus,
+  ? patch,
+  ? supplemental,
+  swid-name,
+  ? software-version,
+  ? version-scheme,
+  ? media,
+  ? software-meta-entry,
+  ? entity-entry,
+  ? link-entry,
+  ? ( payload-entry / evidence-entry ),
+  ? any-element-entry,
+}
+tag-id = (0: text)
+swid-name = (1: text)
+entity-entry = (2: entity / [ 2* entity ])
+evidence-entry = (3: evidence)
+link-entry = (4: link / [ 2* link ])
+software-meta-entry = (5: software-meta / [ 2* software-meta ])
+payload-entry = (6: payload)
+any-element-entry = (7: any-element-map / [ 2* any-element-map ])
+corpus = (8: bool)
+patch = (9: bool)
+media = (10: text)
+supplemental = (11: bool)
+tag-version = (12: integer)
+software-version = (13: text)
+version-scheme = (14: text)
+<CODE ENDS>
+~~~~
+
+The items are ordered ensure that tag metadata appears first, followed by general software metadata, entity information, link relations, and finally payload or evidence data. This ordering attempts to provide the most significant metadata that a parser may need first, followed by metadata that may support more specific use-applications. The following describes each child item of the concise-software-identity model.
+
+* global-attributes: A list of items including an optional language definition to support the
+processing of text-string values and an unbounded set of any-attribute items. Defined in {{global-attributes}}).
+
+* tag-id (label 0): An textual identifier uniquely referencing a (composite) software component. The tag
+identifier is intended to be globally unique. There are no strict guidelines on
+how this identifier is structured, but examples include a 16 byte GUID (e.g.
+class 4 UUID).
+
+* tag-version (label 12): An integer value that indicates if a specific release of a software component has more than
+one tag that can represent that specific release. A typical use of this field may be to set an initial value to 0 and to monotonically increase the value for subsequent tags produced for the specific release. A change in the value of this field may be the case if a
+CoSWID tag producer creates and releases an incorrect tag that they subsequently
+want to fix, but with no underlying changes to the product the CoSWID tag
+represents. This could happen if, for example, a patch is distributed that has a
+link reference that does not cover all the various software releases it can
+patch. A newer CoSWID tag for that patch can be generated and the tag-version
+value incremented to indicate that the data is updated.
+
+* corpus (label 8): A boolean value that indicates if the tag identifies and describes an installable software component in its pre-installation state. Installable software includes a installation package or installer for a software component, a software update, or a patch. If the Concise SWID tag represents installable software, the corpus item MUST be set to "true". If not provided the default value MUST be considered "false".
+
+* patch (label 9): A boolean value that indicates if the tag identifies and describes an installed patch which has made incremental changes to a software component installed on a computing device. Typically, an installed patch has made a set of file modifications to pre-installed software, and does not alter the version number or the descriptive metadata of an installed software
+product. If a Concise SWID tag is for a patch, it MUST contain the patch item
+and its value MUST be set to "true". If not provided the default value MUST be considered "false".
+
+* supplemental (label 11): A boolean value that indicates if the tag is providing additional information to be associated with another referenced SWID tag. Tags using this item help to ensure that primary and patch tags provided by a software provider are not modified by software management tools, while allowing these tools to provide their own software metadata for a software component. If a Concise SWID tag is a supplemntal tag, it MUST contain the supplemental item and its value MUST be set to "true". If not provided the default value MUST be considered "false".
+
+* swid-name (label 1): This textual item provides the software component name as it would typically be
+referenced.  For example, what would be seen in the add/remove software dialog in an operating system,
+or what is specified as the name of a packaged software component
+or a patch identifier name.
+
+* software-version (label 13): A textual value representing the specific underlying release or development version of the software component.
+* version-scheme (label 14): An 8-bit integer or textual value representing the versioning scheme used for the software-version item. If an integer value is used it MUST be a value from the registry (see section {{iana-version-scheme}} or a value in the private use range: 32768-65,535.
+* media (label 10):
+* software-meta-entry (label 5):
+* entity-entry (label 2):
+* link-entry (label 4):
+* payload-entry (label 6):
+* evidence-entry (label 3):
+* any-element-entry (label 7):
+
+### Determining the tag type
+
+* Primary Tag: A CoSWID tag MUST be considered a primary tag if the corpus, patch, and supplemental items are "false".
+* Patch Tag: A CoSWID tag MUST be considered a patch tag if the patch item is "true".
+* Corpus Tag: A CoSWID tag MUST be considered a corpus tag if the corpus item is "true".
+* Supplemental Tag: A CoSWID tag MUST be considered a supplemental tag if the supplemental item is set to "true".
+
+If multiple of the corpus, patch, and supplemental items are "true", then the containing tag MUST be considered an unsupported tag type.
+
+If the patch does modify the version number or the descriptive metadata of the software, then a new tag representing these details SHOULD be installed, and the old tag SHOULD be removed. 
+
+###  concise-software-identity Co-constraints
+
+* Only one of the corpus, patch, and supplemental items MUST be set to "true", or all of the corpus, patch, and supplemental items MUST be set to "false" or be omitted.
+
+* If the patch item is set to "true", the the tag SHOULD contain at least one link with the rel(ation) item value of "patches" and an href item specifying an association with the software that was patched.
+
+* If the supplemental item is set to "true", the the tag SHOULD contain at least one link with the rel(ation) item value of "suplements" and an href item specifying an association with the software that is supplemented.
+
+* If all of the corpus, patch, and supplemental items are "false", or if the corpus item is set to "true", then a software-version item MUST be included with a value set to the version of the software component. This ensure that primary and corpus tags have an identifiable software version.
+
+
+{: #global-attributes}
+## The global-attributes Definition
+
+## The any-element-entry
+
+## Full CDDL Definition
+
 In order to create a valid CoSWID document the structure of the corresponding CBOR message MUST
 adhere to the following CDDL data definition.
 
@@ -201,6 +376,41 @@ adhere to the following CDDL data definition.
 {::include concise-software-identity.cddl}
 <CODE ENDS>
 ~~~~
+
+# CoSWID Indexed Label Values
+
+{: #indexed-version-scheme}
+## Version Scheme
+
+The following are an initial set of values for use in the version-scheme item for the version schemes defined in the ISO/IEC 19770-2:2015 {{SWID}} specification. Index value in parens indicates the index value to use in the version-scheme item.
+
+* multipartnumeric (index 0): Numbers separated by dots, where the numbers are interpreted as integers (e.g.,1.2.3, 1.4.5, 1.2.3.4.5.6.7)
+* multipartnumeric+suffix (index 1): Numbers separated by dots, where the numbers are interpreted as integers with an additional string suffix(e.g., 1.2.3a)
+* alphanumeric (index 2): Strictly a string, sorting is done alphanumerically
+* decimal (index 3): A floating point number (e.g., 1.25 is less than 1.3)
+* semver (index 4): Follows the {{SEMVER}} specification
+
+The values above are registered in the "SWID/CoSWID Version Schema Values" registry defined in section {{iana-version-scheme}}. Additional valid values will likely be registered over time in this registry.
+
+
+{: #indexed-entity-role}
+## Entity Role Values
+
+The following table indicates the index value to use for the entity roles defined in the ISO/IEC 19770-2:2015 {{SWID}} specification.
+
+~~~~
+
+| Index | Role Name                |
+|-------+--------------------------+
+| 0     | tagCreator               |
+| 1     | softwareCreator          |
+| 2     | aggregator               |
+| 3     | distributor              |
+| 4     | licensor                 |
+
+~~~~
+
+The values above are registered in the "SWID/CoSWID Entity Role Values" registry defined in section {{iana-entity-role}}. Additional valid values will likely be registered over time. Additionally, the index values 226 through 255 have been reserved for private use.
 
 # Description of the SWID Attribute Vocabulary Definition
 
@@ -215,9 +425,96 @@ This document will include requests to IANA:
 * Integer indices for SWID content attributes and information elements.
 * Content-Type for CoAP to be used in COSE.
 
+This document has a number of IANA considerations, as described in
+the following subsections.
+
+{: #iana-version-scheme}
+## SWID/CoSWID Version Schema Values Registry
+
+This document uses unsigned 16-bit index values to version-scheme item values. The
+initial set of version-scheme values are derived from the textual version scheme names
+defined in the ISO/IEC 19770-2:2015 specification {{SWID}}.
+
+This document defines a new a new registry entitled
+"SWID/CoSWID Version Schema Values". Future registrations for this
+registry are to be made based on {{IANA-CONSIDERATIONS}} as follows:
+
+~~~~
+
+| Range        | Registration Procedures    |
+|--------------+----------------------------+
+| 0-16383      | Standards Action           |
+| 16384-32767  | Specification Required     |
+| 32768-65,535 | Reserved for Private Use   |
+
+* multipartnumeric (index 0): Numbers separated by dots, where the numbers are interpreted as integers (e.g.,1.2.3, 1.4.5, 1.2.3.4.5.6.7)
+* multipartnumeric+suffix (index 1): Numbers separated by dots, where the numbers are interpreted as integers with an additional string suffix(e.g., 1.2.3a)
+* alphanumeric (index 2): Strictly a string, sorting is done alphanumerically
+* decimal (index 3): A floating point number (e.g., 1.25 is less than 1.3)
+* semver (index 4): Follows the {{SEMVER}} specification
+
+~~~~
+
+Initial registrations for the SWID/CoSWID Version Schema Values registry
+are provided below.
+
+~~~~
+
+| Index        | Role Name                | Specification        |
+|--------------+--------------------------+----------------------|
+| 0            | multipartnumeric         | See section {{indexed-version-scheme}} |
+| 1            | multipartnumeric+suffix  | See section {{indexed-version-scheme}} |
+| 2            | alphanumeric             | See section {{indexed-version-scheme}} |
+| 3            | decimal                  | See section {{indexed-version-scheme}} |
+| 4-16383      | Unassigned               |                      |
+| 16384        | semver                   | {{SEMVER}}           |
+| 16385-32767  | Unassigned               |                      |
+| 32768-65,535 | Reserved for Private Use |                      |
+
+~~~~
+
+{: #iana-entity-role}
+## SWID/CoSWID Entity Role Values Registry
+
+This document uses unsigned 8-bit index values to represent entity-role values. The
+initial set of Entity roles are derived from the textual role names
+defined in the ISO/IEC 19770-2:2015 specification {{SWID}}.
+
+This document defines a new a new registry entitled
+"SWID/CoSWID Entity Role Values". Future registrations for this
+registry are to be made based on {{IANA-CONSIDERATIONS}} as follows:
+
+~~~~
+
+| Range   | Registration Procedures    |
+|---------+----------------------------+
+| 0-31    | Standards Action           |
+| 32-127  | Specification Required     |
+| 128-255 | Reserved for Private Use   |
+
+~~~~
+
+Initial registrations for the SWID/CoSWID Entity Role Values registry
+are provided below.
+
+~~~~
+
+| Index   | Role Name                | Specification        |
+|---------+--------------------------+----------------------|
+| 0       | tagCreator               | See section {{indexed-entity-role}} |
+| 1       | softwareCreator          | See section {{indexed-entity-role}} |
+| 2       | aggregator               | See section {{indexed-entity-role}} |
+| 3       | distributor              | See section {{indexed-entity-role}} |
+| 4       | licensor                 | See section {{indexed-entity-role}} |
+| 5-49    | Unassigned               |                      |
+| 50-225  | Unassigned               |                      |
+| 225-255 | Reserved for Private Use |                      |
+
+~~~~
+
 #  Security Considerations
 
-SWID tags contain public information about software products and, as
+SWID tags contain public information about software components and, as
 such, do not need to be protected against disclosure on an endpoint.
 Similarly, SWID tags are intended to be easily discoverable by
 applications and users on an endpoint in order to make it easy to
@@ -238,14 +535,14 @@ golden measurements.  By contrast, the data contained in unsigned
 tags cannot be trusted to be unmodified.
 
 SWID tags are designed to be easily added and removed from an
-endpoint along with the installation or removal of software products.
-On endpoints where addition or removal of software products is
+endpoint along with the installation or removal of software components.
+On endpoints where addition or removal of software components is
 tightly controlled, the addition or removal of SWID tags can be
 similarly controlled.  On more open systems, where many users can
 manage the software inventory, SWID tags may be easier to add or
 remove.  On such systems, it may be possible to add or remove SWID
 tags in a way that does not reflect the actual presence or absence of
-corresponding software products.  Similarly, not all software
+corresponding software components.  Similarly, not all software
 products automatically install SWID tags, so products may be present
 on an endpoint without providing a corresponding SWID tag.  As such,
 any collection of SWID tags cannot automatically be assumed to
@@ -287,6 +584,25 @@ should employ input sanitizing on the tags they ingest.
 
 #  Change Log
 
+Changes from version 03 to version 04:
+
+* Re-index label values in the CDDL.
+* Added a section describing the CoSWID model in detail.
+* Created IANA registries for entity-role and version-scheme
+
+Changes from version 02 to version 03:
+
+* Updated CDDL to allow for a choice between a payload or evidence
+* Re-index label values in the CDDL.
+* Added item definitions
+* Updated references for COSE, CBOR Web Token, and CDDL.
+
+Changes from version 01 to version 02:
+
+* Added extensions for Firmware and CoSWID use as Reference Integrity Measurements (CoSWID RIM)
+* Changes meta handling in CDDL from use of an explicit use of items to a more flexible unconstrained collection of items.
+* Added sections discussing use of COSE Signatures and CBOR Web Tokens
+
 Changes from version 00 to version 01:
 
 * Added CWT usage for absolute SWID paths on a device
@@ -323,20 +639,19 @@ any-element
 
 --- back
 
-# Explicit file-hash Type Used in Concise SWID Tags (label 56)
+# Explicit hash-entry Type Used in Concise SWID Tags (label 58)
 
-CoSWID add explicit support for the representation of file-hashes using algorithms that are
-registered at the Named Information Hash Algorithm Registry via the file-hash member (label 56).
+CoSWID add explicit support for the representation of hash entries using algorithms that are
+registered at the Named Information Hash Algorithm Registry via the hash-entry member (label 58).
 
 ~~~~ CDDL
-file-hash = (56: [ hash-alg-id: int, hash-value: bstr ] )
+hash-entry = (58: [ hash-alg-id: int, hash-value: bstr ] )
 ~~~~
 
 The number used as a value for hash-alg-id MUST refer the ID in the Named Information Hash Algorithm
-table; other hash algorithms MUST NOT be used. The hash-value MUST represent the raw hash value of the file-entry the file-hash type is
-included in.
+table; other hash algorithms MUST NOT be used. The hash-value MUST represent the raw hash value of the hashed resource generated using the hash algorithm indicated by the hash-alg-id.
 
-# CoSWID Attributes for Firmware (label 57)
+# CoSWID Attributes for Firmware (label 59)
 
 The ISO-19770-2:2015 specification of SWID tags assumes the existence of a file system a software
 component is installed and stored in. In the case of constrained-node networks
@@ -387,7 +702,7 @@ intended purpose as a SWID tag and then - due to the lack of a location to store
 
 SWID tags, as defined in the ISO-19770-2:2015 XML schema, can include cryptographic signatures to
 protect the integrity of the SWID tag. In general, tags are signed by the tag creator (typically,
-although not exclusively, the vendor of the software product that the SWID tag identifies).
+although not exclusively, the vendor of the software component that the SWID tag identifies).
 Cryptographic signatures can make any modification of the tag detectable, which is especially
 important if the integrity of the tag is important, such as when the tag is providing reference
 integrity measurments for files.
@@ -481,7 +796,7 @@ class 4 UUID).
 1. swid-name:
 This item provides the software component name as it would typically be
 referenced.  For example, what would be seen in the add/remove dialog on a
-Windows device, or what is specified as the name of a packaged software product
+Windows device, or what is specified as the name of a packaged software component
 or a patch identifier name on a Linux device.
 
 2. entity:
@@ -666,7 +981,7 @@ include a request to IANA in order to be reference-able via an integer index.
 34. thumbprint:
 This value provides a hexadecimal string that contains a hash (i.e. the
 thumbprint) of the signing entities certificate [s] [FIXME: this requires the
-same structure as file-hash?].
+same structure as hash-entry?].
 
 35. date:
 The sate and time evidence represented by an evidence item was gathered.
@@ -733,7 +1048,7 @@ Provides information on which channel this particular software was targeted for
 
 45. colloquial-version:
 The informal or colloquial version of the product (i.e. 2013). Note that this
-version may be the same through multiple releases of a software product where
+version may be the same through multiple releases of a software component where
 the version specified in entity is much more specific and will change for each
 software release.
 Note that this representation of version is typically used to identify a group
@@ -801,7 +1116,7 @@ could be specified in a primary (if distributed as an upgrade) or supplemental
 A short (one-sentence) description of the software.
 
 56. unspsc-code:
-An 8 digit code that provides UNSPSC classification of the software product this SWID tag identifies.  For more information see, http://www.unspsc.org/.
+An 8 digit code that provides UNSPSC classification of the software component this SWID tag identifies.  For more information see, http://www.unspsc.org/.
 
 57. unspsc-version:
 The version of the UNSPSC code used to define the UNSPSC code value. For more information see, http://www.unspsc.org/.

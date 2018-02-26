@@ -9,23 +9,19 @@ firmware = {
   ? block-device-identifier,
   ? target-hardware-identifier,   ; an RFC4108 alternative to model-label
   model-label,
-  ? firmware-hash,                ; a hash for a single, incl. NI hash-algo index
+  ? hash-entry,                   ; a hash for a single, incl. NI hash-algo index
   ? cms-firmware-package,         ; RCF4108, experimental, this is an actual firmware blob!
 }
 
-firmware-entry = (57: firmware / [ 2* firmware ])
-firmware-hash = (58: [ hash-alg-id: int,
-                      hash-value: bstr,
-                     ]
-                )
-firmware-name = (59 : text)
-firmware-version = (60 : text / int)
-component-index = (61 : int)
-model-label = (62: text / int)
-block-device-identifier = (63 : text / int)
-cms-firmware-package = (64: bstr)
-firmware-package-identifier = (65: text)
-target-hardware-identifier = (66: text)
+firmware-entry = (59: firmware / [ 2* firmware ])
+firmware-name = (60 : text)
+firmware-version = (61 : text / int)
+component-index = (62 : int)
+model-label = (63 text / int)
+block-device-identifier = (64 : text / int)
+cms-firmware-package = (65: bstr)
+firmware-package-identifier = (66: text)
+target-hardware-identifier = (67: text)
 dependency = (67: { ? firmware-name,
                     ? firmware-version,
                     ? firmware-package-identifier,

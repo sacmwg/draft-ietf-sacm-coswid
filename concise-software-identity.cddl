@@ -1,20 +1,19 @@
 concise-software-identity = {
   global-attributes,
-  ? entity-entry,
-  ? evidence-entry,
-  ? link-entry,
-  ? software-meta-entry,
-  ? payload-entry,
-  ? any-element-entry,
+  tag-id,
+  tag-version,
   ? corpus,
   ? patch,
-  ? media,
-  swid-name,
   ? supplemental,
-  tag-id,
-  ? tag-version,
+  swid-name,
   ? software-version,
   ? version-scheme,
+  ? media,
+  ? software-meta-entry,
+  ? entity-entry,
+  ? link-entry,
+  ? ( payload-entry / evidence-entry ),
+  ? any-element-entry,
 }
 
 any-uri = text
@@ -46,7 +45,7 @@ file = {
   filesystem-item,
   ? size,
   ? file-version,
-  ? file-hash,
+  ? hash-entry,
 }
 
 filesystem-item = (
@@ -138,7 +137,7 @@ media = (10: text)
 supplemental = (11: bool)
 tag-version = (12: integer)
 software-version = (13: text)
-version-scheme = (14: text)
+version-scheme = (14: text / int)
 lang = (15: text)
 directory-entry = (16: directory / [ 2* directory ])
 file-entry = (17: file / [ 2* file ])
@@ -160,7 +159,7 @@ type = (29: text)
 extended-data = (30: any-element-map / [ 2* any-element-map ])
 entity-name = (31: text)
 reg-id = (32: any-uri)
-role = (33: text / [2* text])
+role = (33: text / [2* text]) 
 thumbprint = (34: text)
 date = (35: time)
 device-id = (36: text)
@@ -185,7 +184,7 @@ revision = (54: text)
 summary = (55: text)
 unspsc-code = (56: text)
 unspsc-version = (57: text)
-file-hash = (58: [ hash-alg-id: int,
+hash-entry = (58: [ hash-alg-id: int,
                    hash-value: bstr,
                  ]
             )
