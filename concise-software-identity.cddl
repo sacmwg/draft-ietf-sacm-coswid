@@ -38,7 +38,6 @@ resource-collection = (
   ? file-entry,
   ? process-entry,
   ? resource-entry
-  * $$resource-extension 
 )
 
 file = {
@@ -74,11 +73,11 @@ resource = {
 
 entity = {
   global-attributes,
-  extended-data,
   entity-name,
   ? reg-id,
   role,
   ? thumbprint,
+  extended-data,
 }
 
 evidence = {
@@ -86,16 +85,17 @@ evidence = {
   resource-collection,
   ? date,
   ? device-id,
+  * $$evidence-extension 
 }
 
 link = {
   global-attributes,
   ? artifact,
   href,
-  ? media,
+  ? media
   ? ownership,
   rel,
-  ? type,
+  ? media-type,
   ? use,
 }
 
@@ -121,6 +121,7 @@ software-meta = {
 payload = {
   global-attributes,
   resource-collection,
+  * $$payload-extension 
 }
 
 tag-id = (0: text)

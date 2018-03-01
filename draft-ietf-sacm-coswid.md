@@ -256,7 +256,8 @@ store a CoSWID tag in.
 
 The following subsections describe the different parts of the CoSWID model.
 
-## The concise-software-identity Definition
+{: #model-concise-software-identity}
+## The concise-software-identity Object
 
 The CDDL for the main concise-software-identity object is as follows:
 
@@ -300,12 +301,12 @@ version-scheme = (14: text)
 The items are ordered ensure that tag metadata appears first, followed by general software metadata, entity information, link relations, and finally payload or evidence data. This ordering attempts to provide the most significant metadata that a parser may need first, followed by metadata that may support more specific use-applications. The following describes each child item of the concise-software-identity model.
 
 * global-attributes: A list of items including an optional language definition to support the
-processing of text-string values and an unbounded set of any-attribute items. Defined in {{global-attributes}}).
+processing of text-string values and an unbounded set of any-attribute items. Described in {{model-global-attributes}}.
 
 * tag-id (label 0): An textual identifier uniquely referencing a (composite) software component. The tag
 identifier is intended to be globally unique. There are no strict guidelines on
 how this identifier is structured, but examples include a 16 byte GUID (e.g.
-class 4 UUID).
+class 4 UUID). [TODO: include reference.]
 
 * tag-version (label 12): An integer value that indicates if a specific release of a software component has more than
 one tag that can represent that specific release. A typical use of this field may be to set an initial value to 0 and to monotonically increase the value for subsequent tags produced for the specific release. A change in the value of this field may be the case if a
@@ -330,14 +331,53 @@ or what is specified as the name of a packaged software component
 or a patch identifier name.
 
 * software-version (label 13): A textual value representing the specific underlying release or development version of the software component.
+
 * version-scheme (label 14): An 8-bit integer or textual value representing the versioning scheme used for the software-version item. If an integer value is used it MUST be a value from the registry (see section {{iana-version-scheme}} or a value in the private use range: 32768-65,535.
-* media (label 10):
-* software-meta-entry (label 5):
-* entity-entry (label 2):
-* link-entry (label 4):
-* payload-entry (label 6):
-* evidence-entry (label 3):
-* any-element-entry (label 7):
+
+-- TODO
+
+* media (label 10): This text value is a hint to the tag consumer to understand what this SWID tag
+applies to. This item can also be included in the link item to represent a
+attributes defined by the W3C Media Queries Recommendation (see
+http://www.w3.org/TR/css3-mediaqueries/). A hint to the consumer of the link to
+what the target item is applicable for.
+
+* software-meta-entry (label 5): An open-ended collection of key/value data related to this CoSWID.
+The attributes included in this Element are predefined attributes to ensure
+common usage across the industry.  The schema allows for any additional
+attribute to be included in a CoSWID tag, though it is recommended that industry
+norms for new attributes are defined and followed to the degree possible. Described in {{model-software-meta}}.
+
+* entity-entry (label 2): Specifies the organizations related to the software component referenced by this
+CoSWID tag. Described in {{model-entity}}.
+
+* link-entry (label 4): A reference to any another item (can include details that are related to the
+CoSWID tag such as details on where specific resources can be found, e.g.
+vulnerability database associations, ROLIE feeds, MUD files, etc).
+This is modeled directly to match the HTML [LINK] element; it is critical for
+streamlining software discovery scenarios to ensure their consistency.  Described in {{model-link}}.
+
+* payload-entry (label 6): The items that may be installed on a system entity when the software component
+is installed.  Note that payload may be a superset of the items installed and -
+depending on optimization mechanisms in  respect to that system entity - may or
+may not include every item that could be created or executed on the
+corresponding system entitiy when software components are installed.
+In general, payload will be used to indicate the files that may be installed
+with a software component. Therefore payload will often be a superset of those
+files (i.e. if a particular optional sub-component is not installed, the files
+associated with that software component may be included in payload, but not
+installed in the system entity). Described in {{model-payload}}.
+
+* evidence-entry (label 3): This item is used to provide results from a scan of a system where software that
+does not have a CoSWID tag is discovered. This information is not provided by
+the software-creator, and is instead created when a system is being scanned and
+the evidence for why software is believed to be installed on the device is
+provided in the evidence item. Described in {{model-evidence}}.
+
+* any-element-entry (label 7): A default map that can contain arbitrary map members and even nested maps (which
+would be also any-elements). In essence, the any-element allows items not
+defined in this CDDL data definition to be included in a Concise Software
+Identifier. Described in {{model-any-element}}.
 
 ### Determining the tag type
 
@@ -361,10 +401,486 @@ If the patch does modify the version number or the descriptive metadata of the s
 * If all of the corpus, patch, and supplemental items are "false", or if the corpus item is set to "true", then a software-version item MUST be included with a value set to the version of the software component. This ensure that primary and corpus tags have an identifiable software version.
 
 
-{: #global-attributes}
-## The global-attributes Definition
+{: #model-global-attributes}
+## The global-attributes Group
 
+The global-attributes group provides a list of items including an optional
+language definition to support the processing of text-string values and an
+unbounded set of any-attribute items allowing for additional items to be
+provided as a general point of extension in the model.
+
+The CDDL for the global-attributes is as follows:
+
+~~~~ CDDL
+<CODE BEGINS>
+global-attributes = (
+  ? lang,
+  * any-attribute,
+)
+
+label = text / int
+
+any-attribute = (
+  label => text / int / [ 2* text ] / [ 2* int ]
+)
+
+lang = (15: text)
+<CODE ENDS>
+~~~~
+
+The following describes each child item of this object.
+
+* lang (index 15): A language tag or corresponding IANA index integer that
+conforms with IANA Language Subtag Registry {{RFC5646}}. [TODO: there are no index values in the IANA Language Subtag Registry.]
+
+* any-attribute: This sub-group provides a means to include arbitrary information
+via label (key) item value pairs where both keys and values can be
+either a single integer or text string, or an array of integers or text strings.
+
+{: #model-any-element}
 ## The any-element-entry
+
+The CDDL for the any-element-entry object is as follows:
+
+~~~~ CDDL
+<CODE BEGINS>
+any-element-map = {
+  global-attributes,
+  * label => any-element-map / [ 2* any-element-map ],
+}
+any-element-entry = (7: any-element-map / [ 2* any-element-map ])
+<CODE ENDS>
+~~~~
+
+The following describes each child item of this object.
+
+* global-attributes: The global-attributes group described in {{model-global-attributes}}.
+* label: a single or multiple [TODO: BROKEN: this map does not have a leaf that is a textual (or other value).]
+
+{: #model-entity}
+## The entity Object
+
+The CDDL for the entity object is as follows:
+
+~~~~ CDDL
+<CODE BEGINS>
+entity = {
+  global-attributes,
+  entity-name,
+  ? reg-id,
+  role,
+  ? thumbprint,
+  extended-data,
+}
+
+any-uri = text
+
+extended-data = (30: any-element-map / [ 2* any-element-map ])
+entity-name = (31: text)
+reg-id = (32: any-uri)
+role = (33: text / [2* text]) 
+thumbprint = (34: text)
+<CODE ENDS>
+~~~~
+
+The following describes each child item of this object.
+
+* global-attributes: The global-attributes group described in {{model-global-attributes}}.
+
+* entity-name (index 32): The text-string name of the organization claiming a particular role in the CoSWID
+tag.
+
+* reg-id (index 32): The registration id is intended to uniquely identify a naming authority in a
+given scope (e.g. global, organization, vendor, customer, administrative domain,
+etc.) that is implied by the referenced naming authority. The value of an
+registration ID MUST be a RFC 3986 URI. The scope SHOULD be the scope of an
+organization. In a given scope, the registration id MUST be used consistently.
+
+* role (index 33): The relationship(s) between this organization and this tag. The role of tag creator
+is required for every CoSWID tag. The role of an entity may include any role
+value, but the per-defined roles include: “aggregator”, “distributor”,
+“licensor”, “software-creator”, “tag-creator”. The enumerations of this will
+include a request to IANA in order to be reference-able via an integer index.
+
+* thumbprint (index 34): This value provides a hexadecimal string that contains a hash (i.e. the
+thumbprint) of the signing entities certificate [s] [FIXME: this requires the
+same structure as hash-entry?].
+
+* extended-data (index 30): An open-ended collection of elements that can be used to attach arbitrary
+metadata to an entity item.
+
+## The link Object
+
+The CDDL for the link object is as follows:
+
+~~~~ CDDL
+<CODE BEGINS>
+link = {
+  global-attributes,
+  ? artifact,
+  href,
+  ? media
+  ? ownership,
+  rel,
+  ? media-type,
+  ? use,
+}
+artifact = (37: text)
+href = (38: any-uri)
+media = (10: any-uri)
+ownership = (39: "shared" / "private" / "abandon")
+rel = (40: text)
+media-type = (41: text)
+use = (42: "optional" / "required" / "recommended")
+<CODE ENDS>
+~~~~
+
+The following describes each child item of this object.
+
+* global-attributes: The global-attributes group described in {{model-global-attributes}}.
+
+* artifact (index: 37): For installation media (rel="installation-media") - dictates the canonical name
+for the file. Items with the same artifact name should be considered mirrors of each other (so
+download from wherever works).
+
+* href (index 38): The link to the item being referenced. The href can point to several different things, and can be any of the following:
+  * a relative uri (no scheme), which is interpreted depending on context (for
+  example, "./folder/supplemental.coswid")
+  * a physical file location with any system-acceptable URI scheme (e.g., file:// http:// https:// ftp://)
+  * an URI with "coswid:" as the scheme, which refers to another CoSWID by tag-id. This
+  URI would need to be resolved in the context of the system by software
+  that can lookup other CoSWID tags (for example,
+  * "coswid:2df9de35-0aff-4a86-ace6-f7dddd1ade4c").
+  an URI with "swidpath:" as the scheme, which refers to another CoSIWD via an
+  XPATH query. This URI would need to be resolved in the context of the system
+  entity via dedicated software components that can lookup other CoSWID tags and
+  select the appropriate tag based on an XPATH query. Examples include:
+  * swidpath://SoftwareIdentity[Entity/@regid='http://contoso.com'] would retrieve all CoSWID tags that include an entity where the regid was "Contoso".
+  * swidpath://SoftwareIdentity[Meta/@persistentId='b0c55172-38e9-4e36-be86-92206ad8eddb'] would retrieve CoSWID tags that matched the persistent-id.
+  * See XPATH query standard : http://www.w3.org/TR/xpath20/ [FIXME: Concise XPATH representation is covered in the YANG-CBOR I-D]
+
+* media (index 10): See media defined in {{model-concise-software-identity}}.
+
+* ownership (index 39): Determines the relative strength of ownership of the software components. Valid
+enumerations are: abandon, private, shared
+
+* rel (index 40): The relationship between this CoSWID and the target file. Relationships can be
+identified by referencing the IANA registration library: https://www.iana.org/assignments/link-relations/link-relations.xhtml.
+
+* media-type (index 41): The IANA MediaType for the target file; this provides the consumer with
+intelligence of what to expect. See
+http://www.iana.org/assignments/media-types/media-types.xhtml for more details
+on link type.
+
+* use (index 42): Determines if the target software is a hard requirement or not. Valid
+enumerations are: required, recommended, optional.
+
+{: #model-software-meta}
+## The software-meta Object
+
+The CDDL for the software-meta object is as follows:
+
+~~~~ CDDL
+<CODE BEGINS>
+
+software-meta = {
+  global-attributes,
+  ? activation-status,
+  ? channel-type,
+  ? colloquial-version,
+  ? description,
+  ? edition,
+  ? entitlement-data-required,
+  ? entitlement-key,
+  ? generator,
+  ? persistent-id,
+  ? product,
+  ? product-family,
+  ? revision,
+  ? summary,
+  ? unspsc-code,
+  ? unspsc-version,
+}
+activation-status = (43: text)
+channel-type = (44: text)
+colloquial-version = (45: text)
+description = (46: text)
+edition = (47: text)
+entitlement-data-required = (48: bool)
+entitlement-key = (49: text)
+generator = (50: text)
+persistent-id = (51: text)
+product = (52: text)
+product-family = (53: text)
+revision = (54: text)
+summary = (55: text)
+unspsc-code = (56: text)
+unspsc-version = (57: text)
+<CODE ENDS>
+~~~~
+
+The following describes each child item of this object.
+
+* global-attributes: The global-attributes group described in {{model-global-attributes}}.
+
+* activation-status (index 43): Identification of the activation status of this software title (e.g. Trial,
+Serialized, Licensed, Unlicensed, etc).  Typically, this is used in supplemental
+tags.
+
+* channel-type (index 44): Provides information on which channel this particular software was targeted for
+(e.g. Volume, Retail, OEM, Academic, etc). Typically used in supplemental tags.
+
+* colloquial-version (index 45): The informal or colloquial version of the product (i.e. 2013). Note that this
+version may be the same through multiple releases of a software component where
+the version specified in entity is much more specific and will change for each
+software release.
+Note that this representation of version is typically used to identify a group
+of specific software releases that are part of the same release/support
+infrastructure (i.e. Fabrikam Office 2013).  This version is used for string
+comparisons only and is not compared to be an earlier or later
+release (that is done via the entity version [FIXME: consistency].
+
+* description (index 46): A longer, detailed description of the software.  This description can be
+multiple sentences (differentiated from summary, which is a very short,
+one-sentence description).
+
+* edition (index 47): The variation of the product (Extended, Enterprise, Professional, Standard etc).
+
+* entitlement-data-required (index 48): An indicator to determine if there should be accompanying proof of entitlement
+when a software license reconciliation is completed.
+
+* entitlement-key (index 49): A vendor-specific textual key that can be used to reconcile the validity of an
+entitlement. (e.g. serial number, product or license key).
+
+* generator (index 50): The name of the software tool that created a CoSWID tag.  This item is typically
+used if tags are created on the fly or via a catalog-based analysis for data
+found on a computing device.
+
+* persistent-id (index 51): A GUID used to represent products installed where the product are related, but
+may be different versions.  For example, an “upgradeCode” (see http://msdn.microsoft.com/en-us/library/aa372375(v=vs.85).aspx as an reference for this example).
+
+* product (index 52): The base name of the product (e.g. [FIXME: what are appropriate examples?].
+
+* product-family (index 53): The overall product family this software belongs to.  Product family is not used
+to identify that a product is part of a suite, but is instead used when a set of
+products that are all related may be installed on multiple different devices.
+For example, an enterprise backup system may consist of a backup services,
+multiple different backup services that support mail services, databases and ERP
+systems, as well as individual software components that backup client system
+entities. In such an usage scenario, all software components that are part of
+the backup system would have the same product-family name so they can be grouped
+together in respect to reporting systems.
+
+* revision (index 54): The informal or colloquial representation of the sub-version of the given
+product (ie, SP1, R2, RC1, Beta 2, etc).  Note that the version
+will provide very exact version details,
+the revision is intended for use in environments where reporting on the informal
+or colloquial representation of the software is important (for example, if for a
+certain business process, an organization recognizes that it must have, for
+example “ServicePack 1” or later of a specific product installed on all devices,
+they can use the revision data value to quickly identify any devices that do not
+meet this requirement).
+Depending on how a software organizations distributes revisions, this value
+could be specified in a primary (if distributed as an upgrade) or supplemental
+(if distributed as a patch) CoSWID tag.
+
+* summary (index 55): A short (one-sentence) description of the software.
+
+* unspsc-code (index 56): An 8 digit code that provides UNSPSC classification of the software component this SWID tag identifies.  For more information see, http://www.unspsc.org/.
+
+* unspsc-version (index 57): The version of the UNSPSC code used to define the UNSPSC code value. For more information see, http://www.unspsc.org/.
+
+## The Resource Collection Definition
+
+{: #model-hash-entry}
+### The hash-entry Array
+
+CoSWID add explicit support for the representation of hash entries using algorithms that are
+registered at the Named Information Hash Algorithm Registry via the hash-entry member (label 58).
+
+~~~~ CDDL
+hash-entry = (58: [ hash-alg-id: int, hash-value: bstr ] )
+~~~~
+
+The number used as a value for hash-alg-id MUST refer the ID in the Named Information Hash Algorithm
+table; other hash algorithms MUST NOT be used. The hash-value MUST represent the raw hash value of the hashed resource generated using the hash algorithm indicated by the hash-alg-id.
+
+### The resource-collection Group
+
+A list of items both used in evidence (discovered by an inventory process) and
+payload (installed in a system entity) content of a CoSWID tag document to
+structure and differentiate the content of specific CoSWID tag types. Potential
+content includes directories, files, processes, resources or firmwares.
+
+The CDDL for the resource-collection group is as follows:
+
+~~~~ CDDL
+<CODE BEGINS>
+resource-collection = (
+  ? directory-entry,
+  ? file-entry,
+  ? process-entry,
+  ? resource-entry
+)
+
+directory = {
+  filesystem-item,
+  path-elements,
+}
+
+file = {
+  filesystem-item,
+  ? size,
+  ? file-version,
+  ? hash-entry,
+}
+
+process = {
+  global-attributes,
+  process-name,
+  ? pid,
+}
+
+resource = {
+  global-attributes,
+  type,
+}
+
+filesystem-item = (
+  global-attributes,
+  ? key,
+  ? location,
+  fs-name,
+  ? root,
+)
+
+directory-entry = (16: directory / [ 2* directory ])
+file-entry = (17: file / [ 2* file ])
+process-entry = (18: process / [ 2* process ])
+resource-entry = (19: resource / [ 2* resource ])
+size = (20: integer)
+file-version = (21: text)
+key = (22: bool)
+location = (23: text)
+fs-name = (24: text)
+root = (25: text)
+path-elements = (26: { * file-entry,
+                       * directory-entry,
+                     }
+                )
+process-name = (27: text)
+pid = (28: integer)
+type = (29: text)
+<CODE ENDS>
+~~~~
+
+The following describes each child item or group for these groups.
+
+* filesystem-item: A list of items both used in representing the nodes of a file-system hierarchy,
+i.e. directory items that allow one or more directories to be defined in the
+file structure, and file items that allow one or more files to be specified for
+a given location.
+
+* global-attributes: The global-attributes group described in {{model-global-attributes}}.
+
+* directory-entry (index 16): A directory item allows one or more directories to be defined in the file
+structure.
+
+* file-entry (index 17): A file element that allows one or more files to be specified for a given
+location.
+
+* process-entry (index 18): Provides process (software component in execution) information for data that
+will show up in a devices process table.
+
+* resource-entry (index 19): A set of items that can be used to provide arbitrary resource information about
+an application installed on a system entity, or evidence collected from a
+system entity.
+
+* size (index 20): The file size in bytes of the file.
+
+* file-version (index 21): The version of the file.
+
+* key (index 22): Files that are considered important or required for the use of a software
+component.  Typical key files would be those which, if not available on a system
+entity, would cause the software component not to execute or function properly.
+Key files will typically be used to validate that a software component
+referenced by the CoSWID tag document is actually installed on a specific system
+entity.
+
+* location (index 23): The directory or location where a file was found or can expected to be located.
+This text-string is intended to include the filename itself.  This SHOULD be the
+relative path from the location represented by the root item.
+
+* fs-name (index 24): The file name or directory name without any path characters.
+
+* root (index 25): A system-specific root folder that the location item is an offset from. If this
+is not specified the assumption is the root is the same folder as the location
+of the CoSWID tag. The text-string value represents a path expression relative
+to the CoSWID tag document location in the (composite) file-system hierarchy.
+
+* path-elements (index 26): Provides the ability to apply a directory structure to the path expressions for
+files defined in a payload or evidence item.
+
+* process-name (index 27): The process name as it will be found in the system entity’s process table.
+
+* pid (index 28): The process ID for the process in execution that can be included in the process
+item as part of an evidence tag.
+
+* type (index 29): The type of resource represented via a text-string  (typically, registry-key,
+port or root-uri).
+
+{: #model-payload}
+### The payload Object
+
+The CDDL for the payload object is as follows:
+
+~~~~ CDDL
+payload = {
+  global-attributes,
+  resource-collection,
+  * $$payload-extension
+}
+<CODE ENDS>
+~~~~
+
+The following describes each child item of this object.
+
+* global-attributes: The global-attributes group described in {{model-global-attributes}}.
+
+* resource-collection: The resource-collection group described in {{model-resource-collection}}.
+
+* $$payload-extension: 
+
+{: #model-evidence}
+### The evidence Object
+
+The CDDL for the evidence object is as follows:
+
+~~~~ CDDL
+<CODE BEGINS>
+evidence = {
+  global-attributes,
+  resource-collection,
+  ? date,
+  ? device-id,
+  * $$evidence-extension 
+}
+date = (35: time)
+device-id = (36: text)
+<CODE ENDS>
+~~~~
+
+The following describes each child item of this object.
+
+* global-attributes: The global-attributes group described in {{model-global-attributes}}.
+
+* resource-collection: The resource-collection group described in {{model-resource-collection}}.
+
+* date (index 35): The date and time evidence represented by an evidence item was gathered.
+
+* device-id (index 36): A text-string identifier for a device evidence was gathered from.
+
+* $$evidence-extension: 
 
 ## Full CDDL Definition
 
@@ -446,12 +962,6 @@ registry are to be made based on {{IANA-CONSIDERATIONS}} as follows:
 | 0-16383      | Standards Action           |
 | 16384-32767  | Specification Required     |
 | 32768-65,535 | Reserved for Private Use   |
-
-* multipartnumeric (index 0): Numbers separated by dots, where the numbers are interpreted as integers (e.g.,1.2.3, 1.4.5, 1.2.3.4.5.6.7)
-* multipartnumeric+suffix (index 1): Numbers separated by dots, where the numbers are interpreted as integers with an additional string suffix(e.g., 1.2.3a)
-* alphanumeric (index 2): Strictly a string, sorting is done alphanumerically
-* decimal (index 3): A floating point number (e.g., 1.25 is less than 1.3)
-* semver (index 4): Follows the {{SEMVER}} specification
 
 ~~~~
 
@@ -639,19 +1149,7 @@ any-element
 
 --- back
 
-# Explicit hash-entry Type Used in Concise SWID Tags (label 58)
-
-CoSWID add explicit support for the representation of hash entries using algorithms that are
-registered at the Named Information Hash Algorithm Registry via the hash-entry member (label 58).
-
-~~~~ CDDL
-hash-entry = (58: [ hash-alg-id: int, hash-value: bstr ] )
-~~~~
-
-The number used as a value for hash-alg-id MUST refer the ID in the Named Information Hash Algorithm
-table; other hash algorithms MUST NOT be used. The hash-value MUST represent the raw hash value of the hashed resource generated using the hash algorithm indicated by the hash-alg-id.
-
-# CoSWID Attributes for Firmware (label 59)
+# CoSWID Attributes for Firmware (label 60)
 
 The ISO-19770-2:2015 specification of SWID tags assumes the existence of a file system a software
 component is installed and stored in. In the case of constrained-node networks
@@ -685,7 +1183,7 @@ the self-descriptiveness and flexibility of CoSWID. The optional use of the exte
 ~~~~
 
 The members of the firmware group that constitutes the content of the firmware-entry is
-based on the metadata about firmware defined in {{-cms-fw-pkgs}}. As with every semantic
+based on the metadata about firmware Described in {{-cms-fw-pkgs}}. As with every semantic
 differentiation that is supported by the resource-collection type, the use of firmware-entry is
 optional. It is REQUIRED not to instantiate more than one firmware-entry, as the firmware group is
 used in a map and therefore only allows for unique labels.
@@ -757,366 +1255,7 @@ the protected or unprotected header portion.
 <!--  LocalWords:  SWID verifier TPM filesystem discoverable
  -->
 
-# Group Definitions
-These groups are intermediate CDDL data definitions that are reused in several items in the CoSWID CDDL data definition.
 
-* resource-collection group:
-A list of items both used in evidence (discovered by an inventory process) and
-payload (installed in a system entity) content of a CoSWID tag document to
-structure and differentiate the content of specific CoSWID tag types. Potential
-content includes directories, files, processes, resources or firmwares.
 
-* filesystem group:
-A list of items both used in representing the nodes of a file-system hierarchy,
-i.e. directory items that allow one or more directories to be defined in the
-file structure, and file items that allow one or more files to be specified for
-a given location.
 
-* global-attributes:
-A list of items including an optional language definition to support the
-processing of text-string values and an unbounded set of any-attribute items.
 
-* any-attribute:
-A specific rule providing a restricted frame to include arbitrary information
-via members that constitute key value(s) pairs where both keys and values can be
-integers or text-strings.
-
-# Item Definitions
-
-This Appendix includes the description of every primitive and non-primitive type
-the concise-software-identifier is composed of. Every integer label included at
-the end of the CDDL data definition is addressed in this section.
-
-0. tag-id:
-An identifier uniquely referencing a (composite) software component. The tag
-identifier is intended to be globally unique. There are no strict guidelines on
-how this identifier is structured, but examples include a 16 byte GUID (e.g.
-class 4 UUID).
-
-1. swid-name:
-This item provides the software component name as it would typically be
-referenced.  For example, what would be seen in the add/remove dialog on a
-Windows device, or what is specified as the name of a packaged software component
-or a patch identifier name on a Linux device.
-
-2. entity:
-Specifies the organizations related to the software component referenced by this
-CoSWID tag.
-
-3. evidence:
-This item is used to provide results from a scan of a system where software that
-does not have a CoSWID tag is discovered. This information is not provided by
-the software-creator, and is instead created when a system is being scanned and
-the evidence for why software is believed to be installed on the device is
-provided in the evidence item.
-
-4. link:
-A reference to any another item (can include details that are related to the
-CoSWID tag such as details on where specific resources can be found, e.g.
-vulnerability database associations, ROLIE feeds, MUD files, etc).
-This is modeled directly to match the HTML [LINK] element; it is critical for
-streamlining software discovery scenarios to ensure their consistency.
-
-5. software-meta:
-An open-ended collection of key/value data related to this CoSWID.
-The attributes included in this Element are predefined attributes to ensure
-common usage across the industry.  The schema allows for any additional
-attribute to be included in a CoSWID tag, though it is recommended that industry
-norms for new attributes are defined and followed to the degree possible.
-
-6. payload:
-The items that may be installed on a system entity when the software component
-is installed.  Note that payload may be a superset of the items installed and -
-depending on optimization mechanisms in  respect to that system entity - may or
-may not include every item that could be created or executed on the
-corresponding system entitiy when software components are installed.
-In general, payload will be used to indicate the files that may be installed
-with a software component. Therefore payload will often be a superset of those
-files (i.e. if a particular optional sub-component is not installed, the files
-associated with that software component may be included in payload, but not
-installed in the system entity).
-
-7. any-element:
-A default map that can contain arbitrary map members and even nested maps (which
-would be also any-elements). In essence, the any-element allows items not
-defined in this CDDL data definition to be included in a Concise Software
-Identifier.
-
-9. patch:
-A set of files that is intended to modify an existing set of files (including
-configuration files, scripts and corresponding environment variables that are
-create by the OS for the runtime environment) that composes a software
-component. A software component patch does neither alter the version number (see
-13) nor the release details (descriptive english text, see 44) of a software
-components. [revision 52?]. If a Concise SWID tag is a patch, it MUST contain the patch item
-and its value MUST be set to true.
-It is recommended but not required to include a rel(ation) item in a patch
-CoSWID. If a CoSWID includes a patch member, but not a rel member, it is implied
-that it SHOULD be installed independently of any other CoSWID tag document  –
-even if an effective but not explicit relationship exists.
-
-10. media:
-This text value is a hint to the tag consumer to understand what this SWID tag
-applies to. This item can also be included in the link item to represent a
-attributes defined by the W3C Media Queries Recommendation (see
-http://www.w3.org/TR/css3-mediaqueries/). A hint to the consumer of the link to
-what the target item is applicable for.
-
-11. supplemental:
-Specifies that this tag provides supplemental tag data that can be merged with
-primary tag data to create a complete record of the software information.
-Supplemental tags will often be provided at install time and may be provided by
-different entities (such as the tag consumer, or a Value Added Reseller).
-
-12. tag-version:
-This item indicates if a specific release of a software component has more than
-one tag that can represent that specific release. This may be the case if a
-CoSWID tag producer creates and releases an incorrect tag that they subsequently
-want to fix,  but with no underlying changes to the product the CoSWID tag
-represents. This could happen if, for example, a patch is distributed that has a
-link reference that does not cover all the various software releases it can
-patch. A newer CoSWID tag for that patch can be generated and the tag-version
-value incremented to indicate that the data is updated.
-
-13. software-version:
-Underlying development version for the software component.
-
-14. version-scheme:
-Scheme used for the version number. Valid enumerations are :
-* alphanumeric: strictly a string, sorting alphanumerically
-* decimal: a floating point number (i.e., 1.25 is less than 1.3 )
-* multipartnumeric: numbers separated via dots, where the numbers are
-* interpreted as integers (ie, 1.2.3 ,  1.4.5.6 , 1.2.3.4.5.6.7). This string
-* convention is similar to OIDs.
-* multipartnumeric+suffix: numbers separated via dots, where the numbers are
-* interpreted as integers with an additional string suffix (e.g., 1.2.3a).
-* semver: a string as defined by the semver.org spec [FiXME: reference]
-* unknown: the last resort choice, no attempt should be made to order these
-
-15. lang:
-An RFC5646 conferment language tag or corresponding IANA index integer.
-
-16. directory:
-A directory item allows one or more directories to be defined in the file
-structure.
-
-17. file:
-A file element that allows one or more files to be specified for a given
-location.
-
-18. process:
-Provides process (software component in execution) information for data that
-will show up in a devices process table.
-
-19. resource:
-A set of items that can be used to provide arbitrary resource information about
-an application installed on a system entity, or evidence collected from a
-system entity.
-
-20. size:
-The file size in bytes of the file.
-
-21. file-version
-The file version.
-
-22. key:
-Files that are considered important or required for the use of a software
-component.  Typical key files would be those which, if not available on a system
-entity, would cause the software component not to execute or function properly.
-Key files will typically be used to validate that a software component
-referenced by the CoSWID tag document is actually installed on a specific system
-entity.
-
-23. location:
-The directory or location where a file was found or can expected to be located.
-This text-string is intended to include the filename itself.  This SHOULD be the
-relative path represented by the root item.
-
-24. fs-name:
-The file name or directory name without any path characters.
-
-25. root:
-A system-specific root folder that the location item is an offset from. If this
-is not specified the assumption is the root is the same folder as the location
-of the CoSWID tag. The text-string value represents a path expression relative
-to the CoSWID tag document location in the (composite) file-system hierarchy.
-
-26. path-elements:
-Provides the ability to apply a directory structure to the path expressions for
-files defined in a payload or evidence item.
-
-27. process-name:
-The process name as it will be found in the system entity’s process table.
-
-28. pid:
-The process ID for the process in execution that can be included in the process
-item as part of an evidence tag.
-
-29. type:
-The type of resource represented via a text-string  (typically, registry-key,
-port or root-uri)
-
-30. extended-data:
-An open-ended collection of elements that can be used to attach arbitrary
-metadata to an entity item.
-
-31. entity-name:
-The text-string name of the organization claiming a particular role in the CoSWID
-tag.
-
-32. reg-id:
-The registration id is intended to uniquely identify a naming authority in a
-given scope (e.g. global, organization, vendor, customer, administrative domain,
-etc.) that is implied by the referenced naming authority. The value of an
-registration ID MUST be a RFC 3986 URI. The scope SHOULD be the scope of an
-organization. In a given scope, the registration id MUST be used consistently.
-
-33. role:
-The relationship between this organization and this tag. The role of tag creator
-is required for every CoSWID tag. The role of an entity may include any role
-value, but the per-defined roles include: “aggregator”, “distributor”,
-“licensor”, “software-creator”, “tag-creator”. The enumerations of this will
-include a request to IANA in order to be reference-able via an integer index.
-
-34. thumbprint:
-This value provides a hexadecimal string that contains a hash (i.e. the
-thumbprint) of the signing entities certificate [s] [FIXME: this requires the
-same structure as hash-entry?].
-
-35. date:
-The sate and time evidence represented by an evidence item was gathered.
-
-36. device-id:
-A text-string identifier for a device evidence was gathered from.
-
-37. artifact:
-For installation media (rel="installation-media") - dictates the canonical name
-for the file.
-Items with the same artifact name should be considered mirrors of each other (so
-download from wherever works).
-
-38. href:
-The link to the item being referenced.
-The href can point to several different things, and can be any of the following:
-* a relative uri (no scheme), which is interpreted depending on context (for
-  example, "./folder/supplemental.coswid")
-* a physical file location with any system-acceptable URI scheme (e.g., file://
-  http:// https:// ftp://)
-* an URI with "coswid:" as the scheme, which refers to another CoSWID by tag-id.
-  This URI would need to be resolved in the context of the system by software
-  that can lookup other CoSWID tags (for example,
-* "coswid:2df9de35-0aff-4a86-ace6-f7dddd1ade4c").
-  an URI with "swidpath:" as the scheme, which refers to another CoSIWD via an
-  XPATH query. This URI would need to be resolved in the context of the system
-  entity via dedicated software components that can lookup other CoSWID tags and
-  select the appropriate tag based on an XPATH query. Examples include:
- * swidpath://SoftwareIdentity[Entity/@regid='http://contoso.com'] would
- * retrieve all CoSWID tags that include an entity where the regid was
- * “Contoso”.
- * swidpath://SoftwareIdentity[Meta/@persistentId='b0c55172-38e9-4e36-be86-92206ad8eddb']
- * would retrieve CoSWID tags that matched the persistent-id.
-See XPATH query standard : http://www.w3.org/TR/xpath20/ [FIXME: Concise XPATH
-representation is covered in the YANG-CBOR I-D]
-
-39. ownership:
-Determines the relative strength of ownership of the software components. Valid
-enumerations are: abandon, private, shared
-
-40. rel:
-The relationship between this CoSWID and the target file. Relationships can be
-identified by referencing the IANA registration library:
-https://www.iana.org/assignments/link-relations/link-relations.xhtml.
-
-41. media-type:
-The IANA MediaType for the target file; this provides the consumer with
-intelligence of what to expect. See
-http://www.iana.org/assignments/media-types/media-types.xhtml for more details
-on link type.
-
-42. use:
-Determines if the target software is a hard requirement or not. Valid
-enumerations are: required, recommended, optional,
-
-43. activation-status:
-Identification of the activation status of this software title (e.g. Trial,
-Serialized, Licensed, Unlicensed, etc).  Typically, this is used in supplemental
-tags.
-
-44. channel-type:
-Provides information on which channel this particular software was targeted for
-(e.g. Volume, Retail, OEM, Academic, etc). Typically used in supplemental tags.
-
-45. colloquial-version:
-The informal or colloquial version of the product (i.e. 2013). Note that this
-version may be the same through multiple releases of a software component where
-the version specified in entity is much more specific and will change for each
-software release.
-Note that this representation of version is typically used to identify a group
-of specific software releases that are part of the same release/support
-infrastructure (i.e. Fabrikam Office 2013).  This version is used for string
-comparisons only and is not compared to be an earlier or later
-release (that is done via the entity version [FIXME: consistency).
-
-46. description:
-A longer, detailed description of the software.  This description can be
-multiple sentences (differentiated from summary, which is a very short,
-one-sentence description).
-
-47. edition:
-The variation of the product (Extended, Enterprise, Professional, Standard etc).
-
-48. entitlement-data-required:
-An indicator to determine if there should be accompanying proof of entitlement
-when a software license reconciliation is completed.
-
-49. entitlement-key:
-A vendor-specific textual key that can be used to reconcile the validity of an
-entitlement. (e.g. serial number, product or license key).
-
-50. generator:
-The name of the software tool that created a CoSWID tag.  This item is typically
-used if tags are created on the fly or via a catalog-based analysis for data
-found on a computing device.
-
-51. persistent-id:
-A GUID used to represent products installed where the product are related, but
-may be different versions.  For example, an “upgradeCode” (see
-http://msdn.microsoft.com/en-us/library/aa372375(v=vs.85).aspx as an reference
-for this example).
-
-52. product:
-The base name of the product (e.g. [FIXME: what are appropriate examples?].
-
-53. product-family:
-The overall product family this software belongs to.  Product family is not used
-to identify that a product is part of a suite, but is instead used when a set of
-products that are all related may be installed on multiple different devices.
-For example, an enterprise backup system may consist of a backup services,
-multiple different backup services that support mail services, databases and ERP
-systems, as well as individual software components that backup client system
-entities. In such an usage scenario, all software components that are part of
-the backup system would have the same product-family name so they can be grouped
-together in respect to reporting systems.
-
-54. revision:
-The informal or colloquial representation of the sub-version of the given
-product (ie, SP1, R2, RC1, Beta 2, etc).  Note that the version
-will provide very exact version details,
-the revision is intended for use in environments where reporting on the informal
-or colloquial representation of the software is important (for example, if for a
-certain business process, an organization recognizes that it must have, for
-example “ServicePack 1” or later of a specific product installed on all devices,
-they can use the revision data value to quickly identify any devices that do not
-meet this requirement).
-Depending on how a software organizations distributes revisions, this value
-could be specified in a primary (if distributed as an upgrade) or supplemental
-(if distributed as a patch) CoSWID tag.
-
-55. summary:
-A short (one-sentence) description of the software.
-
-56. unspsc-code:
-An 8 digit code that provides UNSPSC classification of the software component this SWID tag identifies.  For more information see, http://www.unspsc.org/.
-
-57. unspsc-version:
-The version of the UNSPSC code used to define the UNSPSC code value. For more information see, http://www.unspsc.org/.
