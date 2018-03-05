@@ -1,7 +1,7 @@
 ﻿---
 title: Concise Software Identifiers
 abbrev: COSWID
-docname: draft-ietf-sacm-coswid-latest
+docname: draft-ietf-sacm-coswid-04
 stand_alone: true
 ipr: trust200902
 area: Security
@@ -54,11 +54,9 @@ author:
 normative:
   RFC2119:
   RFC4108: cms-fw-pkgs
-  RFC5226:
   RFC5646:
   RFC7049: cbor
-  RFC4949:
-  RFC7228:
+  RFC8126:
   X.1520:
     title: "Recommendation ITU-T X.1520 (2014), Common vulnerabilities and exposures"
     date: 2011-04-20
@@ -104,10 +102,12 @@ normative:
       -
         ins: T. Preston-Werner
         name: Tom Preston-Werner
-  I-D.ietf-cose-msg: cose-msg
+  RFC8152: cose-msg
   I-D.ietf-ace-cbor-web-token: cwt
 
 informative:
+  RFC4949:
+  RFC7228:
   I-D.greevenbosch-appsawg-cbor-cddl: cddl
   I-D.birkholz-tuda: tuda
   I-D.banghart-sacm-rolie-softwaredescriptor : sw-desc
@@ -362,7 +362,7 @@ CoSWID tag. Described in {{model-entity}}.
 - link-entry (label 4): A reference to any another item (can include details that are related to the
 CoSWID tag such as details on where specific resources can be found, e.g.
 vulnerability database associations, ROLIE feeds, MUD files, etc).
-This is modeled directly to match the HTML [LINK] element; it is critical for
+This is modeled directly to match the HTML "link" element; it is critical for
 streamlining software discovery scenarios to ensure their consistency.  Described in {{model-link}}.
 
 - payload-entry (label 6): The items that may be installed on a system entity when the software component
@@ -944,15 +944,15 @@ defined in the ISO/IEC 19770-2:2015 specification {{SWID}}.
 
 This document defines a new a new registry entitled
 "SWID/CoSWID Version Schema Values". Future registrations for this
-registry are to be made based on {{RFC5226}} as follows:
+registry are to be made based on {{RFC8126}} as follows:
 
 ~~~~
 
-| Range        | Registration Procedures    |
-|--------------+----------------------------+
-| 0-16383      | Standards Action           |
-| 16384-32767  | Specification Required     |
-| 32768-65,535 | Reserved for Private Use   |
+| Range        | Registration Procedures  |
+|--------------+--------------------------+
+| 0-16383      | Standards Action         |
+| 16384-32767  | Specification Required   |
+| 32768-65535  | Reserved for Private Use |
 
 ~~~~
 
@@ -961,16 +961,16 @@ are provided below.
 
 ~~~~
 
-| Index        | Role Name                | Specification        |
-|--------------+--------------------------+----------------------|
-| 0            | multipartnumeric         | See section {{indexed-version-scheme}} |
-| 1            | multipartnumeric+suffix  | See section {{indexed-version-scheme}} |
-| 2            | alphanumeric             | See section {{indexed-version-scheme}} |
-| 3            | decimal                  | See section {{indexed-version-scheme}} |
-| 4-16383      | Unassigned               |                      |
-| 16384        | semver                   | {{SEMVER}}           |
-| 16385-32767  | Unassigned               |                      |
-| 32768-65,535 | Reserved for Private Use |                      |
+| Index       | Role Name                | Specification   |
+|-------------+--------------------------+-----------------|
+| 0           | multipartnumeric         | See section 3.1 |
+| 1           | multipartnumeric+suffix  | See section 3.1 |
+| 2           | alphanumeric             | See section 3.1 |
+| 3           | decimal                  | See section 3.1 |
+| 4-16383     | Unassigned               |                 |
+| 16384       | semver                   | {{SEMVER}}      |
+| 16385-32767 | Unassigned               |                 |
+| 32768-65535 | Reserved for Private Use |                 |
 
 ~~~~
 
@@ -982,7 +982,7 @@ defined in the ISO/IEC 19770-2:2015 specification {{SWID}}.
 
 This document defines a new a new registry entitled
 "SWID/CoSWID Entity Role Values". Future registrations for this
-registry are to be made based on {{RFC5226}} as follows:
+registry are to be made based on {{RFC8126}} as follows:
 
 ~~~~
 
@@ -999,16 +999,16 @@ are provided below.
 
 ~~~~
 
-| Index   | Role Name                | Specification        |
-|---------+--------------------------+----------------------|
-| 0       | tagCreator               | See section {{indexed-entity-role}} |
-| 1       | softwareCreator          | See section {{indexed-entity-role}} |
-| 2       | aggregator               | See section {{indexed-entity-role}} |
-| 3       | distributor              | See section {{indexed-entity-role}} |
-| 4       | licensor                 | See section {{indexed-entity-role}} |
-| 5-49    | Unassigned               |                      |
-| 50-225  | Unassigned               |                      |
-| 225-255 | Reserved for Private Use |                      |
+| Index   | Role Name                | Specification   |
+|---------+--------------------------+-----------------|
+| 0       | tagCreator               | See section 3.2 |
+| 1       | softwareCreator          | See section 3.2 |
+| 2       | aggregator               | See section 3.2 |
+| 3       | distributor              | See section 3.2 |
+| 4       | licensor                 | See section 3.2 |
+| 5-49    | Unassigned               |                 |
+| 50-225  | Unassigned               |                 |
+| 225-255 | Reserved for Private Use |                 |
 
 ~~~~
 
