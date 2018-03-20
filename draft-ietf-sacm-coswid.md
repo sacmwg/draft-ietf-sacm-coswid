@@ -1,4 +1,4 @@
-﻿---
+---
 title: Concise Software Identifiers
 abbrev: COSWID
 docname: draft-ietf-sacm-coswid-04
@@ -108,7 +108,7 @@ normative:
 informative:
   RFC4949:
   RFC7228:
-  I-D.greevenbosch-appsawg-cbor-cddl: cddl
+  I-D.ietf-cbor-cddl: cddl
   I-D.birkholz-tuda: tuda
   I-D.banghart-sacm-rolie-softwaredescriptor : sw-desc
   I-D.ietf-sacm-terminology : sacm-term
@@ -143,7 +143,7 @@ format for a record that identifies and describes a specific release of a
 software component. Different software components, and even different releases of a
 particular software component, each have a different SWID tag record associated
 with them. SWID tags are meant to be flexible and able to express a broad set of metadata
-about a software component. 
+about a software component.
 
 Real-world instances of SWID tags can be fairly large, and the communication of
 SWID tags in use-applications such as those described earlier can cause a large
@@ -167,10 +167,10 @@ corresponding to those products.
 
 The following is an excerpt (with some modifications and reordering) from NIST Interagency Report (NISTIR) 8060: Guidelines for the Creation of Interoperable SWID Tags {{SWID-GUIDANCE}}, which describes the tag types used within the lifecycle defined in ISO-19770-2:2015.
 
-> The SWID specification defines four types of SWID tags: primary, patch, corpus, and supplemental. 
+> The SWID specification defines four types of SWID tags: primary, patch, corpus, and supplemental.
 
 > 1. Primary Tag - A SWID tag that identifies and describes a software component is installed on a computing device.
-> 2. Patch Tag - A SWID tag that identifies and describes an installed patch which has made incremental changes to a software component installed on a computing device. 
+> 2. Patch Tag - A SWID tag that identifies and describes an installed patch which has made incremental changes to a software component installed on a computing device.
 > 3. Corpus Tag - A SWID tag that identifies and describes an installable software component in its pre-installation state. A corpus tag can be used to represent metadata about an installation package or installer for a software component, a software update, or a patch.
 > 4. Supplemental Tag - A SWID tag that allows additional information to be associated with a referenced SWID tag. This helps to ensure that SWID Primary and Patch Tags provided by a software provider are not modified by software management tools, while allowing these tools to provide their own software metadata.
 
@@ -181,7 +181,7 @@ The following is an excerpt (with some modifications and reordering) from NIST I
 Installation     Product       Product      Product       Product
   Media      -> Installed  ->  Patched   -> Upgraded   -> Removed
  Deployed
- 
+
  Corpus         Primary        Primary      xPrimary      xPrimary
                 Supplemental   Supplemental xSupplemental xSuplemental
                                Patch        xPatch
@@ -396,7 +396,7 @@ Identifier. Described in {{model-any-element}}.
 
 If multiple of the corpus, patch, and supplemental items are "true", then the containing tag MUST be considered an unsupported tag type.
 
-If the patch does modify the version number or the descriptive metadata of the software, then a new tag representing these details SHOULD be installed, and the old tag SHOULD be removed. 
+If the patch does modify the version number or the descriptive metadata of the software, then a new tag representing these details SHOULD be installed, and the old tag SHOULD be removed.
 
 ###  concise-software-identity Co-constraints
 
@@ -482,7 +482,7 @@ any-uri = text
 extended-data = (30: any-element-map / [ 2* any-element-map ])
 entity-name = (31: text)
 reg-id = (32: any-uri)
-role = (33: text / [2* text]) 
+role = (33: text / [2* text])
 thumbprint = (34: text)
 <CODE ENDS>
 ~~~~
@@ -849,7 +849,7 @@ The following describes each child item of this object.
 
 - resource-collection: The resource-collection group described in {{model-resource-collection}}.
 
-- $$payload-extension: 
+- $$payload-extension:
 
 {: #model-evidence}
 ### The evidence Object
@@ -863,7 +863,7 @@ evidence = {
   resource-collection,
   ? date,
   ? device-id,
-  * $$evidence-extension 
+  * $$evidence-extension
 }
 date = (35: time)
 device-id = (36: text)
@@ -880,7 +880,7 @@ The following describes each child item of this object.
 
 - device-id (index 36): A text-string identifier for a device evidence was gathered from.
 
-- $$evidence-extension: 
+- $$evidence-extension:
 
 ## Full CDDL Definition
 
