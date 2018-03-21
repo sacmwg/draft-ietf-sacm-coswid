@@ -167,7 +167,7 @@ software component is installed on an endpoint, that product's SWID tag is also
 installed. Likewise, when the product is uninstalled or replaced, the SWID tag
 is deleted or replaced, as appropriate. As a result, ISO/IEC 19770-2:2015 describes
 a system wherein there is a correspondence between the set of installed software
-components on an endpoint, and the presence of the correspondingsponding SWID tags
+components on an endpoint, and the presence of the corresponding SWID tags
 for these components on that endpoint. CoSWIDs share the same lifecycle requirements
 as a SWID tag.
 
@@ -244,7 +244,7 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
 
 # Concise SWID Data Definition
 
-The following is a CDDL representation for a CoSWID tag. This CDDL represetation is intended to be parallel to the XML schema definition in the ISO/IEC 19770-2:2015 {{SWID}} specification, allowing both SWID and CoSWID tags to represent a common set of SWID information and to support all SWID tag use
+The following is a CDDL representation for a CoSWID tag. This CDDL representation is intended to be parallel to the XML schema definition in the ISO/IEC 19770-2:2015 {{SWID}} specification, allowing both SWID and CoSWID tags to represent a common set of SWID information and to support all SWID tag use
 cases.  To achieve this end, the CDDL representation includes every SWID tag field and attribute. The CamelCase notation used in the XML schema definition is changed to a hyphen-separated
 notation (e.g. ResourceCollection is named resource-collection in the CoSWID data definition).
 This deviation from the original notation used in the XML representation reduces ambiguity when referencing
@@ -273,7 +273,7 @@ In CBOR, an array is encoded using bytes that identify the array, and the array'
 _name_ = (_label_: _data_ / [ 2* _data_ ])
 ~~~
 
-The CDDL above allows for a more effecient CBOR encoding of the data when a single value is used by avoiding the need to first encode the array. An array is used for two or more values. This modeling pattern is used frequently in the CoSWID CDDL data definition in such cases.
+The CDDL above allows for a more efficient CBOR encoding of the data when a single value is used by avoiding the need to first encode the array. An array is used for two or more values. This modeling pattern is used frequently in the CoSWID CDDL data definition in such cases.
 
 The following subsections describe the different parts of the CoSWID model.
 
@@ -343,7 +343,7 @@ value incremented to indicate that the data is updated.
 component. If a CoSWID tag is for a patch, it MUST contain the patch item
 and its value MUST be set to "true". If not provided the default value MUST be considered "false".
 
-- supplemental (label 11): A boolean value that indicates if the tag is providing additional information to be associated with another referenced SWID or CoSWID tag. Tags using this item help to ensure that primary and patch tags provided by a software provider are not modified by software management tools, while allowing these tools to provide their own software metadata for a software component. If a CoSWID tag is a supplemntal tag, it MUST contain the supplemental item and its value MUST be set to "true". If not provided the default value MUST be considered "false".
+- supplemental (label 11): A boolean value that indicates if the tag is providing additional information to be associated with another referenced SWID or CoSWID tag. Tags using this item help to ensure that primary and patch tags provided by a software provider are not modified by software management tools, while allowing these tools to provide their own software metadata for a software component. If a CoSWID tag is a supplemental tag, it MUST contain the supplemental item and its value MUST be set to "true". If not provided the default value MUST be considered "false".
 
 - swid-name (label 1): This textual item provides the software component name as it would typically be
 referenced.  For example, what would be seen in the add/remove software dialog in an operating system,
@@ -380,7 +380,7 @@ This is modeled after the HTML "link" element.  Described in {{model-link}}.
 is installed.  Note that payload may be a superset of the items installed and -
 depending on optimization mechanisms in respect to that system entity - may or
 may not include every item that could be created or executed on the
-corresponding system entitiy when software components are installed.
+corresponding system entity when software components are installed.
 In general, payload will be used to indicate the files that may be installed
 with a software component. Therefore payload will often be a superset of those
 files (i.e. if a particular optional sub-component is not installed, the files
@@ -416,9 +416,9 @@ If a patch modifies the version number or the descriptive metadata of the softwa
 
 - Only one of the corpus, patch, and supplemental items MUST be set to "true", or all of the corpus, patch, and supplemental items MUST be set to "false" or be omitted.
 
-- If the patch item is set to "true", the the tag SHOULD contain at least one link with the rel(ation) item value of "patches" and an href item specifying an association with the software that was patched.
+- If the patch item is set to "true", the tag SHOULD contain at least one link with the rel(ation) item value of "patches" and an href item specifying an association with the software that was patched.
 
-- If the supplemental item is set to "true", the the tag SHOULD contain at least one link with the rel(ation) item value of "supplements" and an href item specifying an association with the software that is supplemented.
+- If the supplemental item is set to "true", the tag SHOULD contain at least one link with the rel(ation) item value of "supplements" and an href item specifying an association with the software that is supplemented.
 
 - If all of the corpus, patch, and supplemental items are "false", or if the corpus item is set to "true", then a software-version item MUST be included with a value set to the version of the software component. This ensures that primary and corpus tags have an identifiable software version.
 
@@ -513,7 +513,7 @@ is required for every CoSWID tag. The role of an entity may include any role
 value, but the pre-defined roles include: "aggregator", "distributor",
 "licensor", "software-creator", and "tag-creator". These pre-defined role index and text values are defined in {{indexed-entity-role}}. Use of index values instead of text for these pre-defined roles allows a CoSWID to be more concise.
 
-- thumbprint (index 34): The value of the thmbprint item provides an integer-based hash algorithm identifier (hash-alg-id) and a byte string string value (hash-value) that contains the corresponding hash value (i.e. the
+- thumbprint (index 34): The value of the thumbprint item provides an integer-based hash algorithm identifier (hash-alg-id) and a byte string value (hash-value) that contains the corresponding hash value (i.e. the
 thumbprint) of the signing entities certificate(s). If the hash-alg-id is not known, then the integer value "0" MUST be used. This ensures parity between the SWID tag specification {{SWID}}, which does not allow an algorithm to be identified for this field. See {{model-hash-entry}} for more details on the use of the hash-entry data structure.
 
 - extended-data (index 30): An open-ended collection of elements that can be used to attach arbitrary
@@ -1055,9 +1055,9 @@ should employ input sanitizing on the tags they ingest.
 
 Changes from version 04 to version 05:
 
-- Clarified language around SWID and CoSWID to make more consistant use of these terms.
+- Clarified language around SWID and CoSWID to make more consistent use of these terms.
 - Added language describing CBOR optimizations for single vs. arrays in the model front matter.
-- Fixed a number of gramatical, spelling, and wording issues.
+- Fixed a number of grammatical, spelling, and wording issues.
 - Documented extension points that use CDDL sockets.
 - Converted IANA registration tables to markdown tables, reserving the 0 value for use when a value is not known.
 - Updated a number of references to their current versions.
