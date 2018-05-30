@@ -9,11 +9,11 @@ concise-software-identity = {
   ? software-version,
   ? version-scheme,
   ? media,
-  ? software-meta-entry,
-  ? entity-entry,
-  ? link-entry,
-  ? ( payload-entry / evidence-entry ),
-  ? any-element-entry,
+  * software-meta-entry,
+  + entity-entry,
+  * link-entry,
+  ? ( + payload-entry / + evidence-entry ),
+  * any-element-entry,
 }
 
 any-uri = text
