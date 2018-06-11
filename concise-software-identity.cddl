@@ -134,7 +134,22 @@ payload-entry = (6: payload)
 any-element-entry = (7: any-element-map / [ 2* any-element-map ])
 corpus = (8: bool)
 patch = (9: bool)
-media = (10: text)
+media = (10: [ + [ media-expression,
+                     ? [ media-operation,
+                         media-expression,
+                       ]
+                 ]
+             ])
+media-operation = text
+media-expression = media-environment / [ media-prefix,
+                                         media-environment,
+                                         media-attribute,
+                                         media-value,
+                                       ]
+media-prefix = text
+media-environment = text
+media-attribute = text
+media-value = text
 supplemental = (11: bool)
 tag-version = (12: integer)
 software-version = (13: text)
