@@ -1,7 +1,7 @@
 ---
 title: Concise Software Identifiers
 abbrev: COSWID
-docname: draft-ietf-sacm-coswid-05
+docname: draft-ietf-sacm-coswid-latest
 stand_alone: true
 ipr: trust200902
 area: Security
@@ -176,7 +176,7 @@ The following is an excerpt (with some modifications and reordering) from NIST I
 > The SWID specification defines four types of SWID tags: primary, patch, corpus, and supplemental.
 
 1. Primary Tag - A SWID or CoSWID tag that identifies and describes a software component is installed on a computing device.
-2. Patch Tag - A SWID or CoSWID tag that identifies and describes an installed patch which has made incremental changes to a software component installed on a computing device. 
+2. Patch Tag - A SWID or CoSWID tag that identifies and describes an installed patch which has made incremental changes to a software component installed on a computing device.
 3. Corpus Tag - A SWID or CoSWID tag that identifies and describes an installable software component in its pre-installation state. A corpus tag can be used to represent metadata about an installation package or installer for a software component, a software update, or a patch.
 4. Supplemental Tag - A SWID or CoSWID tag that allows additional information to be associated with a referenced SWID tag. This helps to ensure that SWID Primary and Patch Tags provided by a software provider are not modified by software management tools, while allowing these tools to provide their own software metadata.
 
@@ -410,7 +410,7 @@ The operational model for SWID and CoSWID tags introduced in {{intro-lifecycle}}
 A tag that does not match one of the above rules MUST be considered an invalid, unsupported tag type.
 
 <!-- TODO: relocate the following requirement -->
-If a patch modifies the version number or the descriptive metadata of the software, then a new tag representing these details SHOULD be installed, and the old tag SHOULD be removed. 
+If a patch modifies the version number or the descriptive metadata of the software, then a new tag representing these details SHOULD be installed, and the old tag SHOULD be removed.
 
 ###  concise-software-identity Co-constraints
 
@@ -491,7 +491,7 @@ any-uri = text
 extended-data = (30: any-element-map / [ 2* any-element-map ])
 entity-name = (31: text)
 reg-id = (32: any-uri)
-role = (33: text / [2* text]) 
+role = (33: text / [2* text])
 thumbprint = (34: hash-entry)
 ~~~
 
@@ -842,7 +842,7 @@ The following describes each child item of this object.
 
 - resource-collection: The resource-collection group described in {{model-resource-collection}}.
 
-- $$payload-extension: This CDDL socket (see {{-cddl}} section 3.9) can be used to extend the payload model, allowing well-formed extensions to be defined in additional CDDL descriptions. 
+- $$payload-extension: This CDDL socket (see {{-cddl}} section 3.9) can be used to extend the payload model, allowing well-formed extensions to be defined in additional CDDL descriptions.
 
 {: #model-evidence}
 ### The evidence Object
