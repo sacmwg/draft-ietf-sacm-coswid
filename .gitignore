@@ -2,6 +2,8 @@
 *.txt
 *.html
 *.pdf
+*.upload
+.tags
 *~
 *.swp
 /*-[0-9][0-9].xml
@@ -9,5 +11,7 @@
 .targets.mk
 venv/
 issues.json
+pulls.json
+report.xml
 lib
-draft-ietf-sacm-coswid.md
+draft-ietf-sacm-coswid.xml
