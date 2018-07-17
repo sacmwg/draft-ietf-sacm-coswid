@@ -1053,6 +1053,13 @@ should employ input sanitizing on the tags they ingest.
 
 #  Change Log
 
+Changes from version 05 to version 06:
+
+- Improved quantities
+- Included proposals for implicet enumerations that were NMTOKENS
+- Added extension points
+- Improved exemplary firmware-resource extension
+
 Changes from version 04 to version 05:
 
 - Clarified language around SWID and CoSWID to make more consistant use of these terms.
