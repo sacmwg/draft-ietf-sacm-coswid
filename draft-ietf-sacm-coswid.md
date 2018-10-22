@@ -56,6 +56,7 @@ normative:
   RFC4108: cms-fw-pkgs
   RFC5646:
   RFC7049: cbor
+  RFC7252: coap
   RFC8126:
   X.1520:
     title: "Recommendation ITU-T X.1520 (2014), Common vulnerabilities and exposures"
@@ -984,7 +985,79 @@ are provided below.
 | 50-225  | Unassigned               |
 | 225-255 | Reserved for Private Use |
 
-#  Security Considerations
+## Media Type Registration
+
+### swid+cbor Media Type Registration 
+
+Type name: application 
+
+Subtype name: swid+cbor 
+
+Required parameters: none 
+
+Optional parameters: none 
+
+Encoding considerations: Must be encoded as using {{RFC7049}}. See 
+RFC-AAAA for details. 
+
+Security considerations: See {{sec-sec}} of RFC-AAAA.
+
+Interoperability considerations: Applications MAY ignore any key
+value pairs that they do not understand. This allows
+backwards compatible extensions to this specification.
+
+Published specification: RFC-AAAA 
+
+Applications that use this media type: The type is used by Software
+asset management systems, Vulnerability assessment systems, and in
+applications that use remote integrity verification.
+
+Fragment identifier considerations: Fragment identification for 
+application/swid+cbor is supported by using fragment identifiers as 
+specified by RFC-AAAA. \[Section to be defined]
+
+Additional information: 
+
+Magic number(s): first five bytes in hex: da 53 57 49 44
+
+File extension(s): coswid
+ 
+Macintosh file type code(s): none 
+
+Macintosh Universal Type Identifier code: org.ietf.coswid
+conforms to public.data
+
+Person & email address to contact for further information: 
+Henk Birkholz \<henk.birkholz@sit.fraunhofer.de>
+
+Intended usage: COMMON 
+
+Restrictions on usage: None 
+
+Author: Henk Birkholz \<henk.birkholz@sit.fraunhofer.de>
+
+Change controller: IESG 
+
+## CoAP Content-Format Registration
+
+IANA is requested to assign a CoAP Content-Format ID for the CoSWID
+media type in the "CoAP Content-Formats" sub-registry, from the "IETF
+Review or IESG Approval" space (256..999), within the "CoRE
+Parameters" registry {{-coap}}:
+
+| Media type            | Encoding | ID    | Reference |
+| application/swid+cbor | -        | TBDcf | RFC-AAAA  |
+{: #tbl-coap-content-formats cols="l l" title="CoAP Content-Format IDs"}
+
+## CBOR Tag Registration
+
+IANA is requested to allocate a tag in the CBOR Tags Registry,
+preferably with the specific value requested:
+
+|        Tag | Data Item | Semantics                                       |
+| 1398229316 | map       | Concise Software Identifier (CoSWID) [RFC-AAAA] |
+
+#  Security Considerations {#sec-sec}
 
 SWID and CoSWID tags contain public information about software components and, as
 such, do not need to be protected against disclosure on an endpoint.
@@ -1153,7 +1226,7 @@ the self-descriptiveness and flexibility of CoSWID. The optional use of the exte
 
 ~~~~ CDDL
 <CODE BEGINS>
-{::include firmware-resource.cddl}
+{::include suit-manifest-resource.cddl}
 <CODE ENDS>
 ~~~~
 
