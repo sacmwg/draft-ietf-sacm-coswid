@@ -987,18 +987,18 @@ are provided below.
 
 ## Media Type Registration
 
-### swid+cbor Media Type Registration 
+### swid+cbor Media Type Registration
 
-Type name: application 
+Type name: application
 
-Subtype name: swid+cbor 
+Subtype name: swid+cbor
 
-Required parameters: none 
+Required parameters: none
 
-Optional parameters: none 
+Optional parameters: none
 
-Encoding considerations: Must be encoded as using {{RFC7049}}. See 
-RFC-AAAA for details. 
+Encoding considerations: Must be encoded as using {{RFC7049}}. See
+RFC-AAAA for details.
 
 Security considerations: See {{sec-sec}} of RFC-AAAA.
 
@@ -1006,37 +1006,37 @@ Interoperability considerations: Applications MAY ignore any key
 value pairs that they do not understand. This allows
 backwards compatible extensions to this specification.
 
-Published specification: RFC-AAAA 
+Published specification: RFC-AAAA
 
 Applications that use this media type: The type is used by Software
 asset management systems, Vulnerability assessment systems, and in
 applications that use remote integrity verification.
 
-Fragment identifier considerations: Fragment identification for 
-application/swid+cbor is supported by using fragment identifiers as 
+Fragment identifier considerations: Fragment identification for
+application/swid+cbor is supported by using fragment identifiers as
 specified by RFC-AAAA. \[Section to be defined]
 
-Additional information: 
+Additional information:
 
 Magic number(s): first five bytes in hex: da 53 57 49 44
 
 File extension(s): coswid
- 
-Macintosh file type code(s): none 
+
+Macintosh file type code(s): none
 
 Macintosh Universal Type Identifier code: org.ietf.coswid
 conforms to public.data
 
-Person & email address to contact for further information: 
+Person & email address to contact for further information:
 Henk Birkholz \<henk.birkholz@sit.fraunhofer.de>
 
-Intended usage: COMMON 
+Intended usage: COMMON
 
-Restrictions on usage: None 
+Restrictions on usage: None
 
 Author: Henk Birkholz \<henk.birkholz@sit.fraunhofer.de>
 
-Change controller: IESG 
+Change controller: IESG
 
 ## CoAP Content-Format Registration
 
@@ -1126,6 +1126,17 @@ should employ input sanitizing on the tags they ingest.
 
 #  Change Log
 
+Changes from version 06 to version 07:
+
+- Added type choices/enumerations based on textual definitions in 19770-2:2015
+- Added value registry request
+- Added media type registration request
+- Added content format registration request
+- Added CBOR tag registration request
+- Removed RIM appedix to be addressed in complementary draft
+- Removed CWT appendix
+- Flagged firmware resource colletion appendix for revision
+
 Changes from version 05 to version 06:
 
 - Improved quantities
@@ -1199,6 +1210,11 @@ any-element
 
 # CoSWID Attributes for Firmware (label 60)
 
+NOTE: this appendix is subject to revision based potential convergence of:
+
+* draft-moran-suit-manifest, and
+* draft-birkholz-suit-coswid-manifest
+
 The ISO-19770-2:2015 specification of SWID tags assumes the existence of a file system a software
 component is installed and stored in. In the case of constrained-node networks
 {{RFC7228}} or network equipment this assumption might not apply. Concise software instances in the
@@ -1261,43 +1277,6 @@ of header attributes allowed by COSE tailored to suit the requirements of Concis
 ~~~~ CDDL
 <CODE BEGINS>
 {::include signed-coswid.cddl}
-<CODE ENDS>
-~~~~
-
-# CoSWID used as Reference Integrity Measurements (CoSWID RIM)
-
-A vendor supplied signed CoSWID tag that includes hash-values for the files that compose a software
-component can be used as a RIM (reference integrity measurement). A RIM is a type of declarative
-guidance that can be used to assert the compliance of an endpoint by assessing the installed
-software. In the context of remote attestation based on an attestation via hardware rooted trust,
-a verifier can appraise the integrity of the conveyed measurements
-of software components using a CoSWID RIM provided by a source, such as {{-sw-desc}}.
-
-RIM Manifests (RIMM):
-
-: A group of SWID tags about the same (sub-)system, system entity, or (sub-)component (compare
-{{RFC4949}}). A RIMM manifest is a distinct document that is typically conveyed en-block and
-constitutes declarative guidance in respect to a specific (target) endpoint (compare
-{{-sacm-term}}).
-
-If multiple CoSWID compose a RIMM, the following CDDL data definition SHOULD be used.
-
-~~~~ CDDL
-RIMM = [ + concise-software-identity / signed-coswid ]
-~~~~
-
-# CBOR Web Token for Concise SWID Tags
-
-A typical requirement regarding specific instantiations of endpoints – and, as a result, specific
-instantiations of software components - is a representation of the absolute path of a CoSWID tag
-document in a file system in order to derive absolute paths of files represented in the
-corresponding CoSWID tag. The absolute path of an evidence CoSWID tag can be included as a claim in
-the header of a CBOR Web Token {{-cwt}}. Depending on the source of the token, the claim can be in
-the protected or unprotected header portion.
-
-~~~~ CDDL
-<CODE BEGINS>
- CDDL TBD
 <CODE ENDS>
 ~~~~
 <!--  LocalWords:  SWID verifier TPM filesystem discoverable
