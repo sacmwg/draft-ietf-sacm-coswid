@@ -1,7 +1,7 @@
 ---
 title: Concise Software Identifiers
 abbrev: COSWID
-docname: draft-ietf-sacm-coswid-05
+docname: draft-ietf-sacm-coswid-latest
 stand_alone: true
 ipr: trust200902
 area: Security
@@ -56,6 +56,7 @@ normative:
   RFC4108: cms-fw-pkgs
   RFC5646:
   RFC7049: cbor
+  RFC7252: coap
   RFC8126:
   X.1520:
     title: "Recommendation ITU-T X.1520 (2014), Common vulnerabilities and exposures"
@@ -176,7 +177,7 @@ The following is an excerpt (with some modifications and reordering) from NIST I
 > The SWID specification defines four types of SWID tags: primary, patch, corpus, and supplemental.
 
 1. Primary Tag - A SWID or CoSWID tag that identifies and describes a software component is installed on a computing device.
-2. Patch Tag - A SWID or CoSWID tag that identifies and describes an installed patch which has made incremental changes to a software component installed on a computing device. 
+2. Patch Tag - A SWID or CoSWID tag that identifies and describes an installed patch which has made incremental changes to a software component installed on a computing device.
 3. Corpus Tag - A SWID or CoSWID tag that identifies and describes an installable software component in its pre-installation state. A corpus tag can be used to represent metadata about an installation package or installer for a software component, a software update, or a patch.
 4. Supplemental Tag - A SWID or CoSWID tag that allows additional information to be associated with a referenced SWID tag. This helps to ensure that SWID Primary and Patch Tags provided by a software provider are not modified by software management tools, while allowing these tools to provide their own software metadata.
 
@@ -410,7 +411,7 @@ The operational model for SWID and CoSWID tags introduced in {{intro-lifecycle}}
 A tag that does not match one of the above rules MUST be considered an invalid, unsupported tag type.
 
 <!-- TODO: relocate the following requirement -->
-If a patch modifies the version number or the descriptive metadata of the software, then a new tag representing these details SHOULD be installed, and the old tag SHOULD be removed. 
+If a patch modifies the version number or the descriptive metadata of the software, then a new tag representing these details SHOULD be installed, and the old tag SHOULD be removed.
 
 ###  concise-software-identity Co-constraints
 
@@ -491,7 +492,7 @@ any-uri = text
 extended-data = (30: any-element-map / [ 2* any-element-map ])
 entity-name = (31: text)
 reg-id = (32: any-uri)
-role = (33: text / [2* text]) 
+role = (33: text / [2* text])
 thumbprint = (34: hash-entry)
 ~~~
 
@@ -842,7 +843,7 @@ The following describes each child item of this object.
 
 - resource-collection: The resource-collection group described in {{model-resource-collection}}.
 
-- $$payload-extension: This CDDL socket (see {{-cddl}} section 3.9) can be used to extend the payload model, allowing well-formed extensions to be defined in additional CDDL descriptions. 
+- $$payload-extension: This CDDL socket (see {{-cddl}} section 3.9) can be used to extend the payload model, allowing well-formed extensions to be defined in additional CDDL descriptions.
 
 {: #model-evidence}
 ### The evidence Object
@@ -984,7 +985,79 @@ are provided below.
 | 50-225  | Unassigned               |
 | 225-255 | Reserved for Private Use |
 
-#  Security Considerations
+## Media Type Registration
+
+### swid+cbor Media Type Registration
+
+Type name: application
+
+Subtype name: swid+cbor
+
+Required parameters: none
+
+Optional parameters: none
+
+Encoding considerations: Must be encoded as using {{RFC7049}}. See
+RFC-AAAA for details.
+
+Security considerations: See {{sec-sec}} of RFC-AAAA.
+
+Interoperability considerations: Applications MAY ignore any key
+value pairs that they do not understand. This allows
+backwards compatible extensions to this specification.
+
+Published specification: RFC-AAAA
+
+Applications that use this media type: The type is used by Software
+asset management systems, Vulnerability assessment systems, and in
+applications that use remote integrity verification.
+
+Fragment identifier considerations: Fragment identification for
+application/swid+cbor is supported by using fragment identifiers as
+specified by RFC-AAAA. \[Section to be defined]
+
+Additional information:
+
+Magic number(s): first five bytes in hex: da 53 57 49 44
+
+File extension(s): coswid
+
+Macintosh file type code(s): none
+
+Macintosh Universal Type Identifier code: org.ietf.coswid
+conforms to public.data
+
+Person & email address to contact for further information:
+Henk Birkholz \<henk.birkholz@sit.fraunhofer.de>
+
+Intended usage: COMMON
+
+Restrictions on usage: None
+
+Author: Henk Birkholz \<henk.birkholz@sit.fraunhofer.de>
+
+Change controller: IESG
+
+## CoAP Content-Format Registration
+
+IANA is requested to assign a CoAP Content-Format ID for the CoSWID
+media type in the "CoAP Content-Formats" sub-registry, from the "IETF
+Review or IESG Approval" space (256..999), within the "CoRE
+Parameters" registry {{-coap}}:
+
+| Media type            | Encoding | ID    | Reference |
+| application/swid+cbor | -        | TBDcf | RFC-AAAA  |
+{: #tbl-coap-content-formats cols="l l" title="CoAP Content-Format IDs"}
+
+## CBOR Tag Registration
+
+IANA is requested to allocate a tag in the CBOR Tags Registry,
+preferably with the specific value requested:
+
+|        Tag | Data Item | Semantics                                       |
+| 1398229316 | map       | Concise Software Identifier (CoSWID) [RFC-AAAA] |
+
+#  Security Considerations {#sec-sec}
 
 SWID and CoSWID tags contain public information about software components and, as
 such, do not need to be protected against disclosure on an endpoint.
@@ -1053,6 +1126,24 @@ should employ input sanitizing on the tags they ingest.
 
 #  Change Log
 
+Changes from version 06 to version 07:
+
+- Added type choices/enumerations based on textual definitions in 19770-2:2015
+- Added value registry request
+- Added media type registration request
+- Added content format registration request
+- Added CBOR tag registration request
+- Removed RIM appedix to be addressed in complementary draft
+- Removed CWT appendix
+- Flagged firmware resource colletion appendix for revision
+
+Changes from version 05 to version 06:
+
+- Improved quantities
+- Included proposals for implicet enumerations that were NMTOKENS
+- Added extension points
+- Improved exemplary firmware-resource extension
+
 Changes from version 04 to version 05:
 
 - Clarified language around SWID and CoSWID to make more consistent use of these terms.
@@ -1119,6 +1210,11 @@ any-element
 
 # CoSWID Attributes for Firmware (label 60)
 
+NOTE: this appendix is subject to revision based potential convergence of:
+
+* draft-moran-suit-manifest, and
+* draft-birkholz-suit-coswid-manifest
+
 The ISO-19770-2:2015 specification of SWID tags assumes the existence of a file system a software
 component is installed and stored in. In the case of constrained-node networks
 {{RFC7228}} or network equipment this assumption might not apply. Concise software instances in the
@@ -1146,7 +1242,7 @@ the self-descriptiveness and flexibility of CoSWID. The optional use of the exte
 
 ~~~~ CDDL
 <CODE BEGINS>
-{::include firmware-resource.cddl}
+{::include suit-manifest-resource.cddl}
 <CODE ENDS>
 ~~~~
 
@@ -1181,43 +1277,6 @@ of header attributes allowed by COSE tailored to suit the requirements of Concis
 ~~~~ CDDL
 <CODE BEGINS>
 {::include signed-coswid.cddl}
-<CODE ENDS>
-~~~~
-
-# CoSWID used as Reference Integrity Measurements (CoSWID RIM)
-
-A vendor supplied signed CoSWID tag that includes hash-values for the files that compose a software
-component can be used as a RIM (reference integrity measurement). A RIM is a type of declarative
-guidance that can be used to assert the compliance of an endpoint by assessing the installed
-software. In the context of remote attestation based on an attestation via hardware rooted trust,
-a verifier can appraise the integrity of the conveyed measurements
-of software components using a CoSWID RIM provided by a source, such as {{-sw-desc}}.
-
-RIM Manifests (RIMM):
-
-: A group of SWID tags about the same (sub-)system, system entity, or (sub-)component (compare
-{{RFC4949}}). A RIMM manifest is a distinct document that is typically conveyed en-block and
-constitutes declarative guidance in respect to a specific (target) endpoint (compare
-{{-sacm-term}}).
-
-If multiple CoSWID compose a RIMM, the following CDDL data definition SHOULD be used.
-
-~~~~ CDDL
-RIMM = [ + concise-software-identity / signed-coswid ]
-~~~~
-
-# CBOR Web Token for Concise SWID Tags
-
-A typical requirement regarding specific instantiations of endpoints – and, as a result, specific
-instantiations of software components - is a representation of the absolute path of a CoSWID tag
-document in a file system in order to derive absolute paths of files represented in the
-corresponding CoSWID tag. The absolute path of an evidence CoSWID tag can be included as a claim in
-the header of a CBOR Web Token {{-cwt}}. Depending on the source of the token, the claim can be in
-the protected or unprotected header portion.
-
-~~~~ CDDL
-<CODE BEGINS>
- CDDL TBD
 <CODE ENDS>
 ~~~~
 <!--  LocalWords:  SWID verifier TPM filesystem discoverable
