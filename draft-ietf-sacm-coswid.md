@@ -509,8 +509,7 @@ value, but the pre-defined roles include: "aggregator", "distributor",
 - thumbprint (index 34): The value of the thumbprint item provides an integer-based hash algorithm identifier (hash-alg-id) and a byte string value (hash-value) that contains the corresponding hash value (i.e. the
 thumbprint) of the signing entities certificate(s). If the hash-alg-id is not known, then the integer value "0" MUST be used. This ensures parity between the SWID tag specification {{SWID}}, which does not allow an algorithm to be identified for this field. See {{model-hash-entry}} for more details on the use of the hash-entry data structure.
 
-- extended-data (index 30): An open-ended collection of items that can be used to attach arbitrary
-metadata to an entity item.
+- $$entity-extension: This CDDL socket (see {{-cddl}} section 3.9) can be used to extend the entity model, allowing well-formed extensions to be defined in additional CDDL descriptions.
 
 ## The link Object   {#model-link}
 
@@ -605,17 +604,18 @@ tags.
 version may be the same through multiple releases of a software component where
 the version specified in entity is much more specific and will change for each
 software release.
-Note that this representation of version is typically used to identify a group
-of specific software releases that are part of the same release/support
-infrastructure (i.e. Fabrikam Office 2013).  This version is used for string
-comparisons only and is not compared to be an earlier or later
-release (that is done via the entity version). <!--FIXME: consistency -->
+
+    Note that this representation of version is typically used to identify a group
+    of specific software releases that are part of the same release/support
+    infrastructure (i.e. Fabrikam Office 2013).  This version is used for string
+    comparisons only and is not compared to be an earlier or later
+    release (that is done via the entity version). <!--FIXME: consistency -->
 
 - description (index 46): A longer, detailed description of the software.  This description can be
 multiple sentences (differentiated from summary, which is a very short,
 one-sentence description).
 
-- edition (index 47): The variation of the product (Extended, Enterprise, Professional, Standard etc).
+- edition (index 47): The variation of the product (Extended, Enterprise, Professional, Standard, etc).
 
 - entitlement-data-required (index 48): An indicator to determine if there should be accompanying proof of entitlement
 when a software license reconciliation is completed.
@@ -625,15 +625,15 @@ entitlement. (e.g. serial number, product or license key).
 
 - generator (index 50): The name of the software tool that created a CoSWID tag.  This item is typically
 used if tags are created on the fly or via a catalog-based analysis for data
-found on a computing device.
+found on an endpoint.
 
 - persistent-id (index 51): A GUID used to represent products installed where the products are related, but may be different versions.
 
-- product (index 52): The base name of the product (e.g. <!--FIXME: what are appropriate examples?-->).
+- product (index 52): The base name of the product.
 
 - product-family (index 53): The overall product family this software belongs to.  Product family is not used
 to identify that a product is part of a suite, but is instead used when a set of
-products that are all related may be installed on multiple different devices.
+products that are all related may be installed on multiple different endpoints.
 For example, an enterprise backup system may consist of a backup services,
 multiple different backup services that support mail services, databases and ERP
 systems, as well as individual software components that backup client system
@@ -642,17 +642,18 @@ the backup system would have the same product-family name so they can be grouped
 together in respect to reporting systems.
 
 - revision (index 54): The informal or colloquial representation of the sub-version of the given
-product (ie, SP1, R2, RC1, Beta 2, etc).  Note that the version
+product (ie, SP1, R2, RC1, Beta 2, etc).  Note that the version item
 will provide very exact version details,
-the revision is intended for use in environments where reporting on the informal
+while the revision is intended for use in environments where reporting on the informal
 or colloquial representation of the software is important (for example, if for a
 certain business process, an organization recognizes that it must have, for
 example “ServicePack 1” or later of a specific product installed on all devices,
 they can use the revision data value to quickly identify any devices that do not
 meet this requirement).
-Depending on how a software organizations distributes revisions, this value
-could be specified in a primary (if distributed as an upgrade) or supplemental
-(if distributed as a patch) CoSWID tag.
+
+    Depending on how a software organizations distributes revisions, this value
+    could be specified in a primary (if distributed as an upgrade) or supplemental
+    (if distributed as a patch) CoSWID tag.
 
 - summary (index 55): A short (one-sentence) description of the software.
 
