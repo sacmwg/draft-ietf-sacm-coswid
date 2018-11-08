@@ -66,19 +66,13 @@ normative:
       Information technology - Software asset management - Part 5: Overview and vocabulary
     date: 2013-11-15
     seriesinfo:
-      ISO/IEC: 19770-5:2013
+      ISO/IEC: 19770-5:2015
   SWID:
     title: >
       Information technology - Software asset management - Part 2: Software identification tag
     date: 2015-10-01
     seriesinfo:
       ISO/IEC: 19770-2:2015
-  19770-5:
-    title: >
-      Information technology -- IT asset management -- Part 5: Overview and vocabulary
-    date: 2015-8-01
-    seriesinfo:
-      ISO/IEC: 19770-5:2015
   SWID-GUIDANCE:
     target: https://doi.org/10.6028/NIST.IR.8060
     title: Guidelines for the Creation of Interoperable Software Identification (SWID) Tags
@@ -148,7 +142,7 @@ SWID tags have several use-applications including but not limited to:
 
 SWID tags, as defined in ISO-19770-2:2015 {{SWID}}, provide a standardized
 XML-based record format that identifies and describes a specific release of a
-software component. Different software components, and even different releases of a 
+software component. Different software components, and even different releases of a
 particular software component, each have a different SWID tag record associated
 with them. SWID tags are meant to be flexible and able to express a broad set of metadata
 about a software component.
@@ -238,7 +232,7 @@ The corresponding CoSWID data definition includes two kinds of augmentation.
 
 - The explicit definition of types for attributes that are typically stored in
   the "any attribute" of an ISO-19770-2:2015 in XML representation. These are
-  covered in {{model-global-attributes}} and {{model-any-element}} of this document.
+  covered in {{model-global-attributes}} and [model-any-element]<!--{{model-any-element}}--> of this document.
 
 - The inclusion of extension points in the CoSWID data definition that allow for
   additional uses of CoSWID tags that go beyond the original scope of
@@ -375,7 +369,7 @@ This is modeled after the HTML "link" element.  Described in {{model-link}}.
 <!-- TODO: Review from here -->
 
 - payload-entry (label 6): This item represents the software artifacts that may be installed on an endpoint when the software component
-is installed.  Note that the payload may represent a superset of the software artifacts installed. Based on user selections at install time, 
+is installed.  Note that the payload may represent a superset of the software artifacts installed. Based on user selections at install time,
 an installation may not include every artifact that could be created or executed on the
 endpoint when the software component is installed (i.e. if a particular optional sub-component is not installed, the files
 associated with that software component may be included in payload, but not
@@ -388,7 +382,7 @@ when the endpoint is scanned. This item represents evidence for why software is 
 - any-element-entry (label 7): A default map that can contain arbitrary map members and even nested maps (which
 would also be any-elements). In essence, the any-element allows items not
 defined in this CDDL data definition to be included in a Concise Software
-Identifier. Described in {{model-any-element}}.
+Identifier. Described in [model-any-element]<!--{{model-any-element}}-->.
 
 ### Determining the tag type   {#model-tag-type}
 
@@ -862,8 +856,8 @@ The following table indicates the index value to use for the entity roles define
 | Index | Role Name       | Definition
 |---
 | 0     | Reserved        |
-| 1     | tagCreator      | The person or organization that created the containing SWID or CoSWID tag 
-| 2     | softwareCreator | From {{19770-5}}, "person or organization that creates a software product (3.46) or package"
+| 1     | tagCreator      | The person or organization that created the containing SWID or CoSWID tag
+| 2     | softwareCreator | From {{SAM}}, "person or organization that creates a software product (3.46) or package"
 | 3     | aggregator      | From {{SWID}, "An organization or system that encapsulates software from
 their own and/or other organizations into a different distribution
 process (as in the case of virtualization), or as a completed
@@ -873,7 +867,7 @@ added reseller)."
 of software from the original place of manufacture to the
 ultimate user without modifying the software, its packaging or
 its labelling."
-| 5     | licensor        | From {{19770-5}} as "software licensor", "person or organization who owns or holds the rights to issue a software license for a specific software package"
+| 5     | licensor        | From {{SAM}} as "software licensor", "person or organization who owns or holds the rights to issue a software license for a specific software package"
 
 The values above are registered in the "SWID/CoSWID Entity Role Values" registry defined in section {{iana-entity-role}}. Additional valid values will likely be registered over time. Additionally, the index values 128 through 255 have been reserved for private use.
 
