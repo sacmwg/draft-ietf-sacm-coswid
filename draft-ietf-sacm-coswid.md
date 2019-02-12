@@ -1,5 +1,5 @@
 ---
-title: Concise Software Identifiers
+title: Concise Software Identification Tags
 abbrev: COSWID
 docname: draft-ietf-sacm-coswid-latest
 stand_alone: true
@@ -118,8 +118,8 @@ informative:
 --- abstract
 
 This document defines a concise representation of ISO/IEC 19770-2:2015 Software Identification (SWID) tags
-that are interoperable with the XML schema definition of ISO/IEC 19770-2:2015 and augmented for
-application in Constrained-Node Networks. Next to the inherent capability of SWID tags to express
+that are interoperable with the XML schema definition of ISO/IEC 19770-2:2015.
+Next to the inherent capability of SWID tags to express
 arbitrary context information, Concise SWID (CoSWID) tags support the definition of additional semantics via
 well-defined data definitions incorporated by extension points.
 
@@ -286,10 +286,10 @@ The following subsections describe the different parts of the CoSWID model.
 
 ## The concise-software-identity Object   {#model-concise-software-identity}
 
-The CDDL for the main concise-software-identity object is as follows:
+The CDDL for the main concise-swid-tag map is as follows:
 
 ~~~ CDDL
-concise-software-identity = {
+concise-swid-tag = {
   global-attributes,
   tag-id,
   tag-version,
@@ -828,7 +828,7 @@ In order to create a valid CoSWID document the structure of the corresponding CB
 adhere to the following CDDL data definition.
 
 ~~~ CDDL
-{::include concise-software-identity.cddl}
+{::include concise-swid-tag.cddl}
 ~~~
 
 # CoSWID Indexed Label Values
@@ -1212,58 +1212,6 @@ any-element
 
 --- back
 
-# CoSWID Attributes for Firmware (label 60)
-
-NOTE: this appendix is subject to revision or removal based on potential convergence of:
-
-* draft-moran-suit-manifest, and
-* draft-birkholz-suit-coswid-manifest
-
-The ISO-19770-2:2015 specification of SWID tags assumes the existence of a file system a software
-component is installed and stored in. In the case of constrained-node networks
-{{RFC7228}} or network equipment this assumption might not apply. Concise software instances in the
-form of (modular) firmware are often stored directly on a block device that is a hardware component
-of the constrained-node or network equipment. Multiple differentiable block devices or segmented
-block devices that contain parts of modular firmware components (potentially each with their own
-instance version) are already common at the time of this writing.
-
-The optional attributes that annotate a firmware package address specific characteristics of pieces
-of firmware stored directly on a block-device in contrast to software deployed in a file-system.
-In essence, trees of relative path-elements expressed by the directory and file structure in CoSWID
-tags are typically unable to represent the location of a firmware on a constrained-node (small
-thing). The composite nature of firmware and also the actual composition of small things require a
-set of attributes to address the identification of the correct component in a composite thing for
-each individual piece of firmware. A single component also potentially requires a number of distinct
-firmware parts that might depend on each other (versions). These dependencies can be limited to the
-scope of the component itself or extend to the scope of a larger composite device. In addition, it
-might not be possible (or feasible) to store a CoSWID tag document (permanently) on a small thing
-along with the corresponding piece of firmware.
-
-To address the specific characteristics of firmware, the extension points `$$payload-extension` and `$$evidence-extension` are
-used to allow for an additional type of resource description---firmware-entry---thereby increasing
-the self-descriptiveness and flexibility of CoSWID. The optional use of the extension points
-`$$payload-extension` and `$$evidence-extension` in respect to firmware MUST adhere to the following CDDL data definition.
-
-~~~~ CDDL
-<CODE BEGINS>
-{::include suit-manifest-resource.cddl}
-<CODE ENDS>
-~~~~
-
-The members of the firmware group that constitutes the content of the firmware-entry is
-based on the metadata about firmware Described in {{-cms-fw-pkgs}}. As with every semantic
-differentiation that is supported by the resource-collection type, the use of firmware-entry is
-optional. It is REQUIRED not to instantiate more than one firmware-entry, as the firmware group is
-used in a map and therefore only allows for unique labels.
-
-The optional cms-firmware-package member allows to include the actual firmware in the CoSWID tag
-that also expresses its metadata as a byte-string. This option enables a CoSWID tag to be used as a
-container or wrapper that composes both firmware and its metadata in a single document (which again
-can be signed, encrypted and/or compressed). In consequence, a CoSWID tag about firmware can be
-conveyed as an identifying document across endpoints or used as a reference integrity
-measurement as usual. Alternatively, it can also convey an actual piece of firmware, serve its
-intended purpose as a SWID tag and then - due to the lack of a location to store it - be discarded.
-
 # Signed Concise SWID Tags using COSE
 
 SWID tags, as defined in the ISO-19770-2:2015 XML schema, can include cryptographic signatures to
@@ -1276,13 +1224,18 @@ integrity measurements for files.
 The ISO-19770-2:2015 XML schema uses XML DSIG to support cryptographic signatures. CoSWID tags
 require a different signature scheme than this. COSE (CBOR Object Signing and Encryption) provides the required mechanism {{-cose-msg}}. Concise SWID can be wrapped in a COSE Single Signer Data Object
 (cose-sign1) that contains a single signature. The following CDDL defines a more restrictive subset
-of header attributes allowed by COSE tailored to suit the requirements of Concise SWID.
+of header attributes allowed by COSE tailored to suit the requirements of Concise SWID tags.
 
 ~~~~ CDDL
 <CODE BEGINS>
 {::include signed-coswid.cddl}
 <CODE ENDS>
 ~~~~
+
+# JSON SWID Tags
+
+
+
 <!--  LocalWords:  SWID verifier TPM filesystem discoverable
  -->
 

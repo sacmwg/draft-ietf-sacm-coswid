@@ -1,0 +1,269 @@
+concise-swid-tag = {
+  global-attributes,
+  tag-id => text,
+  tag-version => integer,
+  ? corpus => bool,
+  ? patch => bool,
+  ? supplemental => bool,
+  swid-name => text,
+  ? software-version => text,
+  ? version-scheme => $version-scheme,
+  ? media => media-entry,
+  ? software-meta =>  software-meta-entry / [ 2* software-meta-entry ],
+  entity => entity-entry / [ 2* entity-entry ],
+  ? link => link-entry / [ 2* link-entry ],
+  ? (( payload => payload-entry ) // ( evidence => evidence-entry )),
+  * $$coswid-extension 
+}
+
+any-uri = text
+label = text / int
+
+$version-scheme /= multipartnumeric
+$version-scheme /= multipartnumeric-suffix
+$version-scheme /= alphanumeric
+$version-scheme /= decimal
+$version-scheme /= semver
+$version-scheme /= uint / text
+multipartnumeric = 0
+multipartnumeric-suffix = 1
+alphanumeric = 2
+decimal = 3
+semver = 16384
+
+any-attribute = (
+  label => text / int / [ 2* text ] / [ 2* int ]
+)
+
+global-attributes = (
+  ? lang => text,
+  * any-attribute,
+)
+
+media-expression = media-environment / [ media-prefix,
+                                         media-environment,
+                                         media-attribute,
+                                         media-value,
+                                       ]
+media-prefix = text
+media-environment = text
+media-attribute = text
+media-value = text
+media-operation = text
+
+media-entry = [ + [ media-expression,
+                     ? [ media-operation,
+                         media-expression,
+                       ]
+                  ]
+              ]
+
+resource-collection = (
+  ? directory => directory-entry,
+  ? file => file-entry,
+  ? process => process-entry,
+  ? resource => resource-entry,
+  * $$resource-collection-extension
+)
+
+file-entry = {
+  filesystem-item,
+  ? size => integer,
+  ? file-version => text,
+  ? hash => hash-entry,
+}
+
+hash-entry = [ hash-alg-id: int,
+               hash-value: bytes,
+             ]
+
+path-elements-entry = [ [ * file-entry ],
+                        [ * directory-entry ],
+                      ]
+
+directory-entry = {
+  filesystem-item,
+  path-elements => path-elements-entry,
+}
+
+process-entry = {
+  global-attributes,
+  process-name => text,
+  ? pid => integer,
+}
+
+resource-entry = {
+  global-attributes,
+  type => text,
+}
+
+filesystem-item = (
+  global-attributes,
+  ? key => bool,
+  ? location => text,
+  fs-name => text,
+  ? root => text,
+)
+entity-entry = {
+  global-attributes,
+  entity-name => text,
+  ? reg-id => any-uri,
+  role => $role / [ 2* $role ],
+  ? thumbprint => hash-entry,
+  * $$entity-extension,
+}
+
+$role /= aggregator
+$role /= distributor
+$role /= licensor
+$role /= software-creator
+$role /= tag-creator
+$role /= uint / text
+aggregator=0
+distributor=1
+licensor=2
+software-creator=3
+tag-creator=4
+
+evidence-entry = {
+  global-attributes,
+  resource-collection,
+  ? date => time,
+  ? device-id => text,
+  * $$evidence-extension 
+}
+
+link-entry = {
+  global-attributes,
+  ? artifact => text,
+  href => any-uri,
+  ? media => media-entry,
+  ? ownership => $ownership,
+  rel => $rel,
+  ? media-type => text,
+  ? use => $use,
+}
+
+$ownership /= shared
+$ownership /= private
+$ownership /= abandon
+$ownership /= uint / text
+shared=0
+private=1
+abandon=2
+
+$rel /= ancestor 
+$rel /= component
+$rel /= feature
+$rel /= installationmedia
+$rel /= packageinstaller
+$rel /= parent
+$rel /= patches
+$rel /= requires
+$rel /= see-also
+$rel /= supersedes
+$rel /= rel-supplemental
+$rel /= uint / text
+ancestor=0
+component=1
+feature=2
+installationmedia=3
+packageinstaller=4
+parent=5
+patches=6
+requires=7
+see-also=8
+supersedes=9
+rel-supplemental=10
+
+$use /= optional
+$use /= required
+$use /= recommended
+$use /= uint / text
+optional=0
+required=1
+recommended=2
+
+software-meta-entry = {
+  global-attributes,
+  ? activation-status => text,
+  ? channel-type => text,
+  ? colloquial-version => text,
+  ? description => text,
+  ? edition => text,
+  ? entitlement-data-required => bool,
+  ? entitlement-key => text,
+  ? generator => text,
+  ? persistent-id => text,
+  ? product => text,
+  ? product-family => text,
+  ? revision => text,
+  ? summary => text,
+  ? unspsc-code => text,
+  ? unspsc-version => text,
+}
+
+payload-entry = {
+  global-attributes,
+  resource-collection,
+  * $$payload-extension 
+}
+
+tag-id = 0
+swid-name = 1
+entity = 2
+evidence = 3
+link = 4
+software-meta = 5
+payload = 6
+;   no 7? also, hash should be in the upper region as anything file
+corpus = 8
+patch = 9
+media = 10
+supplemental = 11
+tag-version = 12
+software-version = 13
+version-scheme = 14
+lang = 15
+directory = 16
+file = 17
+process = 18
+resource = 19
+size = 20
+file-version = 21
+key = 22
+location = 23
+fs-name = 24
+root = 25
+path-elements = 26
+process-name = 27
+pid = 28
+type = 29
+entity-name = 31
+reg-id = 32
+role = 33
+thumbprint = 34
+date = 35
+device-id = 36
+artifact = 37
+href = 38
+ownership = 39
+rel = 40
+media-type = 41
+use = 42
+activation-status = 43
+channel-type = 44
+colloquial-version = 45
+description = 46
+edition = 47
+entitlement-data-required = 48
+entitlement-key = 49
+generator = 50
+persistent-id = 51
+product = 52
+product-family = 53
+revision = 54
+summary = 55
+unspsc-code = 56
+unspsc-version = 57
+hash = 58
