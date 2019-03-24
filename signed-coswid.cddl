@@ -3,13 +3,13 @@ signed-coswid = #6.997(COSE-Sign1-coswid) ; see TBS7 in current COSE I-D
 label = int / tstr  ; see COSE I-D 1.4.
 values = any        ; see COSE I-D 1.4.
 
-unprotected-signed-coswid-header = {
+protected-signed-coswid-header = {
     1 => int,                   ; algorithm identifier
-    3 => "application/coswid",  ; request for CoAP IANA registry to become an int
+    3 => "application/swid+cbor",  ; request for CoAP IANA registry to become an int
     * label => values,
 }
 
-protected-signed-coswid-header = {
+unprotected-signed-coswid-header = {
     4 => bstr,                  ; key identifier
     * label => values,
 }

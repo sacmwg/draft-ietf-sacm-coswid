@@ -645,9 +645,9 @@ example “ServicePack 1” or later of a specific product installed on all devi
 they can use the revision data value to quickly identify any devices that do not
 meet this requirement).
 
-    Depending on how a software organizations distributes revisions, this value
-    could be specified in a primary (if distributed as an upgrade) or supplemental
-    (if distributed as a patch) CoSWID tag.
+Depending on how a software organizations distributes revisions, this value
+could be specified in a primary (if distributed as an upgrade) or supplemental
+(if distributed as a patch) CoSWID tag.
 
 - summary (index 55): A short (one-sentence) description of the software.
 
@@ -858,16 +858,9 @@ The following table indicates the index value to use for the entity roles define
 | 0     | Reserved        |
 | 1     | tagCreator      | The person or organization that created the containing SWID or CoSWID tag
 | 2     | softwareCreator | From {{SAM}}, "person or organization that creates a software product (3.46) or package"
-| 3     | aggregator      | From {{SWID}, "An organization or system that encapsulates software from
-their own and/or other organizations into a different distribution
-process (as in the case of virtualization), or as a completed
-system to accomplish a specific task (as in the case of a value
-added reseller)."
-| 4     | distributor     | From {{SWID}}, "An entity that furthers the marketing, selling and/or distribution
-of software from the original place of manufacture to the
-ultimate user without modifying the software, its packaging or
-its labelling."
-| 5     | licensor        | From {{SAM}} as "software licensor", "person or organization who owns or holds the rights to issue a software license for a specific software package"
+| 3     | aggregator      | From {{SWID}, "An organization or system that encapsulates software from their own and/or other organizations into a different distribution process (as in the case of virtualization), or as a completed system to accomplish a specific task (as in the case of a value added reseller)."
+| 4     | distributor     | From {{SWID}}, "An entity that furthers the marketing, selling and/or distribution of software from the original place of manufacture to the ultimate user without modifying the software, its packaging or its labelling."
+| 5     | licensor        | From {{SAM}} as "software licensor", a "person or organization who owns or holds the rights to issue a software license for a specific software package"
 
 The values above are registered in the "SWID/CoSWID Entity Role Values" registry defined in section {{iana-entity-role}}. Additional valid values will likely be registered over time. Additionally, the index values 128 through 255 have been reserved for private use.
 
@@ -1207,6 +1200,16 @@ moving content to corresponding appendices.
 - Minor reordering of map members
 - Added a first extension point to address requested flexibility for extensions beyond the
 any-element
+
+Changes from version 02 to version 03:
+
+- Updated core CDDL including the CDDL design pattern according to RFC 8428.
+
+Changes from version 03 to version 04:
+
+- Reduced complexity of the media-entry type
+- Added signature schemes
+
 
 # Contributors
 
