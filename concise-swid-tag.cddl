@@ -8,7 +8,7 @@ concise-swid-tag = {
   swid-name => text,
   ? software-version => text,
   ? version-scheme => $version-scheme,
-  ? media => media-entry,
+  ? media => text,
   ? software-meta =>  software-meta-entry / [ 2* software-meta-entry ],
   entity => entity-entry / [ 2* entity-entry ],
   ? link => link-entry / [ 2* link-entry ],
@@ -39,24 +39,6 @@ global-attributes = (
   ? lang => text,
   * any-attribute,
 )
-
-media-expression = media-environment / [ media-prefix,
-                                         media-environment,
-                                         media-attribute,
-                                         media-value,
-                                       ]
-media-prefix = text
-media-environment = text
-media-attribute = text
-media-value = text
-media-operation = text
-
-media-entry = [ + [ media-expression,
-                     ? [ media-operation,
-                         media-expression,
-                       ]
-                  ]
-              ]
 
 resource-collection = (
   ? directory => directory-entry,
@@ -104,6 +86,7 @@ filesystem-item = (
   fs-name => text,
   ? root => text,
 )
+
 entity-entry = {
   global-attributes,
   entity-name => text,
@@ -137,7 +120,7 @@ link-entry = {
   global-attributes,
   ? artifact => text,
   href => any-uri,
-  ? media => media-entry,
+  ? media => text,
   ? ownership => $ownership,
   rel => $rel,
   ? media-type => text,

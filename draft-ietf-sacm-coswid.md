@@ -111,9 +111,9 @@ informative:
   RFC4949:
   RFC7228:
   I-D.ietf-cbor-cddl: cddl
-  I-D.birkholz-tuda: tuda
   I-D.ietf-sacm-rolie-softwaredescriptor  : sw-desc
   I-D.ietf-sacm-terminology : sacm-term
+  I-D.birkholz-rats-tuda: tuda
 
 --- abstract
 
@@ -244,10 +244,7 @@ The corresponding CoSWID data definition includes two kinds of augmentation.
 
 ## Requirements Notation
 
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-"SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
-"OPTIONAL" in this document are to be interpreted as described in RFC
-2119, BCP 14 {{RFC2119}}.
+{::boilerplate bcp14}
 
 # Concise SWID Data Definition
 
@@ -286,7 +283,7 @@ The following subsections describe the different parts of the CoSWID model.
 
 ## The concise-software-identity Object   {#model-concise-software-identity}
 
-The CDDL for the main concise-swid-tag map is as follows:
+The CDDL for the main concise-swid-tag map is as follows and MUST be used to create or validate a CoSWID tag:
 
 ~~~ CDDL
 concise-swid-tag = {
@@ -1119,6 +1116,43 @@ should employ input sanitizing on the tags they ingest.
 
 #  Change Log
 
+Changes from version 03 to version 04:
+
+- Reduced representation complexity of the media-entry type
+- Added more signature schemes from COSE
+- Included a minimal required set of normative language
+- Reordering of attribute name to integer label by priority according to semantics
+
+Changes from version 02 to version 03:
+
+- Updated core CDDL including the CDDL design pattern according to RFC 8428.
+
+Changes from version 01 to version 02:
+
+- Enforced a more strict separation between the core CoSWID definition and additional usage by
+moving content to corresponding appendices.
+- Removed artifacts inherited from the reference schema provided by ISO (e.g. NMTOKEN(S))
+- Simplified the core data definition by removing group and type choices where possible
+- Minor reordering of map members
+- Added a first extension point to address requested flexibility for extensions beyond the
+any-element
+
+Changes from version 00 to version 01:
+
+- Ambiguity between evidence and payload eliminated by introducing explicit members (while still
+- allowing for "empty" SWID tags)
+- Added a relatively restrictive COSE envelope using cose_sign1 to define signed CoSWID (single signer only, at the moment)
+- Added a definition how to encode hashes that can be stored in the any-member using existing IANA tables to reference hash-algorithms
+
+Changes since adopted as a WG I-D -00:
+
+- Removed redundant any-attributes originating from the ISO-19770-2:2015 XML schema definition
+- Fixed broken multi-map members
+- Introduced a more restrictive item (any-element-map) to represent custom maps, increased restriction on types for the any-attribute, accordingly
+- Fixed X.1520 reference
+- Minor type changes of some attributes (e.g. NMTOKENS)
+- Added semantic differentiation of various name types (e,g. fs-name)
+
 Changes from version 06 to version 07:
 
 - Added type choices/enumerations based on textual definitions in 19770-2:2015
@@ -1175,42 +1209,6 @@ Changes from version 00 to version 01:
 - Fixed cardinality of type-choices including arrays
 - Included first iteration of firmware resource-collection
 
-Changes since adopted as a WG I-D -00:
-
-- Removed redundant any-attributes originating from the ISO-19770-2:2015 XML schema definition
-- Fixed broken multi-map members
-- Introduced a more restrictive item (any-element-map) to represent custom maps, increased restriction on types for the any-attribute, accordingly
-- Fixed X.1520 reference
-- Minor type changes of some attributes (e.g. NMTOKENS)
-- Added semantic differentiation of various name types (e,g. fs-name)
-
-Changes from version 00 to version 01:
-
-- Ambiguity between evidence and payload eliminated by introducing explicit members (while still
-- allowing for "empty" SWID tags)
-- Added a relatively restrictive COSE envelope using cose_sign1 to define signed CoSWID (single signer only, at the moment)
-- Added a definition how to encode hashes that can be stored in the any-member using existing IANA tables to reference hash-algorithms
-
-Changes from version 01 to version 02:
-
-- Enforced a more strict separation between the core CoSWID definition and additional usage by
-moving content to corresponding appendices.
-- Removed artifacts inherited from the reference schema provided by ISO (e.g. NMTOKEN(S))
-- Simplified the core data definition by removing group and type choices where possible
-- Minor reordering of map members
-- Added a first extension point to address requested flexibility for extensions beyond the
-any-element
-
-Changes from version 02 to version 03:
-
-- Updated core CDDL including the CDDL design pattern according to RFC 8428.
-
-Changes from version 03 to version 04:
-
-- Reduced complexity of the media-entry type
-- Added signature schemes
-
-
 # Contributors
 
 --- back
@@ -1226,7 +1224,7 @@ integrity measurements for files.
 
 The ISO-19770-2:2015 XML schema uses XML DSIG to support cryptographic signatures. CoSWID tags
 require a different signature scheme than this. COSE (CBOR Object Signing and Encryption) provides the required mechanism {{-cose-msg}}. Concise SWID can be wrapped in a COSE Single Signer Data Object
-(cose-sign1) that contains a single signature. The following CDDL defines a more restrictive subset
+(COSE_Sign1) that contains a single signature. The following CDDL defines a more restrictive subset
 of header attributes allowed by COSE tailored to suit the requirements of Concise SWID tags.
 
 ~~~~ CDDL
@@ -1235,14 +1233,10 @@ of header attributes allowed by COSE tailored to suit the requirements of Concis
 <CODE ENDS>
 ~~~~
 
-# JSON SWID Tags
+Optionally, the COSE_Sign structure that allows for more than one signature to be applied to a CoSWID tag MAY be used. The corresponding usage scenarios are domain-specific and require well-defined application guidance. Representation of the corresponding guidance is out-of-scope of this document.
 
-
+Additionally, the COSE Header counter signature MAY be used as an attribute in the unprotected header map of the COSE envelope of a CoSWID. The application of counter signing enables second parties to provide a signature on a signature allowing for a proof that a signature existed at a given time (i.e., a timestamp).
 
 <!--  LocalWords:  SWID verifier TPM filesystem discoverable
  -->
-
-
-
-
 
