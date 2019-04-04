@@ -199,7 +199,7 @@ evidence = 3
 link = 4
 software-meta = 5
 payload = 6
-;   no 7? also, hash should be in the upper region as anything file
+hash = 7
 corpus = 8
 patch = 9
 media = 10
@@ -249,4 +249,3 @@ revision = 54
 summary = 55
 unspsc-code = 56
 unspsc-version = 57
-hash = 58

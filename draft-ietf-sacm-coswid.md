@@ -438,7 +438,7 @@ either a single integer or text string, or an array of integers or text strings.
 
 ## The media Object   {#model-media}
 
-The CDDL for the entity object is as follows:
+The CDDL for the entity object is represented as a text string that follows the definition of
 
 ~~~ CDDL
 media = (10: [ + [ media-expression,
