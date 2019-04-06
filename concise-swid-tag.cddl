@@ -40,6 +40,10 @@ global-attributes = (
   * any-attribute,
 )
 
+hash-entry = [ hash-alg-id: int,
+               hash-value: bytes,
+             ]
+
 resource-collection = (
   ? directory => directory-entry,
   ? file => file-entry,
@@ -53,11 +57,8 @@ file-entry = {
   ? size => integer,
   ? file-version => text,
   ? hash => hash-entry,
+  * $$file-extension
 }
-
-hash-entry = [ hash-alg-id: int,
-               hash-value: bytes,
-             ]
 
 path-elements-entry = [ [ * file-entry ],
                         [ * directory-entry ],
@@ -66,17 +67,20 @@ path-elements-entry = [ [ * file-entry ],
 directory-entry = {
   filesystem-item,
   path-elements => path-elements-entry,
+  * $$directory-extension
 }
 
 process-entry = {
   global-attributes,
   process-name => text,
   ? pid => integer,
+  * $$process-extension
 }
 
 resource-entry = {
   global-attributes,
   type => text,
+  * $$resource-extension
 }
 
 filesystem-item = (
@@ -108,13 +112,6 @@ licensor=2
 software-creator=3
 tag-creator=4
 
-evidence-entry = {
-  global-attributes,
-  resource-collection,
-  ? date => time,
-  ? device-id => text,
-  * $$evidence-extension 
-}
 
 link-entry = {
   global-attributes,
@@ -125,6 +122,7 @@ link-entry = {
   rel => $rel,
   ? media-type => text,
   ? use => $use,
+  * $$link-extension 
 }
 
 $ownership /= shared
@@ -190,6 +188,14 @@ payload-entry = {
   global-attributes,
   resource-collection,
   * $$payload-extension 
+}
+
+evidence-entry = {
+  global-attributes,
+  resource-collection,
+  ? date => time,
+  ? device-id => text,
+  * $$evidence-extension 
 }
 
 tag-id = 0
