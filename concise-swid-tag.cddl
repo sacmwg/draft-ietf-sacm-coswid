@@ -182,6 +182,7 @@ software-meta-entry = {
   ? summary => text,
   ? unspsc-code => text,
   ? unspsc-version => text,
+  * $$meta-extension,
 }
 
 payload-entry = {
