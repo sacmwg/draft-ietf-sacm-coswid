@@ -329,10 +329,10 @@ $version-scheme /= alphanumeric
 $version-scheme /= decimal
 $version-scheme /= semver
 $version-scheme /= uint / text
-multipartnumeric = 0
-multipartnumeric-suffix = 1
-alphanumeric = 2
-decimal = 3
+multipartnumeric = 1
+multipartnumeric-suffix = 2
+alphanumeric = 3
+decimal = 4
 semver = 16384
 ~~~
 
@@ -464,17 +464,17 @@ reg-id = 32
 role = 33
 thumbprint = 34
 
+$role /= tag-creator
+$role /= software-creator
 $role /= aggregator
 $role /= distributor
 $role /= licensor
-$role /= software-creator
-$role /= tag-creator
 $role /= uint / text
-aggregator=0
-distributor=1
-licensor=2
-software-creator=3
-tag-creator=4
+tag-creator=1
+software-creator=2
+aggregator=3
+distributor=4
+licensor=5
 ~~~
 
 The following describes each child item of this group.
@@ -531,9 +531,9 @@ $ownership /= shared
 $ownership /= private
 $ownership /= abandon
 $ownership /= uint / text
-shared=0
-private=1
-abandon=2
+shared=1
+private=2
+abandon=3
 
 $rel /= ancestor 
 $rel /= component
@@ -547,25 +547,25 @@ $rel /= see-also
 $rel /= supersedes
 $rel /= rel-supplemental
 $rel /= uint / text
-ancestor=0
-component=1
-feature=2
-installationmedia=3
-packageinstaller=4
-parent=5
-patches=6
-requires=7
-see-also=8
-supersedes=9
-rel-supplemental=10
+ancestor=1
+component=2
+feature=3
+installationmedia=4
+packageinstaller=5
+parent=6
+patches=7
+requires=8
+see-also=9
+supersedes=10
+rel-supplemental=11
 
 $use /= optional
 $use /= required
 $use /= recommended
 $use /= uint / text
-optional=0
-required=1
-recommended=2
+optional=1
+required=2
+recommended=3
 ~~~
 
 The following describes each child item of this group.
@@ -698,7 +698,7 @@ together in respect to reporting systems.
 - revision (index 54): A textual value indicating the informal or colloquial representation of the sub-version of the given
 product (ie, SP1, R2, RC1, Beta 2, etc).  Note that the software-version specified in the concise-swid-tag group
 will provide very exact version details. Conversely, the revision item is intended for use in environments where reporting on the informal
-or colloquial representation of the software is important. For example, when an organization needs “ServicePack 1” or later of a specific product installed on all devices,
+or colloquial representation of the software is important. For example, when an organization needs "ServicePack 1" or later of a specific product installed on all devices,
 they can use the revision data value to quickly identify any devices that do not
 meet this requirement.
 
@@ -843,7 +843,7 @@ to the CoSWID tag document location in the (composite) file-system hierarchy.
 - path-elements (index 26): This group provides the ability to apply a directory structure to the path expressions for
 files defined in a payload or evidence items.
 
-- process-name (index 27): The process name as it will be found in the endpoints’s process table.
+- process-name (index 27): The process name as it will be found in the endpoint's process table.
 
 - pid (index 28): The process ID for the process in execution that can be included in the process
 item as part of an evidence tag.
@@ -973,9 +973,9 @@ The following table indicates the index value to use for the link-entry group's 
 
 | Index | Use Type    | Definition
 |---
-| 1     | optional    | From {{SWID}}, "Not absolutely required; the \[Link\]’d software is installed only when specified."
-| 2     | required    | From {{SWID}}, "The \[Link\]’d software is absolutely required for an operation software installation."
-| 3     | recommended | From {{SWID}}, "Not absolutely required; the \[Link\]’d software is installed unless specified otherwise."
+| 1     | optional    | From {{SWID}}, "Not absolutely required; the \[Link\]'d software is installed only when specified."
+| 2     | required    | From {{SWID}}, "The \[Link\]'d software is absolutely required for an operation software installation."
+| 3     | recommended | From {{SWID}}, "Not absolutely required; the \[Link\]'d software is installed unless specified otherwise."
 
 The values above are registered in the IANA "SWID/CoSWID Link Use Values" registry defined in section {{iana-link-use}}. Additional valid values will likely be registered over time. Additionally, the index values 128 through 255 have been reserved for private use.
 
