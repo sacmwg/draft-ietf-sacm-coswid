@@ -113,6 +113,14 @@ informative:
   RFC8520: mud
   I-D.ietf-cbor-cddl: cddl
   I-D.birkholz-rats-tuda: tuda
+  CamelCase:
+    target: http://wiki.c2.com/?CamelCase
+    title: UpperCamelCase
+    date: 2014-08-29
+  KebabCase:
+    target: http://wiki.c2.com/?KebabCase
+    title: KebabCase
+    date: 2014-12-18
 
 --- abstract
 
@@ -221,7 +229,7 @@ Binary Object Representation (CBOR) {{-cbor}}. The structure of a CoSWID is desc
 Data Definition Language (CDDL) {{-cddl}}. The resulting CoSWID data
 definition is aligned to the information able to be expressed with the XML schema definition of ISO-19770-2:2015
 {{SWID}}. This alignment allows both SWID and CoSWID tags to represent a common set of SWID information and to support all SWID tag use
-cases. To achieve this end, the CDDL representation includes every SWID tag field and attribute. 
+cases. To achieve this end, the CDDL representation includes every SWID tag field and attribute.
 
 The vocabulary, i.e., the CDDL names of the types and members used in
 the CoSWID data definition, are mapped to more concise labels represented as
@@ -235,12 +243,12 @@ XML attribute and element names defined in ISO/IEC 19770-2:2015.
 
 # Concise SWID Data Definition
 
-The following is a CDDL representation for a CoSWID tag. The CamelCase notation used in the XML schema definition is changed to a hyphen-separated
-notation (e.g. ResourceCollection is named resource-collection) in the CoSWID data definition.
+The following is a CDDL representation for a CoSWID tag. The CamelCase {{CamelCase}} notation used in the XML schema definition is changed to a hyphen-separated
+notation {{KebabCase}} (e.g. ResourceCollection is named resource-collection) in the CoSWID data definition. In essence, {{KebabCase}} "looks-like-this".
 This deviation from the original notation used in the XML representation reduces ambiguity when referencing
 certain attributes in corresponding textual descriptions. An attribute referred by its name in CamelCase
 notation explicitly relates to XML SWID tags, an attribute referred by its name in
-hyphen-separated notation explicitly relates to CoSWID tags. This approach simplifies the
+KebabCase notation explicitly relates to CoSWID tags. This approach simplifies the
 composition of further work that reference both XML SWID and CoSWID documents.
 
 Human-readable names of members in the CDDL data definition are mapped to integer indices via a block of rules at the bottom
@@ -306,7 +314,7 @@ concise-swid-tag = {
   entity => entity-entry / [ 2* entity-entry ],
   ? link => link-entry / [ 2* link-entry ],
   ? (( payload => payload-entry ) // ( evidence => evidence-entry )),
-  * $$coswid-extension 
+  * $$coswid-extension
 }
 tag-id = 0
 swid-name = 1
@@ -404,7 +412,7 @@ when the endpoint is scanned. This item represents evidence for why software is 
 
 ##  concise-swid-tag Co-constraints
 
-The following co-constraints apply to the information provided by in the concise-swid-tag group. 
+The following co-constraints apply to the information provided by in the concise-swid-tag group.
 
 - Only one of the patch and supplemental items MUST be set to "true", or the patch and supplemental items MUST be set to "false" or be omitted.
 
@@ -535,7 +543,7 @@ shared=1
 private=2
 abandon=3
 
-$rel /= ancestor 
+$rel /= ancestor
 $rel /= component
 $rel /= feature
 $rel /= installationmedia
