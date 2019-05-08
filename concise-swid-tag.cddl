@@ -25,11 +25,6 @@ $version-scheme /= alphanumeric
 $version-scheme /= decimal
 $version-scheme /= semver
 $version-scheme /= uint / text
-multipartnumeric = 1
-multipartnumeric-suffix = 2
-alphanumeric = 3
-decimal = 4
-semver = 16384
 
 any-attribute = (
   label => text / int / [ 2* text ] / [ 2* int ]
@@ -59,11 +54,6 @@ $role /= aggregator
 $role /= distributor
 $role /= licensor
 $role /= uint / text
-tag-creator=1
-software-creator=2
-aggregator=3
-distributor=4
-licensor=5
 
 link-entry = {
   global-attributes,
@@ -81,9 +71,6 @@ $ownership /= shared
 $ownership /= private
 $ownership /= abandon
 $ownership /= uint / text
-shared=1
-private=2
-abandon=3
 
 $rel /= ancestor 
 $rel /= component
@@ -97,25 +84,11 @@ $rel /= see-also
 $rel /= supersedes
 $rel /= rel-supplemental
 $rel /= uint / text
-ancestor=1
-component=2
-feature=3
-installationmedia=4
-packageinstaller=5
-parent=6
-patches=7
-requires=8
-see-also=9
-supersedes=10
-rel-supplemental=11
 
 $use /= optional
 $use /= required
 $use /= recommended
 $use /= uint / text
-optional=1
-required=2
-recommended=3
 
 software-meta-entry = {
   global-attributes,
@@ -198,6 +171,7 @@ evidence-entry = {
   * $$evidence-extension 
 }
 
+; "global map member" integer indexes
 tag-id = 0
 swid-name = 1
 entity = 2
@@ -255,3 +229,40 @@ revision = 54
 summary = 55
 unspsc-code = 56
 unspsc-version = 57
+
+; "version-scheme" integer indexes
+multipartnumeric = 1
+multipartnumeric-suffix = 2
+alphanumeric = 3
+decimal = 4
+semver = 16384
+
+; "role" integer indexes
+tag-creator=1
+software-creator=2
+aggregator=3
+distributor=4
+licensor=5
+
+; ownership integer indexes
+shared=1
+private=2
+abandon=3
+
+; "rel" integer indexes
+ancestor=1
+component=2
+feature=3
+installationmedia=4
+packageinstaller=5
+parent=6
+patches=7
+requires=8
+see-also=9
+supersedes=10
+rel-supplemental=11
+
+; "use" integer indexes
+optional=1
+required=2
+recommended=3
