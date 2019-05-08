@@ -261,7 +261,7 @@ In CBOR, an array is encoded using bytes that identify the array, and the array'
 _name_ = (_label_: _data_ / [ 2* _data_ ])
 ~~~
 
-The CDDL above allows for a more efficient CBOR encoding of the data when a single value is used by avoiding the need to first encode the array. Conversely, an array is used for two or more values. This modeling pattern is used frequently in the CoSWID CDDL data definition in such cases.
+The CDDL rule above allows for a more efficient CBOR encoding of the data when a single value is used by avoiding the need to first encode the array. Conversely, an array is used for two or more values. This modeling pattern is used frequently in the CoSWID CDDL data definition in such cases.
 
 The following subsections describe the different parts of the CoSWID model.
 
@@ -276,9 +276,9 @@ The corresponding CoSWID data definition includes two kinds of augmentation.
 
 - The inclusion of extension points in the CoSWID data definition using CDDL sockets (see {{-cddl}} section 3.9). The use of CDDL sockets allow for well-formed extensions to be defined in supplementary CDDL descriptions that support additional uses of CoSWID tags that go beyond the original scope of ISO-19770-2:2015 tags. This extension mechanism can also be used to update the CoSWID format as revisions to ISO-19770-2 are published.
 
-The following CDDL sockets are defined in this document, which allow the addition of new information structures to their respective CDDL groups.
+The following CDDL sockets (extension points) are defined in this document, which allow the addition of new information structures to their respective CDDL groups.
 
-| Group | CDDL Socket | Defined in
+| Map Name | CDDL Socket | Defined in
 |---
 | concise-swid-tag | $$coswid-extension | {{model-concise-swid-tag}}
 | entity-entry | $$entity-extension | {{model-entity}}
@@ -290,6 +290,15 @@ The following CDDL sockets are defined in this document, which allow the additio
 | resource-entry | $$resource-extension | {{model-resource-collection}}
 | payload-entry | $$payload-extension  | {{model-payload}}
 | evidence-entry | $$evidence-extension | {{model-evidence}}
+
+The following CDDL sockets defined in this document allow for adding new values to corresponding type-choices (i.e. to represent enumerations) via custom CDDL data definitions.
+
+| Enumeration Name | CDDL Socket | Defined in
+| version-scheme | $version-scheme | {{model-concise-swid-tag}}
+| role | $role | {{model-entity}}
+| ownership | $ownership | {{model-link}}
+| rel | $rel | {{model-link}}
+| use | $use | {{model-link}}
 
 The CoSWID Items Registry defined in {{iana-coswid-items}} provides a registration mechanism allowing new items, and their associated index values, to be added to the CoSWID model through the use of the CDDL sockets described above. This registration mechanism will provide for well-known index values for data items in CoSWID extensions, allowing these index values to be recognized by implementations supporting a given extension.
 
