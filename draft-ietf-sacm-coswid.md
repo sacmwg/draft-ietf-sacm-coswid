@@ -1,6 +1,6 @@
 ---
 title: Concise Software Identification Tags
-abbrev: COSWID
+abbrev: CoSWID
 docname: draft-ietf-sacm-coswid-latest
 stand_alone: true
 ipr: trust200902
@@ -54,10 +54,12 @@ author:
 normative:
   RFC2119:
   RFC5646:
-  RFC7049: cbor
-  RFC7252: coap
+  RFC7049:
+  RFC7252:
   RFC8126:
+  RFC8152: cose-msg
   RFC8288:
+  RFC8610:
   X.1520:
     title: "Recommendation ITU-T X.1520 (2014), Common vulnerabilities and exposures"
     date: 2011-04-20
@@ -103,7 +105,6 @@ normative:
       -
         ins: T. Preston-Werner
         name: Tom Preston-Werner
-  RFC8152: cose-msg
   W3C.REC-xpath20-20101214: xpath
   W3C.REC-css3-mediaqueries-20120619: css3-mediaqueries
 
@@ -111,7 +112,6 @@ informative:
   RFC4122:
   RFC8322: rolie
   RFC8520: mud
-  I-D.ietf-cbor-cddl: cddl
   I-D.birkholz-rats-tuda: tuda
   CamelCase:
     target: http://wiki.c2.com/?CamelCase
@@ -225,8 +225,8 @@ describe a software component's installation image on an installation media, whi
 ## Concise SWID Format
 
 This document defines the CoSWID tag format, a more concise representation of SWID information in the Concise
-Binary Object Representation (CBOR) {{-cbor}}. The structure of a CoSWID is described via the Concise
-Data Definition Language (CDDL) {{-cddl}}. The resulting CoSWID data
+Binary Object Representation (CBOR) {{RFC7049}}. The structure of a CoSWID is described via the Concise
+Data Definition Language (CDDL) {{RFC8610}}. The resulting CoSWID data
 definition is aligned to the information able to be expressed with the XML schema definition of ISO-19770-2:2015
 {{SWID}}. This alignment allows both SWID and CoSWID tags to represent a common set of SWID information and to support all SWID tag use
 cases. To achieve this end, the CDDL representation includes every SWID tag field and attribute.
@@ -254,7 +254,7 @@ composition of further work that reference both XML SWID and CoSWID documents.
 Human-readable labels of members in CDDL map data definitions are mapped to integer indices via a block of rules at the bottom of the definition. The 57 character strings of the SWID vocabulary that would have to be
 stored or transported in full if using the original vocabulary are replaced.
 
-In CBOR, an array is encoded using bytes that identify the array, and the array's length or stop point (see {{-cbor}}). To make items that support 1 or more values, the following CDDL notion is used.
+In CBOR, an array is encoded using bytes that identify the array, and the array's length or stop point (see {{RFC7049}}). To make items that support 1 or more values, the following CDDL notion is used.
 
 ~~~ CDDL
 _name_ = (_label_: _data_ / [ 2* _data_ ])
@@ -273,7 +273,7 @@ The corresponding CoSWID data definition includes two kinds of augmentation.
   the "any attribute" of an ISO-19770-2:2015 in XML representation. These are
   covered in {{model-global-attributes}}.
 
-- The inclusion of extension points in the CoSWID data definition using CDDL sockets (see {{-cddl}} section 3.9). The use of CDDL sockets allow for well-formed extensions to be defined in supplementary CDDL descriptions that support additional uses of CoSWID tags that go beyond the original scope of ISO-19770-2:2015 tags. This extension mechanism can also be used to update the CoSWID format as revisions to ISO-19770-2 are published.
+- The inclusion of extension points in the CoSWID data definition using CDDL sockets (see {{RFC8610}} section 3.9). The use of CDDL sockets allow for well-formed extensions to be defined in supplementary CDDL descriptions that support additional uses of CoSWID tags that go beyond the original scope of ISO-19770-2:2015 tags. This extension mechanism can also be used to update the CoSWID format as revisions to ISO-19770-2 are published.
 
 The following CDDL sockets (extension points) are defined in this document, which allow the addition of new information structures to their respective CDDL groups.
 
@@ -1244,7 +1244,7 @@ Change controller: IESG
 IANA is requested to assign a CoAP Content-Format ID for the CoSWID
 media type in the "CoAP Content-Formats" sub-registry, from the "IETF
 Review or IESG Approval" space (256..999), within the "CoRE
-Parameters" registry {{-coap}}:
+Parameters" registry {{RFC7252}}:
 
 | Media type            | Encoding | ID    | Reference |
 | application/swid+cbor | -        | TBD1 | RFC-AAAA  |
@@ -1444,7 +1444,7 @@ important if the integrity of the tag is important, such as when the tag is prov
 integrity measurements for files.
 
 The ISO-19770-2:2015 XML schema uses XML DSIG to support cryptographic signatures. CoSWID tags
-require a different signature scheme than this. COSE (CBOR Object Signing and Encryption) provides the required mechanism {{-cose-msg}}. Concise SWID can be wrapped in a COSE Single Signer Data Object
+require a different signature scheme than this. COSE (CBOR Object Signing and Encryption) provides the required mechanism {{RFC8152}}. Concise SWID can be wrapped in a COSE Single Signer Data Object
 (COSE_Sign1) that contains a single signature. The following CDDL defines a more restrictive subset
 of header attributes allowed by COSE tailored to suit the requirements of Concise SWID tags.
 
