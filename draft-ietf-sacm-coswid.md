@@ -290,17 +290,19 @@ The following CDDL sockets (extension points) are defined in this document, whic
 | payload-entry | $$payload-extension  | {{model-payload}}
 | evidence-entry | $$evidence-extension | {{model-evidence}}
 
+The CoSWID Items Registry defined in {{iana-coswid-items}} provides a registration mechanism allowing new items, and their associated index values, to be added to the CoSWID model through the use of the CDDL sockets described above. This registration mechanism provides for well-known index values for data items in CoSWID extensions, allowing these index values to be recognized by implementations supporting a given extension.
+
 The following CDDL sockets defined in this document allow for adding new values to corresponding type-choices (i.e. to represent enumerations) via custom CDDL data definitions.
 
 | Enumeration Name | CDDL Socket | Defined in
 |---
 | version-scheme | $version-scheme | {{indexed-version-scheme}}
 | role | $role | {{indexed-entity-role}}
-| ownership | $ownership | {{model-link}}
-| rel | $rel | {{indexed-link-use}}
-| use | $use | {{model-link}}
+| ownership | $ownership | {{indexed-link-ownership}}
+| rel | $rel | {{indexed-link-rel}}
+| use | $use | {{indexed-link-use}}
 
-The CoSWID Items Registry defined in {{iana-coswid-items}} provides a registration mechanism allowing new items, and their associated index values, to be added to the CoSWID model through the use of the CDDL sockets described above. This registration mechanism will provide for well-known index values for data items in CoSWID extensions, allowing these index values to be recognized by implementations supporting a given extension.
+A number of SWID/CoSWID value registries are also defined in {{iana-value-registries}} that allow new valid values to be registered with IANA for the enumerations above. This registration mechanism supports the definition of new well-known index values and names for new enumeration values used by SWID and CoSWID. This registration mechanism allows new standardized enumerated values to be shared between both specifications (and implementations) over time.
 
 {: #model-concise-swid-tag}
 ## The concise-swid-tag Group
@@ -377,7 +379,15 @@ component. If a CoSWID tag is for a patch, the patch item MUST be set to "true".
 
 - software-version (index 13): A textual value representing the specific release or development version of the software component.
 
-- version-scheme (index 14): An 8-bit integer or textual value representing the versioning scheme used for the software-version item. If an integer value is used it MUST be a value from the SWID/CoSWID Version Schema Values Registry (see section {{iana-version-scheme}} or a value in the private use range: 32768-65535.
+- version-scheme (index 14): An 8-bit integer or textual value representing the versioning scheme used for the software-version item. If an integer value is used it MUST be a value from the SWID/CoSWID Version Scheme Values Registry (see section {{iana-version-scheme}} or a value in the private use range: 32768-65535.
+
+  An initial set of pre-defined version-scheme index and text values are defined in {{indexed-version-scheme}} that are based on the version-scheme values defined in {{SWID}}. These pre-defined version-scheme values are registered with IANA in the "SWID/CoSWID Version Scheme Values" registry {{iana-version-scheme}}, and MAY be expanded in the future.
+
+  The value of an ownership item MUST be one of the following:
+
+  - The index (preferred) or string value of a role from the IANA in the "SWID/CoSWID Version Scheme Values" registry.
+  - An index value in the range 32768 through 65535, to indicate that a private use index value is used.
+  - A string value prefixed with "x_", to indicate that a private use string value is used.
 
 - media (index 10): This text value is a hint to the tag consumer to understand what this tag
 applies to. This item represents a
@@ -492,13 +502,20 @@ etc.) for the referenced entity. The value of an
 registration ID MUST be a RFC 3986 URI. The scope SHOULD be the scope of an
 organization. In a given scope, the registration id MUST be used consistently for CoSWID tag production.
 
-- role (index 33): The relationship(s) between the entity, and this tag or the referenced software component. The role of an entity MAY include any role
-value; however, the following initial pre-defined roles are provided: "aggregator", "distributor",
-"licensor", "software-creator", and "tag-creator". All pre-defined role index and text values are defined in the IANA "SWID/CoSWID Entity Role Values" registry {{indexed-entity-role}}. Use of index values instead of text for these pre-defined roles allows a CoSWID to be more concise.
+- role (index 33): The relationship(s) between the entity, and this tag or the referenced software component. Use of index values instead of text for these pre-defined roles allows a CoSWID to be more concise.
 
-  An entity item MUST be provided with the role of "tag-creator" for every CoSWID tag. This indicates the organization that created the CoSWID tag.
+  An initial set of pre-defined role index and text values are defined in {{indexed-entity-role}} that are based on the roles defined in {{SWID}}. These pre-defined roles are registered with IANA in the "SWID/CoSWID Entity Role Values" registry {{iana-entity-role}}, and MAY be expanded in the future.
 
-  An entity item SHOULD be provided with the role of "software-creator" for every CoSWID tag, if this information is known to the tag creator. This indicates the organization that created the referenced software component.
+  The value of a role item MUST be one of the following:
+
+  - The index (preferred) or string value of a role from the IANA in the "SWID/CoSWID Entity Role Values" registry.
+  - An index value in the range 128 through 255, to indicate that a private use index value is used.
+  - A string value prefixed with "x_", to indicate that a private use string value is used.
+
+  The following additional requirements exist for the use of the "role" item:
+
+  - An entity item MUST be provided with the role of "tag-creator" for every CoSWID tag. This indicates the organization that created the CoSWID tag.
+  - An entity item SHOULD be provided with the role of "software-creator" for every CoSWID tag, if this information is known to the tag creator. This indicates the organization that created the referenced software component.
 
 - thumbprint (index 34): The value of the thumbprint item provides an integer-based hash algorithm identifier (hash-alg-id) and a byte string value (hash-value) that contains the corresponding hash value (i.e. the
 thumbprint) of the signing entity's public key certificate. This provides an indicator of which entity signed the CoSWID tag, which will typically be the tag creator. If the hash-alg-id is not known, then the integer value "0" MUST be used. This ensures parity between the SWID tag specification {{SWID}}, which does not allow an algorithm to be identified for this field. See {{model-hash-entry}} for more details on the use of the hash-entry data structure.
@@ -538,7 +555,7 @@ shared=1
 private=2
 abandon=3
 
-$rel /= ancestor 
+$rel /= ancestor
 $rel /= component
 $rel /= feature
 $rel /= installationmedia
@@ -548,7 +565,7 @@ $rel /= patches
 $rel /= requires
 $rel /= see-also
 $rel /= supersedes
-$rel /= rel-supplemental
+$rel /= supplemental
 $rel /= uint / text
 ancestor=1
 component=2
@@ -560,7 +577,7 @@ patches=7
 requires=8
 see-also=9
 supersedes=10
-rel-supplemental=11
+supplemental=11
 
 $use /= optional
 $use /= required
@@ -592,23 +609,39 @@ The following describes each member of this map.
 - media (index 10): A hint to the consumer of the link to what the target item is applicable for. This item represents a
 query as defined by the W3C Media Queries Recommendation (see {{-css3-mediaqueries}}). See also media defined in {{model-concise-swid-tag}}.
 
-- ownership (index 39): Used when the "href" item references another software component to indicate the degree of ownership between the software component referenced by the COSWID tag and the software component referenced by the link. Valid enumerations are: abandon, private, shared.
+- ownership (index 39): Used when the "href" item references another software component to indicate the degree of ownership between the software component referenced by the COSWID tag and the software component referenced by the link.
 
-The enumerated values have the following meanings:
+  An initial set of pre-defined ownership index and text values are defined in {{indexed-link-ownership}} that are based on the ownership values defined in {{SWID}}. These pre-defined ownership values are registered with IANA in the "SWID/CoSWID Link Ownership Values" registry {{iana-link-ownership}}, and MAY be expanded in the future.
 
-| ownership | semantics |
-|---
-| abandon | If the software component referenced by the CoSWID tag is uninstalled, then the referenced software SHOULD not be uninstalled
-| private | If the software component referenced by the CoSWID tag is uninstalled, then the referenced software SHOULD be uninstalled too.
-| shared | If the software component referenced by the CoSWID tag is uninstalled, then the referenced software SHOULD be uninstalled if no other components sharing the software.
+  The value of an ownership item MUST be one of the following:
 
-- rel (index 40): Identifies the relationship between this CoSWID and the target resource as defined by {{RFC8288}}. Relationships can be
-identified by referencing a "Relation Name" from the IANA "Link Relation Types" registry: https://www.iana.org/assignments/link-relations/link-relations.xhtml.
+  - The index (preferred) or string value of a role from the IANA in the "SWID/CoSWID Link Ownership Values" registry.
+  - An index value in the range 128 through 255, to indicate that a private use index value is used.
+  - A string value prefixed with "x_", to indicate that a private use string value is used.
+
+- rel (index 40): Identifies the relationship between this CoSWID and the target resource indicated by the "href" item.
+
+  An initial set of pre-defined rel index and text values are defined in {{indexed-link-rel}} that are based on the rel values defined in {{SWID}}. These pre-defined rel values are registered with IANA in the "SWID/CoSWID Link Relationship Values" registry {{iana-link-rel}}, and MAY be expanded in the future.
+
+  The value of a rel item MUST be one of the following:
+
+  - The index (preferred) or string value of a role from the IANA in the "SWID/CoSWID Link Relationship Values" registry.
+  - An index value in the range 128 through 255, to indicate that a private use index value is used.
+  - A string value prefixed with "x_", to indicate that a private use string value is used.
+  - A string value, as defined by {{RFC8288}}, corresponding to a "Relation Name" from the IANA "Link Relation Types" registry: https://www.iana.org/assignments/link-relations/link-relations.xhtml. When a string value defined in the IANA "SWID/CoSWID Link Relationship Values" registry matches a Relation Name defined in the IANA "Link Relation Types" registry, the value in the IANA "SWID/CoSWID Link Relationship Values" registry MUST be used instead, as this relationship has a specialized meaning in the context of a SWID/CoSWID tag.
 
 - media-type (index 41): The media type for the target resource, providing a resource consumer with
 a hint of what type of resource to expect. Media types are identified by referencing a "Name" from the IANA "Media Types" registry: http://www.iana.org/assignments/media-types/media-types.xhtml.
 
-- use (index 42): Determines if the referenced software component has to be installed before installing the tagged software component. Valid enumerations are: required, recommended, optional, which are defined in {{indexed-link-use}}.
+- use (index 42): Determines if the referenced software component has to be installed before installing the tagged software component.
+
+  An initial set of pre-defined use index and text values are defined in {{indexed-link-use}} that are based on the use values defined in {{SWID}}. These pre-defined use values are registered with IANA in the "SWID/CoSWID Link Use Values" registry {{iana-link-use}}, and MAY be expanded in the future.
+
+  The value of an ownership item MUST be one of the following:
+
+  - The index (preferred) or string value of a role from the IANA in the "SWID/CoSWID Link Use Values" registry.
+  - An index value in the range 128 through 255, to indicate that a private use index value is used.
+  - A string value prefixed with "x_", to indicate that a private use string value is used.
 
 - $$link-extension: This CDDL socket can be used to extend the link-entry map model. See {{model-extension}}.
 
@@ -934,12 +967,12 @@ The following table contains a set of values for use in the concise-swid-tag gro
 | 4     | decimal                 | A floating point number (e.g., 1.25 is less than 1.3)
 | 16384 | semver                  | Follows the {{SEMVER}} specification
 
-The values above are registered in the IANA "SWID/CoSWID Version Schema Values" registry defined in section {{iana-version-scheme}}. Additional entires will likely be registered over time in this registry. Additionally, the index values 32768 through 65535 have been reserved for private use.
+The values above are registered in the IANA "SWID/CoSWID Version Scheme Values" registry defined in section {{iana-version-scheme}}. Additional entires will likely be registered over time in this registry. Additionally, the index values 32768 through 65535 have been reserved for private use.
 
 {: #indexed-entity-role}
 ## Entity Role Values
 
-The following table indicates the index value to use for the entity-entry group's role item (see {{model-entity}}). These values match the entity roles defined in the ISO/IEC 19770-2:2015 {{SWID}} specification. Index value indicates the value to use as the role item's value. The Role Name provides human-readable text for the value. The Definition describes the semantic meaning of each entry.
+The following table indicates the index value to use for the entity-entry group's role item (see {{model-entity}}). These values match the entity roles defined in the ISO/IEC 19770-2:2015 {{SWID}} specification. The "Index" value indicates the value to use as the role item's value. The "Role Name" provides human-readable text for the value. The "Definition" describes the semantic meaning of each entry.
 
 | Index | Role Name       | Definition
 |---
@@ -951,10 +984,44 @@ The following table indicates the index value to use for the entity-entry group'
 
 The values above are registered in the IANA "SWID/CoSWID Entity Role Values" registry defined in section {{iana-entity-role}}. Additional valid values will likely be registered over time. Additionally, the index values 128 through 255 have been reserved for private use.
 
-{: #indexed-link-use}
-## Use Values
+{: #indexed-link-ownership}
+## Link Ownership Values
 
-The following table indicates the index value to use for the link-entry group's use item (see {{model-link}}). These values match the link use values defined in the ISO/IEC 19770-2:2015 {{SWID}} specification. Index value indicates the value to use as the link-entry group use item's value. The Use Type provides human-readable text for the value. The Definition describes the semantic meaning of each entry.
+The following table indicates the index value to use for the link-entry group's ownership item (see {{model-link}}). These values match the link ownership values defined in the ISO/IEC 19770-2:2015 {{SWID}} specification. The "Index" value indicates the value to use as the link-entry group ownership item's value. The "Ownership Type" provides human-readable text for the value. The "Definition" describes the semantic meaning of each entry.
+
+| Index | Ownership Type | Definition |
+|---
+| 1 | abandon | If the software component referenced by the CoSWID tag is uninstalled, then the referenced software SHOULD not be uninstalled
+| 2 | private | If the software component referenced by the CoSWID tag is uninstalled, then the referenced software SHOULD be uninstalled as well.
+| 3 | shared | If the software component referenced by the CoSWID tag is uninstalled, then the referenced software SHOULD be uninstalled if no other components sharing the software.
+
+The values above are registered in the IANA "SWID/CoSWID Link Ownership Values" registry defined in section {{iana-link-ownership}}. Additional valid values will likely be registered over time. Additionally, the index values 128 through 255 have been reserved for private use.
+
+{: #indexed-link-rel}
+## Link Rel Values
+
+The following table indicates the index value to use for the link-entry group's rel item (see {{model-link}}). These values match the link rel values defined in the ISO/IEC 19770-2:2015 {{SWID}} specification. The "Index" value indicates the value to use as the link-entry group ownership item's value. The "Relationship Type" provides human-readable text for the value. The "Definition" describes the semantic meaning of each entry.
+
+| Index | Relationship Type | Definition
+|---
+| 1     | ancestor          | The link references a SWID/CoSWID tag for an ancestor of this software. This can be useful to define an upgrade path.
+| 2     | component         | The link references a SWID/CoSWID tag for a seperate component of this software.
+| 3     | feature           | The link references a configurable feature of this software, that can be enabled or disabled without changing the installed files.
+| 4     | installationmedia | The link references the installion package that can be used to install this software.
+| 5     | packageinstaller  | The link references the installion software needed to install this software.
+| 6     | parent            | The link references a SWID/CoSWID tag that is the parent of this SWID/CoSWID tag.
+| 7     | patches           | The link references a SWID/CoSWID tag that this software patches. Typically only used for patch SWID/CoSWID tags (see {{intro-lifecycle}}).
+| 8     | requires          | The link references a prerequisite for installing this software. A patch SWID/CoSWID tag (see {{intro-lifecycle}}) can use this to represent base software or another patch that needs to be installed first.
+| 9     | see-also          | The link references other software that may be of interest that relates to this software.
+| 10    | supersedes        | The link references another software that this software replaces. A patch SWID/CoSWID tag (see {{intro-lifecycle}}) can use this to represent another patch that this patch incorporates or replaces.
+| 11    | supplemental      | The link references a SWID/CoSWID tag that this tag supplements. Used on supplemental SWID/CoSWID tags (see {{intro-lifecycle}}).
+
+The values above are registered in the IANA "SWID/CoSWID Link Relationship Values" registry defined in section {{iana-link-rel}}. Additional valid values will likely be registered over time. Additionally, the index values 32768 through 65535 have been reserved for private use.
+
+{: #indexed-link-use}
+## Link Use Values
+
+The following table indicates the index value to use for the link-entry group's use item (see {{model-link}}). These values match the link use values defined in the ISO/IEC 19770-2:2015 {{SWID}} specification. The "Index" value indicates the value to use as the link-entry group use item's value. The "Use Type" provides human-readable text for the value. The "Definition" describes the semantic meaning of each entry.
 
 | Index | Use Type    | Definition
 |---
@@ -1050,15 +1117,20 @@ are provided below. Assignments consist of an integer index value, the item name
 | 57 | unspsc-version | RFC-AAAA
 | 58-4294967295 | Unassigned               |
 
-{: #iana-version-scheme}
-## SWID/CoSWID Version Schema Values Registry
+{: #iana-value-registries}
+## SWID/CoSWID Value Registries
 
-This document uses unsigned 16-bit index values to version-scheme item values. The
+The following IANA registries provide a mechanism for new valid values to be added over time to common enumerations used by SWID and CoSWID.
+
+{: #iana-version-scheme}
+### SWID/CoSWID Version Scheme Values Registry
+
+This document uses unsigned 16-bit index values to represent version-scheme item values. The
 initial set of version-scheme values are derived from the textual version scheme names
 defined in the ISO/IEC 19770-2:2015 specification {{SWID}}.
 
 This document defines a new a new registry titled
-"SWID/CoSWID Version Schema Values". Future registrations for this
+"SWID/CoSWID Version Scheme Values". Future registrations for this
 registry are to be made based on {{RFC8126}} as follows:
 
 \[TO BE REMOVED: This registration should take place at the following
@@ -1070,8 +1142,8 @@ registry are to be made based on {{RFC8126}} as follows:
 | 16384-32767  | Specification Required
 | 32768-65535  | Reserved for Private Use
 
-Initial registrations for the "SWID/CoSWID Version Schema Values" registry
-are provided below. Assignments consist of an integer index value, the version scheme name, and a reference to the defining specification.
+Initial registrations for the "SWID/CoSWID Version Scheme Values" registry
+are provided below. Assignments consist of an integer Index value, the Version Scheme Name, and a reference to the defining specification.
 
 | Index       | Version Scheme Name      | Specification
 |---
@@ -1086,9 +1158,9 @@ are provided below. Assignments consist of an integer index value, the version s
 | 32768-65535 | Reserved for Private Use |
 
 {: #iana-entity-role}
-## SWID/CoSWID Entity Role Values Registry
+### SWID/CoSWID Entity Role Values Registry
 
-This document uses unsigned 8-bit index values to represent entity-role values. The
+This document uses unsigned 8-bit index values to represent entity-entry role item values. The
 initial set of Entity roles are derived from the textual role names
 defined in the ISO/IEC 19770-2:2015 specification {{SWID}}.
 
@@ -1106,7 +1178,7 @@ registry are to be made based on {{RFC8126}} as follows:
 | 128-255 | Reserved for Private Use
 
 Initial registrations for the "SWID/CoSWID Entity Role Values" registry
-are provided below. Assignments consist of an integer index value, a role name, and a reference to the defining specification.
+are provided below. Assignments consist of an integer Index value, a Role Name, and a reference to the defining specification.
 
 | Index   | Role Name                | Specification
 |---
@@ -1119,10 +1191,84 @@ are provided below. Assignments consist of an integer index value, a role name, 
 | 6-127   | Unassigned               |
 | 128-255 | Reserved for Private Use |
 
-{: #iana-link-use}
-## SWID/CoSWID Link Use Values Registry
+{: #iana-link-ownership}
+### SWID/CoSWID Link Ownership Values Registry
 
-This document uses unsigned 8-bit index values to represent link-use values. The
+This document uses unsigned 8-bit index values to represent link-entry ownership item values. The
+initial set of Link ownership values are derived from the textual ownership names
+defined in the ISO/IEC 19770-2:2015 specification {{SWID}}.
+
+This document defines a new a new registry titled
+"SWID/CoSWID Link Ownership Values". Future registrations for this
+registry are to be made based on {{RFC8126}} as follows:
+
+\[TO BE REMOVED: This registration should take place at the following
+   location: https://www.iana.org/assignments/swid\]
+
+| Range   | Registration Procedures
+|---
+| 0-31    | Standards Action
+| 32-127  | Specification Required
+| 128-255 | Reserved for Private Use
+
+Initial registrations for the "SWID/CoSWID Link Ownership Values" registry
+are provided below. Assignments consist of an integer Index value, an Ownership Type Name, and a reference to the defining specification.
+
+| Index       | Ownership Type Name      | Definition |
+|---
+| 0           | Reserved                 |
+| 1           | abandon                  | See {{indexed-link-ownership}}
+| 2           | private                  | See {{indexed-link-ownership}}
+| 3           | shared                   | See {{indexed-link-ownership}}
+| 4-16384     | Unassigned               |
+| 16385-32767 | Unassigned               |
+| 32768-65535 | Reserved for Private Use |
+
+{: #iana-link-rel}
+### SWID/CoSWID Link Relationship Values Registry
+
+This document uses unsigned 16-bit index values to represent link-entry rel item values. The
+initial set of rel values are derived from the textual rel names
+defined in the ISO/IEC 19770-2:2015 specification {{SWID}}.
+
+This document defines a new a new registry titled
+"SWID/CoSWID Link Relationship Values". Future registrations for this
+registry are to be made based on {{RFC8126}} as follows:
+
+\[TO BE REMOVED: This registration should take place at the following
+   location: https://www.iana.org/assignments/swid\]
+
+| Range        | Registration Procedures
+|---
+| 0-16383      | Standards Action
+| 16384-32767  | Specification Required
+| 32768-65535  | Reserved for Private Use
+
+Initial registrations for the "SWID/CoSWID Link Relationship Values" registry
+are provided below. Assignments consist of an integer Index value, the Relationship Type Name, and a reference to the defining specification.
+
+| Index       | Relationship Type Name   | Specification
+|---
+| 0           | Reserved                 |
+| 1           | ancestor                 | See {{indexed-link-rel}}
+| 2           | component                | See {{indexed-link-rel}}
+| 3           | feature                  | See {{indexed-link-rel}}
+| 4           | installationmedia        | See {{indexed-link-rel}}
+| 5           | packageinstaller         | See {{indexed-link-rel}}
+| 6           | parent                   | See {{indexed-link-rel}}
+| 7           | patches                  | See {{indexed-link-rel}}
+| 8           | requires                 | See {{indexed-link-rel}}
+| 9           | see-also                 | See {{indexed-link-rel}}
+| 10          | supersedes               | See {{indexed-link-rel}}
+| 11          | supplemental             | See {{indexed-link-rel}}
+| 12-16384    | Unassigned               |
+| 16385-32767 | Unassigned               |
+| 32768-65535 | Reserved for Private Use |
+
+{: #iana-link-use}
+### SWID/CoSWID Link Use Values Registry
+
+This document uses unsigned 8-bit index values to represent link-entry use item values. The
 initial set of Link use values are derived from the textual names
 defined in the ISO/IEC 19770-2:2015 specification {{SWID}}.
 
@@ -1140,9 +1286,9 @@ registry are to be made based on {{RFC8126}} as follows:
 | 128-255 | Reserved for Private Use
 
 Initial registrations for the "SWID/CoSWID Entity Role Values" registry
-are provided below. Assignments consist of an integer index value, the link use name, and a reference to the defining specification.
+are provided below. Assignments consist of an integer Index value, the Link Use Type Name, and a reference to the defining specification.
 
-| Index   | Link Use Name            | Specification
+| Index   | Link Use Type Name       | Specification
 |---
 | 0       | Reserved                 |
 | 1       | optional                 | See {{indexed-link-use}}
