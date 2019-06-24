@@ -695,7 +695,7 @@ The following describes each child item of this group.
 
 - channel-type (index 44): A textual value that identfies which sales, licensing, or marketing channel the software component has been targeted for (e.g. Volume, Retail, OEM, Academic, etc). This attribute is typically used in supplemental tags as it contains information that might be selected during a specific install.
 
-- colloquial-version (index 45): A textual value for the software component's informal or colloquial version. Examples may include a year value, a major version number, or similar value that are used to identify a group of specific software component releases that are part of the same release/support cycle. This version can be the same through multiple releases of a software component, while the software-version specified in the concise-swid-tag group is much more specific and will change for each software component release. This version is intended to be used for string comparisons only, and is not intended to be used to determine if a specific value is earlier or later in a sequence.
+- colloquial-version (index 45): A textual value for the software component's informal or colloquial version. Examples may include a year value, a major version number, or similar value that are used to identify a group of specific software component releases that are part of the same release/support cycle. This version can be the same through multiple releases of a software component, while the software-version specified in the concise-swid-tag group is much more specific and will change for each software component release. This version is intended to be used for string comparison only, and is not intended to be used to determine if a specific value is earlier or later in a sequence.
 
 - description (index 46): A textual value that provides a detailed description of the software component, which can be multiple sentences.
 
@@ -713,7 +713,7 @@ The following describes each child item of this group.
 
 - product-family (index 53): A textual value indicating the software components overall product family.  This should be used when multiple related software components form a larger capability that is installed on multiple different endpoints. For example, some software families may consist of server, client, and shared service components that are part of a larger capability. Email systems, enterprise applications, backup services, web conferencing, and similar capabilities are examples of families.
 
-- revision (index 54): A string value indicating an informal or colloquial release version of the software. This value can provide a different version value as compared to the software-version specified in the concise-swid-tag group. This is useful when one or more releases need to have an informal version label that differs from the specfic exact version value specified by software-version. Examples can include SP1, RC1, Beta, etc.
+- revision (index 54): A string value indicating an informal or colloquial release version of the software. This value can provide a different version value as compared to the software-version specified in the concise-swid-tag group. This is useful when one or more releases need to have an informal version label that differs from the specific exact version value specified by software-version. Examples can include SP1, RC1, Beta, etc.
 
 - summary (index 55): A short description of the software component. This MUST be a single sentence suitable for display in a user interface.
 
@@ -983,10 +983,10 @@ The following table indicates the index value to use for the link-entry group's 
 | Index | Relationship Type | Definition
 |---
 | 1     | ancestor          | The link references a SWID/CoSWID tag for an ancestor of this software. This can be useful to define an upgrade path.
-| 2     | component         | The link references a SWID/CoSWID tag for a seperate component of this software.
+| 2     | component         | The link references a SWID/CoSWID tag for a separate component of this software.
 | 3     | feature           | The link references a configurable feature of this software, that can be enabled or disabled without changing the installed files.
-| 4     | installationmedia | The link references the installion package that can be used to install this software.
-| 5     | packageinstaller  | The link references the installion software needed to install this software.
+| 4     | installationmedia | The link references the installation package that can be used to install this software.
+| 5     | packageinstaller  | The link references the installation software needed to install this software.
 | 6     | parent            | The link references a SWID/CoSWID tag that is the parent of this SWID/CoSWID tag.
 | 7     | patches           | The link references a SWID/CoSWID tag that this software patches. Typically only used for patch SWID/CoSWID tags (see {{intro-lifecycle}}).
 | 8     | requires          | The link references a prerequisite for installing this software. A patch SWID/CoSWID tag (see {{intro-lifecycle}}) can use this to represent base software or another patch that needs to be installed first.
