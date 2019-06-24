@@ -5,7 +5,7 @@ concise-swid-tag = {
   ? corpus => bool,
   ? patch => bool,
   ? supplemental => bool,
-  swid-name => text,
+  software-name => text,
   ? software-version => text,
   ? version-scheme => $version-scheme,
   ? media => text,
@@ -173,7 +173,7 @@ evidence-entry = {
 
 ; "global map member" integer indexes
 tag-id = 0
-swid-name = 1
+software-name = 1
 entity = 2
 evidence = 3
 link = 4
