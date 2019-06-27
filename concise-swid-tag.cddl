@@ -36,8 +36,7 @@ global-attributes = (
 )
 
 hash-entry = [ hash-alg-id: int,
-               hash-value: bytes,
-             ]
+               hash-value: bytes ]
 
 entity-entry = {
   global-attributes,
