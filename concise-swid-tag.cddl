@@ -1,6 +1,6 @@
 concise-swid-tag = {
   global-attributes,
-  tag-id => text,
+  tag-id => text / bstr .size 16,
   tag-version => integer,
   ? corpus => bool,
   ? patch => bool,
