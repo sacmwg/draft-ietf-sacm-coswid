@@ -281,8 +281,8 @@ All names registered with IANA according to requirements in section {{iana-value
 
 The CoSWID data definition contains two features that are not included in the SWID data definition on which it is based. These features are:
 
-- The explicit definition of types for attributes that are typically represented in
-  the "any attribute" of some XML elements in the ISO-19770-2:2015 XML representation. These are
+- The explicit definition of types for some attributes in the ISO-19770-2:2015 XML representation that are typically represented by
+  the "any attribute" in the SWID model. These are
   covered in {{model-global-attributes}}.
 
 - The inclusion of extension points in the CoSWID data definition using CDDL sockets (see {{RFC8610}} section 3.9). The use of CDDL sockets allow for well-formed extensions to be defined in supplementary CDDL descriptions that support additional uses of CoSWID tags that go beyond the original scope of ISO-19770-2:2015 tags. This extension mechanism can also be used to update the CoSWID format as revisions to ISO-19770-2 are published.
@@ -1428,7 +1428,7 @@ Security considerations:  None.
 
 ## CoSWID Model for use in SWIMA Registration
 
-The Software Inventory Message and Attributes (SWIMA) for PA-TNC specification {{RFC8412}} defines a standardized method for collecting an endpoint device's software inventory. As discussed in section [FIXME], a CoSWID can provide evidence of software installation which can then be used and exchanged with SWIMA. This registration adds a new entry to the IANA "Software Data Model Types" registry defined by {{RFC8412}} to support CoSWID use in SWIMA as follows:
+The Software Inventory Message and Attributes (SWIMA) for PA-TNC specification {{RFC8412}} defines a standardized method for collecting an endpoint device's software inventory. A CoSWID can provide evidence of software installation which can then be used and exchanged with SWIMA. This registration adds a new entry to the IANA "Software Data Model Types" registry defined by {{RFC8412}} to support CoSWID use in SWIMA as follows:
 
 Pen: 0
 
