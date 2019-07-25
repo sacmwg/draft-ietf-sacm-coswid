@@ -52,14 +52,19 @@ author:
   country: USA
 
 normative:
-  BCP26:
+  BCP26: RFC8126
+  BCP178: RFC6648
   RFC2119:
   RFC3629:
+  RFC3986:
   RFC5198:
   RFC5646:
+  RFC5892:
   RFC7049:
   RFC7252:
+  RFC8126:
   RFC8152: cose-msg
+  RFC8412:
   RFC8288:
   RFC8610:
   X.1520:
@@ -334,7 +339,7 @@ concise-swid-tag = {
   entity => entity-entry / [ 2* entity-entry ],
   ? link => link-entry / [ 2* link-entry ],
   ? (( payload => payload-entry ) // ( evidence => evidence-entry )),
-  * $$coswid-extension 
+  * $$coswid-extension
 }
 
 tag-id = 0
@@ -599,7 +604,7 @@ The following describes each member of this map.
   XPATH query. This URI would need to be resolved in the context of the system
   entity via software components that can lookup other CoSWID tags and
   select the appropriate tag based on an XPATH query {{-xpath}}.
-  
+
     Examples include:
 
     - swidpath://SoftwareIdentity\[Entity/@regid='http://contoso.com'\] would retrieve all SWID or CoSWID tags that include an entity where the regid is "Contoso"
@@ -1390,7 +1395,11 @@ There is a need for a scheme name that can be used in URIs that point to a speci
 
 The "swid" scheme is specified as follows:
 
-Scheme syntax:  The scheme speific part consists of a SWID or CoSWID tag's tag-id that is URI encoded according to {{RFC3986}} section 2.1. For example, <swid:2df9de35-0aff-4a86-ace6-f7dddd1ade4c> is valid.
+Scheme syntax:  The scheme speific part consists of a SWID or CoSWID tag's tag-id that is URI encoded according to {{RFC3986}} section 2.1. The following expression is a valid example:
+
+~~~~
+<swid:2df9de35-0aff-4a86-ace6-f7dddd1ade4c>
+~~~~
 
 Scheme semantics:  URIs in the "swid" scheme are to be used to reference a SWID or CoSWID tag by its tag-id. A tag-id referenced in this way can be used to indentify the tag resource in the context of where it is referenced from. For example, when a tag is installed on a given device, that tag can reference related tags on the same device using this URI scheme.
 
@@ -1419,7 +1428,7 @@ Security considerations:  None.
 
 ## CoSWID Model for use in SWIMA Registration
 
-The Software Inventory Message and Attributes (SWIMA) for PA-TNC specification {{RFC8412}} defines a standardized method for collecting an endpoint device's software inventory. As discussed in section {{}}, a CoSWID can provide evidence of software installation which can then be used and exchanged with SWIMA. This registration adds a new entry to the IANA "Software Data Model Types" registry defined by {{RFC8412}} to support CoSWID use in SWIMA as follows:
+The Software Inventory Message and Attributes (SWIMA) for PA-TNC specification {{RFC8412}} defines a standardized method for collecting an endpoint device's software inventory. As discussed in section [FIXME], a CoSWID can provide evidence of software installation which can then be used and exchanged with SWIMA. This registration adds a new entry to the IANA "Software Data Model Types" registry defined by {{RFC8412}} to support CoSWID use in SWIMA as follows:
 
 Pen: 0
 
@@ -1452,7 +1461,7 @@ of SWID/CoSWID tags to address security challenges, and the possible
 disclosure of the results of those applications.
 
 A tag is cnsidered "authoritative" if the SWID/CoSWID tag was created by the
-software provider. An authoritative SWID/CoSWID tag contains information about a software component provided by the maintainer of the software component, who is expected to be an expert in their own software. Thus, authoritative SWID/CoSWID tags can be trusted to represent authoritative information about the software component.  
+software provider. An authoritative SWID/CoSWID tag contains information about a software component provided by the maintainer of the software component, who is expected to be an expert in their own software. Thus, authoritative SWID/CoSWID tags can be trusted to represent authoritative information about the software component.
 
 A signed SWID/CoSWID tag (see {{appendix-cose}}) whose signature has been validated can be relied upon to be
 unchanged since it was signed. By contrast, the data contained in unsigned o
