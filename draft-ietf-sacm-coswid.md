@@ -675,7 +675,7 @@ The following describes each child item of this group.
 
 - colloquial-version (index 45): A textual value for the software component's informal or colloquial version. Examples may include a year value, a major version number, or similar value that are used to identify a group of specific software component releases that are part of the same release/support cycle. This version can be the same through multiple releases of a software component, while the software-version specified in the concise-swid-tag group is much more specific and will change for each software component release. This version is intended to be used for string comparison only and is not intended to be used to determine if a specific value is earlier or later in a sequence.
 
-- description (index 46): A textual value that provides a detailed description of the software component. This value MAY be multiple paragraphs seperated by CR LF characters as described by {{RFC5198}}.
+- description (index 46): A textual value that provides a detailed description of the software component. This value MAY be multiple paragraphs separated by CR LF characters as described by {{RFC5198}}.
 
 - edition (index 47): A textual value indicating that the software component represents a functional variation of the code base used to support multiple software components. For example, this item can be used to differentiate enterprise, standard, or professional variants of a software component.
 
@@ -1157,7 +1157,7 @@ defined in {{SWID}}.
 | 16385-65535 | Unassigned               |
 {: #tbl-iana-version-scheme-values title="CoSWID Version Scheme Inital Registrations"}
 
-Registrations MUST conform to the expert review guidlines defined in {{iana-review-guidelines}}.
+Registrations MUST conform to the expert review guidelines defined in {{iana-review-guidelines}}.
 
 Designated experts MUST also ensure that newly requested entries define a value space for the corresponding version item that is unique from other previously registered entries. Note: The inital registrations violate this requirement, but are included for backwards compatibility with {{SWID}}. Guidelines on how to deconflict these value spaces are defined in section {{indexed-version-scheme}}.
 
@@ -1444,7 +1444,7 @@ Deriving Software Identifiers:
 
     TAG_CREATOR_REGID "_" "_" UNIQUE_ID
 
-  Where TAG_CREATOR_REGID is the reg-id ietm value of the tag's entity item having the role value of 1 (corresponding to "tag creator"), and the UNIQUE_ID is the same tag's tag-id item. If the tag-id item's value is expressed as a 16 byte binary string, the the UNIQUE_ID MUST be represented using the UUID string representation defined in {{RFC4122}} including the "urn:uuid:" prefix.
+  Where TAG_CREATOR_REGID is the reg-id ietm value of the tag's entity item having the role value of 1 (corresponding to "tag creator"), and the UNIQUE_ID is the same tag's tag-id item. If the tag-id item's value is expressed as a 16 byte binary string, the UNIQUE_ID MUST be represented using the UUID string representation defined in {{RFC4122}} including the "urn:uuid:" prefix.
 
   The TAG_CREATOR_REGID and the UNIQUE_ID are connected with a double underscore (_), without any other connecting character or whitespace.
 
@@ -1460,16 +1460,12 @@ security considerations regarding SWID/CoSWID tags focus on the application
 of SWID/CoSWID tags to address security challenges, and the possible
 disclosure of the results of those applications.
 
-A tag is cnsidered "authoritative" if the SWID/CoSWID tag was created by the
+A tag is considered "authoritative" if the SWID/CoSWID tag was created by the
 software provider. An authoritative SWID/CoSWID tag contains information about a software component provided by the maintainer of the software component, who is expected to be an expert in their own software. Thus, authoritative SWID/CoSWID tags can be trusted to represent authoritative information about the software component.
 
-A signed SWID/CoSWID tag (see {{appendix-cose}}) whose signature has been validated can be relied upon to be
-unchanged since it was signed. By contrast, the data contained in unsigned o
-tags cannot be trusted to be unmodified.
+A signed SWID/CoSWID tag (see {{appendix-cose}}) whose signature has been validated can be relied upon to be unchanged since it was signed. By contrast, the data contained in unsigned tags cannot be trusted to be unmodified.
 
-When an authoritative tag is signed, the software provider can be authenticated as the originator of the signature. Having a signed authoritative SWID/CoSWID tag can be useful when the information in the
-tag needs to be trusted, such as when the tag is being used to convey
-reference integrity measurements for software components.
+When an authoritative tag is signed, the software provider can be authenticated as the originator of the signature. Having a signed authoritative SWID/CoSWID tag can be useful when the information in the tag needs to be trusted, such as when the tag is being used to convey reference integrity measurements for software components.
 
 SWID/CoSWID tags are designed to be easily added and removed from an
 endpoint along with the installation or removal of software components.
@@ -1519,7 +1515,7 @@ employ input sanitizing and loop detection on the tags they ingest.
 
 #  Acknowledgments
 
-This document draws heavily on the concepts defined in the ISO/IEC 19770-2:2015 specification. The authors of this document are greatful for the prior work of the 19770-2 contributors.
+This document draws heavily on the concepts defined in the ISO/IEC 19770-2:2015 specification. The authors of this document are grateful for the prior work of the 19770-2 contributors.
 
 We are also grateful to the careful reviews provided by ...
 
