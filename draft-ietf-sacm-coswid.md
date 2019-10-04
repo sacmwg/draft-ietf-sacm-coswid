@@ -565,7 +565,7 @@ $rel /= patches
 $rel /= requires
 $rel /= see-also
 $rel /= supersedes
-$rel /= supplements
+$rel /= supplemental
 $rel /= uint / text
 ancestor=1
 component=2
@@ -978,7 +978,7 @@ The following table indicates the index value to use for the link-entry group's 
 | 8     | requires          | The link references a prerequisite for installing this software. A patch SWID/CoSWID tag (see {{intro-lifecycle}}) can use this to represent base software or another patch that needs to be installed first.
 | 9     | see-also          | The link references other software that may be of interest that relates to this software.
 | 10    | supersedes        | The link references another software that this software replaces. A patch SWID/CoSWID tag (see {{intro-lifecycle}}) can use this to represent another patch that this patch incorporates or replaces.
-| 11    | supplements      | The link references a SWID/CoSWID tag that this tag supplements. Used on supplemental SWID/CoSWID tags (see {{intro-lifecycle}}).
+| 11    | supplemental      | The link references a SWID/CoSWID tag that this tag supplements. Used on supplemental SWID/CoSWID tags (see {{intro-lifecycle}}).
 {: #tbl-indexed-link-rel-values title="Link Relationship Values"}
 
 The values above are registered in the IANA "SWID/CoSWID Link Relationship Value" registry defined in section {{iana-link-rel}}. Additional values will likely be registered over time. Additionally, the index values 32768 through 65535 and the name prefix "x_" have been reserved for private use.
@@ -1267,7 +1267,7 @@ defined in {{SWID}}.
 | 8           | requires                 | See {{indexed-link-rel}}
 | 9           | see-also                 | See {{indexed-link-rel}}
 | 10          | supersedes               | See {{indexed-link-rel}}
-| 11          | supplements              | See {{indexed-link-rel}}
+| 11          | supplemental             | See {{indexed-link-rel}}
 | 12-65535    | Unassigned               |
 {: #tbl-iana-link-rel-values title="CoSWID Link Relationship Inital Registrations"}
 
