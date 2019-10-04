@@ -83,7 +83,7 @@ $rel /= patches
 $rel /= requires
 $rel /= see-also
 $rel /= supersedes
-$rel /= supplements
+$rel /= supplemental
 $rel /= uint / text
 
 $use /= optional
