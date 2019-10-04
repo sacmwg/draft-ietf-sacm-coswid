@@ -272,7 +272,7 @@ The following subsections describe the different parts of the CoSWID model.
 
 The CDDL "text" type is represented in CBOR as a major type 3, which represents "a string of Unicode characters that \[are\] encoded as UTF-8 {{RFC3629}}" (see {{RFC7049}} section 2.1). Thus both SWID and CoSWID use UTF-8 for the encoding of characters in text strings.
 
-To ensure that UTF-8 character strings are able to be encodes/decoded and exchanged interoperably, text strings in CoSWID MUST be encoded consistent with the Net-Unicode definition defined in {{RFC5198}}.
+To ensure that UTF-8 character strings are able to be encoded/decoded and exchanged interoperably, text strings in CoSWID MUST be encoded consistent with the Net-Unicode definition defined in {{RFC5198}}.
 
 All names registered with IANA according to requirements in section {{iana-value-registries}} also need to be valid according to the XML Schema NMToken data type (see {{-xml-schema-datatypes}} section 3.3.4) to ensure compatibility with the SWID specification where these names are used.
 
@@ -431,7 +431,7 @@ The following co-constraints apply to the information provided in the concise-sw
 
 - If the patch item is set to "true", the tag SHOULD contain at least one link item (see section {{model-link}}) with both the rel(ation) item value of "patches" and an href item specifying an association with the software that was patched.
 
-- If the supplemental item is set to "true", the tag SHOULD contain at least one link item with both the rel(ation) item value of "supplements" and an href item specifying an association with the software that is supplemented.
+- If the supplemental item is set to "true", the tag SHOULD contain at least one link item with both the rel(ation) item value of "supplemental" and an href item specifying an association with the software that is supplemented.
 
 - If all of the corpus, patch, and supplemental items are "false", or if the corpus item is set to "true", then a software-version item MUST be included with a value set to the version of the software component. This ensures that primary and corpus tags have an identifiable software version.
 
@@ -577,7 +577,7 @@ patches=7
 requires=8
 see-also=9
 supersedes=10
-supplemental=11
+; supplements=11 ; defined earlier
 
 $use /= optional
 $use /= required
@@ -1387,9 +1387,6 @@ preferably with the specific value requested:
 The ISO 19770-2:2015 SWID specification describes use of the "swid" and "swidpath" URI schemes, which are currently in use in implementations. This document continues this use for CoSWID. The following subsections provide registrations for these schemes in to ensure that a permanent registration exists for these schemes that is suitable for use in the SWID and CoSWID specifications.
 
 ### "swid" URI Scheme Registration
-SWID or CoSWID by the referenced tag's tag-id. This
-  URI needs to be resolved in the context of the endpoint by software
-  that can lookup other SWID or CoSWID tags. For example, "swid:2df9de35-0aff-4a86-ace6-f7dddd1ade4c" references the tag with the tag-id value "2df9de35-0aff-4a86-ace6-f7dddd1ade4c".
 
 There is a need for a scheme name that can be used in URIs that point to a specific SWID/CoSWID tag by that tag's tag-id, such as the use of the link entry as described in section {{model-link}}) of this document. Since this scheme is used in a standards track document and an ISO standard, this scheme needs to be used without fear of conflicts with current or future actual schemes.  The scheme "swid" is hereby registered as a 'permanent' scheme for that purpose.
 
@@ -1523,6 +1520,17 @@ We are also grateful to the careful reviews provided by ...
 
 \[THIS SECTION TO BE REMOVED BY THE RFC EDITOR.\]
 
+Changes in version 12:
+
+- Addressed a bunch of minor editorial issues based on WGLC feedback.
+- Added text about the use of UTF-8 in CoSWID.
+- Adjusted tag-id to allow for a UUID to be provided as a bstr.
+- Cleaned up descriptions of index ranges throughout the document, removing discussion of 8 biut, 16 bit, etc.
+- Adjusted discussion of private use ranges to use negative integer values and to be more clear throughout the document.
+- Added discussion around resolving overlapping value spaces for version schemes.
+- Added a set of expert review guidelines for new IANA registries created by this document.
+- Added new registrations for the "swid" and "swidpath" URI schemes, and for using CoSWID with SWIMA.
+
 Changes from version 03 to version 11:
 
 - Reduced representation complexity of the media-entry type and removed the section describing the older data structure.
@@ -1652,4 +1660,3 @@ Additionally, the COSE Header counter signature MAY be used as an attribute in t
 
 <!--  LocalWords:  SWID verifier TPM filesystem discoverable
  -->
-
