@@ -81,7 +81,7 @@ $rel /= patches
 $rel /= requires
 $rel /= see-also
 $rel /= supersedes
-$rel /= supplements
+$rel /= supplemental
 $rel /= uint / text
 
 $use /= optional
@@ -259,7 +259,7 @@ patches=7
 requires=8
 see-also=9
 supersedes=10
-supplements=11
+; supplemental=11 ; this is already defined.
 
 ; "use" integer indexes
 optional=1

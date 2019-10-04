@@ -431,7 +431,7 @@ The following co-constraints apply to the information provided in the concise-sw
 
 - If the patch item is set to "true", the tag SHOULD contain at least one link item (see section {{model-link}}) with both the rel(ation) item value of "patches" and an href item specifying an association with the software that was patched.
 
-- If the supplemental item is set to "true", the tag SHOULD contain at least one link item with both the rel(ation) item value of "supplements" and an href item specifying an association with the software that is supplemented.
+- If the supplemental item is set to "true", the tag SHOULD contain at least one link item with both the rel(ation) item value of "supplemental" and an href item specifying an association with the software that is supplemented.
 
 - If all of the corpus, patch, and supplemental items are "false", or if the corpus item is set to "true", then a software-version item MUST be included with a value set to the version of the software component. This ensures that primary and corpus tags have an identifiable software version.
 
@@ -565,7 +565,7 @@ $rel /= patches
 $rel /= requires
 $rel /= see-also
 $rel /= supersedes
-$rel /= supplements
+$rel /= supplemental
 $rel /= uint / text
 ancestor=1
 component=2
@@ -577,7 +577,7 @@ patches=7
 requires=8
 see-also=9
 supersedes=10
-supplements=11
+; supplements=11 ; defined earlier
 
 $use /= optional
 $use /= required
@@ -978,7 +978,7 @@ The following table indicates the index value to use for the link-entry group's 
 | 8     | requires          | The link references a prerequisite for installing this software. A patch SWID/CoSWID tag (see {{intro-lifecycle}}) can use this to represent base software or another patch that needs to be installed first.
 | 9     | see-also          | The link references other software that may be of interest that relates to this software.
 | 10    | supersedes        | The link references another software that this software replaces. A patch SWID/CoSWID tag (see {{intro-lifecycle}}) can use this to represent another patch that this patch incorporates or replaces.
-| 11    | supplements      | The link references a SWID/CoSWID tag that this tag supplements. Used on supplemental SWID/CoSWID tags (see {{intro-lifecycle}}).
+| 11    | supplemental      | The link references a SWID/CoSWID tag that this tag supplements. Used on supplemental SWID/CoSWID tags (see {{intro-lifecycle}}).
 {: #tbl-indexed-link-rel-values title="Link Relationship Values"}
 
 The values above are registered in the IANA "SWID/CoSWID Link Relationship Value" registry defined in section {{iana-link-rel}}. Additional values will likely be registered over time. Additionally, the index values 32768 through 65535 and the name prefix "x_" have been reserved for private use.
@@ -1267,7 +1267,7 @@ defined in {{SWID}}.
 | 8           | requires                 | See {{indexed-link-rel}}
 | 9           | see-also                 | See {{indexed-link-rel}}
 | 10          | supersedes               | See {{indexed-link-rel}}
-| 11          | supplements              | See {{indexed-link-rel}}
+| 11          | supplemental             | See {{indexed-link-rel}}
 | 12-65535    | Unassigned               |
 {: #tbl-iana-link-rel-values title="CoSWID Link Relationship Inital Registrations"}
 
