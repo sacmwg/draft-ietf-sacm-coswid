@@ -1524,7 +1524,7 @@ Changes in version 12:
 - Addressed a bunch of minor editorial issues based on WGLC feedback.
 - Added text about the use of UTF-8 in CoSWID.
 - Adjusted tag-id to allow for a UUID to be provided as a bstr.
-- Cleaned up descriptions of index ranges throughout the document, removing discussion of 8 biut, 16 bit, etc.
+- Cleaned up descriptions of index ranges throughout the document, removing discussion of 8 bit, 16 bit, etc.
 - Adjusted discussion of private use ranges to use negative integer values and to be more clear throughout the document.
 - Added discussion around resolving overlapping value spaces for version schemes.
 - Added a set of expert review guidelines for new IANA registries created by this document.
@@ -1581,9 +1581,9 @@ Changes from version 06 to version 07:
 - Added media type registration request
 - Added content format registration request
 - Added CBOR tag registration request
-- Removed RIM appedix to be addressed in complementary draft
+- Removed RIM appendix to be addressed in complementary draft
 - Removed CWT appendix
-- Flagged firmware resource colletion appendix for revision
+- Flagged firmware resource collection appendix for revision
 - Made use of terminology more consistent
 - Better defined use of extension points in the CDDL
 - Added definitions for indexed values
@@ -1592,7 +1592,7 @@ Changes from version 06 to version 07:
 Changes from version 05 to version 06:
 
 - Improved quantities
-- Included proposals for implicet enumerations that were NMTOKENS
+- Included proposals for implicit enumerations that were NMTOKENS
 - Added extension points
 - Improved exemplary firmware-resource extension
 
