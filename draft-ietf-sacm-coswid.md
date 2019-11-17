@@ -576,7 +576,7 @@ patches=7
 requires=8
 see-also=9
 supersedes=10
-; supplements=11 ; defined earlier
+supplemental=11
 
 $use /= optional
 $use /= required
