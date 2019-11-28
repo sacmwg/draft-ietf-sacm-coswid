@@ -65,7 +65,7 @@ link-entry = {
   rel => $rel,
   ? media-type => text,
   ? use => $use,
-  * $$link-extension 
+  * $$link-extension
 }
 
 $ownership /= shared
@@ -73,7 +73,7 @@ $ownership /= private
 $ownership /= abandon
 $ownership /= uint / text
 
-$rel /= ancestor 
+$rel /= ancestor
 $rel /= component
 $rel /= feature
 $rel /= installationmedia
@@ -262,7 +262,7 @@ patches=7
 requires=8
 see-also=9
 supersedes=10
-;supplemental=11 ; coincidental collision & redundant
+; supplemental=11 ; this is already defined earlier
 
 ; "use" integer indexes
 optional=1

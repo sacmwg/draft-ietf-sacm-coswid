@@ -214,7 +214,7 @@ Supplemental  Supplemental    Supplemental xSupplemental xSuplemental
 
 > - Software Deployment. Before the software component is installed (i.e., pre-installation), and while the product is being deployed, a corpus tag provides information about the installation files and distribution media (e.g., CD/DVD, distribution package).
 > - Software Installation. A primary tag will be installed with the software component (or subsequently created) to uniquely identify and describe the software component. Supplemental tags are created to augment primary tags with additional site-specific or extended information. While not illustrated in the figure, patch tags can also be installed during software installation to provide information about software fixes deployed along with the base software installation.
-> - Software Patching. When a new patch is applied to the software component a new patch tag is provided, supplying details about the patch and its dependencies. While not illustrated in the figure, a corpus tag can also provide information about the patch installer and patching dependencies that need to be installed before the patch.
+> - Software Patching. A new patch tag is provided, when a patch is applied to the software component, supplying details about the patch and its dependencies. While not illustrated in the figure, a corpus tag can also provide information about the patch installer and patching dependencies that need to be installed before the patch.
 > - Software Upgrading. As a software component is upgraded to a new version, new primary and supplemental tags replace existing tags, enabling timely and accurate tracking of updates to software inventory. While not illustrated in the figure, a corpus tag can also provide information about the upgrade installer and dependencies that need to be installed before the upgrade.
 > - Software Removal. Upon removal of the software component, relevant SWID tags are removed. This removal event can trigger timely updates to software inventory reflecting the removal of the product and any associated patch or supplemental tags.
 
@@ -272,7 +272,7 @@ The following subsections describe the different parts of the CoSWID model.
 
 The CDDL "text" type is represented in CBOR as a major type 3, which represents "a string of Unicode characters that \[are\] encoded as UTF-8 {{RFC3629}}" (see {{RFC7049}} section 2.1). Thus both SWID and CoSWID use UTF-8 for the encoding of characters in text strings.
 
-To ensure that UTF-8 character strings are able to be encodes/decoded and exchanged interoperably, text strings in CoSWID MUST be encoded consistent with the Net-Unicode definition defined in {{RFC5198}}.
+To ensure that UTF-8 character strings are able to be encoded/decoded and exchanged interoperably, text strings in CoSWID MUST be encoded consistent with the Net-Unicode definition defined in {{RFC5198}}.
 
 All names registered with IANA according to requirements in section {{iana-value-registries}} also need to be valid according to the XML Schema NMToken data type (see {{-xml-schema-datatypes}} section 3.3.4) to ensure compatibility with the SWID specification where these names are used.
 
@@ -429,9 +429,9 @@ The following co-constraints apply to the information provided in the concise-sw
 
 - The patch and supplemental items MUST NOT both be set to "true".
 
-- If the patch item is set to "true", the tag SHOULD contain at least one link item (see section {{model-link}}) with both the rel(ation) item value of "patches" and an href item specifying an association with the software that was patched.
+- If the patch item is set to "true", the tag SHOULD contain at least one link item (see section {{model-link}}) with both the rel item value of "patches" and an href item specifying an association with the software that was patched.
 
-- If the supplemental item is set to "true", the tag SHOULD contain at least one link item with both the rel(ation) item value of "supplements" and an href item specifying an association with the software that is supplemented.
+- If the supplemental item is set to "true", the tag SHOULD contain at least one link item with both the rel item value of "supplemental" and an href item specifying an association with the software that is supplemented.
 
 - If all of the corpus, patch, and supplemental items are "false", or if the corpus item is set to "true", then a software-version item MUST be included with a value set to the version of the software component. This ensures that primary and corpus tags have an identifiable software version.
 
@@ -517,8 +517,7 @@ organization. In a given scope, the registration id MUST be used consistently fo
   - An entity item MUST be provided with the role of "tag-creator" for every CoSWID tag. This indicates the organization that created the CoSWID tag.
   - An entity item SHOULD be provided with the role of "software-creator" for every CoSWID tag, if this information is known to the tag creator. This indicates the organization that created the referenced software component.
 
-- thumbprint (index 34): The value of the thumbprint item provides an integer-based hash algorithm identifier (hash-alg-id) and a byte string value (hash-value) that contains the corresponding hash value (i.e. the
-thumbprint) of the signing entity's public key certificate. This provides an indicator of which entity signed the CoSWID tag, which will typically be the tag creator. If the hash-alg-id is not known, then the integer value "0" MUST be used. This ensures parity between the SWID tag specification {{SWID}}, which does not allow an algorithm to be identified for this field. See {{model-hash-entry}} for more details on the use of the hash-entry data structure.
+- thumbprint (index 34): The value of the thumbprint item provides an integer-based hash algorithm identifier (hash-alg-id) and a byte string value (hash-value) that contains the corresponding hash value (i.e. the thumbprint) of the signing entity's public key certificate. This provides an indicator of which entity signed the CoSWID tag, which will typically be the tag creator. If the hash-alg-id is not known, then the integer value "0" MUST be used. This ensures parity between the SWID tag specification {{SWID}}, which does not allow an algorithm to be identified for this field. See {{model-hash-entry}} for more details on the use of the hash-entry data structure.
 
 - $$entity-extension: This CDDL socket can be used to extend the entity-entry group model. See {{model-extension}}.
 
@@ -1001,12 +1000,12 @@ The values above are registered in the IANA "SWID/CoSWID Link Use Value" registr
 #  IANA Considerations
 
 This document has a number of IANA considerations, as described in
-the following subsections.
+the following subsections. In summary, 6 new registries are established with this request, with initial entries provided for each registry. New values for 5 other registries are also requested.
 
 {: #iana-coswid-items}
 ## CoSWID Items Registry
 
-This document uses integer values as index values in CBOR maps.
+This registry uses integer values as index values in CBOR maps.
 
 This document defines a new registry titled
 "CoSWID Items". Future registrations for this
@@ -1125,7 +1124,7 @@ Designated experts MUST ensure that new registration requests meet the following
 {: #iana-version-scheme}
 ### SWID/CoSWID Version Scheme Value Registry
 
-This document defines a new a new registry titled
+This document establishes a new registry titled
 "SWID/CoSWID Version Scheme Values". This registry provides index values for use as version-scheme item values in this document and version scheme names for use in {{SWID}}.
 
 \[TO BE REMOVED: This registration should take place at the following
@@ -1164,7 +1163,7 @@ Designated experts MUST also ensure that newly requested entries define a value 
 {: #iana-entity-role}
 ### SWID/CoSWID Entity Role Value Registry
 
-This document defines a new a new registry titled
+This document establishes a new registry titled
 "SWID/CoSWID Entity Role Values". This registry provides index values for use as entity-entry role item values in this document and entity role names for use in {{SWID}}.
 
 \[TO BE REMOVED: This registration should take place at the following
@@ -1200,7 +1199,7 @@ Registrations MUST conform to the expert review guidlines defined in {{iana-revi
 {: #iana-link-ownership}
 ### SWID/CoSWID Link Ownership Value Registry
 
-This document defines a new a new registry titled
+This document establishes a new registry titled
 "SWID/CoSWID Link Ownership Values". This registry provides index values for use as link-entry ownership item values in this document and link ownership names for use in {{SWID}}.
 
 \[TO BE REMOVED: This registration should take place at the following
@@ -1234,7 +1233,7 @@ Registrations MUST conform to the expert review guidlines defined in {{iana-revi
 {: #iana-link-rel}
 ### SWID/CoSWID Link Relationship Value Registry
 
-This document defines a new a new registry titled
+This document establishes a new registry titled
 "SWID/CoSWID Link Relationship Values". This registry provides index values for use as link-entry rel item values in this document and link ownership names for use in {{SWID}}.
 
 \[TO BE REMOVED: This registration should take place at the following
@@ -1278,7 +1277,7 @@ Designated experts MUST also ensure that a newly requested entry documents the U
 {: #iana-link-use}
 ### SWID/CoSWID Link Use Value Registry
 
-This document defines a new a new registry titled
+This document establishes a new registry titled
 "SWID/CoSWID Link Use Values". This registry provides index values for use as link-entry use item values in this document and link use names for use in {{SWID}}.
 
 \[TO BE REMOVED: This registration should take place at the following
@@ -1387,9 +1386,6 @@ preferably with the specific value requested:
 The ISO 19770-2:2015 SWID specification describes use of the "swid" and "swidpath" URI schemes, which are currently in use in implementations. This document continues this use for CoSWID. The following subsections provide registrations for these schemes in to ensure that a permanent registration exists for these schemes that is suitable for use in the SWID and CoSWID specifications.
 
 ### "swid" URI Scheme Registration
-SWID or CoSWID by the referenced tag's tag-id. This
-  URI needs to be resolved in the context of the endpoint by software
-  that can lookup other SWID or CoSWID tags. For example, "swid:2df9de35-0aff-4a86-ace6-f7dddd1ade4c" references the tag with the tag-id value "2df9de35-0aff-4a86-ace6-f7dddd1ade4c".
 
 There is a need for a scheme name that can be used in URIs that point to a specific SWID/CoSWID tag by that tag's tag-id, such as the use of the link entry as described in section {{model-link}}) of this document. Since this scheme is used in a standards track document and an ISO standard, this scheme needs to be used without fear of conflicts with current or future actual schemes.  The scheme "swid" is hereby registered as a 'permanent' scheme for that purpose.
 
@@ -1523,6 +1519,17 @@ We are also grateful to the careful reviews provided by ...
 
 \[THIS SECTION TO BE REMOVED BY THE RFC EDITOR.\]
 
+Changes in version 12:
+
+- Addressed a bunch of minor editorial issues based on WGLC feedback.
+- Added text about the use of UTF-8 in CoSWID.
+- Adjusted tag-id to allow for a UUID to be provided as a bstr.
+- Cleaned up descriptions of index ranges throughout the document, removing discussion of 8 bit, 16 bit, etc.
+- Adjusted discussion of private use ranges to use negative integer values and to be more clear throughout the document.
+- Added discussion around resolving overlapping value spaces for version schemes.
+- Added a set of expert review guidelines for new IANA registries created by this document.
+- Added new registrations for the "swid" and "swidpath" URI schemes, and for using CoSWID with SWIMA.
+
 Changes from version 03 to version 11:
 
 - Reduced representation complexity of the media-entry type and removed the section describing the older data structure.
@@ -1574,9 +1581,9 @@ Changes from version 06 to version 07:
 - Added media type registration request
 - Added content format registration request
 - Added CBOR tag registration request
-- Removed RIM appedix to be addressed in complementary draft
+- Removed RIM appendix to be addressed in complementary draft
 - Removed CWT appendix
-- Flagged firmware resource colletion appendix for revision
+- Flagged firmware resource collection appendix for revision
 - Made use of terminology more consistent
 - Better defined use of extension points in the CDDL
 - Added definitions for indexed values
@@ -1585,7 +1592,7 @@ Changes from version 06 to version 07:
 Changes from version 05 to version 06:
 
 - Improved quantities
-- Included proposals for implicet enumerations that were NMTOKENS
+- Included proposals for implicit enumerations that were NMTOKENS
 - Added extension points
 - Improved exemplary firmware-resource extension
 
@@ -1652,4 +1659,3 @@ Additionally, the COSE Header counter signature MAY be used as an attribute in t
 
 <!--  LocalWords:  SWID verifier TPM filesystem discoverable
  -->
-
