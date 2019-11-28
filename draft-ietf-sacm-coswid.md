@@ -89,6 +89,7 @@ normative:
       -
         ins: T. Preston-Werner
         name: Tom Preston-Werner
+    date: false
   W3C.REC-xpath20-20101214: xpath
   W3C.REC-css3-mediaqueries-20120619: css3-mediaqueries
   W3C.REC-xmlschema-2-20041028: xml-schema-datatypes
