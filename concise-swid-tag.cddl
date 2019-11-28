@@ -13,7 +13,7 @@ concise-swid-tag = {
   entity => entity-entry / [ 2* entity-entry ],
   ? link => link-entry / [ 2* link-entry ],
   ? (( payload => payload-entry ) // ( evidence => evidence-entry )),
-  * $$coswid-extension 
+  * $$coswid-extension,
 }
 
 any-uri = text
@@ -35,8 +35,10 @@ global-attributes = (
   * any-attribute,
 )
 
-hash-entry = [ hash-alg-id: int,
-               hash-value: bytes ]
+hash-entry = [ 
+  hash-alg-id: int,
+  hash-value: bytes,
+]
 
 entity-entry = {
   global-attributes,
@@ -109,43 +111,44 @@ software-meta-entry = {
   * $$meta-extension,
 }
 
+path-elements-group = ( ? directory => directory / [ 2* directory-entry ],
+                        ? file => file-entry / [ 2* file-entry ],
+                      )
+
 resource-collection = (
-  ? directory => directory-entry,
-  ? file => file-entry,
-  ? process => process-entry,
-  ? resource => resource-entry,
-  * $$resource-collection-extension
+  path-elements-group,
+  ? process => process-entry / [ 2* process-entry ],
+  ? resource => resource-entry / [ 2* resource-entry ],
+  * $$resource-collection-extension,
 )
 
 file-entry = {
   filesystem-item,
-  ? size => integer,
+  ? size => uint,
   ? file-version => text,
   ? hash => hash-entry,
   * $$file-extension
 }
 
-path-elements-entry = [ [ * file-entry ],
-                        [ * directory-entry ],
-                      ]
+path-elements-entry = { path-elements-group }
 
 directory-entry = {
   filesystem-item,
-  path-elements => path-elements-entry,
-  * $$directory-extension
+  ? path-elements => path-elements-entry,
+  * $$directory-extension,
 }
 
 process-entry = {
   global-attributes,
   process-name => text,
   ? pid => integer,
-  * $$process-extension
+  * $$process-extension,
 }
 
 resource-entry = {
   global-attributes,
   type => text,
-  * $$resource-extension
+  * $$resource-extension,
 }
 
 filesystem-item = (
@@ -159,7 +162,7 @@ filesystem-item = (
 payload-entry = {
   global-attributes,
   resource-collection,
-  * $$payload-extension 
+  * $$payload-extension,
 }
 
 evidence-entry = {
@@ -167,7 +170,7 @@ evidence-entry = {
   resource-collection,
   ? date => time,
   ? device-id => text,
-  * $$evidence-extension 
+  * $$evidence-extension, 
 }
 
 ; "global map member" integer indexes
@@ -259,7 +262,7 @@ patches=7
 requires=8
 see-also=9
 supersedes=10
-supplemental=11
+;supplemental=11 ; coincidental collision & redundant
 
 ; "use" integer indexes
 optional=1
