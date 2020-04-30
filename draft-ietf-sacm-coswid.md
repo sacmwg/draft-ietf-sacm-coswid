@@ -340,7 +340,7 @@ concise-swid-tag = {
   entity => entity-entry / [ 2* entity-entry ],
   ? link => link-entry / [ 2* link-entry ],
   ? (( payload => payload-entry ) // ( evidence => evidence-entry )),
-  * $$coswid-extension
+  * $$coswid-extension,
 }
 
 tag-id = 0
@@ -756,26 +756,26 @@ file-entry = {
   ? size => integer,
   ? file-version => text,
   ? hash => hash-entry,
-  * $$file-extension
+  * $$file-extension,
 }
 
 directory-entry = {
   filesystem-item,
   path-elements => { path-elements-group },
-  * $$directory-extension
+  * $$directory-extension,
 }
 
 process-entry = {
   global-attributes,
   process-name => text,
   ? pid => integer,
-  * $$process-extension
+  * $$process-extension,
 }
 
 resource-entry = {
   global-attributes,
   type => text,
-  * $$resource-extension
+  * $$resource-extension,
 }
 
 directory = 16
@@ -847,7 +847,7 @@ The CDDL for the payload-entry map follows:
 payload-entry = {
   global-attributes,
   resource-collection,
-  * $$payload-extension
+  * $$payload-extension,
 }
 ~~~
 
@@ -870,7 +870,7 @@ evidence-entry = {
   resource-collection,
   ? date => time,
   ? device-id => text,
-  * $$evidence-extension
+  * $$evidence-extension,
 }
 
 date = 35
