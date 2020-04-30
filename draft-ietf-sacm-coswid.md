@@ -295,7 +295,7 @@ The following CDDL sockets (extension points) are defined in this document, whic
 | concise-swid-tag | $$coswid-extension | {{model-concise-swid-tag}}
 | entity-entry | $$entity-extension | {{model-entity}}
 | link-entry | $$link-extension | {{model-link}}
-| software-meta-entry | $$meta-extension | {{model-software-meta}}
+| software-meta-entry | $$software-meta-extension | {{model-software-meta}}
 | file-entry | $$file-extension | {{model-resource-collection}}
 | directory-entry | $$directory-extension | {{model-resource-collection}}
 | process-entry | $$process-extension | {{model-resource-collection}}
@@ -320,7 +320,7 @@ The following additional CDDL sockets are defined in this document to allow for 
 A number of SWID/CoSWID value registries are also defined in {{iana-value-registries}} that allow new values to be registered with IANA for the enumerations above. This registration mechanism supports the definition of new well-known index values and names for new enumeration values used by both SWID and CoSWID. This registration mechanism allows new standardized enumerated values to be shared between both specifications (and implementations) over time, and references to the IANA registries will be added to the next revision of {{SWID}}.
 
 {: #model-concise-swid-tag}
-## The concise-swid-tag Group
+## The concise-swid-tag Map
 
 The CDDL data definition for the root concise-swid-tag map is as follows and this rule and its constraints MUST be followed when creating or validating a CoSWID tag:
 
@@ -468,9 +468,9 @@ conforms with IANA "Language Subtag Registry" {{RFC5646}}. The context of the sp
 via label ("key") value pairs. Labels can be either a single integer or text string. Values can be a single integer, a text string, or an array of integers or text strings.
 
 {: #model-entity}
-## The entity-entry Group
+## The entity-entry Map
 
-The CDDL for the entity-entry group follows:
+The CDDL for the entity-entry map follows:
 
 ~~~ CDDL
 entity-entry = {
@@ -481,6 +481,7 @@ entity-entry = {
   ? thumbprint => hash-entry,
   * $$entity-extension,
 }
+
 entity-name = 31
 reg-id = 32
 role = 33
@@ -539,6 +540,7 @@ link-entry = {
   ? use => $use,
   * $$link-extension,
 }
+
 media = 10
 artifact = 37
 href = 38
@@ -646,8 +648,9 @@ software-meta-entry = {
   ? summary => text,
   ? unspsc-code => text,
   ? unspsc-version => text,
-  * $$meta-extension,
+  * $$software-meta-extension,
 }
+
 activation-status = 43
 channel-type = 44
 colloquial-version = 45
@@ -710,7 +713,10 @@ CoSWID adds explicit support for the representation of hash entries using algori
 registered in the IANA "Named Information Hash Algorithm Registry" using the hash-entry member (label 58).
 
 ~~~~ CDDL
-hash-entry = [ hash-alg-id: int, hash-value: bytes ]
+hash-entry = [
+  hash-alg-id: int,
+  hash-value: bytes,
+]
 ~~~~
 
 The number used as a value for hash-alg-id MUST refer an ID in the "Named Information Hash Algorithm Registry" (see https://www.iana.org/assignments/named-information/named-information.xhtml); other hash algorithms MUST NOT be used. The hash-value MUST represent the raw hash value of the hashed resource generated using the hash algorithm indicated by the hash-alg-id.
@@ -726,11 +732,15 @@ content includes directories, files, processes, or resources.
 The CDDL for the resource-collection group follows:
 
 ~~~ CDDL
-resource-collection = (
-  ? directory => directory-entry,
-  ? file => file-entry,
-  ? process => process-entry,
-  ? resource => resource-entry,
+path-elements-group = ( ? directory => directory / [ 2* directory-entry ],
+                        ? file => file-entry / [ 2* file-entry ],
+                      )
+
+esource-collection = (
+  path-elements-group,
+  ? process => process-entry / [ 2* process-entry ],
+  ? resource => resource-entry /[ 2* resource-entry ],
+  * $$resource-collection-extension,
 )
 
 filesystem-item = (
@@ -740,10 +750,6 @@ filesystem-item = (
   fs-name => text,
   ? root => text,
 )
-
-path-elements-entry = [ [ * file-entry ],
-                        [ * directory-entry ],
-                      ]
 
 file-entry = {
   filesystem-item,
@@ -755,7 +761,7 @@ file-entry = {
 
 directory-entry = {
   filesystem-item,
-  path-elements => path-elements-entry,
+  path-elements => { path-elements-group },
   * $$directory-extension
 }
 
@@ -830,14 +836,12 @@ The following describes each member of the groups and maps illustrated above.
 
 - $$process-extension: This CDDL socket can be used to extend the process-entry group model. See {{model-extension}}.
 
-- $$resource-extension: This CDDL socket can be used to extend the  group model. See {{model-extension}}.
-
-- $$-extension: This CDDL socket can be used to extend the resource-entry group model. See {{model-extension}}.
+- $$resource-extension: This CDDL socket can be used to extend the resource-entry group model. See {{model-extension}}.
 
 {: #model-payload}
-### The payload-entry Group
+### The payload-entry Map
 
-The CDDL for the payload-entry group follows:
+The CDDL for the payload-entry map follows:
 
 ~~~ CDDL
 payload-entry = {
@@ -856,9 +860,9 @@ The following describes each child item of this group.
 - $$payload-extension: This CDDL socket can be used to extend the payload-entry group model. See {{model-extension}}.
 
 {: #model-evidence}
-### The evidence-entry Group
+### The evidence-entry Map
 
-The CDDL for the evidence-entry group follows:
+The CDDL for the evidence-entry map follows:
 
 ~~~ CDDL
 evidence-entry = {
@@ -868,6 +872,7 @@ evidence-entry = {
   ? device-id => text,
   * $$evidence-extension
 }
+
 date = 35
 device-id = 36
 ~~~
@@ -1519,6 +1524,8 @@ We are also grateful to the careful reviews provided by ...
 #  Change Log
 
 \[THIS SECTION TO BE REMOVED BY THE RFC EDITOR.\]
+
+Changes from version 12 to version 14:
 
 Changes in version 12:
 
