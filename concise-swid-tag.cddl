@@ -9,7 +9,7 @@ concise-swid-tag = {
   ? software-version => text,
   ? version-scheme => $version-scheme,
   ? media => text,
-  ? software-meta =>  software-meta-entry / [ 2* software-meta-entry ],
+  ? software-meta => software-meta-entry / [ 2* software-meta-entry ],
   entity => entity-entry / [ 2* entity-entry ],
   ? link => link-entry / [ 2* link-entry ],
   ? (( payload => payload-entry ) // ( evidence => evidence-entry )),
@@ -108,7 +108,7 @@ software-meta-entry = {
   ? summary => text,
   ? unspsc-code => text,
   ? unspsc-version => text,
-  * $$meta-extension,
+  * $$software-meta-extension,
 }
 
 path-elements-group = ( ? directory => directory / [ 2* directory-entry ],
@@ -118,7 +118,7 @@ path-elements-group = ( ? directory => directory / [ 2* directory-entry ],
 resource-collection = (
   path-elements-group,
   ? process => process-entry / [ 2* process-entry ],
-  ? resource => resource-entry / [ 2* resource-entry ],
+  ? resource => resource-entry /[ 2* resource-entry ],
   * $$resource-collection-extension,
 )
 
@@ -127,14 +127,12 @@ file-entry = {
   ? size => uint,
   ? file-version => text,
   ? hash => hash-entry,
-  * $$file-extension
+  * $$file-extension,
 }
-
-path-elements-entry = { path-elements-group }
 
 directory-entry = {
   filesystem-item,
-  ? path-elements => path-elements-entry,
+  ? path-elements => { path-elements-group },
   * $$directory-extension,
 }
 
@@ -246,7 +244,7 @@ aggregator=3
 distributor=4
 licensor=5
 
-; ownership integer indexes
+; "ownership" integer indexes
 shared=1
 private=2
 abandon=3
@@ -262,7 +260,6 @@ patches=7
 requires=8
 see-also=9
 supersedes=10
-; supplemental=11 ; this is already defined earlier
 
 ; "use" integer indexes
 optional=1
