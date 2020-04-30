@@ -732,14 +732,14 @@ content includes directories, files, processes, or resources.
 The CDDL for the resource-collection group follows:
 
 ~~~ CDDL
-path-elements-group = ( ? directory => directory / [ 2* directory-entry ],
+path-elements-group = ( ? directory => directory-entry / [ 2* directory-entry ],
                         ? file => file-entry / [ 2* file-entry ],
                       )
 
 esource-collection = (
   path-elements-group,
   ? process => process-entry / [ 2* process-entry ],
-  ? resource => resource-entry /[ 2* resource-entry ],
+  ? resource => resource-entry / [ 2* resource-entry ],
   * $$resource-collection-extension,
 )
 

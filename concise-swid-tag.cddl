@@ -111,14 +111,14 @@ software-meta-entry = {
   * $$software-meta-extension,
 }
 
-path-elements-group = ( ? directory => directory / [ 2* directory-entry ],
+path-elements-group = ( ? directory => directory-entry / [ 2* directory-entry ],
                         ? file => file-entry / [ 2* file-entry ],
                       )
 
 resource-collection = (
   path-elements-group,
   ? process => process-entry / [ 2* process-entry ],
-  ? resource => resource-entry /[ 2* resource-entry ],
+  ? resource => resource-entry / [ 2* resource-entry ],
   * $$resource-collection-extension,
 )
 
