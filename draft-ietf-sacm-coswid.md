@@ -1527,8 +1527,9 @@ We are also grateful to the careful reviews provided by ...
 
 Changes from version 12 to version 14:
 
+- Moved key identifier to protected COSE header
 - Fixed index reference for hash
-- Removed indirectio of type definition for filesystem-item
+- Removed indirection of CDDL type definition for filesystem-item
 - Fixed quantity of resource and process
 - Updated resource-collection
 - Renamed socket name in software-meta to be consistent in naming
