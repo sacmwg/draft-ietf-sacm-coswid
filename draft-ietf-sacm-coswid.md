@@ -235,8 +235,8 @@ definition is aligned to the information able to be expressed with the XML schem
 
 The vocabulary, i.e., the CDDL names of the types and members used in
 the CoSWID data definition, are mapped to more concise labels represented as
-small integer values. The names used in the CDDL data definition and the mapping to
-the CBOR representation using integer labels is based on the vocabulary of the
+small integer values (indices). The names used in the CDDL data definition and the mapping to
+the CBOR representation using integer indices is based on the vocabulary of the
 XML attribute and element names defined in ISO/IEC 19770-2:2015.
 
 ## Requirements Notation
@@ -262,7 +262,7 @@ The 57 human-readable text labels of the CDDL-based CoSWID vocabulary are mapped
 In CBOR, an array is encoded using bytes that identify the array, and the array's length or stop point (see {{RFC7049}}). To make items that support 1 or more values, the following CDDL notion is used.
 
 ~~~ CDDL
-_name_ = (_label_: _data_ / [ 2* _data_ ])
+_name_ = (_label_ => _data_ / [ 2* _data_ ])
 ~~~
 
 The CDDL rule above allows either a single data item or an array of 2 or more data values to be provided. When a singleton data value is provided, the CBOR markers for the array, array length, and stop point are not needed, saving bytes. When two or more data values are provided, these values are encoded as an array. This modeling pattern is used frequently in the CoSWID CDDL data definition to allow for more efficient encoding of singleton values.
@@ -465,7 +465,7 @@ The following describes each child item of this group.
 conforms with IANA "Language Subtag Registry" {{RFC5646}}. The context of the specified language applies to all sibling and descendant textual values, unless a descendant object has defined a different language tag. Thus, a new context is established when a descendant object redefines a new language tag. All textual values within a given context MUST be considered expressed in the specified language.
 
 - any-attribute: This sub-group provides a means to include arbitrary information
-via label ("key") value pairs. Labels can be either a single integer or text string. Values can be a single integer, a text string, or an array of integers or text strings.
+via label/index ("key") value pairs. Labels can be either a single integer or text string. Values can be a single integer, a text string, or an array of integers or text strings.
 
 {: #model-entity}
 ## The entity-entry Map
@@ -710,7 +710,7 @@ The following describes each child item of this group.
 ### The hash-entry Array
 
 CoSWID adds explicit support for the representation of hash entries using algorithms that are
-registered in the IANA "Named Information Hash Algorithm Registry" using the hash-entry member (label 58).
+registered in the IANA "Named Information Hash Algorithm Registry" using the hash member (index 7) and the corresponding hash-entry type.
 
 ~~~~ CDDL
 hash-entry = [
@@ -1526,6 +1526,23 @@ We are also grateful to the careful reviews provided by ...
 \[THIS SECTION TO BE REMOVED BY THE RFC EDITOR.\]
 
 Changes from version 12 to version 14:
+
+- Fixed index reference for hash
+- Removed indirectio of type definition for filesystem-item
+- Fixed quantity of resource and process
+- Updated resource-collection
+- Renamed socket name in software-meta to be consistent in naming
+- Aligned excerpt examples in I-D text with full CDDL
+- Fixed titels where title was referring to group instead of map
+- Added missig date in SEMVER
+- Fixed root cardinality for file and directory, etc.
+- Transformed path-elements-entry from map to group for re-usability
+- Scrubbed IANA section
+- Removed redundant supplemental rule
+- Aligned discrepancy with ISO spec.
+- Addressed comments on typos.
+- Fixed kramdown nits and BCP reference.
+- Addressed comments from WGLC reviewers.
 
 Changes in version 12:
 
