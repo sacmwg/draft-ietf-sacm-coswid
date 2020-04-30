@@ -6,11 +6,11 @@ cose-values = any
 protected-signed-coswid-header = {
     1 => int,                      ; algorithm identifier
     3 => "application/swid+cbor",
+    4 => bstr,                     ; key identifier
     * cose-label => cose-values,
 }
 
 unprotected-signed-coswid-header = {
-    4 => bstr,                     ; key identifier
     * cose-label => cose-values,
 }
 
