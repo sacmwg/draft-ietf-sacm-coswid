@@ -54,6 +54,7 @@ $role /= software-creator
 $role /= aggregator
 $role /= distributor
 $role /= licensor
+$role /= maintainer
 $role /= uint / text
 
 link-entry = {
@@ -243,6 +244,7 @@ software-creator=2
 aggregator=3
 distributor=4
 licensor=5
+maintainer=6
 
 ; "ownership" integer indexes
 shared=1
@@ -260,6 +262,7 @@ patches=7
 requires=8
 see-also=9
 supersedes=10
+; supplemental=11 ; this is already defined earlier
 
 ; "use" integer indexes
 optional=1
