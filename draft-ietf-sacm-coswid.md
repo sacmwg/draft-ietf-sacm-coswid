@@ -492,12 +492,14 @@ $role /= software-creator
 $role /= aggregator
 $role /= distributor
 $role /= licensor
+$role /= maintainer
 $role /= uint / text
 tag-creator=1
 software-creator=2
 aggregator=3
 distributor=4
 licensor=5
+maintainer=6
 ~~~
 
 The following describes each child item of this group.
@@ -948,6 +950,7 @@ The following table indicates the index value to use for the entity-entry group'
 | 3     | aggregator      | From {{SWID}}, "An organization or system that encapsulates software from their own and/or other organizations into a different distribution process (as in the case of virtualization), or as a completed system to accomplish a specific task (as in the case of a value added reseller)."
 | 4     | distributor     | From {{SWID}}, "An entity that furthers the marketing, selling and/or distribution of software from the original place of manufacture to the ultimate user without modifying the software, its packaging or its labelling."
 | 5     | licensor        | From {{SAM}} as "software licensor", a "person or organization who owns or holds the rights to issue a software license for a specific software \[component\]"
+| 6     | maintainer      | The person or organization that is responsible for coordinating and making updates to the source code for the software component. This SHOULD be used when the "maintainer" is a different person or organization than the original "softwareCreator".
 {: #tbl-indexed-entity-role-values title="Entity Role Values"}
 
 The values above are registered in the IANA "SWID/CoSWID Entity Role Value" registry defined in section {{iana-entity-role}}. Additional values will likely be registered over time. Additionally, the index values 128 through 255 and the name prefix "x_" have been reserved for private use.
@@ -959,7 +962,7 @@ The following table indicates the index value to use for the link-entry group's 
 
 | Index | Ownership Type | Definition |
 |---
-| 1 | abandon | If the software component referenced by the CoSWID tag is uninstalled, then the referenced software SHOULD not be uninstalled
+| 1 | abandon | If the software component referenced by the CoSWID tag is uninstalled, then the referenced software SHOULD NOT be uninstalled
 | 2 | private | If the software component referenced by the CoSWID tag is uninstalled, then the referenced software SHOULD be uninstalled as well.
 | 3 | shared | If the software component referenced by the CoSWID tag is uninstalled, then the referenced software SHOULD be uninstalled if no other components sharing the software.
 {: #tbl-indexed-link-ownership-values title="Link Ownership Values"}
@@ -1197,7 +1200,8 @@ defined in {{SWID}}.
 | 3       | aggregator               | See {{indexed-entity-role}}
 | 4       | distributor              | See {{indexed-entity-role}}
 | 5       | licensor                 | See {{indexed-entity-role}}
-| 6-255   | Unassigned               |
+| 6       | maintainer               | See {{indexed-entity-role}}
+| 7-255   | Unassigned               |
 {: #tbl-iana-entity-role-values title="CoSWID Entity Role Inital Registrations"}
 
 Registrations MUST conform to the expert review guidlines defined in {{iana-review-guidelines}}.
