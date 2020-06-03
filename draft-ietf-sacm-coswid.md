@@ -902,9 +902,9 @@ In order to create a valid CoSWID document the structure of the corresponding CB
 adhere to the following CDDL specification.
 
 ~~~ CDDL
-<CODE START>
+<CODE BEGINS>
 {::include concise-swid-tag.cddl}
-<CODE END>
+<CODE ENDS>
 ~~~
 
 {: #semantics-tag-type}
