@@ -336,12 +336,17 @@ concise-swid-tag = {
   ? software-version => text,
   ? version-scheme => $version-scheme,
   ? media => text,
-  ? software-meta =>  software-meta-entry / [ 2* software-meta-entry ],
+  ? software-meta => software-meta-entry / [ 2* software-meta-entry ],
   entity => entity-entry / [ 2* entity-entry ],
   ? link => link-entry / [ 2* link-entry ],
-  ? (( payload => payload-entry ) // ( evidence => evidence-entry )),
+  ? payload-or-evidence,
   * $$coswid-extension,
 }
+
+payload-or-evidence //= ( payload => payload-entry ] )
+payload-or-evidence //= ( payload => [ 2* payload-entry )
+payload-or-evidence //= ( evidence => evidence-entry )
+payload-or-evidence //= ( evidence => [ 2* evidence-entry ] )
 
 tag-id = 0
 software-name = 1
