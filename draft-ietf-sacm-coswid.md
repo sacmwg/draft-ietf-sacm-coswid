@@ -738,7 +738,7 @@ path-elements-group = ( ? directory => directory-entry / [ 2* directory-entry ],
                         ? file => file-entry / [ 2* file-entry ],
                       )
 
-esource-collection = (
+resource-collection = (
   path-elements-group,
   ? process => process-entry / [ 2* process-entry ],
   ? resource => resource-entry / [ 2* resource-entry ],
@@ -897,7 +897,9 @@ In order to create a valid CoSWID document the structure of the corresponding CB
 adhere to the following CDDL data definition.
 
 ~~~ CDDL
+<CODE START>
 {::include concise-swid-tag.cddl}
+<CODE END>
 ~~~
 
 {: #semantics-tag-type}
