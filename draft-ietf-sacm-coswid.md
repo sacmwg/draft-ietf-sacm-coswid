@@ -234,8 +234,8 @@ definition is aligned to the information able to be expressed with the XML schem
 {{SWID}}. This alignment allows both SWID and CoSWID tags to represent a common set of software component information and allows CoSWID tags to support the same uses as a SWID tag. To achieve this end, the CDDL representation includes every SWID tag field and attribute.
 
 The vocabulary, i.e., the CDDL names of the types and members used in
-the CoSWID data definition, are mapped to more concise labels represented as
-small integer values (indices). The names used in the CDDL data definition and the mapping to
+the CoSWID CDDL specification, are mapped to more concise labels represented as
+small integer values (indices). The names used in the CDDL specification and the mapping to
 the CBOR representation using integer indices is based on the vocabulary of the
 XML attribute and element names defined in ISO/IEC 19770-2:2015.
 
@@ -245,10 +245,10 @@ XML attribute and element names defined in ISO/IEC 19770-2:2015.
 
 # Concise SWID Data Definition
 
-The following describes the general rules and processes for encoding data using CDDL representation. Prior familiarity with CBOR and CDDL concepts will be helpful in understanding this CoSWID data definition.
+The following describes the general rules and processes for encoding data using CDDL representation. Prior familiarity with CBOR and CDDL concepts will be helpful in understanding this CoSWID specification.
 
 This section describes the rules by which SWID tag XML is represented in the CoSWID CDDL structure. The CamelCase {{CamelCase}} notation used in the XML schema definition is changed to a hyphen-separated
-notation {{KebabCase}} (e.g. ResourceCollection is named resource-collection) in the CoSWID data definition.
+notation {{KebabCase}} (e.g. ResourceCollection is named resource-collection) in the CoSWID CDDL specification.
 This deviation from the original notation used in the XML representation reduces ambiguity when referencing
 certain attributes in corresponding textual descriptions. An attribute referred to by its name in CamelCase
 notation explicitly relates to XML SWID tags; an attribute referred to by its name in
@@ -265,7 +265,7 @@ In CBOR, an array is encoded using bytes that identify the array, and the array'
 _name_ = (_label_ => _data_ / [ 2* _data_ ])
 ~~~
 
-The CDDL rule above allows either a single data item or an array of 2 or more data values to be provided. When a singleton data value is provided, the CBOR markers for the array, array length, and stop point are not needed, saving bytes. When two or more data values are provided, these values are encoded as an array. This modeling pattern is used frequently in the CoSWID CDDL data definition to allow for more efficient encoding of singleton values.
+The CDDL rule above allows either a single data item or an array of 2 or more data values to be provided. When a singleton data value is provided, the CBOR markers for the array, array length, and stop point are not needed, saving bytes. When two or more data values are provided, these values are encoded as an array. This modeling pattern is used frequently in the CoSWID CDDL specification to allow for more efficient encoding of singleton values.
 
 The following subsections describe the different parts of the CoSWID model.
 
@@ -280,13 +280,13 @@ All names registered with IANA according to requirements in section {{iana-value
 {: #model-extension}
 ## Concise SWID Extensions
 
-The CoSWID data definition contains two features that are not included in the SWID data definition on which it is based. These features are:
+The CoSWID specification contains two features that are not included in the SWID specification on which it is based. These features are:
 
 - The explicit definition of types for some attributes in the ISO-19770-2:2015 XML representation that are typically represented by
   the "any attribute" in the SWID model. These are
   covered in {{model-global-attributes}}.
 
-- The inclusion of extension points in the CoSWID data definition using CDDL sockets (see {{RFC8610}} section 3.9). The use of CDDL sockets allow for well-formed extensions to be defined in supplementary CDDL descriptions that support additional uses of CoSWID tags that go beyond the original scope of ISO-19770-2:2015 tags. This extension mechanism can also be used to update the CoSWID format as revisions to ISO-19770-2 are published.
+- The inclusion of extension points in the CoSWID specification using CDDL sockets (see {{RFC8610}} section 3.9). The use of CDDL sockets allow for well-formed extensions to be defined in supplementary CDDL descriptions that support additional uses of CoSWID tags that go beyond the original scope of ISO-19770-2:2015 tags. This extension mechanism can also be used to update the CoSWID format as revisions to ISO-19770-2 are published.
 
 The following CDDL sockets (extension points) are defined in this document, which allow the addition of new information structures to their respective CDDL groups.
 
@@ -306,7 +306,7 @@ The following CDDL sockets (extension points) are defined in this document, whic
 
 The CoSWID Items Registry defined in {{iana-coswid-items}} provides a registration mechanism allowing new items, and their associated index values, to be added to the CoSWID model through the use of the CDDL sockets described in the table above. This registration mechanism provides for well-known index values for data items in CoSWID extensions, allowing these index values to be recognized by implementations supporting a given extension.
 
-The following additional CDDL sockets are defined in this document to allow for adding new values to corresponding type-choices (i.e. to represent enumerations) via custom CDDL data definitions.
+The following additional CDDL sockets are defined in this document to allow for adding new values to corresponding type-choices (i.e. to represent enumerations) via custom CDDL specifications.
 
 | Enumeration Name | CDDL Socket | Defined in
 |---
@@ -322,7 +322,7 @@ A number of SWID/CoSWID value registries are also defined in {{iana-value-regist
 {: #model-concise-swid-tag}
 ## The concise-swid-tag Map
 
-The CDDL data definition for the root concise-swid-tag map is as follows and this rule and its constraints MUST be followed when creating or validating a CoSWID tag:
+The CDDL specification for the root concise-swid-tag map is as follows and this rule and its constraints MUST be followed when creating or validating a CoSWID tag:
 
 ~~~ CDDL
 concise-swid-tag = {
@@ -891,10 +891,10 @@ The following describes each child item of this group.
 
 - $$evidence-extension:  This CDDL socket can be used to extend the evidence-entry group model. See {{model-extension}}.
 
-## Full CDDL Definition
+## Full CDDL Specification
 
 In order to create a valid CoSWID document the structure of the corresponding CBOR message MUST
-adhere to the following CDDL data definition.
+adhere to the following CDDL specification.
 
 ~~~ CDDL
 <CODE START>
@@ -1513,7 +1513,7 @@ collection of SWID/CoSWID tags and their association with an endpoint
 reveals information about that endpoint's attack surface.
 
 Finally, both the ISO-19770-2:2015 XML schema SWID definition and the
-CoSWID data definition allow for the construction of "infinite"
+CoSWID CDDL specification allow for the construction of "infinite"
 tags with link item loops or tags that contain malicious content with the intent
 of creating non-deterministic states during validation or processing of those tags. While software
 providers are unlikely to do this, SWID/CoSWID tags can be created by any party and the SWID/CoSWID tags
