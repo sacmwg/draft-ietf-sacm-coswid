@@ -511,7 +511,7 @@ The following describes each child item of this group.
 
 - global-attributes: The global-attributes group described in {{model-global-attributes}}.
 
-- entity-name (index 32): The textual name of the organizational entity claiming the roles specified by the role item for the CoSWID tag.
+- entity-name (index 31): The textual name of the organizational entity claiming the roles specified by the role item for the CoSWID tag.
 
 - reg-id (index 32): The registration id value is intended to uniquely identify a naming authority in a
 given scope (e.g. global, organization, vendor, customer, administrative domain,
