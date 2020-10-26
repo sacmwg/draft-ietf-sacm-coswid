@@ -98,7 +98,7 @@ informative:
   RFC4122:
   RFC8322: rolie
   RFC8520: mud
-  I-D.birkholz-rats-tuda: tuda
+  I-D.ietc-rats-architecture: tuda
   CamelCase:
     target: http://wiki.c2.com/?CamelCase
     title: UpperCamelCase
@@ -156,8 +156,7 @@ SWID tags are used to support a number of processes including but not limited to
   vulnerability descriptions and software components installed on IT-assets {{X.1520}}.
 
 - Remote Attestation, which requires a link between reference integrity
-  measurements (RIM) and security logs of measured software components
-  {{-tuda}}.
+  measurements (RIM) and Attester-produced event logs that complement attestation Evidence {{-rats}}.
 
 While there are very few required fields in SWID tags, there are many optional
 fields that support different uses. A
