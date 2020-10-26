@@ -1425,13 +1425,13 @@ References: FIXME
 
 ### "swid" URI Scheme Specification FIXME: has to move out of registration
 
-Scheme syntax:  The scheme speific part consists of a SWID or CoSWID tag's tag-id that is URI encoded according to {{RFC3986}} Section 2.1. The following expression is a valid example:
+Scheme syntax:  The scheme specific part consists of a SWID or CoSWID tag's tag-id that is URI encoded according to {{RFC3986}} Section 2.1. The following expression is a valid example:
 
 ~~~~
 <swid:2df9de35-0aff-4a86-ace6-f7dddd1ade4c>
 ~~~~
 
-Scheme semantics:  URIs in the "swid" scheme are to be used to reference a SWID or CoSWID tag by its tag-id. A tag-id referenced in this way can be used to indentify the tag resource in the context of where it is referenced from. For example, when a tag is installed on a given device, that tag can reference related tags on the same device using this URI scheme.
+Scheme semantics:  URIs in the "swid" scheme are to be used to reference a SWID or CoSWID tag by its tag-id. A tag-id referenced in this way can be used to identify the tag resource in the context of where it is referenced from. For example, when a tag is installed on a given device, that tag can reference related tags on the same device using this URI scheme.
 
 Encoding considerations:  See Section 2.5 of {{RFC3986}} for guidelines.
 
@@ -1441,7 +1441,7 @@ Security considerations:  None.
 
 ### "swidpath" URI Scheme Registration
 
-There is a need for a scheme name that can be used in URIs to indentify a collection of specific SWID/CoSWID tags with data elements that match an XPath expression, such as the use of the link entry as described in Section {{model-link}}) of this document. Since this scheme is used in a standards track document and an ISO standard, this scheme needs to be used without fear of conflicts with current or future actual schemes.  The scheme "swidpath" is hereby registered as a 'permanent' scheme for that purpose.
+There is a need for a scheme name that can be used in URIs to identify a collection of specific SWID/CoSWID tags with data elements that match an XPath expression, such as the use of the link entry as described in Section {{model-link}}) of this document. Since this scheme is used in a standards track document and an ISO standard, this scheme needs to be used without fear of conflicts with current or future actual schemes.  The scheme "swidpath" is hereby registered as a 'permanent' scheme for that purpose.
 
 The "swidpath" scheme is specified as follows:
 
@@ -1459,7 +1459,7 @@ References: FIXME
 
 ### "swidpath" URI Scheme Specification FIXME: has to move out of registration
 
-Scheme syntax:  The scheme speific part consists of an XPath expression as defined by {{-xpath}}. The included XPath expression will be URI encoded according to {{RFC3986}} Section 2.1.
+Scheme syntax:  The scheme specific part consists of an XPath expression as defined by {{-xpath}}. The included XPath expression will be URI encoded according to {{RFC3986}} Section 2.1.
 
 Scheme semantics:  URIs in the "swidpath" scheme are to be used specify the data that must be found in a given SWID/CoSWID tag for that tag to be considered a matching tag to be included in the identified tag collection. Tags to be evaluated include all tags in the context of where the tag is referenced from. For example, when a tag is installed on a given device, that tag can reference related tags on the same device using this URI scheme. A tag is matching if the XPath evaluation result value has an effective boolean value of "true" according to {{-xpath}} Section 2.4.3.
 rence related tags on the same device using this URI scheme.
@@ -1488,12 +1488,12 @@ Deriving Software Identifiers:
 
     TAG_CREATOR_REGID "_" "_" UNIQUE_ID
 
-  Where TAG_CREATOR_REGID is the reg-id ietm value of the tag's entity item having the role value of 1 (corresponding to "tag creator"), and the UNIQUE_ID is the same tag's tag-id item. If the tag-id item's value is expressed as a 16 byte binary string, the UNIQUE_ID MUST be represented using the UUID string representation defined in {{RFC4122}} including the "urn:uuid:" prefix.
+  Where TAG_CREATOR_REGID is the reg-id item value of the tag's entity item having the role value of 1 (corresponding to "tag creator"), and the UNIQUE_ID is the same tag's tag-id item. If the tag-id item's value is expressed as a 16 byte binary string, the UNIQUE_ID MUST be represented using the UUID string representation defined in {{RFC4122}} including the "urn:uuid:" prefix.
 
   The TAG_CREATOR_REGID and the UNIQUE_ID are connected with a double underscore (_), without any other connecting character or whitespace.
 
 {: #sec-sec}
-#  Security Considerations
+# Security Considerations
 
 SWID and CoSWID tags contain public information about software components and, as
 such, do not need to be protected against disclosure on an endpoint.
@@ -1509,7 +1509,7 @@ software provider. An authoritative SWID/CoSWID tag contains information about a
 
 A signed SWID/CoSWID tag (see {{appendix-cose}}) whose signature has been validated can be relied upon to be unchanged since it was signed. By contrast, the data contained in unsigned tags cannot be trusted to be unmodified.
 
-When an authoritative tag is signed, the software provider can be authenticated as the originator of the signature. Having a signed authoritative SWID/CoSWID tag can be useful when the information in the tag needs to be trusted, such as when the tag is being used to convey reference integrity measurements for software components.
+When an authoritative tag is signed, the software provider can be authenticated as the originator of the signature. A trustworthy association between the signature and the originator of the signature can be established via trust anchors. A certification path between a trust anchor and a certificate including a pub-key enabling the validation of a tag signature can realize the assessment of trustworthiness of an authoritative tag. Having a signed authoritative SWID/CoSWID tag can be useful when the information in the tag needs to be trusted, such as when the tag is being used to convey reference integrity measurements for software components.
 
 SWID/CoSWID tags are designed to be easily added and removed from an
 endpoint along with the installation or removal of software components.
