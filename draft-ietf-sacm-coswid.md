@@ -1543,7 +1543,7 @@ inventory to another party, or that inventory is stored on a server
 for later analysis, this can potentially expose this information to
 attackers who do not yet have access to the endpoint.  For this reason, it is
 important to protect the confidentiality of SWID/CoSWID tag information that
-has been collected from an endpoint, not because those tags
+has been collected from an endpoint in transit and at rest, not because those tags
 individually contain sensitive information, but because the
 collection of SWID/CoSWID tags and their association with an endpoint
 reveals information about that endpoint's attack surface.
@@ -1554,7 +1554,7 @@ tags with link item loops or tags that contain malicious content with the intent
 of creating non-deterministic states during validation or processing of those tags. While software
 providers are unlikely to do this, SWID/CoSWID tags can be created by any party and the SWID/CoSWID tags
 collected from an endpoint could contain a mixture of vendor and non-vendor created tags. For this
-reason, tools that consume SWID/CoSWID tags ought to treat the tag contents as potentially malicious and
+reason, tools that consume SWID/CoSWID tags are required to treat the tag contents as potentially malicious and
 employ input sanitizing and loop detection on the tags they ingest.
 
 #  Acknowledgments
