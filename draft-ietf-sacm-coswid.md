@@ -274,7 +274,7 @@ The CDDL "text" type is represented in CBOR as a major type 3, which represents 
 
 To ensure that UTF-8 character strings are able to be encoded/decoded and exchanged interoperably, text strings in CoSWID MUST be encoded consistent with the Net-Unicode definition defined in {{RFC5198}}.
 
-All names registered with IANA according to requirements in section {{iana-value-registries}} also need to be valid according to the XML Schema NMToken data type (see {{-xml-schema-datatypes}} section 3.3.4) to ensure compatibility with the SWID specification where these names are used.
+All names registered with IANA according to requirements in section {{iana-value-registries}} also MUST be valid according to the XML Schema NMToken data type (see {{-xml-schema-datatypes}} section 3.3.4) to ensure compatibility with the SWID specification where these names are used.
 
 {: #model-extension}
 ## Concise SWID Extensions
