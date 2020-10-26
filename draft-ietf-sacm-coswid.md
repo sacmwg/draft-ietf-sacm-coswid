@@ -514,9 +514,9 @@ The following describes each child item of this group.
 
 - reg-id (index 32): The registration id value is intended to uniquely identify a naming authority in a
 given scope (e.g. global, organization, vendor, customer, administrative domain,
-etc.) for the referenced entity. The value of an
+etc.) for the referenced entity. The value of a
 registration ID MUST be a RFC 3986 URI. The scope SHOULD be the scope of an
-organization. In a given scope, the registration id MUST be used consistently for CoSWID tag production.
+organization.
 
 - role (index 33): An integer or textual value representing the relationship(s) between the entity, and this tag or the referenced software component. If an integer value is used it MUST be an index value in the range -256 to 255. Integer values in the range -256 to -1 are reserved for testing and use in closed environments (see Section {{iana-private-use}}). Integer values in the range 0 to 255 correspond to registered entries in the IANA "SWID/CoSWID Entity Role Value" registry (see Section {{iana-entity-role}}. If a string value is used it MUST be a private use name as defined in Section {{iana-private-use}}. String values based on a Role Name from the IANA "SWID/CoSWID Entity Role Value" registry MUST NOT be used, as these values are less concise than their index value equivalent.
 
