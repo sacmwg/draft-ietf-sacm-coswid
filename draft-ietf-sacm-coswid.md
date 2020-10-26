@@ -98,7 +98,7 @@ informative:
   RFC4122:
   RFC8322: rolie
   RFC8520: mud
-  I-D.ietc-rats-architecture: tuda
+  I-D.ietf-rats-architecture: rats
   CamelCase:
     target: http://wiki.c2.com/?CamelCase
     title: UpperCamelCase
@@ -107,6 +107,10 @@ informative:
     target: http://wiki.c2.com/?KebabCase
     title: KebabCase
     date: 2014-12-18
+  UNSPSC:
+    target: https://www.unspsc.org/
+    title: The United Nations Standard Products and Services Code
+    date: 2020-10-26
   SWID-GUIDANCE:
     target: https://doi.org/10.6028/NIST.IR.8060
     title: Guidelines for the Creation of Interoperable Software Identification (SWID) Tags
@@ -621,13 +625,13 @@ The following describes each member of this map.
 - media (index 10): A hint to the consumer of the link to what target platform the link is applicable to. This item represents a
 query as defined by the W3C Media Queries Recommendation (see {{-css3-mediaqueries}}). See also media defined in {{model-concise-swid-tag}}.
 
-- ownership (index 39): An integer or textual value used when the "href" item references another software component to indicate the degree of ownership between the software component referenced by the COSWID tag and the software component referenced by the link. If an integer value is used it MUST be an index value in the range -256 to 255. Integer values in the range -256 to -1 are reserved for testing and use in closed environments (see Section {{iana-private-use}}). Integer values in the range 0 to 255 correspond to registered entries in the IANA "SWID/CoSWID Link Ownership Value" registry (see Section {{iana-link-ownership}}. If a string value is used it MUST be a private use name as defined in Section {{iana-private-use}}. String values based on a Ownership Type Name from the IANA "SWID/CoSWID Link Ownership Value" registry MUST NOT be used, as these values are less concise than their index value equivalent.
+- ownership (index 39): An integer or textual value used when the "href" item references another software component to indicate the degree of ownership between the software component referenced by the COSWID tag and the software component referenced by the link. If an integer value is used it MUST be an index value in the range -256 to 255. Integer values in the range -256 to -1 are reserved for testing and use in closed environments (see Section {{iana-private-use}}). Integer values in the range 0 to 255 correspond to registered entries in the IANA "SWID/CoSWID Link Ownership Value" registry (see Section {{iana-link-ownership}}. If a string value is used it MUST be a private use name as defined in Section {{iana-private-use}}. String values based on an Ownership Type Name from the IANA "SWID/CoSWID Link Ownership Value" registry MUST NOT be used, as these values are less concise than their index value equivalent.
 
 - rel (index 40): An integer or textual value that identifies the relationship between this CoSWID and the target resource identified by the "href" item. If an integer value is used it MUST be an index value in the range -256 to 65535. Integer values in the range -256 to -1 are reserved for testing and use in closed environments (see Section {{iana-private-use}}). Integer values in the range 0 to 65535 correspond to registered entries in the IANA "SWID/CoSWID Link Relationship Value" registry (see Section {{iana-link-rel}}. If a string value is used it MUST be either a private use name as defined in Section {{iana-private-use}} or a "Relation Name" from the IANA "Link Relation Types" registry: https://www.iana.org/assignments/link-relations/link-relations.xhtml as defined by {{RFC8288}}. When a string value defined in the IANA "SWID/CoSWID Link Relationship Value" registry matches a Relation Name defined in the IANA "Link Relation Types" registry, the index value in the IANA "SWID/CoSWID Link Relationship Value" registry MUST be used instead, as this relationship has a specialized meaning in the context of a SWID/CoSWID tag. String values based on a Relationship Type Name from the IANA "SWID/CoSWID Link Relationship Value" registry MUST NOT be used, as these values are less concise than their index value equivalent.
 
 - media-type (index 41): A link can point to arbitrary resources on the endpoint, local network, or Internet using the href item. Use of this item supplies the resource consumer with a hint of what type of resource to expect. Media types are identified by referencing a "Name" from the IANA "Media Types" registry: http://www.iana.org/assignments/media-types/media-types.xhtml.
 
-- use (index 42): An integer or textual value used to determine if the referenced software component has to be installed before installing the software component identified by the COSWID tag. If an integer value is used it MUST be an index value in the range -256 to 255. Integer values in the range -256 to -1 are reserved for testing and use in closed environments (see Section {{iana-private-use}}). Integer values in the range 0 to 255 correspond to registered entries in the IANA "Link Use Value Value" registry (see Section {{iana-link-use}}. If a string value is used it MUST be a private use name as defined in Section {{iana-private-use}}. String values based on an Link Use Type Name from the IANA "SWID/CoSWID Link Use Value" registry MUST NOT be used, as these values are less concise than their index value equivalent.
+- use (index 42): An integer or textual value used to determine if the referenced software component has to be installed before installing the software component identified by the COSWID tag. If an integer value is used it MUST be an index value in the range -256 to 255. Integer values in the range -256 to -1 are reserved for testing and use in closed environments (see Section {{iana-private-use}}). Integer values in the range 0 to 255 correspond to registered entries in the IANA "Link Use Value" registry (see Section {{iana-link-use}}. If a string value is used it MUST be a private use name as defined in Section {{iana-private-use}}. String values based on an Link Use Type Name from the IANA "SWID/CoSWID Link Use Value" registry MUST NOT be used, as these values are less concise than their index value equivalent.
 
 - $$link-extension: This CDDL socket can be used to extend the link-entry map model. See {{model-extension}}.
 
@@ -680,7 +684,7 @@ The following describes each child item of this group.
 
 - activation-status (index 43): A textual value that identifies how the software component has been activated, which might relate to specific terms and conditions for its use (e.g. Trial, Serialized, Licensed, Unlicensed, etc) and relate to an entitlement.  This attribute is typically used in supplemental tags as it contains information that might be selected during a specific install.
 
-- channel-type (index 44): A textual value that identfies which sales, licensing, or marketing channel the software component has been targeted for (e.g. Volume, Retail, OEM, Academic, etc). This attribute is typically used in supplemental tags as it contains information that might be selected during a specific install.
+- channel-type (index 44): A textual value that identifies which sales, licensing, or marketing channel the software component has been targeted for (e.g. Volume, Retail, OEM, Academic, etc). This attribute is typically used in supplemental tags as it contains information that might be selected during a specific install.
 
 - colloquial-version (index 45): A textual value for the software component's informal or colloquial version. Examples may include a year value, a major version number, or similar value that are used to identify a group of specific software component releases that are part of the same release/support cycle. This version can be the same through multiple releases of a software component, while the software-version specified in the concise-swid-tag group is much more specific and will change for each software component release. This version is intended to be used for string comparison only and is not intended to be used to determine if a specific value is earlier or later in a sequence.
 
@@ -704,7 +708,7 @@ The following describes each child item of this group.
 
 - summary (index 55): A short description of the software component. This MUST be a single sentence suitable for display in a user interface.
 
-- unspsc-code (index 56): An 8 digit UNSPSC classification code for the software component. For more information see https://www.unspsc.org/.
+- unspsc-code (index 56): An 8 digit UNSPSC classification code for the software component as defined by the United Nations Standard Products and Services Code (UNSPSC, {{UNSPSC}}).
 
 - unspsc-version (index 57): The version of UNSPSC used to define the unspsc-code value.
 
