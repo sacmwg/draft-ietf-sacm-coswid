@@ -403,7 +403,7 @@ component. If a CoSWID tag is for a patch, the patch item MUST be set to "true".
 - version-scheme (index 14): An integer or textual value representing the versioning scheme used for the software-version item. If an integer value is used it MUST be an index value in the range -256 to 65535. Integer values in the range -256 to -1 are reserved for testing and use in closed environments (see Section {{iana-private-use}}). Integer values in the range 0 to 65535 correspond to registered entries in the IANA "SWID/CoSWID Version Scheme Value" registry (see Section {{iana-version-scheme}}. If a string value is used it MUST be a private use name as defined in Section {{iana-private-use}}. String values based on a Version Scheme Name from the IANA "SWID/CoSWID Version Scheme Value" registry MUST NOT be used, as these values are less concise than their index value equivalent.
 
 - media (index 10): This text value is a hint to the tag consumer to understand what target platform this tag
-applies to. This item represents a
+applies to. This item MUST be formatted as a
 query as defined by the W3C Media Queries Recommendation (see {{-css3-mediaqueries}}).
 
 - software-meta (index 5): An open-ended map of key/value data pairs.
