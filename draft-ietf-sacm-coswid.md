@@ -942,9 +942,9 @@ The following table contains a set of values for use in the concise-swid-tag gro
 
 The values above are registered in the IANA "SWID/CoSWID Version Scheme Value" registry defined in Section {{iana-version-scheme}}. Additional entries will likely be registered over time in this registry.
 
-These version schemes have partially overlapping value spaces. The following gudelines help to ensure that the most specific version-scheme is used:
+These version schemes have partially overlapping value spaces. The following guidelines help to ensure that the most specific version-scheme is used:
 
-- "decimal" and "multipartnumeric" partially overlap in their value space when a value matches a decimal number . When a corresponding software-version item's value falls within this overlapping value space, the "decimal" version scheme SHOULD be used.
+- "decimal" and "multipartnumeric" partially overlap in their value space when a value matches a decimal number. When a corresponding software-version item's value falls within this overlapping value space, the "decimal" version scheme SHOULD be used.
 - "multipartnumeric" and "semver" partially overlap in their value space when a "multipartnumeric" value matches the semantic versioning syntax. When a corresponding software-version item's value falls within this overlapping value space, the "semver" version scheme SHOULD be used.
 - "alphanumeric" and other version schemes might overlap in their value space. When a corresponding software-version item's value falls within this overlapping value space, the other version scheme SHOULD be used instead of "alphanumeric".
 
@@ -1034,7 +1034,7 @@ registry are to be made based on {{RFC8126}} as follows:
 |---
 | 0-32767           | Standards Action
 | 32768-4294967295  | Specification Required
-{: #tbl-iana-coswid-items-reg-proceedures title="CoSWID Items Registration Proceedures"}
+{: #tbl-iana-coswid-items-reg-procedures title="CoSWID Items Registration Procedures"}
 
 All negative values are reserved for Private Use.
 
@@ -1108,8 +1108,8 @@ are provided below. Assignments consist of an integer index value, the item name
 
 The following IANA registries provide a mechanism for new values to be added over time to common enumerations used by SWID and CoSWID.
 
-{: #iana-registration-proceedures}
-### Registration Proceedures
+{: #iana-registration-procedures}
+### Registration Procedures
 
 The following registries allow for the registration of index values and names. New registrations will be permitted through either the Standards Action policy or the Specification Required policy {{BCP26}}. The latter SHOULD be used only for registrations requested by SDOs outside the IETF. New index values will be provided on a First Come First Served as defined by {{BCP26}}.
 
@@ -1149,13 +1149,13 @@ This document establishes a new registry titled
 \[TO BE REMOVED: This registration should take place at the following
    location: https://www.iana.org/assignments/swid\]
 
-This registry uses the registration proceedures defined in {{iana-registration-proceedures}} with the following associated ranges:
+This registry uses the registration procedures defined in {{iana-registration-procedures}} with the following associated ranges:
 
 | Range        | Registration Procedures
 |---
 | 0-16383      | Standards Action
 | 16384-65535  | Specification Required
-{: #tbl-iana-version-scheme-reg-proceedures title="CoSWID Version Scheme Registration Proceedures"}
+{: #tbl-iana-version-scheme-reg-procedures title="CoSWID Version Scheme Registration Procedures"}
 
 Assignments MUST consist of an integer Index value, the Version Scheme Name, and a reference to the defining specification.
 
@@ -1177,7 +1177,7 @@ defined in {{SWID}}.
 
 Registrations MUST conform to the expert review guidelines defined in {{iana-review-guidelines}}.
 
-Designated experts MUST also ensure that newly requested entries define a value space for the corresponding version item that is unique from other previously registered entries. Note: The inital registrations violate this requirement, but are included for backwards compatibility with {{SWID}}. Guidelines on how to deconflict these value spaces are defined in Section {{indexed-version-scheme}}.
+Designated experts MUST also ensure that newly requested entries define a value space for the corresponding version item that is unique from other previously registered entries. Note: The initial registrations violate this requirement, but are included for backwards compatibility with {{SWID}}. Guidelines on how to deconflict these value spaces are defined in Section {{indexed-version-scheme}}.
 
 {: #iana-entity-role}
 ### SWID/CoSWID Entity Role Value Registry
@@ -1188,13 +1188,13 @@ This document establishes a new registry titled
 \[TO BE REMOVED: This registration should take place at the following
    location: https://www.iana.org/assignments/swid\]
 
-This registry uses the registration proceedures defined in {{iana-registration-proceedures}} with the following associated ranges:
+This registry uses the registration procedures defined in {{iana-registration-procedures}} with the following associated ranges:
 
 | Range   | Registration Procedures
 |---
 | 0-127    | Standards Action
 | 128-255  | Specification Required
-{: #tbl-iana-entity-role-reg-proceedures title="CoSWID Entity Role Registration Proceedures"}
+{: #tbl-iana-entity-role-reg-procedures title="CoSWID Entity Role Registration Procedures"}
 
 Assignments consist of an integer Index value, a Role Name, and a reference to the defining specification.
 
@@ -1214,7 +1214,7 @@ defined in {{SWID}}.
 | 7-255   | Unassigned               |
 {: #tbl-iana-entity-role-values title="CoSWID Entity Role Inital Registrations"}
 
-Registrations MUST conform to the expert review guidlines defined in {{iana-review-guidelines}}.
+Registrations MUST conform to the expert review guidelines defined in {{iana-review-guidelines}}.
 
 {: #iana-link-ownership}
 ### SWID/CoSWID Link Ownership Value Registry
@@ -1225,13 +1225,13 @@ This document establishes a new registry titled
 \[TO BE REMOVED: This registration should take place at the following
    location: https://www.iana.org/assignments/swid\]
 
-This registry uses the registration proceedures defined in {{iana-registration-proceedures}} with the following associated ranges:
+This registry uses the registration procedures defined in {{iana-registration-procedures}} with the following associated ranges:
 
 | Range   | Registration Procedures
 |---
 | 0-127    | Standards Action
 | 128-255  | Specification Required
-{: #tbl-iana-link-ownership-reg-proceedures title="CoSWID Link Ownership Registration Proceedures"}
+{: #tbl-iana-link-ownership-reg-procedures title="CoSWID Link Ownership Registration Procedures"}
 
 Assignments consist of an integer Index value, an Ownership Type Name, and a reference to the defining specification.
 
@@ -1259,13 +1259,13 @@ This document establishes a new registry titled
 \[TO BE REMOVED: This registration should take place at the following
    location: https://www.iana.org/assignments/swid\]
 
-This registry uses the registration proceedures defined in {{iana-registration-proceedures}} with the following associated ranges:
+This registry uses the registration procedures defined in {{iana-registration-procedures}} with the following associated ranges:
 
 | Range        | Registration Procedures
 |---
 | 0-32767      | Standards Action
 | 32768-65535  | Specification Required
-{: #tbl-iana-link-rel-reg-proceedures title="CoSWID Link Relationship Registration Proceedures"}
+{: #tbl-iana-link-rel-reg-procedures title="CoSWID Link Relationship Registration Procedures"}
 
 Assignments consist of an integer Index value, the Relationship Type Name, and a reference to the defining specification.
 
@@ -1303,13 +1303,13 @@ This document establishes a new registry titled
 \[TO BE REMOVED: This registration should take place at the following
    location: https://www.iana.org/assignments/swid\]
 
-This registry uses the registration proceedures defined in {{iana-registration-proceedures}} with the following associated ranges:
+This registry uses the registration procedures defined in {{iana-registration-procedures}} with the following associated ranges:
 
 | Range   | Registration Procedures
 |---
 | 0-127    | Standards Action
 | 128-255  | Specification Required
-{: #tbl-iana-link-use-reg-proceedures title="CoSWID Link Use Registration Proceedures"}
+{: #tbl-iana-link-use-reg-procedures title="CoSWID Link Use Registration Procedures"}
 
 Assignments consist of an integer Index value, the Link Use Type Name, and a reference to the defining specification.
 
@@ -1357,7 +1357,7 @@ applications that use remote integrity verification.
 
 Fragment identifier considerations: Fragment identification for
 application/swid+cbor is supported by using fragment identifiers as
-specified by RFC-7049 Section 7.5.
+specified by RFC7049 Section 7.5.
 
 Additional information:
 
@@ -1411,6 +1411,20 @@ There is a need for a scheme name that can be used in URIs that point to a speci
 
 The "swid" scheme is specified as follows:
 
+Scheme name: FIXME
+
+Status: Permanent
+
+Applications/protocols that use this scheme name: FIXE
+
+Contact: FIXME
+
+Change controller: FIXME
+
+References: FIXME
+
+### "swid" URI Scheme Specification FIXME: has to move out of registration
+
 Scheme syntax:  The scheme speific part consists of a SWID or CoSWID tag's tag-id that is URI encoded according to {{RFC3986}} Section 2.1. The following expression is a valid example:
 
 ~~~~
@@ -1430,6 +1444,20 @@ Security considerations:  None.
 There is a need for a scheme name that can be used in URIs to indentify a collection of specific SWID/CoSWID tags with data elements that match an XPath expression, such as the use of the link entry as described in Section {{model-link}}) of this document. Since this scheme is used in a standards track document and an ISO standard, this scheme needs to be used without fear of conflicts with current or future actual schemes.  The scheme "swidpath" is hereby registered as a 'permanent' scheme for that purpose.
 
 The "swidpath" scheme is specified as follows:
+
+Scheme name: FIXME
+
+Status: Permanent
+
+Applications/protocols that use this scheme name: FIXE
+
+Contact: FIXME
+
+Change controller: FIXME
+
+References: FIXME
+
+### "swidpath" URI Scheme Specification FIXME: has to move out of registration
 
 Scheme syntax:  The scheme speific part consists of an XPath expression as defined by {{-xpath}}. The included XPath expression will be URI encoded according to {{RFC3986}} Section 2.1.
 
