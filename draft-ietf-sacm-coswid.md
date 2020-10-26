@@ -203,16 +203,16 @@ Software      Software        Software     Software      Software
 Deployment -> Installation -> Patching  -> Upgrading  -> Removal
 
 Corpus        Primary         Primary      xPrimary      xPrimary
-Supplemental  Supplemental    Supplemental xSupplemental xSuplemental
+Supplemental  Supplemental    Supplemental xSupplemental xSupplemental
                               Patch        xPatch
                                            Primary
                                            Supplemental
 ~~~
 {: #fig-lifecycle title="Use of Tag Types in the Software Lifecycle"}
 
-> {{fig-lifecycle}} illustrates the steps in the software lifecycle and the relationships among those lifecycle events supported by the four types of SWID and CoSWID tags. The figure identifies the types of tags that can be deployed and previously deployed tags that are typically removed (indicated by an "x" prefix) at each lifecycle stage, as follows:
+> {{fig-lifecycle}} illustrates the steps in the software lifecycle and the relationships among those lifecycle events supported by the four types of SWID and CoSWID tags. A detailed description of the four tags types is provided in {{model-concise-swid-tag}}. The figure identifies the types of tags that can be deployed and previously deployed tags that are typically removed (indicated by an "x" prefix) at each lifecycle stage, as follows:
 
-> - Software Deployment. Before the software component is installed (i.e., pre-installation), and while the product is being deployed, a corpus tag provides information about the installation files and distribution media (e.g., CD/DVD, distribution package). Corpus tags are not actually deployed on the target system but are intended to support the deployment procedures and their dependencies.
+> - Software Deployment. Before the software component is installed (i.e., pre-installation), and while the product is being deployed, a corpus tag provides information about the installation files and distribution media (e.g., CD/DVD, distribution package). Corpus tags are not actually deployed on the target system but are intended to support deployment procedures and their dependencies.
 > - Software Installation. A primary tag will be installed with the software component (or subsequently created) to uniquely identify and describe the software component. Supplemental tags are created to augment primary tags with additional site-specific or extended information. While not illustrated in the figure, patch tags can also be installed during software installation to provide information about software fixes deployed along with the base software installation.
 > - Software Patching. A new patch tag is provided, when a patch is applied to the software component, supplying details about the patch and its dependencies. While not illustrated in the figure, a corpus tag can also provide information about the patch installer and patching dependencies that need to be installed before the patch.
 > - Software Upgrading. As a software component is upgraded to a new version, new primary and supplemental tags replace existing tags, enabling timely and accurate tracking of updates to software inventory. While not illustrated in the figure, a corpus tag can also provide information about the upgrade installer and dependencies that need to be installed before the upgrade.
