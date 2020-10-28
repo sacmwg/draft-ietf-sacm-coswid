@@ -539,7 +539,7 @@ etc.) for the referenced entity. The value of a
 registration ID MUST be a RFC 3986 URI. The scope SHOULD be the scope of an
 organization.
 
-- role (index 33): An integer or textual value representing the relationship(s) between the entity, and this tag or the referenced software component. If an integer value is used it MUST be an index value in the range -256 to 255. Integer values in the range -256 to -1 are reserved for testing and use in closed environments (see Section {{iana-private-use}}). Integer values in the range 0 to 255 correspond to registered entries in the IANA "Software Tag Entity Role Values" registry (see section {{iana-entity-role}}. If a string value is used it MUST be a private use name as defined in Section {{iana-private-use}}. String values based on a Role Name from the IANA "Software Tag Entity Role Values" registry MUST NOT be used, as these values are less concise than their index value equivalent.
+- role (index 33): An integer or textual value representing the relationship(s) between the entity, and this tag or the referenced software component. If an integer value is used it MUST be an index value in the range -256 to 255. Integer values in the range -256 to -1 are reserved for testing and use in closed environments (see Section {{iana-private-use}}). Integer values in the range 0 to 255 correspond to registered entries in the IANA "Software Tag Entity Role Values" registry (see Section {{iana-entity-role}}. If a string value is used it MUST be a private use name as defined in Section {{iana-private-use}}. String values based on a Role Name from the IANA "Software Tag Entity Role Values" registry MUST NOT be used, as these values are less concise than their index value equivalent.
 
   The following additional requirements exist for the use of the "role" item:
 
@@ -977,7 +977,7 @@ The following table indicates the index value to use for the entity-entry group'
 | 6     | maintainer      | The person or organization that is responsible for coordinating and making updates to the source code for the software component. This SHOULD be used when the "maintainer" is a different person or organization than the original "softwareCreator".
 {: #tbl-indexed-entity-role-values title="Entity Role Values"}
 
-The values above are registered in the IANA "Software Tag Entity Role Values" registry defined in section {{iana-entity-role}}. Additional values will likely be registered over time. Additionally, the index values 128 through 255 and the name prefix "x_" have been reserved for private use.
+The values above are registered in the IANA "Software Tag Entity Role Values" registry defined in Section {{iana-entity-role}}. Additional values will likely be registered over time. Additionally, the index values 128 through 255 and the name prefix "x_" have been reserved for private use.
 
 {: #indexed-link-ownership}
 ## Link Ownership Values
