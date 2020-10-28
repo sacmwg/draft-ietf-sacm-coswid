@@ -224,15 +224,19 @@ Supplemental  Supplemental    Supplemental xSupplemental xSupplemental
 
 > {{fig-lifecycle}} illustrates the steps in the software lifecycle and the relationships among those lifecycle events supported by the four types of SWID and CoSWID tags. A detailed description of the four tags types is provided in {{model-concise-swid-tag}}. The figure identifies the types of tags that are used in each lifecycle event.
 
-These tags are used by the process that manage software installations on a target host. Thus, these these tags MUST be either made available on the host or to an external software manager when storage is limited on the host. In this context, tags are deployed and previously deployed tags that are typically removed (indicated by an "x" prefix) at each lifecycle stage, as follows:
+There are many ways in which software tags might be managed for the host the software is installed on. For example, software tags could be made available on the host or to an external software manager when storage is limited on the host.
 
-> - Software Deployment. Before the software component is installed (i.e., pre-installation), and while the product is being deployed, a corpus tag provides information about the installation files and distribution media (e.g., CD/DVD, distribution package). Corpus tags are not actually deployed on the target system but are intended to support deployment procedures and their dependencies, such as to verify the installation media.
+In these cases the host or external software manager is responsible for management of the tags, including deployment and removal of the tags as indicated by the above lifecycle. Tags are deployed and previously deployed tags that are typically removed (indicated by an "x" prefix) at each lifecycle stage, as follows:
+
+> - Software Deployment. Before the software component is installed (i.e., pre-installation), and while the product is being deployed, a corpus tag provides information about the installation files and distribution media (e.g., CD/DVD, distribution package).
+
+Corpus tags are not actually deployed on the target system but are intended to support deployment procedures and their dependencies at install-time, such as to verify the installation media.
 
 > - Software Installation. A primary tag will be installed with the software component (or subsequently created) to uniquely identify and describe the software component. Supplemental tags are created to augment primary tags with additional site-specific or extended information. While not illustrated in the figure, patch tags can also be installed during software installation to provide information about software fixes deployed along with the base software installation.
 > - Software Patching. A new patch tag is provided, when a patch is applied to the software component, supplying details about the patch and its dependencies. While not illustrated in the figure, a corpus tag can also provide information about the patch installer and patching dependencies that need to be installed before the patch.
 > - Software Upgrading. As a software component is upgraded to a new version, new primary and supplemental tags replace existing tags, enabling timely and accurate tracking of updates to software inventory. While not illustrated in the figure, a corpus tag can also provide information about the upgrade installer and dependencies that need to be installed before the upgrade.
 
-Note: Software patching and upgrading differ in an important way. When installing a patch, a set of file modifications are made to pre-installed software which do not alter the version number or the descriptive metadata of an installed software component. An update can also make a set of file modifications, but the version number or the descriptive metadata of an installed software component are changed.
+Note: In the context of software tagging software patching and updating differ in an important way. When installing a patch, a set of file modifications are made to pre-installed software which do not alter the version number or the descriptive metadata of an installed software component. An update can also make a set of file modifications, but the version number or the descriptive metadata of an installed software component are changed.
 
 > - Software Removal. Upon removal of the software component, relevant SWID tags are removed. This removal event can trigger timely updates to software inventory reflecting the removal of the product and any associated patch or supplemental tags.
 
@@ -264,7 +268,7 @@ XML attribute and element names defined in ISO/IEC 19770-2:2015.
 
 The following describes the general rules and processes for encoding data using CDDL representation. Prior familiarity with CBOR and CDDL concepts will be helpful in understanding this CoSWID specification.
 
-This section describes the rules by which a CoSWID is represented in the CDDL structure. The CamelCase {{CamelCase}} notation used in the XML schema definition is changed to a hyphen-separated
+This section describes the conventions by which a CoSWID is represented in the CDDL structure. The CamelCase {{CamelCase}} notation used in the XML schema definition is changed to a hyphen-separated
 notation {{KebabCase}} (e.g. ResourceCollection is named resource-collection) in the CoSWID CDDL specification.
 This deviation from the original notation used in the XML representation reduces ambiguity when referencing
 certain attributes in corresponding textual descriptions. An attribute referred to by its name in CamelCase
@@ -336,7 +340,7 @@ The following additional CDDL sockets are defined in this document to allow for 
 | use | $use | {{indexed-link-use}}
 {: #tbl-model-extension-enum-sockets title="CoSWID CDDL Enumeration Extension Points"}
 
-A number of CoSWID value registries are also defined in {{iana-value-registries}} that allow new values to be registered with IANA for the enumerations above. This registration mechanism supports the definition of new well-known index values and names for new enumeration values used by CoSWID, which can also be used by a future revision of {{SWID}}. This registration mechanism allows new standardized enumerated values to be shared between both specifications (and associated implementations) over time.
+A number of CoSWID value registries are also defined in {{iana-value-registries}} that allow new values to be registered with IANA for the enumerations above. This registration mechanism supports the definition of new well-known index values and names for new enumeration values used by CoSWID, which can also be used by other software tagging specifications. This registration mechanism allows new standardized enumerated values to be shared between multiple tagging specifications (and associated implementations) over time.
 
 {: #model-concise-swid-tag}
 ## The concise-swid-tag Map
@@ -409,9 +413,7 @@ class 4 UUID) {{RFC4122}}, or a text string appended to a DNS domain name to ens
 
 - corpus (index 8): A boolean value that indicates if the tag identifies and describes an installable software component in its pre-installation state. Installable software includes a installation package or installer for a software component, a software update, or a patch. If the CoSWID tag represents installable software, the corpus item MUST be set to "true". If not provided, the default value MUST be considered "false".
 
-- patch (index 9): A boolean value that indicates if the tag identifies and describes an installed patch that has made incremental changes to a software component installed on an endpoint. If a CoSWID tag is for a patch, the patch item MUST be set to "true". If not provided, the default value MUST be considered "false". 
-
-  A software component's version number MUST NOT be modified by an installation associated with a CoSWID with a patch item value of "true".
+- patch (index 9): A boolean value that indicates if the tag identifies and describes an installed patch that has made incremental changes to a software component installed on an endpoint. If a CoSWID tag is for a patch, the patch item MUST be set to "true". If not provided, the default value MUST be considered "false". A patch item's value MUST NOT be set to "true" if the installation of the associated software package changes the version of a software component.
 
 - supplemental (index 11): A boolean value that indicates if the tag is providing additional information to be associated with another referenced SWID or CoSWID tag. This allows tools and users to record their own metadata about a software component without modifying SWID primary or patch tags created by a software provider. If a CoSWID tag is a supplemental tag, the supplemental item MUST be set to "true". If not provided, the default value MUST be considered "false".
 
@@ -423,7 +425,7 @@ class 4 UUID) {{RFC4122}}, or a text string appended to a DNS domain name to ens
 
 - media (index 10): This text value is a hint to the tag consumer to understand what target platform this tag
 applies to. This item item MUST be formatted as a 
-query as defined by the W3C Media Queries Recommendation (see {{-css3-mediaqueries}}). Support for media queries are included here for compatibility with {{SWID}}, which does not provide any further requirements for media query use. Thus, this specification does not clarify how a media query is to be used for a CoSWID.
+query as defined by the W3C Media Queries Recommendation (see {{-css3-mediaqueries}}). Support for media queries are included here for interoperability with {{SWID}}, which does not provide any further requirements for media query use. Thus, this specification does not clarify how a media query is to be used for a CoSWID.
 
 - software-meta (index 5): An open-ended map of key/value data pairs.
 A number of predefined keys can be used within this item providing for
@@ -1570,8 +1572,7 @@ tags with link item loops or tags that contain malicious content with the intent
 of creating non-deterministic states during validation or processing of those tags. While software
 providers are unlikely to do this, CoSWID tags can be created by any party and the CoSWID tags
 collected from an endpoint could contain a mixture of vendor and non-vendor created tags. For this
-reason, tools that consume CoSWID tags are required to treat the tag contents as potentially malicious and
-employ input sanitizing and loop detection on the tags they ingest.
+reason, a CoSWID tag might contain potentially malicious content. Input sanitization and loop detection are two ways that implementations can address this concern.
 
 #  Acknowledgments
 
