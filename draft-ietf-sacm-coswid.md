@@ -93,6 +93,7 @@ normative:
   UNSPSC:
     target: https://www.unspsc.org/
     title: United Nations Standard Products and Services Code
+    date: 2020-10-26
   W3C.REC-xpath20-20101214: xpath
   W3C.REC-css3-mediaqueries-20120619: css3-mediaqueries
   W3C.REC-xmlschema-2-20041028: xml-schema-datatypes
@@ -111,10 +112,6 @@ informative:
     target: http://wiki.c2.com/?KebabCase
     title: KebabCase
     date: 2014-12-18
-  UNSPSC:
-    target: https://www.unspsc.org/
-    title: The United Nations Standard Products and Services Code
-    date: 2020-10-26
   SWID-GUIDANCE:
     target: https://doi.org/10.6028/NIST.IR.8060
     title: Guidelines for the Creation of Interoperable Software Identification (SWID) Tags
