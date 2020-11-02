@@ -349,7 +349,6 @@ The CDDL specification for the root concise-swid-tag map is as follows and this 
 
 ~~~ CDDL
 concise-swid-tag = {
-  global-attributes,
   tag-id => text / bstr .size 16,
   tag-version => integer,
   ? corpus => bool,
@@ -363,6 +362,7 @@ concise-swid-tag = {
   entity => entity-entry / [ 2* entity-entry ],
   ? link => link-entry / [ 2* link-entry ],
   ? payload-or-evidence,
+  global-attributes,
   * $$coswid-extension,
 }
 
@@ -499,11 +499,11 @@ The CDDL for the entity-entry map follows:
 
 ~~~ CDDL
 entity-entry = {
-  global-attributes,
   entity-name => text,
   ? reg-id => any-uri,
   role => $role / [ 2* $role ],
   ? thumbprint => hash-entry,
+  global-attributes,
   * $$entity-extension,
 }
 
@@ -531,7 +531,7 @@ The following describes each child item of this group.
 
 - global-attributes: The global-attributes group described in {{model-global-attributes}}.
 
-- entity-name (index 32): The textual name of the organizational entity claiming the roles specified by the role item for the CoSWID tag.
+- entity-name (index 31): The textual name of the organizational entity claiming the roles specified by the role item for the CoSWID tag.
 
 - reg-id (index 32): The registration id value is intended to uniquely identify a naming authority in a
 given scope (e.g. global, organization, vendor, customer, administrative domain,
@@ -557,7 +557,6 @@ The CDDL for the link-entry map follows:
 
 ~~~ CDDL
 link-entry = {
-  global-attributes,
   ? artifact => text,
   href => any-uri,
   ? media => text,
@@ -565,6 +564,7 @@ link-entry = {
   rel => $rel,
   ? media-type => text,
   ? use => $use,
+  global-attributes,
   * $$link-extension,
 }
 
@@ -595,7 +595,7 @@ $rel /= requires
 $rel /= see-also
 $rel /= supersedes
 $rel /= supplemental
-$rel /= uint / text
+$rel /= -356..65536 / text
 ancestor=1
 component=2
 feature=3
@@ -652,7 +652,6 @@ The CDDL for the software-meta-entry map follows:
 
 ~~~ CDDL
 software-meta-entry = {
-  global-attributes,
   ? activation-status => text,
   ? channel-type => text,
   ? colloquial-version => text,
@@ -668,6 +667,7 @@ software-meta-entry = {
   ? summary => text,
   ? unspsc-code => text,
   ? unspsc-version => text,
+  global-attributes,
   * $$software-meta-extension,
 }
 
@@ -764,11 +764,11 @@ resource-collection = (
 )
 
 filesystem-item = (
-  global-attributes,
   ? key => bool,
   ? location => text,
   fs-name => text,
   ? root => text,
+  global-attributes,
 )
 
 file-entry = {
@@ -786,15 +786,15 @@ directory-entry = {
 }
 
 process-entry = {
-  global-attributes,
   process-name => text,
   ? pid => integer,
+  global-attributes,
   * $$process-extension,
 }
 
 resource-entry = {
-  global-attributes,
   type => text,
+  global-attributes,
   * $$resource-extension,
 }
 
@@ -865,8 +865,8 @@ The CDDL for the payload-entry map follows:
 
 ~~~ CDDL
 payload-entry = {
-  global-attributes,
   resource-collection,
+  global-attributes,
   * $$payload-extension,
 }
 ~~~
@@ -886,10 +886,10 @@ The CDDL for the evidence-entry map follows:
 
 ~~~ CDDL
 evidence-entry = {
-  global-attributes,
   resource-collection,
   ? date => time,
   ? device-id => text,
+  global-attributes,
   * $$evidence-extension,
 }
 
