@@ -1033,6 +1033,37 @@ The following table indicates the index value to use for the link-entry group's 
 
 The values above are registered in the IANA "Software Tag Link Use Values" registry defined in {{iana-link-use}}. Additional values will likely be registered over time. Additionally, the index values 128 through 255 and the name prefix "x_" have been reserved for private use.
 
+{: #schemes}
+# URI Schemes
+
+This specification defines the following URI schemes for use in CoSWID and to provide interoperability with schemes used in {SWID}.
+
+Note: These schemes are used in {SWID} without an IANA registration. This specification ensures that these schemes are properly defined going forward.
+
+{: #schemes-swid}
+## "swid" URI Scheme Specification
+
+URIs specifying the "swid" scheme are used to reference a software tag by its tag-id. A tag-id referenced in this way can be used to identify the tag resource in the context of where it is referenced from. For example, when a tag is installed on a given device, that tag can reference related tags on the same device using URIs with this scheme.
+
+For URIs that use the "swid" scheme, the scheme specific part MUST consist of a referenced software tag's tag-id. This tag-id MUST be URI encoded according to {{RFC3986}} Section 2.1.
+
+The following expression is a valid example:
+
+~~~~
+swid:2df9de35-0aff-4a86-ace6-f7dddd1ade4c
+~~~~
+
+{: #schemes-swidpath}
+## "swidpath" URI Scheme Specification
+
+URIs specifying the "swidpath" scheme are used to reference the data that must be found in a given software tag for that tag to be considered a matching tag to be included in the identified tag collection. Tags to be evaluated include all tags in the context of where the tag is referenced from. For example, when a tag is installed on a given device, that tag can reference related tags on the same device using a URI with this scheme.
+
+For URIs that use the "swidpath" scheme, the requirements apply.
+
+The scheme specific part MUST be an XPath expression as defined by {{-xpath}}. The included XPath expression will be URI encoded according to {{RFC3986}} Section 2.1.
+
+This XPath is evaluated over SWID tags found on a system. A given tag MUST be considered a match if the XPath evaluation result value has an effective boolean value of "true" according to {{-xpath}} Section 2.4.3.
+
 {: #iana}
 #  IANA Considerations
 
@@ -1433,33 +1464,17 @@ There is a need for a scheme name that can be used in URIs that point to a speci
 
 The "swid" scheme is specified as follows:
 
-Scheme name: FIXME
+Scheme name: swid
 
 Status: Permanent
 
-Applications/protocols that use this scheme name: FIXME
+Applications/protocols that use this scheme name: See section {{schemes-swid}}.
 
 Contact: FIXME
 
 Change controller: FIXME
 
 References: FIXME
-
-### "swid" URI Scheme Specification [TODO: FIXME: has to move out of registration]
-
-Scheme syntax:  The scheme specific part consists of a software tag's tag-id that is URI encoded according to {{RFC3986}} Section 2.1. The following expression is a valid example:
-
-~~~~
-<swid:2df9de35-0aff-4a86-ace6-f7dddd1ade4c>
-~~~~
-
-Scheme semantics:  URIs in the "swid" scheme are to be used to reference a software tag by its tag-id. A tag-id referenced in this way can be used to identify the tag resource in the context of where it is referenced from. For example, when a tag is installed on a given device, that tag can reference related tags on the same device using this URI scheme.
-
-Encoding considerations:  See Section 2.5 of {{RFC3986}} for guidelines.
-
-Interoperability considerations:  None.
-
-Security considerations:  None.
 
 ### "swidpath" URI Scheme Registration
 
@@ -1467,30 +1482,17 @@ There is a need for a scheme name that can be used in URIs to identify a collect
 
 The "swidpath" scheme is specified as follows:
 
-Scheme name: FIXME
+Scheme name: swidpath
 
 Status: Permanent
 
-Applications/protocols that use this scheme name: FIXE
+Applications/protocols that use this scheme name:  See section {{schemes-swidpath}}.
 
 Contact: FIXME
 
 Change controller: FIXME
 
 References: FIXME
-
-### "swidpath" URI Scheme Specification [TODO: FIXME: has to move out of registration]
-
-Scheme syntax:  The scheme specific part consists of an XPath expression as defined by {{-xpath}}. The included XPath expression will be URI encoded according to {{RFC3986}} Section 2.1.
-
-Scheme semantics:  URIs in the "swidpath" scheme are to be used specify the data that must be found in a given software tag for that tag to be considered a matching tag to be included in the identified tag collection. Tags to be evaluated include all tags in the context of where the tag is referenced from. For example, when a tag is installed on a given device, that tag can reference related tags on the same device using this URI scheme. A tag is matching if the XPath evaluation result value has an effective boolean value of "true" according to {{-xpath}} Section 2.4.3.
-rence related tags on the same device using this URI scheme.
-
-Encoding considerations:  See Section 2.5 of {{RFC3986}} for guidelines.
-
-Interoperability considerations:  None.
-
-Security considerations:  None.
 
 ## CoSWID Model for use in SWIMA Registration
 
