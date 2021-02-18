@@ -359,8 +359,8 @@ concise-swid-tag = {
   entity => entity-entry / [ 2* entity-entry ],
   ? link => link-entry / [ 2* link-entry ],
   ? payload-or-evidence,
-  global-attributes,
   * $$coswid-extension,
+  global-attributes,
 }
 
 payload-or-evidence //= ( payload => payload-entry ] )
@@ -500,8 +500,8 @@ entity-entry = {
   ? reg-id => any-uri,
   role => $role / [ 2* $role ],
   ? thumbprint => hash-entry,
-  global-attributes,
   * $$entity-extension,
+  global-attributes,
 }
 
 entity-name = 31
@@ -561,8 +561,8 @@ link-entry = {
   rel => $rel,
   ? media-type => text,
   ? use => $use,
-  global-attributes,
   * $$link-extension,
+  global-attributes,
 }
 
 media = 10
@@ -664,8 +664,8 @@ software-meta-entry = {
   ? summary => text,
   ? unspsc-code => text,
   ? unspsc-version => text,
-  global-attributes,
   * $$software-meta-extension,
+  global-attributes,
 }
 
 activation-status = 43
@@ -785,14 +785,14 @@ directory-entry = {
 process-entry = {
   process-name => text,
   ? pid => integer,
-  global-attributes,
   * $$process-extension,
+  global-attributes,
 }
 
 resource-entry = {
   type => text,
-  global-attributes,
   * $$resource-extension,
+  global-attributes,
 }
 
 directory = 16
@@ -863,8 +863,8 @@ The CDDL for the payload-entry map follows:
 ~~~ CDDL
 payload-entry = {
   resource-collection,
-  global-attributes,
   * $$payload-extension,
+  global-attributes,
 }
 ~~~
 
@@ -886,8 +886,8 @@ evidence-entry = {
   resource-collection,
   ? date => time,
   ? device-id => text,
-  global-attributes,
   * $$evidence-extension,
+  global-attributes,
 }
 
 date = 35
