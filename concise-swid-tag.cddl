@@ -17,11 +17,9 @@ concise-swid-tag = {
 }
 
 payload-or-evidence //= ( payload => payload-entry )
-payload-or-evidence //= ( payload => [ 2* payload-entry ] )
 payload-or-evidence //= ( evidence => evidence-entry )
-payload-or-evidence //= ( evidence => [ 2* evidence-entry ] )
 
-any-uri = text
+any-uri = uri
 label = text / int
 
 $version-scheme /= multipartnumeric
@@ -171,7 +169,7 @@ payload-entry = {
 
 evidence-entry = {
   resource-collection,
-  ? date => time,
+  ? date => #6.1(int),
   ? device-id => text,
   global-attributes,
   * $$evidence-extension, 
