@@ -12,16 +12,14 @@ concise-swid-tag = {
   entity => entity-entry / [ 2* entity-entry ],
   ? link => link-entry / [ 2* link-entry ],
   ? payload-or-evidence,
-  global-attributes,
   * $$coswid-extension,
+  global-attributes,
 }
 
 payload-or-evidence //= ( payload => payload-entry )
-payload-or-evidence //= ( payload => [ 2* payload-entry ] )
 payload-or-evidence //= ( evidence => evidence-entry )
-payload-or-evidence //= ( evidence => [ 2* evidence-entry ] )
 
-any-uri = text
+any-uri = uri
 label = text / int
 
 $version-scheme /= multipartnumeric
@@ -50,8 +48,8 @@ entity-entry = {
   ? reg-id => any-uri,
   role => $role / [ 2* $role ],
   ? thumbprint => hash-entry,
-  global-attributes,
   * $$entity-extension,
+  global-attributes,
 }
 
 $role /= tag-creator
@@ -70,8 +68,8 @@ link-entry = {
   rel => $rel,
   ? media-type => text,
   ? use => $use,
-  global-attributes,
   * $$link-extension
+  global-attributes,
 }
 
 $ownership /= shared
@@ -113,8 +111,8 @@ software-meta-entry = {
   ? summary => text,
   ? unspsc-code => text,
   ? unspsc-version => text,
-  global-attributes,
   * $$software-meta-extension,
+  global-attributes,
 }
 
 path-elements-group = ( ? directory => directory-entry / [ 2* directory-entry ],
@@ -145,14 +143,14 @@ directory-entry = {
 process-entry = {
   process-name => text,
   ? pid => integer,
-  global-attributes,
   * $$process-extension,
+  global-attributes,
 }
 
 resource-entry = {
   type => text,
-  global-attributes,
   * $$resource-extension,
+  global-attributes,
 }
 
 filesystem-item = (
@@ -165,16 +163,16 @@ filesystem-item = (
 
 payload-entry = {
   resource-collection,
-  global-attributes,
   * $$payload-extension,
+  global-attributes,
 }
 
 evidence-entry = {
   resource-collection,
-  ? date => time,
+  ? date => integer-time,
   ? device-id => text,
-  global-attributes,
   * $$evidence-extension, 
+  global-attributes,
 }
 
 ; "global map member" integer indexes
