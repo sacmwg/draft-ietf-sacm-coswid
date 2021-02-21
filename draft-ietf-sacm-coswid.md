@@ -949,9 +949,7 @@ The following table contains a set of values for use in the concise-swid-tag gro
 | 16384 | semver                  | Follows the {{SEMVER}} specification
 {: #tbl-indexed-version-scheme-values title="Version Scheme Values"}
 
-[TODO: What text do we need to include to get a waiver to use SEMVER as a normative requirement?]
-
-The values above are registered in the IANA "Software Tag Version Scheme Values" registry defined in {{iana-version-scheme}}. Additional entries will likely be registered over time in this registry.
+The values above are registered in the IANA "Software Tag Version Scheme Values" registry defined in Section {{iana-version-scheme}}. Additional entries will likely be registered over time in this registry.
 
 These version schemes have partially overlapping value spaces. The following guidelines help to ensure that the most specific version-scheme is used:
 
@@ -1506,6 +1504,25 @@ Deriving Software Identifiers:
   Where TAG_CREATOR_REGID is the reg-id item value of the tag's entity item having the role value of 1 (corresponding to "tag creator"), and the UNIQUE_ID is the same tag's tag-id item. If the tag-id item's value is expressed as a 16 byte binary string, the UNIQUE_ID MUST be represented using the UUID string representation defined in {{RFC4122}} including the "urn:uuid:" prefix.
 
   The TAG_CREATOR_REGID and the UNIQUE_ID are connected with a double underscore (_), without any other connecting character or whitespace.
+
+# Signed CoSWID Tags
+
+SWID tags, as defined in the ISO-19770-2:2015 XML schema, can include cryptographic signatures to protect the integrity of the SWID tag.
+In general, tags are signed by the tag creator (typically, although not exclusively, the vendor of the software component that the SWID tag identifies).
+Cryptographic signatures can make any modification of the tag detectable, which is especially important if the integrity of the tag is important, such as when the tag is providing reference integrity measurements for files.
+The ISO-19770-2:2015 XML schema uses XML DSIG to support cryptographic signatures.
+
+Signing CoSWID tags follows the procedues defined in CBOR Object Signing and Encryption {{RFC8152}}. A CoSWID tg MUST be wrapped in a COSE Single Signer Data Object (COSE_Sign1) that contains a single signature and MUST be signed by the tag creator. The following CDDL specification defines a restrictive subset of COSE header parameters that MUST be used in the protected header.
+
+~~~~ CDDL
+<CODE BEGINS>
+{::include signed-coswid.cddl}
+<CODE ENDS>
+~~~~
+
+Optionally, the COSE_Sign structure that allows for more than one signature to be applied to a CoSWID tag MAY be used. The corresponding usage scenarios are domain-specific and require well-specified application guidance.
+
+Additionally, the COSE Header counter signature MAY be used as an attribute in the unprotected header map of the COSE envelope of a CoSWID. The application of counter signing enables second parties to provide a signature on a signature allowing for a proof that a signature existed at a given time (i.e., a timestamp). 
 
 {: #sec-sec}
 # Security Considerations
