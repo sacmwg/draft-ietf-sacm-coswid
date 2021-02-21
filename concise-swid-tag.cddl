@@ -169,7 +169,7 @@ payload-entry = {
 
 evidence-entry = {
   resource-collection,
-  ? date => #6.1(int),
+  ? date => integer-time,
   ? device-id => text,
   * $$evidence-extension, 
   global-attributes,
