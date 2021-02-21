@@ -175,6 +175,8 @@ evidence-entry = {
   global-attributes,
 }
 
+integer-time = #6.1(int)
+
 ; "global map member" integer indexes
 tag-id = 0
 software-name = 1
