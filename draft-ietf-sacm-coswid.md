@@ -25,8 +25,8 @@ author:
   country: Germany
 - ins: J. Fitzgerald-McKay
   name: Jessica Fitzgerald-McKay
-  org: Department of Defense
-  email: jmfitz2@nsa.gov
+  org: National Security Agency
+  email: jmfitz2@cyber.nsa.gov
   street: 9800 Savage Road
   city: Ft. Meade
   region: Maryland
@@ -295,7 +295,7 @@ The CDDL "text" type is represented in CBOR as a major type 3, which represents 
 
 To ensure that UTF-8 character strings are able to be encoded/decoded and exchanged interoperably, text strings in CoSWID MUST be encoded consistent with the Net-Unicode definition defined in {{RFC5198}}.
 
-All names registered with IANA according to requirements in Section {{iana-value-registries}} also MUST be valid according to the XML Schema NMToken data type (see {{-xml-schema-datatypes}} Section 3.3.4) to ensure compatibility with the SWID specification where these names are used.
+All names registered with IANA according to requirements in {{iana-value-registries}} also MUST be valid according to the XML Schema NMToken data type (see {{-xml-schema-datatypes}} Section 3.3.4) to ensure compatibility with the SWID specification where these names are used.
 
 {: #model-extension}
 ## Concise SWID Extensions
@@ -418,7 +418,7 @@ class 4 UUID) {{RFC4122}}, or a text string appended to a DNS domain name to ens
 
 - software-version (index 13): A textual value representing the specific release or development version of the software component.
 
-- version-scheme (index 14): An integer or textual value representing the versioning scheme used for the software-version item. If an integer value is used it MUST be an index value in the range -256 to 65535. Integer values in the range -256 to -1 are reserved for testing and use in closed environments (see Section {{iana-private-use}}). Integer values in the range 0 to 65535 correspond to registered entries in the IANA "Software Tag Version Scheme Values" registry (see Section {{iana-version-scheme}}. If a string value is used it MUST be a private use name as defined in Section {{iana-private-use}}. String values based on a Version Scheme Name from the IANA "Software Tag Version Scheme Values" registry MUST NOT be used, as these values are less concise than their index value equivalent.
+- version-scheme (index 14): An integer or textual value representing the versioning scheme used for the software-version item. If an integer value is used it MUST be an index value in the range -256 to 65535. Integer values in the range -256 to -1 are reserved for testing and use in closed environments (see {{iana-private-use}}). Integer values in the range 0 to 65535 correspond to registered entries in the IANA "Software Tag Version Scheme Values" registry (see {{iana-version-scheme}}. If a string value is used it MUST be a private use name as defined in {{iana-private-use}}. String values based on a Version Scheme Name from the IANA "Software Tag Version Scheme Values" registry MUST NOT be used, as these values are less concise than their index value equivalent.
 
 - media (index 10): This text value is a hint to the tag consumer to understand what target platform this tag
 applies to. This item item MUST be formatted as a 
@@ -452,7 +452,7 @@ The following co-constraints apply to the information provided in the concise-sw
 
 - The patch and supplemental items MUST NOT both be set to "true".
 
-- If the patch item is set to "true", the tag SHOULD contain at least one link item (see Section {{model-link}}) with both the rel item value of "patches" and an href item specifying an association with the software that was patched.
+- If the patch item is set to "true", the tag SHOULD contain at least one link item (see {{model-link}}) with both the rel item value of "patches" and an href item specifying an association with the software that was patched.
 
 - If the supplemental item is set to "true", the tag SHOULD contain at least one link item with both the rel item value of "supplemental" and an href item specifying an association with the software that is supplemented.
 
@@ -536,7 +536,7 @@ etc.) for the referenced entity. The value of a
 registration ID MUST be a RFC 3986 URI. The scope SHOULD be the scope of an
 organization.
 
-- role (index 33): An integer or textual value representing the relationship(s) between the entity, and this tag or the referenced software component. If an integer value is used it MUST be an index value in the range -256 to 255. Integer values in the range -256 to -1 are reserved for testing and use in closed environments (see Section {{iana-private-use}}). Integer values in the range 0 to 255 correspond to registered entries in the IANA "Software Tag Entity Role Values" registry (see Section {{iana-entity-role}}. If a string value is used it MUST be a private use name as defined in Section {{iana-private-use}}. String values based on a Role Name from the IANA "Software Tag Entity Role Values" registry MUST NOT be used, as these values are less concise than their index value equivalent.
+- role (index 33): An integer or textual value representing the relationship(s) between the entity, and this tag or the referenced software component. If an integer value is used it MUST be an index value in the range -256 to 255. Integer values in the range -256 to -1 are reserved for testing and use in closed environments (see {{iana-private-use}}). Integer values in the range 0 to 255 correspond to registered entries in the IANA "Software Tag Entity Role Values" registry (see {{iana-entity-role}}. If a string value is used it MUST be a private use name as defined in {{iana-private-use}}. String values based on a Role Name from the IANA "Software Tag Entity Role Values" registry MUST NOT be used, as these values are less concise than their index value equivalent.
 
   The following additional requirements exist for the use of the "role" item:
 
@@ -632,13 +632,13 @@ The following describes each member of this map.
 - media (index 10): A hint to the consumer of the link to what target platform the link is applicable to. This item represents a
 query as defined by the W3C Media Queries Recommendation (see {{-css3-mediaqueries}}). See also media defined in {{model-concise-swid-tag}}.
 
-- ownership (index 39): An integer or textual value used when the "href" item references another software component to indicate the degree of ownership between the software component referenced by the COSWID tag and the software component referenced by the link. If an integer value is used it MUST be an index value in the range -256 to 255. Integer values in the range -256 to -1 are reserved for testing and use in closed environments (see Section {{iana-private-use}}). Integer values in the range 0 to 255 correspond to registered entries in the IANA "Software Tag Link Ownership Values" registry (see Section {{iana-link-ownership}}. If a string value is used it MUST be a private use name as defined in Section {{iana-private-use}}. String values based on a Ownership Type Name from the IANA "Software Tag Link Ownership Values" registry MUST NOT be used, as these values are less concise than their index value equivalent.
+- ownership (index 39): An integer or textual value used when the "href" item references another software component to indicate the degree of ownership between the software component referenced by the COSWID tag and the software component referenced by the link. If an integer value is used it MUST be an index value in the range -256 to 255. Integer values in the range -256 to -1 are reserved for testing and use in closed environments (see {{iana-private-use}}). Integer values in the range 0 to 255 correspond to registered entries in the IANA "Software Tag Link Ownership Values" registry (see {{iana-link-ownership}}. If a string value is used it MUST be a private use name as defined in {{iana-private-use}}. String values based on a Ownership Type Name from the IANA "Software Tag Link Ownership Values" registry MUST NOT be used, as these values are less concise than their index value equivalent.
 
-- rel (index 40): An integer or textual value that identifies the relationship between this CoSWID and the target resource identified by the "href" item. If an integer value is used it MUST be an index value in the range -256 to 65535. Integer values in the range -256 to -1 are reserved for testing and use in closed environments (see Section {{iana-private-use}}). Integer values in the range 0 to 65535 correspond to registered entries in the IANA "Software Tag Link Relationship Values" registry (see Section {{iana-link-rel}}. If a string value is used it MUST be either a private use name as defined in Section {{iana-private-use}} or a "Relation Name" from the IANA "Link Relation Types" registry: https://www.iana.org/assignments/link-relations/link-relations.xhtml as defined by {{RFC8288}}. When a string value defined in the IANA "Software Tag Link Relationship Values" registry matches a Relation Name defined in the IANA "Link Relation Types" registry, the index value in the IANA "Software Tag Link Relationship Values" registry MUST be used instead, as this relationship has a specialized meaning in the context of a CoSWID tag. String values based on a Relationship Type Name from the IANA "Software Tag Link Relationship Values" registry MUST NOT be used, as these values are less concise than their index value equivalent.
+- rel (index 40): An integer or textual value that identifies the relationship between this CoSWID and the target resource identified by the "href" item. If an integer value is used it MUST be an index value in the range -256 to 65535. Integer values in the range -256 to -1 are reserved for testing and use in closed environments (see {{iana-private-use}}). Integer values in the range 0 to 65535 correspond to registered entries in the IANA "Software Tag Link Relationship Values" registry (see {{iana-link-rel}}. If a string value is used it MUST be either a private use name as defined in {{iana-private-use}} or a "Relation Name" from the IANA "Link Relation Types" registry: https://www.iana.org/assignments/link-relations/link-relations.xhtml as defined by {{RFC8288}}. When a string value defined in the IANA "Software Tag Link Relationship Values" registry matches a Relation Name defined in the IANA "Link Relation Types" registry, the index value in the IANA "Software Tag Link Relationship Values" registry MUST be used instead, as this relationship has a specialized meaning in the context of a CoSWID tag. String values based on a Relationship Type Name from the IANA "Software Tag Link Relationship Values" registry MUST NOT be used, as these values are less concise than their index value equivalent.
 
 - media-type (index 41): A link can point to arbitrary resources on the endpoint, local network, or Internet using the href item. Use of this item supplies the resource consumer with a hint of what type of resource to expect. Media types are identified by referencing a "Name" from the IANA "Media Types" registry: http://www.iana.org/assignments/media-types/media-types.xhtml.
 
-- use (index 42): An integer or textual value used to determine if the referenced software component has to be installed before installing the software component identified by the COSWID tag. If an integer value is used it MUST be an index value in the range -256 to 255. Integer values in the range -256 to -1 are reserved for testing and use in closed environments (see Section {{iana-private-use}}). Integer values in the range 0 to 255 correspond to registered entries in the IANA "Link Use Values" registry (see Section {{iana-link-use}}. If a string value is used it MUST be a private use name as defined in Section {{iana-private-use}}. String values based on an Link Use Type Name from the IANA "Software Tag Link Use Values" registry MUST NOT be used, as these values are less concise than their index value equivalent.
+- use (index 42): An integer or textual value used to determine if the referenced software component has to be installed before installing the software component identified by the COSWID tag. If an integer value is used it MUST be an index value in the range -256 to 255. Integer values in the range -256 to -1 are reserved for testing and use in closed environments (see {{iana-private-use}}). Integer values in the range 0 to 255 correspond to registered entries in the IANA "Link Use Values" registry (see {{iana-link-use}}. If a string value is used it MUST be a private use name as defined in {{iana-private-use}}. String values based on an Link Use Type Name from the IANA "Software Tag Link Use Values" registry MUST NOT be used, as these values are less concise than their index value equivalent.
 
 - $$link-extension: This CDDL socket can be used to extend the link-entry map model. See {{model-extension}}.
 
@@ -972,7 +972,7 @@ The following table indicates the index value to use for the entity-entry group'
 | 6     | maintainer      | The person or organization that is responsible for coordinating and making updates to the source code for the software component. This SHOULD be used when the "maintainer" is a different person or organization than the original "softwareCreator".
 {: #tbl-indexed-entity-role-values title="Entity Role Values"}
 
-The values above are registered in the IANA "Software Tag Entity Role Values" registry defined in Section {{iana-entity-role}}. Additional values will likely be registered over time. Additionally, the index values 128 through 255 and the name prefix "x_" have been reserved for private use.
+The values above are registered in the IANA "Software Tag Entity Role Values" registry defined in {{iana-entity-role}}. Additional values will likely be registered over time. Additionally, the index values 128 through 255 and the name prefix "x_" have been reserved for private use.
 
 {: #indexed-link-ownership}
 ## Link Ownership Values
@@ -986,7 +986,7 @@ The following table indicates the index value to use for the link-entry group's 
 | 3 | shared | If the software component referenced by the CoSWID tag is uninstalled, then the referenced software SHOULD be uninstalled if no other components sharing the software.
 {: #tbl-indexed-link-ownership-values title="Link Ownership Values"}
 
-The values above are registered in the IANA "Software Tag Link Ownership Values" registry defined in Section {{iana-link-ownership}}. Additional values will likely be registered over time. Additionally, the index values 128 through 255 and the name prefix "x_" have been reserved for private use.
+The values above are registered in the IANA "Software Tag Link Ownership Values" registry defined in {{iana-link-ownership}}. Additional values will likely be registered over time. Additionally, the index values 128 through 255 and the name prefix "x_" have been reserved for private use.
 
 {: #indexed-link-rel}
 ## Link Rel Values
@@ -1008,7 +1008,7 @@ The following table indicates the index value to use for the link-entry group's 
 | 11    | supplemental      | The link references a software tag that the referencing tag supplements. Used on supplemental tags (see {{intro-lifecycle}}).
 {: #tbl-indexed-link-rel-values title="Link Relationship Values"}
 
-The values above are registered in the IANA "Software Tag Link Relationship Values" registry defined in Section {{iana-link-rel}}. Additional values will likely be registered over time. Additionally, the index values 32768 through 65535 and the name prefix "x_" have been reserved for private use.
+The values above are registered in the IANA "Software Tag Link Relationship Values" registry defined in {{iana-link-rel}}. Additional values will likely be registered over time. Additionally, the index values 32768 through 65535 and the name prefix "x_" have been reserved for private use.
 
 {: #indexed-link-use}
 ## Link Use Values
@@ -1022,7 +1022,7 @@ The following table indicates the index value to use for the link-entry group's 
 | 3     | recommended | From {{SWID}}, "Not absolutely required; the \[Link\]'d software is installed unless specified otherwise."
 {: #tbl-indexed-link-use-values title="Link Use Values"}
 
-The values above are registered in the IANA "Software Tag Link Use Values" registry defined in Section {{iana-link-use}}. Additional values will likely be registered over time. Additionally, the index values 128 through 255 and the name prefix "x_" have been reserved for private use.
+The values above are registered in the IANA "Software Tag Link Use Values" registry defined in {{iana-link-use}}. Additional values will likely be registered over time. Additionally, the index values 128 through 255 and the name prefix "x_" have been reserved for private use.
 
 {: #iana}
 #  IANA Considerations
@@ -1186,7 +1186,7 @@ defined in {{SWID}}.
 
 Registrations MUST conform to the expert review guidelines defined in {{iana-review-guidelines}}.
 
-Designated experts MUST also ensure that newly requested entries define a value space for the corresponding version item that is unique from other previously registered entries. Note: The initial registrations violate this requirement, but are included for backwards compatibility with {{SWID}}. Guidelines on how to deconflict these value spaces are defined in Section {{indexed-version-scheme}}.
+Designated experts MUST also ensure that newly requested entries define a value space for the corresponding version item that is unique from other previously registered entries. Note: The initial registrations violate this requirement, but are included for backwards compatibility with {{SWID}}. Guidelines on how to deconflict these value spaces are defined in {{indexed-version-scheme}}.
 
 {: #iana-entity-role}
 ### Software Tag Entity Role Values Registry
@@ -1420,7 +1420,7 @@ The ISO 19770-2:2015 SWID specification describes use of the "swid" and "swidpat
 
 ### "swid" URI Scheme Registration
 
-There is a need for a scheme name that can be used in URIs that point to a specific software tag by that tag's tag-id, such as the use of the link entry as described in Section {{model-link}}) of this document. Since this scheme is used in a standards track document and an ISO standard, this scheme needs to be used without fear of conflicts with current or future actual schemes.  The scheme "swid" is hereby registered as a 'permanent' scheme for that purpose.
+There is a need for a scheme name that can be used in URIs that point to a specific software tag by that tag's tag-id, such as the use of the link entry as described in {{model-link}}) of this document. Since this scheme is used in a standards track document and an ISO standard, this scheme needs to be used without fear of conflicts with current or future actual schemes.  The scheme "swid" is hereby registered as a 'permanent' scheme for that purpose.
 
 The "swid" scheme is specified as follows:
 
@@ -1454,7 +1454,7 @@ Security considerations:  None.
 
 ### "swidpath" URI Scheme Registration
 
-There is a need for a scheme name that can be used in URIs to identify a collection of specific software tags with data elements that match an XPath expression, such as the use of the link entry as described in Section {{model-link}}) of this document. Since this scheme is used in a standards track document and an ISO standard, this scheme needs to be used without fear of conflicts with current or future actual schemes.  The scheme "swidpath" is hereby registered as a 'permanent' scheme for that purpose.
+There is a need for a scheme name that can be used in URIs to identify a collection of specific software tags with data elements that match an XPath expression, such as the use of the link entry as described in {{model-link}}) of this document. Since this scheme is used in a standards track document and an ISO standard, this scheme needs to be used without fear of conflicts with current or future actual schemes.  The scheme "swidpath" is hereby registered as a 'permanent' scheme for that purpose.
 
 The "swidpath" scheme is specified as follows:
 
