@@ -132,12 +132,14 @@ file-entry = {
   ? file-version => text,
   ? hash => hash-entry,
   * $$file-extension,
+  global-attributes,
 }
 
 directory-entry = {
   filesystem-item,
   ? path-elements => { path-elements-group },
   * $$directory-extension,
+  global-attributes,
 }
 
 process-entry = {
@@ -158,7 +160,6 @@ filesystem-item = (
   ? location => text,
   fs-name => text,
   ? root => text,
-  global-attributes,
 )
 
 payload-entry = {
