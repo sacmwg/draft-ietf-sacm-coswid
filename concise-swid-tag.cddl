@@ -27,7 +27,7 @@ $version-scheme /= multipartnumeric-suffix
 $version-scheme /= alphanumeric
 $version-scheme /= decimal
 $version-scheme /= semver
-$version-scheme /= uint / text
+$version-scheme /= int / text
 
 any-attribute = (
   label => text / int / [ 2* text ] / [ 2* int ]
@@ -58,7 +58,7 @@ $role /= aggregator
 $role /= distributor
 $role /= licensor
 $role /= maintainer
-$role /= uint / text
+$role /= int / text
 
 link-entry = {
   ? artifact => text,
@@ -75,7 +75,7 @@ link-entry = {
 $ownership /= shared
 $ownership /= private
 $ownership /= abandon
-$ownership /= uint / text
+$ownership /= int / text
 
 $rel /= ancestor
 $rel /= component
@@ -93,7 +93,7 @@ $rel /= -256..64436 / text
 $use /= optional
 $use /= required
 $use /= recommended
-$use /= uint / text
+$use /= int / text
 
 software-meta-entry = {
   ? activation-status => text,
