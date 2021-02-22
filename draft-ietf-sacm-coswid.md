@@ -1573,7 +1573,7 @@ In case an unsigned CoSWID is tagged, a CoSWID CBOR tag MUST be appended before 
 ~~~~
 {: sourcecode-markers="true"}
 
-While this specification allows for a tagged CoSWID tag to reside in a COSE envelope that is also tagged with a CoSWID CBOR tag, redundant use of tags SHOULD be avoided.
+This specification allows for a tagged CoSWID tag to reside in a COSE envelope that is also tagged with a CoSWID CBOR tag. In cases where a tag creator is not a signer (e.g., hand-offs between entities in a trusted portion of a supply-chain), retaining CBOR tags attached to unsigned CoSWID tags can be of great use. Nevertheless, redundant use of tags SHOULD be avoided when possible. 
 
 {: #sec-sec}
 # Security Considerations
