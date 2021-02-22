@@ -8,9 +8,9 @@ concise-swid-tag = {
   ? software-version => text,
   ? version-scheme => $version-scheme,
   ? media => text,
-  ? software-meta => software-meta-entry / [ 2* software-meta-entry ],
-  entity => entity-entry / [ 2* entity-entry ],
-  ? link => link-entry / [ 2* link-entry ],
+  ? software-meta => one-or-more<software-meta-entry>,
+  entity => one-or-more<entity-entry>,
+  ? link => one-or-more<link-entry>,
   ? payload-or-evidence,
   * $$coswid-extension,
   global-attributes,
@@ -30,8 +30,10 @@ $version-scheme /= semver
 $version-scheme /= uint / text
 
 any-attribute = (
-  label => text / int / [ 2* text ] / [ 2* int ]
+  label => one-or-more<text> / one-or-more<int>
 )
+
+one-or-more<T> = T / [ 2* T ]
 
 global-attributes = (
   ? lang => text,
@@ -46,7 +48,7 @@ hash-entry = [
 entity-entry = {
   entity-name => text,
   ? reg-id => any-uri,
-  role => $role / [ 2* $role ],
+  role => one-or-more<$role>,
   ? thumbprint => hash-entry,
   * $$entity-extension,
   global-attributes,
@@ -115,14 +117,14 @@ software-meta-entry = {
   global-attributes,
 }
 
-path-elements-group = ( ? directory => directory-entry / [ 2* directory-entry ],
-                        ? file => file-entry / [ 2* file-entry ],
+path-elements-group = ( ? directory => one-or-more<directory-entry>,
+                        ? file => one-or-more<file-entry>,
                       )
 
 resource-collection = (
   path-elements-group,
-  ? process => process-entry / [ 2* process-entry ],
-  ? resource => resource-entry / [ 2* resource-entry ],
+  ? process => one-or-more<process-entry>,
+  ? resource => one-or-more<resource-entry>,
   * $$resource-collection-extension,
 )
 
