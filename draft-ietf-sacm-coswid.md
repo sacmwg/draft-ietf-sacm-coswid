@@ -368,10 +368,8 @@ concise-swid-tag = {
   global-attributes,
 }
 
-payload-or-evidence //= ( payload => payload-entry ] )
-payload-or-evidence //= ( payload => [ 2* payload-entry )
+payload-or-evidence //= ( payload => payload-entry )
 payload-or-evidence //= ( evidence => evidence-entry )
-payload-or-evidence //= ( evidence => [ 2* evidence-entry ] )
 
 tag-id = 0
 software-name = 1
