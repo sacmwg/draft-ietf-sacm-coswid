@@ -281,9 +281,9 @@ In most cases, mapping attribute names between SWID and CoSWID can be done autom
 
 The 57 human-readable text labels of the CDDL-based CoSWID vocabulary are mapped to integer indices via a block of rules at the bottom of the definition. This allows a more concise integer-based form to be stored or transported, as compared to the less efficient text-based form of the original vocabulary.
 
-In CBOR, an array is encoded using bytes that identify the array, and the array's length or stop point (see {{RFC7049}}). To make items that support 1 or more values, the following CDDL notion is used.
+In CBOR, an array is encoded using bytes that identify the array, and the array's length or stop point (see {{RFC7049}}). To make items that support 1 or more values, the following CDDL notation is used.
 
-~~~ CDDL
+~~~ CDDL;example
 _name_ = (_label_ => _data_ / [ 2* _data_ ])
 ~~~
 
