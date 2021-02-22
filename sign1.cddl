@@ -1,10 +1,9 @@
-signed-coswid-for<payload> /= #6.18(COSE-Sign1-coswid<payload>)
-
 COSE-Sign1-coswid<payload> = [
     protected: bstr .cbor protected-signed-coswid-header,
     unprotected: unprotected-signed-coswid-header,
     payload: bstr .cbor payload,
     signature: bstr,
+]
 
 cose-label = int / tstr
 cose-values = any

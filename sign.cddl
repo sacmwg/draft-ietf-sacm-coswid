@@ -1,5 +1,3 @@
-signed-coswid-for<payload> /= #6.18(COSE-Sign-coswid<payload>)
-
 COSE-Sign-coswid<payload> = [
     protected: bstr .cbor protected-signed-coswid-header,
     unprotected: unprotected-signed-coswid-header,
