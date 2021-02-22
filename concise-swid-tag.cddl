@@ -38,7 +38,7 @@ global-attributes = (
   * any-attribute,
 )
 
-hash-entry = [ 
+hash-entry = [
   hash-alg-id: int,
   hash-value: bytes,
 ]
@@ -68,7 +68,7 @@ link-entry = {
   rel => $rel,
   ? media-type => text,
   ? use => $use,
-  * $$link-extension
+  * $$link-extension,
   global-attributes,
 }
 
@@ -172,7 +172,7 @@ evidence-entry = {
   resource-collection,
   ? date => integer-time,
   ? device-id => text,
-  * $$evidence-extension, 
+  * $$evidence-extension,
   global-attributes,
 }
 
