@@ -1520,9 +1520,39 @@ Signing CoSWID tags follows the procedues defined in CBOR Object Signing and Enc
 <CODE ENDS>
 ~~~~
 
-Optionally, the COSE_Sign structure that allows for more than one signature to be applied to a CoSWID tag MAY be used. The corresponding usage scenarios are domain-specific and require well-specified application guidance.
+The COSE_Sign structure that allows for more than one signature to be applied to a CoSWID tag MAY be used. The corresponding usage scenarios are domain-specific and require well-specified application guidance.
+
+~~~~ CDDL
+<CODE BEGINS>
+{::include signed-coswid_sign.cddl}
+<CODE ENDS>
+~~~~
 
 Additionally, the COSE Header counter signature MAY be used as an attribute in the unprotected header map of the COSE envelope of a CoSWID. The application of counter signing enables second parties to provide a signature on a signature allowing for a proof that a signature existed at a given time (i.e., a timestamp). 
+
+# Tagged CoSWID Tags
+
+This specification allows for tagged and untagged CBOR data items that are CoSWID tags.
+Consecutively, the CBOR tag for CoSWID tags defined in {{tbl-cbor-tag}} SHOULD be used in conjunction with CBOR data items that are a CoSWID tags.
+Other CBOR tags MUST NOT be used with a CBOR data item that is a CoSWID tag.
+If tagged, both signed and unsigned CoSWID tags MUST use the CoSWID CBOR tag.
+In case a signed CoSWID is tagged, a CoSWID CBOR tag MUST be appended before the COSE envelope whether it is a COSE_Untagged_Message or a COSE_Tagged_Message.
+In case an unsigned CoSWID is tagged, a CoSWID CBOR tag MUST be appended before the CBOR data item that is the CoSWID tag.
+
+~~~
+
+coswid = tagged-coswid / untagged-coswid
+
+tagged-coswid /= #6.1398229316(concise-swid-tag) 
+tagged-coswid /= #6.1398229316(signed-coswid)
+tagged-coswid /= #6.1398229316(#6.18(#6.1398229316(concise-swid-tag)))
+
+untagged-coswid /= concise-swid-tag 
+untagged-coswid /= signed-coswid
+
+~~~
+
+While this specification allows for a tagged CoSWID tag to reside in a COSE envelope that is also tagged with a CoSWID CBOR tag, redundant use of tags SHOULD be avoided.
 
 {: #sec-sec}
 # Security Considerations

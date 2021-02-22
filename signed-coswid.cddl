@@ -1,4 +1,4 @@
-signed-coswid = #6.18(COSE-Sign1-coswid)
+signed-coswid /= #6.18(COSE-Sign1-coswid)
 
 cose-label = int / tstr
 cose-values = any
