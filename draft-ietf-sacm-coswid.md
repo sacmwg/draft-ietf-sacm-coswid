@@ -173,7 +173,12 @@ amount of data to be transported. This can be larger than acceptable for
 constrained devices and networks. Concise SWID (CoSWID) tags significantly reduce the amount of
 data transported as compared to a typical SWID tag
 through the use of the Concise
-Binary Object Representation (CBOR) {{RFC7049}}. [TODO: Add CoSWID size comparison.]
+Binary Object Representation (CBOR) {{RFC7049}}.
+
+Size comparisons between XML SWID and CoSWID mainly depend on domain-specific applications and the complexity of attributes used in instances.
+While the values stored in CoSWID are often unchanged and therefore not reduced in size compared to an XML SWID, the scaffolding that the CoSWID encoding represents is significantly smaller by taking up 10 percent or less in size.
+This effect is visible in instances sizes, which can benefit from a 50 percent to 85 percent reduction of size in generic usage scenarios.
+Additional size reduction is enabled with respect to the memory footprint of XML parsing/validation as well as the reduction of stack sizes where XML processing is now obsolete. 
 
 In a CoSWID, the human-readable labels of SWID data items are replaced with
 more concise integer labels (indices). This approach allows SWID and CoSWID to share a common implicit information model, with CoSWID providing an alternate data model {{RFC3444}}. While SWID and CoSWID are intended to share the same implicit information model, this specification does not define this information model, or a mapping between the the two data formats. While an attempt to align SWID and CoSWID tags has been made here, future revisions of ISO/IEC 19770-2:2015 or this specification might cause this implicit information model to diverge, since these specifications are maintained by different standards groups.
