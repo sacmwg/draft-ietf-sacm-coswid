@@ -54,7 +54,6 @@ author:
 normative:
   BCP26: RFC8126
   BCP178: RFC6648
-  RFC2119:
   RFC3629:
   RFC3986:
   RFC5198:
@@ -368,8 +367,8 @@ concise-swid-tag = {
   global-attributes,
 }
 
-payload-or-evidence //= ( payload => payload-entry ] )
-payload-or-evidence //= ( payload => [ 2* payload-entry )
+payload-or-evidence //= ( payload => payload-entry )
+payload-or-evidence //= ( payload => [ 2* payload-entry ] )
 payload-or-evidence //= ( evidence => evidence-entry )
 payload-or-evidence //= ( evidence => [ 2* evidence-entry ] )
 
@@ -475,7 +474,7 @@ The CDDL for the global-attributes follows:
 
 ~~~ CDDL
 global-attributes = (
-  ? lang,
+  ? lang => text,
   * any-attribute,
 )
 
@@ -770,21 +769,22 @@ filesystem-item = (
   ? location => text,
   fs-name => text,
   ? root => text,
-  global-attributes,
 )
 
 file-entry = {
   filesystem-item,
-  ? size => integer,
+  ? size => uint,
   ? file-version => text,
   ? hash => hash-entry,
   * $$file-extension,
+  global-attributes,
 }
 
 directory-entry = {
   filesystem-item,
-  path-elements => { path-elements-group },
+  ? path-elements => { path-elements-group },
   * $$directory-extension,
+  global-attributes,
 }
 
 process-entry = {
@@ -889,7 +889,7 @@ The CDDL for the evidence-entry map follows:
 ~~~ CDDL
 evidence-entry = {
   resource-collection,
-  ? date => time,
+  ? date => integer-time,
   ? device-id => text,
   * $$evidence-extension,
   global-attributes,
@@ -919,10 +919,9 @@ In order to create a valid CoSWID document the structure of the corresponding CB
 adhere to the following CDDL specification.
 
 ~~~ CDDL
-<CODE BEGINS>
 {::include concise-swid-tag.cddl}
-<CODE ENDS>
 ~~~
+{: markers="true"}
 
 {: #semantics-tag-type}
 # Determining the Type of CoSWID
@@ -1520,18 +1519,16 @@ The ISO-19770-2:2015 XML schema uses XML DSIG to support cryptographic signature
 Signing CoSWID tags follows the procedues defined in CBOR Object Signing and Encryption {{RFC8152}}. A CoSWID tg MUST be wrapped in a COSE Single Signer Data Object (COSE_Sign1) that contains a single signature and MUST be signed by the tag creator. The following CDDL specification defines a restrictive subset of COSE header parameters that MUST be used in the protected header.
 
 ~~~~ CDDL
-<CODE BEGINS>
 {::include signed-coswid.cddl}
-<CODE ENDS>
 ~~~~
+{: markers="true"}
 
 The COSE_Sign structure that allows for more than one signature to be applied to a CoSWID tag MAY be used. The corresponding usage scenarios are domain-specific and require well-specified application guidance.
 
 ~~~~ CDDL
-<CODE BEGINS>
 {::include signed-coswid_sign.cddl}
-<CODE ENDS>
 ~~~~
+{: markers="true"}
 
 Additionally, the COSE Header counter signature MAY be used as an attribute in the unprotected header map of the COSE envelope of a CoSWID. The application of counter signing enables second parties to provide a signature on a signature allowing for a proof that a signature existed at a given time (i.e., a timestamp). 
 
@@ -1782,10 +1779,9 @@ require a different signature scheme than this. COSE (CBOR Object Signing and En
 of header attributes allowed by COSE tailored to suit the requirements of Concise SWID tags.
 
 ~~~~ CDDL
-<CODE BEGINS>
 {::include signed-coswid.cddl}
-<CODE ENDS>
 ~~~~
+{: markers="true"}
 
 Optionally, the COSE_Sign structure that allows for more than one signature to be applied to a CoSWID tag MAY be used. The corresponding usage scenarios are domain-specific and require well-defined application guidance. Representation of the corresponding guidance is out-of-scope of this document.
 
