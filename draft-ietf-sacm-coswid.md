@@ -1518,14 +1518,14 @@ The ISO-19770-2:2015 XML schema uses XML DSIG to support cryptographic signature
 Signing CoSWID tags follows the procedues defined in CBOR Object Signing and Encryption {{RFC8152}}. A CoSWID tg MUST be wrapped in a COSE Single Signer Data Object (COSE_Sign1) that contains a single signature and MUST be signed by the tag creator. The following CDDL specification defines a restrictive subset of COSE header parameters that MUST be used in the protected header.
 
 ~~~~ CDDL
-{::include signed-coswid.cddl}
+{::include sign1.cddl}
 ~~~~
 {: markers="true"}
 
 The COSE_Sign structure that allows for more than one signature to be applied to a CoSWID tag MAY be used. The corresponding usage scenarios are domain-specific and require well-specified application guidance.
 
 ~~~~ CDDL
-{::include signed-coswid_sign.cddl}
+{::include sign.cddl}
 ~~~~
 {: markers="true"}
 
@@ -1540,18 +1540,10 @@ If tagged, both signed and unsigned CoSWID tags MUST use the CoSWID CBOR tag.
 In case a signed CoSWID is tagged, a CoSWID CBOR tag MUST be appended before the COSE envelope whether it is a COSE_Untagged_Message or a COSE_Tagged_Message.
 In case an unsigned CoSWID is tagged, a CoSWID CBOR tag MUST be appended before the CBOR data item that is the CoSWID tag.
 
-~~~
-
-coswid = tagged-coswid / untagged-coswid
-
-tagged-coswid /= #6.1398229316(concise-swid-tag) 
-tagged-coswid /= #6.1398229316(signed-coswid)
-tagged-coswid /= #6.1398229316(#6.18(#6.1398229316(concise-swid-tag)))
-
-untagged-coswid /= concise-swid-tag 
-untagged-coswid /= signed-coswid
-
-~~~
+~~~~ CDDL
+{::include tags.cddl}
+~~~~
+{: markers="true"}
 
 While this specification allows for a tagged CoSWID tag to reside in a COSE envelope that is also tagged with a CoSWID CBOR tag, redundant use of tags SHOULD be avoided.
 
