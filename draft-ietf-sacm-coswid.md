@@ -285,6 +285,13 @@ In most cases, mapping attribute names between SWID and CoSWID can be done autom
 
 The 57 human-readable text labels of the CDDL-based CoSWID vocabulary are mapped to integer indices via a block of rules at the bottom of the definition. This allows a more concise integer-based form to be stored or transported, as compared to the less efficient text-based form of the original vocabulary.
 
+The root of the CDDL specification provided by this document is the
+rule `coswid` (as defined in {{tagged}}):
+
+~~~ CDDL
+start = coswid
+~~~
+
 In CBOR, an array is encoded using bytes that identify the array, and the array's length or stop point (see {{RFC7049}}). To make items that support 1 or more values, the following CDDL notation is used.
 
 ~~~ CDDL;example
@@ -293,12 +300,20 @@ _name_ = (_label_ => _data_ / [ 2* _data_ ])
 
 The CDDL rule above allows either a single data item or an array of 2 or more data values to be provided. When a singleton data value is provided, the CBOR markers for the array, array length, and stop point are not needed, saving bytes. When two or more data values are provided, these values are encoded as an array. This modeling pattern is used frequently in the CoSWID CDDL specification to allow for more efficient encoding of singleton values.
 
-The root of the CDDL specification is the rule `coswid` (as defined in
-{{tagged}}):
+Usage of this construct can be simplified using
 
-~~~ CDDL
-start = coswid
+~~~ CDDL;example
+one-or-more<T> = T / [ 2* T ]
 ~~~
+<!-- Hmm, duplicate detection doesn't work in CDDL tool here. -->
+
+simplifying the above example to
+
+~~~ CDDL;example
+_name_ = (_label_ => one-or-more<_data_>)
+~~~
+
+
 
 The following subsections describe the different parts of the CoSWID model.
 
@@ -368,9 +383,9 @@ concise-swid-tag = {
   ? software-version => text,
   ? version-scheme => $version-scheme,
   ? media => text,
-  ? software-meta => software-meta-entry / [ 2* software-meta-entry ],
-  entity => entity-entry / [ 2* entity-entry ],
-  ? link => link-entry / [ 2* link-entry ],
+  ? software-meta => one-or-more<software-meta-entry>,
+  entity => one-or-more<entity-entry>,
+  ? link => one-or-more<link-entry>,
   ? payload-or-evidence,
   * $$coswid-extension,
   global-attributes,
@@ -486,7 +501,7 @@ global-attributes = (
 )
 
 any-attribute = (
-  label => text / int / [ 2* text ] / [ 2* int ]
+  label => one-or-more<text> / one-or-more<int>
 )
 
 label = text / int
@@ -509,7 +524,7 @@ The CDDL for the entity-entry map follows:
 entity-entry = {
   entity-name => text,
   ? reg-id => any-uri,
-  role => $role / [ 2* $role ],
+  role => one-or-more<$role>,
   ? thumbprint => hash-entry,
   * $$entity-extension,
   global-attributes,
@@ -762,14 +777,14 @@ content includes directories, files, processes, or resources.
 The CDDL for the resource-collection group follows:
 
 ~~~ CDDL
-path-elements-group = ( ? directory => directory-entry / [ 2* directory-entry ],
-                        ? file => file-entry / [ 2* file-entry ],
+path-elements-group = ( ? directory => one-or-more<directory-entry>,
+                        ? file => one-or-more<file-entry>,
                       )
 
 resource-collection = (
   path-elements-group,
-  ? process => process-entry / [ 2* process-entry ],
-  ? resource => resource-entry / [ 2* resource-entry ],
+  ? process => one-or-more<process-entry>,
+  ? resource => one-or-more<resource-entry>,
   * $$resource-collection-extension,
 )
 
