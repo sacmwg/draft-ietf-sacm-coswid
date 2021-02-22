@@ -841,7 +841,7 @@ The following describes each member of the groups and maps illustrated above.
 
 - size (index 20): The file's size in bytes.
 
-- file-version (index 21): The file's version as reported by querying information on the file from the operating system. This item maps to '/SoftwareIdentity/(Payload|Evidence)/File/@version' in {{SWID}}.
+- file-version (index 21): The file's version as reported by querying information on the file from the operating system. This item maps to '/SoftwareIdentity/(Payload\|Evidence)/File/@version' in {{SWID}}.
 
 - hash (index 7): A hash of the file as described in {{model-hash-entry}}.
 
@@ -849,13 +849,13 @@ The following describes each member of the groups and maps illustrated above.
 
 - location (index 23): The filesystem path where a file is expected to be located when installed or copied. The location MUST be either relative to the location of the parent directory item (preferred) or relative to the location of the CoSWID tag if no parent is defined. The location MUST NOT include a file's name, which is provided by the fs-name item.
 
-- fs-name (index 24): The name of the directory or file without any path information. This aligns with a file "name" in {{SWID}}. This item maps to '/SoftwareIdentity/(Payload|Evidence)/(File|Directory)/@name' in {{SWID}}.
+- fs-name (index 24): The name of the directory or file without any path information. This aligns with a file "name" in {{SWID}}. This item maps to '/SoftwareIdentity/(Payload\|Evidence)/(File\|Directory)/@name' in {{SWID}}.
 
 - root (index 25): A filesystem-specific name for the root of the filesystem. The location item is considered relative to this location if specified. If not provided, the value provided by the location item is expected to be relative to its parent or the location of the CoSWID tag if no parent is provided.
 
 - path-elements (index 26): This group allows a hierarchy of directory and file items to be defined in payload or evidence items. This is a construction within the CDDL definition of CoSWID to support shared syntax and does not appear in {{SWID}}.
 
-- process-name (index 27): The software component's process name as it will appear in an endpoint's process list. This aligns with a process "name" in {{SWID}}. This item maps to '/SoftwareIdentity/(Payload|Evidence)/Process/@name' in {{SWID}}.
+- process-name (index 27): The software component's process name as it will appear in an endpoint's process list. This aligns with a process "name" in {{SWID}}. This item maps to '/SoftwareIdentity/(Payload\|Evidence)/Process/@name' in {{SWID}}.
 
 - pid (index 28): The process ID identified for a running instance of the software component in the endpoint's process list. This is used as part of the evidence item.
 
