@@ -289,6 +289,13 @@ _name_ = (_label_ => _data_ / [ 2* _data_ ])
 
 The CDDL rule above allows either a single data item or an array of 2 or more data values to be provided. When a singleton data value is provided, the CBOR markers for the array, array length, and stop point are not needed, saving bytes. When two or more data values are provided, these values are encoded as an array. This modeling pattern is used frequently in the CoSWID CDDL specification to allow for more efficient encoding of singleton values.
 
+The root of the CDDL specification is the rule `coswid` (as defined in
+{{tagged}}):
+
+~~~ CDDL
+start = coswid
+~~~
+
 [TODO: Are there any considerations that would need to be made for versioning CoSWID beyond the native support provided with CBOR?]
 
 The following subsections describe the different parts of the CoSWID model.
@@ -1531,7 +1538,7 @@ The COSE_Sign structure that allows for more than one signature to be applied to
 
 Additionally, the COSE Header counter signature MAY be used as an attribute in the unprotected header map of the COSE envelope of a CoSWID. The application of counter signing enables second parties to provide a signature on a signature allowing for a proof that a signature existed at a given time (i.e., a timestamp). 
 
-# Tagged CoSWID Tags
+# Tagged CoSWID Tags {#tagged}
 
 This specification allows for tagged and untagged CBOR data items that are CoSWID tags.
 Consecutively, the CBOR tag for CoSWID tags defined in {{tbl-cbor-tag}} SHOULD be used in conjunction with CBOR data items that are a CoSWID tags.
