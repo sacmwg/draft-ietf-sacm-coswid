@@ -37,7 +37,7 @@ author:
   email: cmschmidt@mitre.org
   street: 202 Burlington Road
   city: Bedford
-  region: Maryland
+  region: Massachusetts
   code: '01730'
   country: USA
 - ins: D. Waltermire
@@ -556,7 +556,7 @@ organization.
   - An entity item MUST be provided with the role of "tag-creator" for every CoSWID tag. This indicates the organization that created the CoSWID tag.
   - An entity item SHOULD be provided with the role of "software-creator" for every CoSWID tag, if this information is known to the tag creator. This indicates the organization that created the referenced software component.
 
-- thumbprint (index 34): The value of the thumbprint item provides an integer-based hash algorithm identifier (hash-alg-id) and a byte string value (hash-value) that contains the corresponding hash value (i.e. the thumbprint) of the signing entity's public key certificate. This provides an indicator of which entity signed the CoSWID tag, which will typically be the tag creator. If the hash-alg-id is not known, then the integer value "0" MUST be used. This ensures parity between the SWID tag specification {{SWID}}, which does not allow an algorithm to be identified for this field. See {{model-hash-entry}} for more details on the use of the hash-entry data structure.
+- thumbprint (index 34): The value of the thumbprint item provides a hash (i.e. the thumbprint) of the signing entity's public key certificate. This provides an indicator of which entity signed the CoSWID tag, which will typically be the tag creator.  See {{model-hash-entry}} for more details on the use of the hash-entry data structure.
 
 - $$entity-extension: This CDDL socket can be used to extend the entity-entry group model. See {{model-extension}}.
 
@@ -749,7 +749,9 @@ hash-entry = [
 ]
 ~~~~
 
-The number used as a value for hash-alg-id MUST refer to an ID in the IANA "Named Information Hash Algorithm Registry" {{NIHAR}} with a Status of "current"; other hash algorithms MUST NOT be used. The hash-value MUST represent the raw hash value of the hashed resource generated using the hash algorithm indicated by the hash-alg-id.
+The number used as a value for hash-alg-id is an integer-based hash algorithm identifier who's value MUST refer to an ID in the IANA "Named Information Hash Algorithm Registry" {{NIHAR}} with a Status of "current"; other hash algorithms MUST NOT be used. If the hash-alg-id is not known, then the integer value "0" MUST be used. This ensures parity between the SWID tag specification {{SWID}}, which does not allow an algorithm to be identified for this field.
+
+The hash-value byte string value MUST represent the raw hash value of the hashed resource generated using the hash algorithm indicated by the hash-alg-id.
 
 {: #model-resource-collection}
 ### The resource-collection Group
@@ -842,6 +844,8 @@ The following describes each member of the groups and maps illustrated above.
 - size (index 20): The file's size in bytes.
 
 - file-version (index 21): The file's version as reported by querying information on the file from the operating system. This item maps to '/SoftwareIdentity/(Payload|Evidence)/File/@version' in {{SWID}}.
+
+- hash (index 7): A hash of the file as described in {{model-hash-entry}}.
 
 - key (index 22): A boolean value indicating if a file or directory is significant or required for the software component to execute or function properly. These are files or directories that can be used to affirmatively determine if the software component is installed on an endpoint.
 
