@@ -1507,6 +1507,7 @@ Deriving Software Identifiers:
 
   The TAG_CREATOR_REGID and the UNIQUE_ID are connected with a double underscore (_), without any other connecting character or whitespace.
 
+{: #coswid-cose}
 # Signed CoSWID Tags
 
 SWID tags, as defined in the ISO-19770-2:2015 XML schema, can include cryptographic signatures to protect the integrity of the SWID tag.
@@ -1569,7 +1570,7 @@ disclosure of the results of those applications.
 A tag is considered "authoritative" if the CoSWID tag was created by the
 software provider. An authoritative CoSWID tag contains information about a software component provided by the maintainer of the software component, who is expected to be an expert in their own software. Thus, authoritative CoSWID tags can be trusted to represent authoritative information about the software component.
 
-A signed CoSWID tag (see {{appendix-cose}}) whose signature has been validated can be relied upon to be unchanged since it was signed. By contrast, the data contained in unsigned tags cannot be trusted to be unmodified.
+A signed CoSWID tag (see {{coswid-cose}}) whose signature has been validated can be relied upon to be unchanged since it was signed. By contrast, the data contained in unsigned tags cannot be trusted to be unmodified.
 
 When an authoritative tag is signed, the software provider can be authenticated as the originator of the signature. A trustworthy association between the signature and the originator of the signature can be established via trust anchors. A certification path between a trust anchor and a certificate including a pub-key enabling the validation of a tag signature can realize the assessment of trustworthiness of an authoritative tag. Having a signed authoritative CoSWID tag can be useful when the information in the tag needs to be trusted, such as when the tag is being used to convey reference integrity measurements for software components.
 
@@ -1760,30 +1761,6 @@ Changes from version 00 to version 01:
 - Included first iteration of firmware resource-collection
 
 --- back
-
-{: #appendix-cose}
-# Signed Concise SWID Tags using COSE
-
-SWID tags, as defined in the ISO-19770-2:2015 XML schema, can include cryptographic signatures to
-protect the integrity of the SWID tag. In general, tags are signed by the tag creator (typically,
-although not exclusively, the vendor of the software component that the SWID tag identifies).
-Cryptographic signatures can make any modification of the tag detectable, which is especially
-important if the integrity of the tag is important, such as when the tag is providing reference
-integrity measurements for files.
-
-The ISO-19770-2:2015 XML schema uses XML DSIG to support cryptographic signatures. CoSWID tags
-require a different signature scheme than this. COSE (CBOR Object Signing and Encryption) provides the required mechanism {{RFC8152}}. Concise SWID can be wrapped in a COSE Single Signer Data Object
-(COSE_Sign1) that contains a single signature. The following CDDL defines a more restrictive subset
-of header attributes allowed by COSE tailored to suit the requirements of Concise SWID tags.
-
-~~~~ CDDL
-{::include signed-coswid.cddl}
-~~~~
-{: markers="true"}
-
-Optionally, the COSE_Sign structure that allows for more than one signature to be applied to a CoSWID tag MAY be used. The corresponding usage scenarios are domain-specific and require well-defined application guidance. Representation of the corresponding guidance is out-of-scope of this document.
-
-Additionally, the COSE Header counter signature MAY be used as an attribute in the unprotected header map of the COSE envelope of a CoSWID. The application of counter signing enables second parties to provide a signature on a signature allowing for a proof that a signature existed at a given time (i.e., a timestamp).
 
 <!--  LocalWords:  SWID verifier TPM filesystem discoverable
  -->
