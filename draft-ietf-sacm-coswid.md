@@ -926,7 +926,7 @@ adhere to the following CDDL specification.
 ~~~ CDDL
 {::include concise-swid-tag.cddl}
 ~~~
-{: markers="true"}
+{: sourcecode-markers="true"}
 
 {: #semantics-tag-type}
 # Determining the Type of CoSWID
@@ -1527,14 +1527,14 @@ Signing CoSWID tags follows the procedues defined in CBOR Object Signing and Enc
 ~~~~ CDDL
 {::include sign1.cddl}
 ~~~~
-{: markers="true"}
+{: sourcecode-markers="true"}
 
 The COSE_Sign structure that allows for more than one signature to be applied to a CoSWID tag MAY be used. The corresponding usage scenarios are domain-specific and require well-specified application guidance.
 
 ~~~~ CDDL
 {::include sign.cddl}
 ~~~~
-{: markers="true"}
+{: sourcecode-markers="true"}
 
 Additionally, the COSE Header counter signature MAY be used as an attribute in the unprotected header map of the COSE envelope of a CoSWID. The application of counter signing enables second parties to provide a signature on a signature allowing for a proof that a signature existed at a given time (i.e., a timestamp). 
 
@@ -1550,7 +1550,7 @@ In case an unsigned CoSWID is tagged, a CoSWID CBOR tag MUST be appended before 
 ~~~~ CDDL
 {::include tags.cddl}
 ~~~~
-{: markers="true"}
+{: sourcecode-markers="true"}
 
 While this specification allows for a tagged CoSWID tag to reside in a COSE envelope that is also tagged with a CoSWID CBOR tag, redundant use of tags SHOULD be avoided.
 
