@@ -1052,15 +1052,19 @@ The following table indicates the index value to use for the link-entry group's 
 
 The values above are registered in the IANA "Software Tag Link Use Values" registry defined in {{iana-link-use}}. Additional values will likely be registered over time. Additionally, the index values 128 through 255 and the name prefix "x_" have been reserved for private use.
 
-{: #schemes}
+
 # URI Schemes
 
 This specification defines the following URI schemes for use in CoSWID and to provide interoperability with schemes used in {{SWID}}.
 
-Note: These schemes are used in {{SWID}} without an IANA registration. This specification ensures that these schemes are properly defined going forward.
+Note: These URI schemes are used in {{SWID}} without an IANA registration.
+The present specification ensures that these URI schemes are properly
+defined going forward.
 
-{: #schemes-swid}
-## "swid" URI Scheme Specification
+{: #uri-schemes-swid}
+### "swid" URI Scheme
+
+There is a need for a scheme name that can be used in URIs that point to a specific software tag by that tag's tag-id, such as the use of the link entry as described in {{model-link}}) of this document. Since this scheme is used in a standards track document and an ISO standard, this scheme needs to be used without fear of conflicts with current or future actual schemes.  The scheme "swid" is hereby registered as a 'permanent' scheme for that purpose.
 
 URIs specifying the "swid" scheme are used to reference a software tag by its tag-id. A tag-id referenced in this way can be used to identify the tag resource in the context of where it is referenced from. For example, when a tag is installed on a given device, that tag can reference related tags on the same device using URIs with this scheme.
 
@@ -1072,8 +1076,10 @@ The following expression is a valid example:
 swid:2df9de35-0aff-4a86-ace6-f7dddd1ade4c
 ~~~~
 
-{: #schemes-swidpath}
-## "swidpath" URI Scheme Specification
+{: #uri-scheme-swidpath}
+### "swidpath" URI Scheme
+
+There is a need for a scheme name that can be used in URIs to identify a collection of specific software tags with data elements that match an XPath expression, such as the use of the link entry as described in {{model-link}}) of this document. Since this scheme is used in a standards track document and an ISO standard, this scheme needs to be used without fear of conflicts with current or future actual schemes.  The scheme "swidpath" is hereby registered as a 'permanent' scheme for that purpose.
 
 URIs specifying the "swidpath" scheme are used to reference the data that must be found in a given software tag for that tag to be considered a matching tag to be included in the identified tag collection. Tags to be evaluated include all tags in the context of where the tag is referenced from. For example, when a tag is installed on a given device, that tag can reference related tags on the same device using a URI with this scheme.
 
@@ -1082,6 +1088,7 @@ For URIs that use the "swidpath" scheme, the requirements apply.
 The scheme specific part MUST be an XPath expression as defined by {{-xpath}}. The included XPath expression will be URI encoded according to {{RFC3986}} Section 2.1.
 
 This XPath is evaluated over SWID tags found on a system. A given tag MUST be considered a match if the XPath evaluation result value has an effective boolean value of "true" according to {{-xpath}} Section 2.4.3.
+
 
 {: #iana}
 #  IANA Considerations
@@ -1475,43 +1482,61 @@ preferably with the specific value requested:
 
 The ISO 19770-2:2015 SWID specification describes use of the "swid" and "swidpath" URI schemes, which are currently in use in implementations. This document continues this use for CoSWID. The following subsections provide registrations for these schemes in to ensure that a permanent registration exists for these schemes that is suitable for use in the SWID and CoSWID specifications.
 
-***TODO: Per Step 3.2 of Section 7.2 of RFC7595, has this been sent to uri-review@ietf.org?  I didn't see it on that mailing list (did I miss it?).  Please kick that off.***
+<!-- ***TODO: Per Step 3.2 of Section 7.2 of RFC7595, has this been sent to uri-review@ietf.org?  I didn't see it on that mailing list (did I miss it?).  Please kick that off.*** -->
 
-### "swid" URI Scheme Registration
+URI schemes are registered within the "Uniform Resource Identifier (URI)
+Schemes" registry maintained at {{!IANA.uri-schemes}}.
 
-There is a need for a scheme name that can be used in URIs that point to a specific software tag by that tag's tag-id, such as the use of the link entry as described in {{model-link}}) of this document. Since this scheme is used in a standards track document and an ISO standard, this scheme needs to be used without fear of conflicts with current or future actual schemes.  The scheme "swid" is hereby registered as a 'permanent' scheme for that purpose.
+### URI-scheme swid {#swid-reg}
 
-The "swid" scheme is specified as follows:
+IANA is requested to register the URI scheme "swid". This registration
+request complies with {{RFC7595}}.
 
-Scheme name: swid
+Scheme name:
+: swid
 
-Status: Permanent
+Status:
+: Permanent
 
-Applications/protocols that use this scheme name: See section {{schemes-swid}}.
+Applications/protocols that use this scheme name:
+: Applications that require Software-IDs (SWIDs) or Concise
+  Software-IDs (CoSWIDs); see {{uri-scheme-swid}} of RFC-AAAA.
 
-Contact: FIXME
+Contact:
+: IETF Chair \<chair@ietf.org>
 
-Change controller: FIXME
+Change controller:
+: IESG \<iesg@ietf.org>
 
-References: FIXME
+Reference:
+:  {{uri-scheme-swid}} in RFC-AAAA
+{: vspace='0'}
 
-### "swidpath" URI Scheme Registration
+### URI-scheme swidpath {#swidpath-reg}
 
-There is a need for a scheme name that can be used in URIs to identify a collection of specific software tags with data elements that match an XPath expression, such as the use of the link entry as described in {{model-link}}) of this document. Since this scheme is used in a standards track document and an ISO standard, this scheme needs to be used without fear of conflicts with current or future actual schemes.  The scheme "swidpath" is hereby registered as a 'permanent' scheme for that purpose.
+IANA is requested to register the URI scheme "swidpath". This registration
+request complies with {{RFC7595}}.
 
-The "swidpath" scheme is specified as follows:
+Scheme name:
+: swidpath
 
-Scheme name: swidpath
+Status:
+: Permanent
 
-Status: Permanent
+Applications/protocols that use this scheme name:
+: Applications that require Software-IDs (SWIDs) or Concise
+  Software-IDs (CoSWIDs); see {{uri-scheme-swidpath}} of RFC-AAAA.
 
-Applications/protocols that use this scheme name:  See section {{schemes-swidpath}}.
+Contact:
+: IETF Chair \<chair@ietf.org>
 
-Contact: FIXME
+Change controller:
+: IESG \<iesg@ietf.org>
 
-Change controller: FIXME
+Reference:
+:  {{uri-scheme-swidpath}} in RFC-AAAA
+{: vspace='0'}
 
-References: FIXME
 
 ## CoSWID Model for use in SWIMA Registration
 
