@@ -52,6 +52,19 @@ author:
   code: '20877'
   country: USA
 
+contributor:
+  -
+    ins: C. Bormann
+    name: Carsten Bormann
+    org: Universität Bremen TZI
+    street: Postfach 330440
+    city: Bremen
+    code: D-28359
+    country: Germany
+    phone: +49-421-218-63921
+    email: cabo@tzi.org
+
+
 normative:
   BCP26: RFC8126
   BCP178: RFC6648
