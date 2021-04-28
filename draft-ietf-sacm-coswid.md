@@ -8,6 +8,7 @@ area: Security
 wg: SACM Working Group
 kw: Internet-Draft
 cat: std
+consensus: true
 pi:
   toc: yes
   sortrefs: yes
@@ -51,6 +52,21 @@ author:
   code: '20877'
   country: USA
 
+contributor:
+  -
+    ins: C. Bormann
+    name: Carsten Bormann
+    org: Universität Bremen TZI
+    street: Postfach 330440
+    city: Bremen
+    code: D-28359
+    country: Germany
+    phone: +49-421-218-63921
+    email: cabo@tzi.org
+    contribution: >
+      Carsten Bormann contributed to the CDDL specifications and the IANA considerations.
+
+
 normative:
   BCP26: RFC8126
   BCP178: RFC6648
@@ -60,7 +76,7 @@ normative:
   RFC5234: ABNF
   RFC5646:
   RFC5892:
-  RFC7049:
+  RFC8949:
   RFC7252:
   RFC8126:
   RFC8152: cose-msg
@@ -97,13 +113,14 @@ normative:
   W3C.REC-xpath20-20101214: xpath
   W3C.REC-css3-mediaqueries-20120619: css3-mediaqueries
   W3C.REC-xmlschema-2-20041028: xml-schema-datatypes
-  NIHAR:
-    target: https://www.iana.org/assignments/named-information/named-information.xhtml
-    title: IANA Named Information Hash Algorithm Registry
+  IANA.named-information: NIHAR
+#    target: https://www.iana.org/assignments/named-information/named-information.xhtml
+#    title: IANA Named Information Hash Algorithm Registry
 
 informative:
   RFC3444:
   RFC4122:
+  RFC7595:
   RFC8322: rolie
   RFC8520: mud
   I-D.ietf-rats-architecture: rats
@@ -176,7 +193,7 @@ amount of data to be transported. This can be larger than acceptable for
 constrained devices and networks. Concise SWID (CoSWID) tags significantly reduce the amount of
 data transported as compared to a typical SWID tag
 through the use of the Concise
-Binary Object Representation (CBOR) {{RFC7049}}.
+Binary Object Representation (CBOR) {{RFC8949}}.
 
 Size comparisons between XML SWID and CoSWID mainly depend on domain-specific applications and the complexity of attributes used in instances.
 While the values stored in CoSWID are often unchanged and therefore not reduced in size compared to an XML SWID, the scaffolding that the CoSWID encoding represents is significantly smaller by taking up 10 percent or less in size.
@@ -292,7 +309,7 @@ rule `coswid` (as defined in {{tagged}}):
 start = coswid
 ~~~
 
-In CBOR, an array is encoded using bytes that identify the array, and the array's length or stop point (see {{RFC7049}}). To make items that support 1 or more values, the following CDDL notation is used.
+In CBOR, an array is encoded using bytes that identify the array, and the array's length or stop point (see {{RFC8949}}). To make items that support 1 or more values, the following CDDL notation is used.
 
 ~~~ CDDL;example
 _name_ = (_label_ => _data_ / [ 2* _data_ ])
@@ -319,7 +336,7 @@ The following subsections describe the different parts of the CoSWID model.
 
 ## Character Encoding
 
-The CDDL "text" type is represented in CBOR as a major type 3, which represents "a string of Unicode characters that \[are\] encoded as UTF-8 {{RFC3629}}" (see {{RFC7049}} Section 2.1). Thus both SWID and CoSWID use UTF-8 for the encoding of characters in text strings.
+The CDDL "text" type is represented in CBOR as a major type 3, which represents "a string of Unicode characters that \[are\] encoded as UTF-8 {{RFC3629}}" (see {{Section 3.1 of RFC8949}}). Thus both SWID and CoSWID use UTF-8 for the encoding of characters in text strings.
 
 To ensure that UTF-8 character strings are able to be encoded/decoded and exchanged interoperably, text strings in CoSWID MUST be encoded consistent with the Net-Unicode definition defined in {{RFC5198}}.
 
@@ -753,7 +770,7 @@ The following describes each child item of this group.
 ### The hash-entry Array
 
 CoSWID adds explicit support for the representation of hash entries using algorithms that are
-registered in the IANA "Named Information Hash Algorithm Registry" {{NIHAR}} using the hash member (index 7) and the corresponding hash-entry type. This is the equivalent of the namespace qualified "hash" attribute in {{SWID}}.
+registered in the IANA "Named Information Hash Algorithm Registry" {{-NIHAR}} using the hash member (index 7) and the corresponding hash-entry type. This is the equivalent of the namespace qualified "hash" attribute in {{SWID}}.
 
 ~~~~ CDDL
 hash-entry = [
@@ -762,7 +779,7 @@ hash-entry = [
 ]
 ~~~~
 
-The number used as a value for hash-alg-id is an integer-based hash algorithm identifier who's value MUST refer to an ID in the IANA "Named Information Hash Algorithm Registry" {{NIHAR}} with a Status of "current"; other hash algorithms MUST NOT be used. If the hash-alg-id is not known, then the integer value "0" MUST be used. This ensures parity between the SWID tag specification {{SWID}}, which does not allow an algorithm to be identified for this field.
+The number used as a value for hash-alg-id is an integer-based hash algorithm identifier who's value MUST refer to an ID in the IANA "Named Information Hash Algorithm Registry" {{-NIHAR}} with a Status of "current"; other hash algorithms MUST NOT be used. If the hash-alg-id is not known, then the integer value "0" MUST be used. This ensures parity between the SWID tag specification {{SWID}}, which does not allow an algorithm to be identified for this field.
 
 The hash-value byte string value MUST represent the raw hash value of the hashed resource generated using the hash algorithm indicated by the hash-alg-id.
 
@@ -1052,15 +1069,19 @@ The following table indicates the index value to use for the link-entry group's 
 
 The values above are registered in the IANA "Software Tag Link Use Values" registry defined in {{iana-link-use}}. Additional values will likely be registered over time. Additionally, the index values 128 through 255 and the name prefix "x_" have been reserved for private use.
 
-{: #schemes}
+
 # URI Schemes
 
 This specification defines the following URI schemes for use in CoSWID and to provide interoperability with schemes used in {{SWID}}.
 
-Note: These schemes are used in {{SWID}} without an IANA registration. This specification ensures that these schemes are properly defined going forward.
+Note: These URI schemes are used in {{SWID}} without an IANA registration.
+The present specification ensures that these URI schemes are properly
+defined going forward.
 
-{: #schemes-swid}
-## "swid" URI Scheme Specification
+{: #uri-scheme-swid}
+## "swid" URI Scheme
+
+There is a need for a scheme name that can be used in URIs that point to a specific software tag by that tag's tag-id, such as the use of the link entry as described in {{model-link}}) of this document. Since this scheme is used both in a standards track document and an ISO standard, this scheme needs to be used without fear of conflicts with current or future actual schemes.  In {{swid-reg}}, the scheme "swid" is registered as a 'permanent' scheme for that purpose.
 
 URIs specifying the "swid" scheme are used to reference a software tag by its tag-id. A tag-id referenced in this way can be used to identify the tag resource in the context of where it is referenced from. For example, when a tag is installed on a given device, that tag can reference related tags on the same device using URIs with this scheme.
 
@@ -1072,8 +1093,13 @@ The following expression is a valid example:
 swid:2df9de35-0aff-4a86-ace6-f7dddd1ade4c
 ~~~~
 
-{: #schemes-swidpath}
-## "swidpath" URI Scheme Specification
+{: #uri-scheme-swidpath}
+## "swidpath" URI Scheme
+
+There is a need for a scheme name that can be used in URIs to identify a collection of specific software tags with data elements that match an XPath expression, such as the use of the link entry as described in {{model-link}}) of this document.
+Since this scheme is used both in a standards track document and an ISO standard, this scheme needs to be used without fear of conflicts with current or future actual schemes.
+In {{swidpath-reg}}, the scheme "swidpath" is hereby registered as a
+'permanent' scheme for that purpose.
 
 URIs specifying the "swidpath" scheme are used to reference the data that must be found in a given software tag for that tag to be considered a matching tag to be included in the identified tag collection. Tags to be evaluated include all tags in the context of where the tag is referenced from. For example, when a tag is installed on a given device, that tag can reference related tags on the same device using a URI with this scheme.
 
@@ -1082,6 +1108,7 @@ For URIs that use the "swidpath" scheme, the requirements apply.
 The scheme specific part MUST be an XPath expression as defined by {{-xpath}}. The included XPath expression will be URI encoded according to {{RFC3986}} Section 2.1.
 
 This XPath is evaluated over SWID tags found on a system. A given tag MUST be considered a match if the XPath evaluation result value has an effective boolean value of "true" according to {{-xpath}} Section 2.4.3.
+
 
 {: #iana}
 #  IANA Considerations
@@ -1400,7 +1427,7 @@ Registrations MUST conform to the expert review guidelines defined in {{iana-rev
 
 ***TODO: Per Section 5.1 of RFC6838, was a message sent to media-types@iana.org for preliminary review?  I didn't see it on that mailing list (did I miss it?). Please kick that off.***
 
-IANA is requested to add the following to the IANA "Media Types" registry.
+IANA is requested to add the following to the IANA "Media Types" registry {{!IANA.media-types}}.
 
 Type name: application
 
@@ -1410,7 +1437,7 @@ Required parameters: none
 
 Optional parameters: none
 
-Encoding considerations: Must be encoded as using {{RFC7049}}. See
+Encoding considerations: Must be encoded as using {{RFC8949}}. See
 RFC-AAAA for details.
 
 Security considerations: See {{sec-sec}} of RFC-AAAA.
@@ -1427,7 +1454,7 @@ applications that use remote integrity verification.
 
 Fragment identifier considerations: Fragment identification for
 application/swid+cbor is supported by using fragment identifiers as
-specified by RFC7049 Section 7.5.
+specified by {{Section 9.5 of RFC8949}}.
 
 Additional information:
 
@@ -1456,7 +1483,7 @@ Change controller: IESG
 IANA is requested to assign a CoAP Content-Format ID for the CoSWID
 media type in the "CoAP Content-Formats" sub-registry, from the "IETF
 Review or IESG Approval" space (256..999), within the "CoRE
-Parameters" registry {{RFC7252}}:
+Parameters" registry {{RFC7252}} {{!IANA.core-parameters}}:
 
 | Media type            | Encoding | ID    | Reference |
 | application/swid+cbor | -        | TBD1 | RFC-AAAA  |
@@ -1464,7 +1491,7 @@ Parameters" registry {{RFC7252}}:
 
 ## CBOR Tag Registration
 
-IANA is requested to allocate a tag in the "CBOR Tags" registry,
+IANA is requested to allocate a tag in the "CBOR Tags" registry {{!IANA.cbor-tags}},
 preferably with the specific value requested:
 
 |        Tag | Data Item | Semantics                                       |
@@ -1475,47 +1502,65 @@ preferably with the specific value requested:
 
 The ISO 19770-2:2015 SWID specification describes use of the "swid" and "swidpath" URI schemes, which are currently in use in implementations. This document continues this use for CoSWID. The following subsections provide registrations for these schemes in to ensure that a permanent registration exists for these schemes that is suitable for use in the SWID and CoSWID specifications.
 
-***TODO: Per Step 3.2 of Section 7.2 of RFC7595, has this been sent to uri-review@ietf.org?  I didn't see it on that mailing list (did I miss it?).  Please kick that off.***
+<!-- ***TODO: Per Step 3.2 of Section 7.2 of RFC7595, has this been sent to uri-review@ietf.org?  I didn't see it on that mailing list (did I miss it?).  Please kick that off.*** -->
 
-### "swid" URI Scheme Registration
+URI schemes are registered within the "Uniform Resource Identifier (URI)
+Schemes" registry maintained at {{!IANA.uri-schemes}}.
 
-There is a need for a scheme name that can be used in URIs that point to a specific software tag by that tag's tag-id, such as the use of the link entry as described in {{model-link}}) of this document. Since this scheme is used in a standards track document and an ISO standard, this scheme needs to be used without fear of conflicts with current or future actual schemes.  The scheme "swid" is hereby registered as a 'permanent' scheme for that purpose.
+### URI-scheme swid {#swid-reg}
 
-The "swid" scheme is specified as follows:
+IANA is requested to register the URI scheme "swid".
+This registration request complies with {{RFC7595}}.
 
-Scheme name: swid
+Scheme name:
+: swid
 
-Status: Permanent
+Status:
+: Permanent
 
-Applications/protocols that use this scheme name: See section {{schemes-swid}}.
+Applications/protocols that use this scheme name:
+: Applications that require Software-IDs (SWIDs) or Concise
+  Software-IDs (CoSWIDs); see {{uri-scheme-swid}} of RFC-AAAA.
 
-Contact: FIXME
+Contact:
+: IETF Chair \<chair@ietf.org>
 
-Change controller: FIXME
+Change controller:
+: IESG \<iesg@ietf.org>
 
-References: FIXME
+Reference:
+:  {{uri-scheme-swid}} in RFC-AAAA
+{: vspace='0'}
 
-### "swidpath" URI Scheme Registration
+### URI-scheme swidpath {#swidpath-reg}
 
-There is a need for a scheme name that can be used in URIs to identify a collection of specific software tags with data elements that match an XPath expression, such as the use of the link entry as described in {{model-link}}) of this document. Since this scheme is used in a standards track document and an ISO standard, this scheme needs to be used without fear of conflicts with current or future actual schemes.  The scheme "swidpath" is hereby registered as a 'permanent' scheme for that purpose.
+IANA is requested to register the URI scheme "swidpath". This registration
+request complies with {{RFC7595}}.
 
-The "swidpath" scheme is specified as follows:
+Scheme name:
+: swidpath
 
-Scheme name: swidpath
+Status:
+: Permanent
 
-Status: Permanent
+Applications/protocols that use this scheme name:
+: Applications that require Software-IDs (SWIDs) or Concise
+  Software-IDs (CoSWIDs); see {{uri-scheme-swidpath}} of RFC-AAAA.
 
-Applications/protocols that use this scheme name:  See section {{schemes-swidpath}}.
+Contact:
+: IETF Chair \<chair@ietf.org>
 
-Contact: FIXME
+Change controller:
+: IESG \<iesg@ietf.org>
 
-Change controller: FIXME
+Reference:
+:  {{uri-scheme-swidpath}} in RFC-AAAA
+{: vspace='0'}
 
-References: FIXME
 
 ## CoSWID Model for use in SWIMA Registration
 
-The Software Inventory Message and Attributes (SWIMA) for PA-TNC specification {{RFC8412}} defines a standardized method for collecting an endpoint device's software inventory. A CoSWID can provide evidence of software installation which can then be used and exchanged with SWIMA. This registration adds a new entry to the IANA "Software Data Model Types" registry defined by {{RFC8412}} to support CoSWID use in SWIMA as follows:
+The Software Inventory Message and Attributes (SWIMA) for PA-TNC specification {{RFC8412}} defines a standardized method for collecting an endpoint device's software inventory. A CoSWID can provide evidence of software installation which can then be used and exchanged with SWIMA. This registration adds a new entry to the IANA "Software Data Model Types" registry defined by {{RFC8412}} {{!IANA.pa-tnc-parameters}} to support CoSWID use in SWIMA as follows:
 
 Pen: 0
 
@@ -1642,13 +1687,8 @@ providers are unlikely to do this, CoSWID tags can be created by any party and t
 collected from an endpoint could contain a mixture of vendor and non-vendor created tags. For this
 reason, a CoSWID tag might contain potentially malicious content. Input sanitization and loop detection are two ways that implementations can address this concern.
 
-#  Acknowledgments
-
-This document draws heavily on the concepts defined in the ISO/IEC 19770-2:2015 specification. The authors of this document are grateful for the prior work of the 19770-2 contributors.
-
-We are also grateful to the careful reviews provided by ...
-
 #  Change Log
+{: removeinrfc="true"}
 
 \[THIS SECTION TO BE REMOVED BY THE RFC EDITOR.\]
 
@@ -1784,6 +1824,15 @@ Changes from version 00 to version 01:
 - Included first iteration of firmware resource-collection
 
 --- back
+
+
+#  Acknowledgments
+{: numbered="false"}
+
+This document draws heavily on the concepts defined in the ISO/IEC 19770-2:2015 specification. The authors of this document are grateful for the prior work of the 19770-2 contributors.
+
+We are also grateful to the careful reviews provided by ...
+
 
 <!--  LocalWords:  SWID verifier TPM filesystem discoverable
  -->
