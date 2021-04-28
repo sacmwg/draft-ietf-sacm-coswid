@@ -1055,9 +1055,9 @@ The values above are registered in the IANA "Software Tag Link Use Values" regis
 {: #schemes}
 # URI Schemes
 
-This specification defines the following URI schemes for use in CoSWID and to provide interoperability with schemes used in {SWID}.
+This specification defines the following URI schemes for use in CoSWID and to provide interoperability with schemes used in {{SWID}}.
 
-Note: These schemes are used in {SWID} without an IANA registration. This specification ensures that these schemes are properly defined going forward.
+Note: These schemes are used in {{SWID}} without an IANA registration. This specification ensures that these schemes are properly defined going forward.
 
 {: #schemes-swid}
 ## "swid" URI Scheme Specification
