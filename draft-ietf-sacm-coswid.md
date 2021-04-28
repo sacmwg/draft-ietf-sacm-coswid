@@ -1412,7 +1412,7 @@ Registrations MUST conform to the expert review guidelines defined in {{iana-rev
 
 ***TODO: Per Section 5.1 of RFC6838, was a message sent to media-types@iana.org for preliminary review?  I didn't see it on that mailing list (did I miss it?). Please kick that off.***
 
-IANA is requested to add the following to the IANA "Media Types" registry.
+IANA is requested to add the following to the IANA "Media Types" registry {{!IANA.media-types}}.
 
 Type name: application
 
@@ -1468,7 +1468,7 @@ Change controller: IESG
 IANA is requested to assign a CoAP Content-Format ID for the CoSWID
 media type in the "CoAP Content-Formats" sub-registry, from the "IETF
 Review or IESG Approval" space (256..999), within the "CoRE
-Parameters" registry {{RFC7252}}:
+Parameters" registry {{RFC7252}} {{!IANA.core-parameters}}:
 
 | Media type            | Encoding | ID    | Reference |
 | application/swid+cbor | -        | TBD1 | RFC-AAAA  |
@@ -1476,7 +1476,7 @@ Parameters" registry {{RFC7252}}:
 
 ## CBOR Tag Registration
 
-IANA is requested to allocate a tag in the "CBOR Tags" registry,
+IANA is requested to allocate a tag in the "CBOR Tags" registry {{!IANA.cbor-tags}},
 preferably with the specific value requested:
 
 |        Tag | Data Item | Semantics                                       |
@@ -1545,7 +1545,7 @@ Reference:
 
 ## CoSWID Model for use in SWIMA Registration
 
-The Software Inventory Message and Attributes (SWIMA) for PA-TNC specification {{RFC8412}} defines a standardized method for collecting an endpoint device's software inventory. A CoSWID can provide evidence of software installation which can then be used and exchanged with SWIMA. This registration adds a new entry to the IANA "Software Data Model Types" registry defined by {{RFC8412}} to support CoSWID use in SWIMA as follows:
+The Software Inventory Message and Attributes (SWIMA) for PA-TNC specification {{RFC8412}} defines a standardized method for collecting an endpoint device's software inventory. A CoSWID can provide evidence of software installation which can then be used and exchanged with SWIMA. This registration adds a new entry to the IANA "Software Data Model Types" registry defined by {{RFC8412}} {{!IANA.pa-tnc-parameters}} to support CoSWID use in SWIMA as follows:
 
 Pen: 0
 
@@ -1672,13 +1672,8 @@ providers are unlikely to do this, CoSWID tags can be created by any party and t
 collected from an endpoint could contain a mixture of vendor and non-vendor created tags. For this
 reason, a CoSWID tag might contain potentially malicious content. Input sanitization and loop detection are two ways that implementations can address this concern.
 
-#  Acknowledgments
-
-This document draws heavily on the concepts defined in the ISO/IEC 19770-2:2015 specification. The authors of this document are grateful for the prior work of the 19770-2 contributors.
-
-We are also grateful to the careful reviews provided by ...
-
 #  Change Log
+{: removeinrfc="true"}
 
 \[THIS SECTION TO BE REMOVED BY THE RFC EDITOR.\]
 
@@ -1814,6 +1809,15 @@ Changes from version 00 to version 01:
 - Included first iteration of firmware resource-collection
 
 --- back
+
+
+#  Acknowledgments
+{: numbered="false"}
+
+This document draws heavily on the concepts defined in the ISO/IEC 19770-2:2015 specification. The authors of this document are grateful for the prior work of the 19770-2 contributors.
+
+We are also grateful to the careful reviews provided by ...
+
 
 <!--  LocalWords:  SWID verifier TPM filesystem discoverable
  -->
