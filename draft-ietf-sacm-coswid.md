@@ -63,6 +63,8 @@ contributor:
     country: Germany
     phone: +49-421-218-63921
     email: cabo@tzi.org
+    contribution: >
+      Carsten Bormann contributed to the CDDL specifications and the IANA considerations.
 
 
 normative:
