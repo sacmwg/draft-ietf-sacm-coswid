@@ -8,6 +8,7 @@ area: Security
 wg: SACM Working Group
 kw: Internet-Draft
 cat: std
+consensus: true
 pi:
   toc: yes
   sortrefs: yes
@@ -60,7 +61,7 @@ normative:
   RFC5234: ABNF
   RFC5646:
   RFC5892:
-  RFC7049:
+  RFC8949:
   RFC7252:
   RFC8126:
   RFC8152: cose-msg
@@ -97,13 +98,14 @@ normative:
   W3C.REC-xpath20-20101214: xpath
   W3C.REC-css3-mediaqueries-20120619: css3-mediaqueries
   W3C.REC-xmlschema-2-20041028: xml-schema-datatypes
-  NIHAR:
-    target: https://www.iana.org/assignments/named-information/named-information.xhtml
-    title: IANA Named Information Hash Algorithm Registry
+  IANA.named-information: NIHAR
+#    target: https://www.iana.org/assignments/named-information/named-information.xhtml
+#    title: IANA Named Information Hash Algorithm Registry
 
 informative:
   RFC3444:
   RFC4122:
+  RFC7595:
   RFC8322: rolie
   RFC8520: mud
   I-D.ietf-rats-architecture: rats
@@ -176,7 +178,7 @@ amount of data to be transported. This can be larger than acceptable for
 constrained devices and networks. Concise SWID (CoSWID) tags significantly reduce the amount of
 data transported as compared to a typical SWID tag
 through the use of the Concise
-Binary Object Representation (CBOR) {{RFC7049}}.
+Binary Object Representation (CBOR) {{RFC8949}}.
 
 Size comparisons between XML SWID and CoSWID mainly depend on domain-specific applications and the complexity of attributes used in instances.
 While the values stored in CoSWID are often unchanged and therefore not reduced in size compared to an XML SWID, the scaffolding that the CoSWID encoding represents is significantly smaller by taking up 10 percent or less in size.
@@ -292,7 +294,7 @@ rule `coswid` (as defined in {{tagged}}):
 start = coswid
 ~~~
 
-In CBOR, an array is encoded using bytes that identify the array, and the array's length or stop point (see {{RFC7049}}). To make items that support 1 or more values, the following CDDL notation is used.
+In CBOR, an array is encoded using bytes that identify the array, and the array's length or stop point (see {{RFC8949}}). To make items that support 1 or more values, the following CDDL notation is used.
 
 ~~~ CDDL;example
 _name_ = (_label_ => _data_ / [ 2* _data_ ])
@@ -319,7 +321,7 @@ The following subsections describe the different parts of the CoSWID model.
 
 ## Character Encoding
 
-The CDDL "text" type is represented in CBOR as a major type 3, which represents "a string of Unicode characters that \[are\] encoded as UTF-8 {{RFC3629}}" (see {{RFC7049}} Section 2.1). Thus both SWID and CoSWID use UTF-8 for the encoding of characters in text strings.
+The CDDL "text" type is represented in CBOR as a major type 3, which represents "a string of Unicode characters that \[are\] encoded as UTF-8 {{RFC3629}}" (see {{Section 3.1 of RFC8949}}). Thus both SWID and CoSWID use UTF-8 for the encoding of characters in text strings.
 
 To ensure that UTF-8 character strings are able to be encoded/decoded and exchanged interoperably, text strings in CoSWID MUST be encoded consistent with the Net-Unicode definition defined in {{RFC5198}}.
 
@@ -753,7 +755,7 @@ The following describes each child item of this group.
 ### The hash-entry Array
 
 CoSWID adds explicit support for the representation of hash entries using algorithms that are
-registered in the IANA "Named Information Hash Algorithm Registry" {{NIHAR}} using the hash member (index 7) and the corresponding hash-entry type. This is the equivalent of the namespace qualified "hash" attribute in {{SWID}}.
+registered in the IANA "Named Information Hash Algorithm Registry" {{-NIHAR}} using the hash member (index 7) and the corresponding hash-entry type. This is the equivalent of the namespace qualified "hash" attribute in {{SWID}}.
 
 ~~~~ CDDL
 hash-entry = [
@@ -762,7 +764,7 @@ hash-entry = [
 ]
 ~~~~
 
-The number used as a value for hash-alg-id is an integer-based hash algorithm identifier who's value MUST refer to an ID in the IANA "Named Information Hash Algorithm Registry" {{NIHAR}} with a Status of "current"; other hash algorithms MUST NOT be used. If the hash-alg-id is not known, then the integer value "0" MUST be used. This ensures parity between the SWID tag specification {{SWID}}, which does not allow an algorithm to be identified for this field.
+The number used as a value for hash-alg-id is an integer-based hash algorithm identifier who's value MUST refer to an ID in the IANA "Named Information Hash Algorithm Registry" {{-NIHAR}} with a Status of "current"; other hash algorithms MUST NOT be used. If the hash-alg-id is not known, then the integer value "0" MUST be used. This ensures parity between the SWID tag specification {{SWID}}, which does not allow an algorithm to be identified for this field.
 
 The hash-value byte string value MUST represent the raw hash value of the hashed resource generated using the hash algorithm indicated by the hash-alg-id.
 
@@ -1061,10 +1063,10 @@ Note: These URI schemes are used in {{SWID}} without an IANA registration.
 The present specification ensures that these URI schemes are properly
 defined going forward.
 
-{: #uri-schemes-swid}
-### "swid" URI Scheme
+{: #uri-scheme-swid}
+## "swid" URI Scheme
 
-There is a need for a scheme name that can be used in URIs that point to a specific software tag by that tag's tag-id, such as the use of the link entry as described in {{model-link}}) of this document. Since this scheme is used in a standards track document and an ISO standard, this scheme needs to be used without fear of conflicts with current or future actual schemes.  The scheme "swid" is hereby registered as a 'permanent' scheme for that purpose.
+There is a need for a scheme name that can be used in URIs that point to a specific software tag by that tag's tag-id, such as the use of the link entry as described in {{model-link}}) of this document. Since this scheme is used both in a standards track document and an ISO standard, this scheme needs to be used without fear of conflicts with current or future actual schemes.  In {{swid-reg}}, the scheme "swid" is registered as a 'permanent' scheme for that purpose.
 
 URIs specifying the "swid" scheme are used to reference a software tag by its tag-id. A tag-id referenced in this way can be used to identify the tag resource in the context of where it is referenced from. For example, when a tag is installed on a given device, that tag can reference related tags on the same device using URIs with this scheme.
 
@@ -1077,9 +1079,12 @@ swid:2df9de35-0aff-4a86-ace6-f7dddd1ade4c
 ~~~~
 
 {: #uri-scheme-swidpath}
-### "swidpath" URI Scheme
+## "swidpath" URI Scheme
 
-There is a need for a scheme name that can be used in URIs to identify a collection of specific software tags with data elements that match an XPath expression, such as the use of the link entry as described in {{model-link}}) of this document. Since this scheme is used in a standards track document and an ISO standard, this scheme needs to be used without fear of conflicts with current or future actual schemes.  The scheme "swidpath" is hereby registered as a 'permanent' scheme for that purpose.
+There is a need for a scheme name that can be used in URIs to identify a collection of specific software tags with data elements that match an XPath expression, such as the use of the link entry as described in {{model-link}}) of this document.
+Since this scheme is used both in a standards track document and an ISO standard, this scheme needs to be used without fear of conflicts with current or future actual schemes.
+In {{swidpath-reg}}, the scheme "swidpath" is hereby registered as a
+'permanent' scheme for that purpose.
 
 URIs specifying the "swidpath" scheme are used to reference the data that must be found in a given software tag for that tag to be considered a matching tag to be included in the identified tag collection. Tags to be evaluated include all tags in the context of where the tag is referenced from. For example, when a tag is installed on a given device, that tag can reference related tags on the same device using a URI with this scheme.
 
@@ -1417,7 +1422,7 @@ Required parameters: none
 
 Optional parameters: none
 
-Encoding considerations: Must be encoded as using {{RFC7049}}. See
+Encoding considerations: Must be encoded as using {{RFC8949}}. See
 RFC-AAAA for details.
 
 Security considerations: See {{sec-sec}} of RFC-AAAA.
@@ -1434,7 +1439,7 @@ applications that use remote integrity verification.
 
 Fragment identifier considerations: Fragment identification for
 application/swid+cbor is supported by using fragment identifiers as
-specified by RFC7049 Section 7.5.
+specified by {{Section 9.5 of RFC8949}}.
 
 Additional information:
 
@@ -1489,8 +1494,8 @@ Schemes" registry maintained at {{!IANA.uri-schemes}}.
 
 ### URI-scheme swid {#swid-reg}
 
-IANA is requested to register the URI scheme "swid". This registration
-request complies with {{RFC7595}}.
+IANA is requested to register the URI scheme "swid".
+This registration request complies with {{RFC7595}}.
 
 Scheme name:
 : swid
