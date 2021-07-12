@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2021-04-28T11:36:58.602772+00:00",
+  "timestamp": "2021-07-12T20:05:34.946177+00:00",
   "repo": "sacmwg/draft-ietf-sacm-coswid",
   "labels": [
     {
@@ -1859,6 +1859,90 @@
       },
       "comments": [],
       "reviews": []
+    },
+    {
+      "number": 43,
+      "id": "MDExOlB1bGxSZXF1ZXN0NjI1MTk3Njk3",
+      "title": "IANA registrations for Uri-schemes and other fixes",
+      "url": "https://github.com/sacmwg/draft-ietf-sacm-coswid/pull/43",
+      "state": "MERGED",
+      "author": "cabo",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2021-04-28T12:51:31Z",
+      "updatedAt": "2021-04-28T14:53:47Z",
+      "baseRepository": "sacmwg/draft-ietf-sacm-coswid",
+      "baseRefName": "master",
+      "baseRefOid": "8be2b6ed07e069ba45094c28a24224d3ced07f65",
+      "headRepository": "sacmwg/draft-ietf-sacm-coswid",
+      "headRefName": "iana-uri",
+      "headRefOid": "c5d41a067557c4bee0817a17e65580e4bebf08ff",
+      "closedAt": "2021-04-28T14:53:47Z",
+      "mergedAt": "2021-04-28T14:53:47Z",
+      "mergedBy": "henkbirkholz",
+      "mergeCommit": {
+        "oid": "9060eba2fea4419e446d6ffeb67de1081fec9455"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NjQ3MTcwNTkw",
+          "commit": {
+            "abbreviatedOid": "c5d41a0"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2021-04-28T14:53:41Z",
+          "updatedAt": "2021-04-28T14:53:41Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 44,
+      "id": "MDExOlB1bGxSZXF1ZXN0Njg3ODM4NTkz",
+      "title": "addressed comments from Roman Danyliw",
+      "url": "https://github.com/sacmwg/draft-ietf-sacm-coswid/pull/44",
+      "state": "MERGED",
+      "author": "david-waltermire-nist",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Addressed the following comments:\r\n\r\n> ** [-15] Section 2.3  Are there any considerations that would need to \r\n> be made for versioning CoSWID beyond the native support provided with CBOR?\r\n\r\n[Per IETF 110] Add text on the order of native CDDL approach for handling version is used.  If a future version of SWID is published which alters the semantics of exists fields, a future version of CoSWID SHOULD (MUST?) use a different tag to represent it.\r\n\r\n[daw: A new paragraph was added to section 2 detailing how index values are used to support revisions and extensions.]\r\n\r\n> ** [-15] Section 4.1 and 5.2.4.  [SEMVER] doesn't meet the threshold \r\n> for a normative requirement and a \"specification required\" - it's just \r\n> a website.  If this is used in SWID then that would be compelling argument to waiver it.\r\n> However, that should be explicitly stated here.  If it isn't, we \r\n> should discuss it a bit more.\r\n> \r\n> [-16: Can the ISO spec please be used as the basis for this reference \r\n> (even it just points to the same website?)]\r\n\r\n[Per IETF 110] see -16.  Use ISO SWID reference for the IANA registry and if desired, used [SEMVER] as an informal reference in the text\r\n\r\n[daw: This has been done in section 4.1.]\r\n\r\n> ** [17] Section 6.*.  Various \"FIXME\" markers need to be populated.\r\n\r\n[daw: The FIXME markers have been replaced with actual text.]\r\n\r\n> \r\n> ** [-15] Section 6.  What are the normative requirements, if any, on \r\n> signing the CoSWID?\r\n> \r\n> [-17] Is there something in SWID preventing normative guidance that \r\n> says SHOULD or MUST sign?\r\n\r\n[daw: Section 7 now details the construction of a signed CoSWID. A SHOULD sign requirement was also added to section 7.]\r\n\r\n[Per IETF 110] We discussed adding language on the order of \"This document specifies a data format and an associated integrity mechanism agnostic of a deployment.  Application which choose to use CoSWID will need to specify explicit guidance which security properties are needed and under which circumstances.\"  > ** [-15] Section 6.  Per \"When an authoritative tag is signed, the software\r\n> provider can be authenticated as the originator of the signature\", \r\n> what is the binding between the software provider and the key used to \r\n> provide the signature?  Put in another way, how do I know the \r\n> signature on the CoSWID really belongs to the software provider?  Same for a supplementary tag?\r\n\r\n[daw: Authenticating the signer is the software provider will require a match between a CoSWID entity and the signer. We are working out a means to do this.]\r\n\r\n> \r\n> [-16] Thanks for the new text.  Unless more detailed will be provided, \r\n> please add that provisioning and validation logic of these tags will \r\n> be done via local policy and is outside the scope of this document]\r\n2\r\n\r\n[daw: Not sure which tags this applies to? Signing? All of section 2?]\r\n\r\n> \r\n> [-17] Section 9. Per \"A trustworthy association between the signature \r\n> and the originator of the signature can be established via trust \r\n> anchors. A certification path between a trust anchor and a certificate \r\n> including a pub-key enabling the validation of a tag signature can \r\n> realize the assessment of trustworthiness of an authoritative tag.\", \r\n> this is true.  Additionally, there is also the problem of how to \r\n> associate the right key with the software provider or party permitted \r\n> to add tags.  This significant complexity does not need to be solved \r\n> here, but please acknowledge that it is someone that needs to be addressed by the users, and is out of scope here.\r\n\r\n[daw: done.]\r\n\r\n> \r\n> ** [-15] Section 6.  Per \"Having a signed authoritative SWID/CoSWID \r\n> tag can be useful when the information in the tag needs to be trusted \r\n> such as when the tag is being used to convey reference integrity \r\n> measurements for software components \", when would this tag not need \r\n> to be trusted?  Perhaps I misunderstood, but I thought the whole \r\n> premise of using SWIDs/CoSWIDs in the SACM context was to support \r\n> asset inventory (i.e., reference integrity measurement of software \r\n> components).  I'm not clear on the use case for unsigned tags - that \r\n> said, I recognize that the SWID spec doesn't specify that either.\r\n\r\n[daw: This confusing text has been removed.]\r\n\r\n> [-17] Please add caution that without an integrity scheme, any user or \r\n> process that has write-access to the CoSWID tag can alter it.  As \r\n> such, any consuming application need to treat this data with caution.\r\n\r\n[daw: done.]\r\n\r\n> ** [-17] Section 9.  Per \"Thus, authoritative CoSWID tags can be \r\n> trusted to represent authoritative information about the software \r\n> component\", this seems too strong of a statement and dependent on the \r\n> custody of that tag.  If it isn't signed, little, if anything, \r\n> extracted from CoSWID tag should be considered authoritative.\r\n\r\n[daw: We added a note about this.]\r\n\r\n> \r\n> ** [-17] Section 9. Nit. s/pub-key/public key/\r\n\r\n[daw: Done.]\r\n\r\n> ** [-17] Section 9.  Per \"Input sanitization and loop detection are \r\n> two ways that implementations can address this concern\", and the use \r\n> of signed tags whose signature is verified on use too.\r\n\r\n[daw: Added signature validation as a way.]\r\n\r\nRegards,\r\nRoman\r\n\r\n> Regards,\r\n> Roman\r\n",
+      "createdAt": "2021-07-12T13:19:47Z",
+      "updatedAt": "2021-07-12T20:05:02Z",
+      "baseRepository": "sacmwg/draft-ietf-sacm-coswid",
+      "baseRefName": "master",
+      "baseRefOid": "9060eba2fea4419e446d6ffeb67de1081fec9455",
+      "headRepository": "david-waltermire-nist/draft-ietf-sacm-coswid",
+      "headRefName": "daw-ad-comments",
+      "headRefOid": "bb4a1734d83a2b983349167cf38fd9ccfeb273c7",
+      "closedAt": "2021-07-12T20:05:02Z",
+      "mergedAt": "2021-07-12T20:05:02Z",
+      "mergedBy": "henkbirkholz",
+      "mergeCommit": {
+        "oid": "034255375a6b2b8d23687eb0e690ad6b282a4149"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NzA0NDk1MTI5",
+          "commit": {
+            "abbreviatedOid": "bb4a173"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2021-07-12T20:04:15Z",
+          "updatedAt": "2021-07-12T20:04:15Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
