@@ -302,6 +302,8 @@ In most cases, mapping attribute names between SWID and CoSWID can be done autom
 
 The 57 human-readable text labels of the CDDL-based CoSWID vocabulary are mapped to integer indices via a block of rules at the bottom of the definition. This allows a more concise integer-based form to be stored or transported, as compared to the less efficient text-based form of the original vocabulary.
 
+Through use of CDDL-based integer labels, CoSWID allows for future expansion in subsequent revisions of this specification and through extensions (see {{model-extension}}). New constructs can be associated with a new integer index. A deprecated construct can be replaced by a new construct with a new integer index. An implementation can use these integer indexes to identify the construct to parse. The CoSWID Items registry, defined in {{iana-coswid-items}}, is used to ensure that new constructs are assigned a unique index value on a first-come, first-served basis. This approach avoids the need to have an explicit CoSWID version.
+
 The root of the CDDL specification provided by this document is the
 rule `coswid` (as defined in {{tagged}}):
 
@@ -991,7 +993,7 @@ The following table contains a set of values for use in the concise-swid-tag gro
 | 2     | multipartnumeric+suffix | Numbers separated by dots, where the numbers are interpreted as integers with an additional textual suffix (e.g., 1.2.3a)
 | 3     | alphanumeric            | Strictly a string, sorting is done alphanumerically
 | 4     | decimal                 | A floating point number (e.g., 1.25 is less than 1.3)
-| 16384 | semver                  | Follows the {{SEMVER}} specification
+| 16384 | semver                  | A semantic version as defined by {{SWID}}. Also see the {{SEMVER}} specification for more information
 {: #tbl-indexed-version-scheme-values title="Version Scheme Values"}
 
 The values above are registered in the IANA "Software Tag Version Scheme Values" registry defined in Section {{iana-version-scheme}}. Additional entries will likely be registered over time in this registry.
@@ -1266,7 +1268,7 @@ defined in {{SWID}}.
 | 3           | alphanumeric             | See {{indexed-version-scheme}}
 | 4           | decimal                  | See {{indexed-version-scheme}}
 | 5-16383     | Unassigned               |
-| 16384       | semver                   | {{SEMVER}}
+| 16384       | semver                   | See {{indexed-version-scheme}}
 | 16385-65535 | Unassigned               |
 {: #tbl-iana-version-scheme-values title="CoSWID Version Scheme Initial Registrations"}
 
@@ -1588,7 +1590,7 @@ In general, tags are signed by the tag creator (typically, although not exclusiv
 Cryptographic signatures can make any modification of the tag detectable, which is especially important if the integrity of the tag is important, such as when the tag is providing reference integrity measurements for files.
 The ISO-19770-2:2015 XML schema uses XML DSIG to support cryptographic signatures.
 
-Signing CoSWID tags follows the procedues defined in CBOR Object Signing and Encryption {{RFC8152}}. A CoSWID tg MUST be wrapped in a COSE Single Signer Data Object (COSE_Sign1) that contains a single signature and MUST be signed by the tag creator. The following CDDL specification defines a restrictive subset of COSE header parameters that MUST be used in the protected header.
+Signing CoSWID tags follows the procedures defined in CBOR Object Signing and Encryption {{RFC8152}}. A CoSWID tag MUST be wrapped in a COSE Single Signer Data Object (COSE_Sign1) that contains a single signature and MUST be signed by the tag creator. The following CDDL specification defines a restrictive subset of COSE header parameters that MUST be used in the protected header.
 
 ~~~~ CDDL
 {::include sign1.cddl}
@@ -1602,7 +1604,11 @@ The COSE_Sign structure that allows for more than one signature to be applied to
 ~~~~
 {: sourcecode-markers="true"}
 
-Additionally, the COSE Header counter signature MAY be used as an attribute in the unprotected header map of the COSE envelope of a CoSWID. The application of counter signing enables second parties to provide a signature on a signature allowing for a proof that a signature existed at a given time (i.e., a timestamp). 
+Additionally, the COSE Header counter signature MAY be used as an attribute in the unprotected header map of the COSE envelope of a CoSWID. The application of counter signing enables second parties to provide a signature on a signature allowing for a proof that a signature existed at a given time (i.e., a timestamp).
+
+A CoSWID SHOULD be signed, using the above mechanism, to protect the integrity of the CoSWID tag. See the security considerations (in {{sec-sec}}) for more information on why a signed CoSWID is valuable in most cases.
+
+
 
 # Tagged CoSWID Tags {#tagged}
 
@@ -1630,11 +1636,11 @@ The following security considerations for use of CoSWID tags focus on:
 - reducing the potential for unintended disclosure of a device's software load
 
 A tag is considered "authoritative" if the CoSWID tag was created by the
-software provider. An authoritative CoSWID tag contains information about a software component provided by the maintainer of the software component, who is expected to be an expert in their own software. Thus, authoritative CoSWID tags can be trusted to represent authoritative information about the software component.
+software provider. An authoritative CoSWID tag contains information about a software component provided by the supplier of the software component, who is expected to be an expert in their own software. Thus, authoritative CoSWID tags can represent authoritative information about the software component. The degree to which this information can be trusted depends on the tag's chain of custody and the ability to verify a signature provided by the supplier if present in the CoSWID tag. The provisioning and validation of CoSWID tags are handled by local policy and is outside the scope of this document.
 
-A signed CoSWID tag (see {{coswid-cose}}) whose signature has been validated can be relied upon to be unchanged since it was signed. By contrast, the data contained in unsigned tags cannot be trusted to be unmodified.
+A signed CoSWID tag (see {{coswid-cose}}) whose signature has been validated can be relied upon to be unchanged since it was signed. By contrast, the data contained in unsigned tags can be altered by any user or process with write-access to the tag. To support signature validation, there is the need associate the right key with the software provider or party originating the signature. This operation is application specific and needs to be addressed by the application or a user of the application; a specific approach for which is out-of-scope for this document.
 
-When an authoritative tag is signed, the software provider can be authenticated as the originator of the signature. A trustworthy association between the signature and the originator of the signature can be established via trust anchors. A certification path between a trust anchor and a certificate including a pub-key enabling the validation of a tag signature can realize the assessment of trustworthiness of an authoritative tag. Having a signed authoritative CoSWID tag can be useful when the information in the tag needs to be trusted, such as when the tag is being used to convey reference integrity measurements for software components.
+When an authoritative tag is signed, the originator of the signature can be verified. A trustworthy association between the signature and the originator of the signature can be established via trust anchors. A certification path between a trust anchor and a certificate including a public key enabling the validation of a tag signature can realize the assessment of trustworthiness of an authoritative tag. Verifying that the software provider is the signer is a different matter. This requires an association between the signature and the tag's entity item associated corresponding to the software provider. No mechanism is defined in this draft to make this association; therefore, this association will need to be handled by local policy.
 
 CoSWID tags are intended to contain public information about software components and, as
 such, the contents of a CoSWID tag does not need to be protected against unintended disclosure on an endpoint.
@@ -1685,7 +1691,7 @@ tags with link item loops or tags that contain malicious content with the intent
 of creating non-deterministic states during validation or processing of those tags. While software
 providers are unlikely to do this, CoSWID tags can be created by any party and the CoSWID tags
 collected from an endpoint could contain a mixture of vendor and non-vendor created tags. For this
-reason, a CoSWID tag might contain potentially malicious content. Input sanitization and loop detection are two ways that implementations can address this concern.
+reason, a CoSWID tag might contain potentially malicious content. Input sanitization, loop detection, and signature verification are ways that implementations can address this concern.
 
 #  Change Log
 {: removeinrfc="true"}
@@ -1701,8 +1707,8 @@ Changes from version 12 to version 14:
 - Updated resource-collection
 - Renamed socket name in software-meta to be consistent in naming
 - Aligned excerpt examples in I-D text with full CDDL
-- Fixed titels where title was referring to group instead of map
-- Added missig date in SEMVER
+- Fixed titles where title was referring to group instead of map
+- Added missing date in SEMVER
 - Fixed root cardinality for file and directory, etc.
 - Transformed path-elements-entry from map to group for re-usability
 - Scrubbed IANA Section
