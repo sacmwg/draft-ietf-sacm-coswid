@@ -578,8 +578,7 @@ The following describes each child item of this group.
 - reg-id (index 32): The registration id value is intended to uniquely identify a naming authority in a
 given scope (e.g. global, organization, vendor, customer, administrative domain,
 etc.) for the referenced entity. The value of a
-registration ID MUST be a RFC 3986 URI. The scope SHOULD be the scope of an
-organization.
+registration ID MUST be a RFC 3986 URI. The scope will usually be the scope of an organization.
 
 - role (index 33): An integer or textual value representing the relationship(s) between the entity, and this tag or the referenced software component. If an integer value is used it MUST be an index value in the range -256 to 255. Integer values in the range -256 to -1 are reserved for testing and use in closed environments (see {{iana-private-use}}). Integer values in the range 0 to 255 correspond to registered entries in the IANA "Software Tag Entity Role Values" registry (see {{iana-entity-role}}. If a string value is used it MUST be a private use name as defined in {{iana-private-use}}. String values based on a Role Name from the IANA "Software Tag Entity Role Values" registry MUST NOT be used, as these values are less concise than their index value equivalent.
 
@@ -675,7 +674,7 @@ The following describes each member of this map.
   XPATH query {{-xpath}}. This scheme is provided for compatibility with {{SWID}}. This specification does not define how to resolve an XPATH query in the context of CBOR.
 
 - media (index 10): A hint to the consumer of the link to what target platform the link is applicable to. This item represents a
-query as defined by the W3C Media Queries Recommendation (see {{-css3-mediaqueries}}). See also media defined in {{model-concise-swid-tag}}.
+query as defined by the W3C Media Queries Recommendation (see {{-css3-mediaqueries}}). As highlighted in media defined in {{model-concise-swid-tag}}, support for media queries are included here for interoperability with {{SWID}}, which does not provide any further requirements for media query use. Thus, this specification does not clarify how a media query is to be used for a CoSWID.
 
 - ownership (index 39): An integer or textual value used when the "href" item references another software component to indicate the degree of ownership between the software component referenced by the COSWID tag and the software component referenced by the link. If an integer value is used it MUST be an index value in the range -256 to 255. Integer values in the range -256 to -1 are reserved for testing and use in closed environments (see {{iana-private-use}}). Integer values in the range 0 to 255 correspond to registered entries in the IANA "Software Tag Link Ownership Values" registry (see {{iana-link-ownership}}. If a string value is used it MUST be a private use name as defined in {{iana-private-use}}. String values based on a Ownership Type Name from the IANA "Software Tag Link Ownership Values" registry MUST NOT be used, as these values are less concise than their index value equivalent.
 
@@ -783,7 +782,7 @@ hash-entry = [
 
 The number used as a value for hash-alg-id is an integer-based hash algorithm identifier who's value MUST refer to an ID in the IANA "Named Information Hash Algorithm Registry" {{-NIHAR}} with a Status of "current"; other hash algorithms MUST NOT be used. If the hash-alg-id is not known, then the integer value "0" MUST be used. This ensures parity between the SWID tag specification {{SWID}}, which does not allow an algorithm to be identified for this field.
 
-The hash-value byte string value MUST represent the raw hash value of the hashed resource generated using the hash algorithm indicated by the hash-alg-id.
+The hash-value MUST represent the raw hash value in byte representation (in contrast to, e.g., base64 encoded byte representation) of the byte string that represents the hashed resource generated using the hash algorithm indicated by the hash-alg-id.
 
 {: #model-resource-collection}
 ### The resource-collection Group
@@ -1470,13 +1469,13 @@ Macintosh Universal Type Identifier code: org.ietf.coswid
 conforms to public.data
 
 Person & email address to contact for further information:
-Henk Birkholz \<henk.birkholz@sit.fraunhofer.de>
+IESG \<iesg@ietf.org>
 
 Intended usage: COMMON
 
 Restrictions on usage: None
 
-Author: Henk Birkholz \<henk.birkholz@sit.fraunhofer.de>
+Author: Henk Birkholz \<henk.birkholz@ietf.contact>
 
 Change controller: IESG
 
