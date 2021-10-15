@@ -1475,7 +1475,7 @@ Intended usage: COMMON
 
 Restrictions on usage: None
 
-Author: Henk Birkholz \<henk.birkholz@ietf.contact>
+Author: Henk Birkholz \<henk.birkholz@sit.fraunhofer.de>
 
 Change controller: IESG
 
