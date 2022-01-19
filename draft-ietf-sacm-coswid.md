@@ -224,7 +224,7 @@ The SWID specification and supporting guidance provided in NIST Internal Report 
 1. Primary Tag - A SWID or CoSWID tag that identifies and describes an installed software component on an endpoint. A primary tag is intended to be installed on an endpoint along with the corresponding software component.
 2. Patch Tag - A SWID or CoSWID tag that identifies and describes an installed patch that has made incremental changes to a software component installed on an endpoint. A patch tag is intended to be installed on an endpoint along with the corresponding software component patch.
 3. Corpus Tag - A SWID or CoSWID tag that identifies and describes an installable software component in its pre-installation state. A corpus tag can be used to represent metadata about an installation package or installer for a software component, a software update, or a patch.
-4. Supplemental Tag - A SWID or CoSWID tag that allows additional information to be associated with a referenced SWID tag. This allows tools and users to record their own metadata about a software component without modifying SWID primary or patch tags created by a software provider.
+4. Supplemental Tag - A SWID or CoSWID tag that allows additional information to be associated with a referenced SWID tag. This allows tools and users to record their own metadata about a software component without modifying CoSWID primary or patch tags created by a software provider.
 
 The type of a tag is determined by specific data elements, which are discussed in {{semantics-tag-type}}, which also provides normative language for CoSWID semantics that implement this lifecycle. The following information helps to explain how these semantics apply to use of a CoSWID tag.
 
@@ -342,7 +342,7 @@ The CDDL "text" type is represented in CBOR as a major type 3, which represents 
 
 To ensure that UTF-8 character strings are able to be encoded/decoded and exchanged interoperably, text strings in CoSWID MUST be encoded consistent with the Net-Unicode definition defined in {{RFC5198}}.
 
-All names registered with IANA according to requirements in {{iana-value-registries}} also MUST be valid according to the XML Schema NMToken data type (see {{-xml-schema-datatypes}} Section 3.3.4) to ensure compatibility with the SWID specification where these names are used.
+All names registered with IANA according to requirements in {{iana-value-registries}} also MUST be valid according to the XML Schema NMTOKEN data type (see {{-xml-schema-datatypes}} Section 3.3.4) to ensure compatibility with the SWID specification where these names are used.
 
 {: #model-extension}
 ## Concise SWID Extensions
@@ -447,7 +447,7 @@ The following describes each member of the concise-swid-tag root map.
 processing of text-string values and an unbounded set of any-attribute items. Described in {{model-global-attributes}}.
 
 - tag-id (index 0): A 16 byte binary string or textual identifier uniquely referencing a software component. The tag
-identifier MUST be globally unique. If represented as a 16 byte binary string, the identifier MUST be a valid universally unique identifier as defined by {{RFC4122}}. There are no strict guidelines on
+identifier MUST be globally unique. Failure to ensure global uniqueness can create ambiguity in tag use since the tag-id serves as the global key for matching and lookups. If represented as a 16 byte binary string, the identifier MUST be a valid universally unique identifier as defined by {{RFC4122}}. There are no strict guidelines on
 how this identifier is structured, but examples include a 16 byte GUID (e.g.
 class 4 UUID) {{RFC4122}}, or a text string appended to a DNS domain name to ensure uniqueness across organizations.
 
@@ -578,8 +578,7 @@ The following describes each child item of this group.
 - reg-id (index 32): The registration id value is intended to uniquely identify a naming authority in a
 given scope (e.g. global, organization, vendor, customer, administrative domain,
 etc.) for the referenced entity. The value of a
-registration ID MUST be a RFC 3986 URI. The scope SHOULD be the scope of an
-organization.
+registration ID MUST be a RFC 3986 URI. The scope will usually be the scope of an organization.
 
 - role (index 33): An integer or textual value representing the relationship(s) between the entity, and this tag or the referenced software component. If an integer value is used it MUST be an index value in the range -256 to 255. Integer values in the range -256 to -1 are reserved for testing and use in closed environments (see {{iana-private-use}}). Integer values in the range 0 to 255 correspond to registered entries in the IANA "Software Tag Entity Role Values" registry (see {{iana-entity-role}}. If a string value is used it MUST be a private use name as defined in {{iana-private-use}}. String values based on a Role Name from the IANA "Software Tag Entity Role Values" registry MUST NOT be used, as these values are less concise than their index value equivalent.
 
@@ -675,9 +674,9 @@ The following describes each member of this map.
   XPATH query {{-xpath}}. This scheme is provided for compatibility with {{SWID}}. This specification does not define how to resolve an XPATH query in the context of CBOR.
 
 - media (index 10): A hint to the consumer of the link to what target platform the link is applicable to. This item represents a
-query as defined by the W3C Media Queries Recommendation (see {{-css3-mediaqueries}}). See also media defined in {{model-concise-swid-tag}}.
+query as defined by the W3C Media Queries Recommendation (see {{-css3-mediaqueries}}). As highlighted in media defined in {{model-concise-swid-tag}}, support for media queries are included here for interoperability with {{SWID}}, which does not provide any further requirements for media query use. Thus, this specification does not clarify how a media query is to be used for a CoSWID.
 
-- ownership (index 39): An integer or textual value used when the "href" item references another software component to indicate the degree of ownership between the software component referenced by the COSWID tag and the software component referenced by the link. If an integer value is used it MUST be an index value in the range -256 to 255. Integer values in the range -256 to -1 are reserved for testing and use in closed environments (see {{iana-private-use}}). Integer values in the range 0 to 255 correspond to registered entries in the IANA "Software Tag Link Ownership Values" registry (see {{iana-link-ownership}}. If a string value is used it MUST be a private use name as defined in {{iana-private-use}}. String values based on a Ownership Type Name from the IANA "Software Tag Link Ownership Values" registry MUST NOT be used, as these values are less concise than their index value equivalent.
+- ownership (index 39): An integer or textual value used when the "href" item references another software component to indicate the degree of ownership between the software component referenced by the CoSWID tag and the software component referenced by the link. If an integer value is used it MUST be an index value in the range -256 to 255. Integer values in the range -256 to -1 are reserved for testing and use in closed environments (see {{iana-private-use}}). Integer values in the range 0 to 255 correspond to registered entries in the IANA "Software Tag Link Ownership Values" registry (see {{iana-link-ownership}}. If a string value is used it MUST be a private use name as defined in {{iana-private-use}}. String values based on a Ownership Type Name from the IANA "Software Tag Link Ownership Values" registry MUST NOT be used, as these values are less concise than their index value equivalent.
 
 - rel (index 40): An integer or textual value that identifies the relationship between this CoSWID and the target resource identified by the "href" item. If an integer value is used it MUST be an index value in the range -256 to 65535. Integer values in the range -256 to -1 are reserved for testing and use in closed environments (see {{iana-private-use}}). Integer values in the range 0 to 65535 correspond to registered entries in the IANA "Software Tag Link Relationship Values" registry (see {{iana-link-rel}}. If a string value is used it MUST be either a private use name as defined in {{iana-private-use}} or a "Relation Name" from the IANA "Link Relation Types" registry: https://www.iana.org/assignments/link-relations/link-relations.xhtml as defined by {{RFC8288}}. When a string value defined in the IANA "Software Tag Link Relationship Values" registry matches a Relation Name defined in the IANA "Link Relation Types" registry, the index value in the IANA "Software Tag Link Relationship Values" registry MUST be used instead, as this relationship has a specialized meaning in the context of a CoSWID tag. String values based on a Relationship Type Name from the IANA "Software Tag Link Relationship Values" registry MUST NOT be used, as these values are less concise than their index value equivalent.
 
@@ -783,7 +782,7 @@ hash-entry = [
 
 The number used as a value for hash-alg-id is an integer-based hash algorithm identifier who's value MUST refer to an ID in the IANA "Named Information Hash Algorithm Registry" {{-NIHAR}} with a Status of "current"; other hash algorithms MUST NOT be used. If the hash-alg-id is not known, then the integer value "0" MUST be used. This ensures parity between the SWID tag specification {{SWID}}, which does not allow an algorithm to be identified for this field.
 
-The hash-value byte string value MUST represent the raw hash value of the hashed resource generated using the hash algorithm indicated by the hash-alg-id.
+The hash-value MUST represent the raw hash value in byte representation (in contrast to, e.g., base64 encoded byte representation) of the byte string that represents the hashed resource generated using the hash algorithm indicated by the hash-alg-id.
 
 {: #model-resource-collection}
 ### The resource-collection Group
@@ -1019,7 +1018,7 @@ The following table indicates the index value to use for the entity-entry group'
 | 6     | maintainer      | The person or organization that is responsible for coordinating and making updates to the source code for the software component. This SHOULD be used when the "maintainer" is a different person or organization than the original "softwareCreator".
 {: #tbl-indexed-entity-role-values title="Entity Role Values"}
 
-The values above are registered in the IANA "Software Tag Entity Role Values" registry defined in {{iana-entity-role}}. Additional values will likely be registered over time. Additionally, the index values 128 through 255 and the name prefix "x_" have been reserved for private use.
+The values above are registered in the IANA "Software Tag Entity Role Values" registry defined in {{iana-entity-role}}. Additional values will likely be registered over time.
 
 {: #indexed-link-ownership}
 ## Link Ownership Values
@@ -1033,7 +1032,7 @@ The following table indicates the index value to use for the link-entry group's 
 | 3 | shared | If the software component referenced by the CoSWID tag is uninstalled, then the referenced software SHOULD be uninstalled if no other components sharing the software.
 {: #tbl-indexed-link-ownership-values title="Link Ownership Values"}
 
-The values above are registered in the IANA "Software Tag Link Ownership Values" registry defined in {{iana-link-ownership}}. Additional values will likely be registered over time. Additionally, the index values 128 through 255 and the name prefix "x_" have been reserved for private use.
+The values above are registered in the IANA "Software Tag Link Ownership Values" registry defined in {{iana-link-ownership}}. Additional values will likely be registered over time.
 
 {: #indexed-link-rel}
 ## Link Rel Values
@@ -1055,7 +1054,7 @@ The following table indicates the index value to use for the link-entry group's 
 | 11    | supplemental      | The link references a software tag that the referencing tag supplements. Used on supplemental tags (see {{intro-lifecycle}}).
 {: #tbl-indexed-link-rel-values title="Link Relationship Values"}
 
-The values above are registered in the IANA "Software Tag Link Relationship Values" registry defined in {{iana-link-rel}}. Additional values will likely be registered over time. Additionally, the index values 32768 through 65535 and the name prefix "x_" have been reserved for private use.
+The values above are registered in the IANA "Software Tag Link Relationship Values" registry defined in {{iana-link-rel}}. Additional values will likely be registered over time.
 
 {: #indexed-link-use}
 ## Link Use Values
@@ -1069,7 +1068,7 @@ The following table indicates the index value to use for the link-entry group's 
 | 3     | recommended | From {{SWID}}, "Not absolutely required; the \[Link\]'d software is installed unless specified otherwise."
 {: #tbl-indexed-link-use-values title="Link Use Values"}
 
-The values above are registered in the IANA "Software Tag Link Use Values" registry defined in {{iana-link-use}}. Additional values will likely be registered over time. Additionally, the index values 128 through 255 and the name prefix "x_" have been reserved for private use.
+The values above are registered in the IANA "Software Tag Link Use Values" registry defined in {{iana-link-use}}. Additional values will likely be registered over time.
 
 
 # URI Schemes
@@ -1109,7 +1108,7 @@ For URIs that use the "swidpath" scheme, the requirements apply.
 
 The scheme specific part MUST be an XPath expression as defined by {{-xpath}}. The included XPath expression will be URI encoded according to {{RFC3986}} Section 2.1.
 
-This XPath is evaluated over SWID tags found on a system. A given tag MUST be considered a match if the XPath evaluation result value has an effective boolean value of "true" according to {{-xpath}} Section 2.4.3.
+This XPath is evaluated over SWID or CoSWID tags found on a system. A given tag MUST be considered a match if the XPath evaluation result value has an effective boolean value of "true" according to {{-xpath}} Section 2.4.3.
 
 
 {: #iana}
@@ -1427,8 +1426,6 @@ Registrations MUST conform to the expert review guidelines defined in {{iana-rev
 
 ## swid+cbor Media Type Registration
 
-***TODO: Per Section 5.1 of RFC6838, was a message sent to media-types@iana.org for preliminary review?  I didn't see it on that mailing list (did I miss it?). Please kick that off.***
-
 IANA is requested to add the following to the IANA "Media Types" registry {{!IANA.media-types}}.
 
 Type name: application
@@ -1470,7 +1467,7 @@ Macintosh Universal Type Identifier code: org.ietf.coswid
 conforms to public.data
 
 Person & email address to contact for further information:
-Henk Birkholz \<henk.birkholz@sit.fraunhofer.de>
+IESG \<iesg@ietf.org>
 
 Intended usage: COMMON
 
@@ -1503,8 +1500,6 @@ preferably with the specific value requested:
 ## URI Scheme Registrations
 
 The ISO 19770-2:2015 SWID specification describes use of the "swid" and "swidpath" URI schemes, which are currently in use in implementations. This document continues this use for CoSWID. The following subsections provide registrations for these schemes in to ensure that a permanent registration exists for these schemes that is suitable for use in the SWID and CoSWID specifications.
-
-<!-- ***TODO: Per Step 3.2 of Section 7.2 of RFC7595, has this been sent to uri-review@ietf.org?  I didn't see it on that mailing list (did I miss it?).  Please kick that off.*** -->
 
 URI schemes are registered within the "Uniform Resource Identifier (URI)
 Schemes" registry maintained at {{!IANA.uri-schemes}}.
@@ -1608,8 +1603,6 @@ Additionally, the COSE Header counter signature MAY be used as an attribute in t
 
 A CoSWID SHOULD be signed, using the above mechanism, to protect the integrity of the CoSWID tag. See the security considerations (in {{sec-sec}}) for more information on why a signed CoSWID is valuable in most cases.
 
-
-
 # Tagged CoSWID Tags {#tagged}
 
 This specification allows for tagged and untagged CBOR data items that are CoSWID tags.
@@ -1642,28 +1635,32 @@ A signed CoSWID tag (see {{coswid-cose}}) whose signature has been validated can
 
 When an authoritative tag is signed, the originator of the signature can be verified. A trustworthy association between the signature and the originator of the signature can be established via trust anchors. A certification path between a trust anchor and a certificate including a public key enabling the validation of a tag signature can realize the assessment of trustworthiness of an authoritative tag. Verifying that the software provider is the signer is a different matter. This requires an association between the signature and the tag's entity item associated corresponding to the software provider. No mechanism is defined in this draft to make this association; therefore, this association will need to be handled by local policy.
 
+Loss of control of signing credentials used to sign CoSWID tags would create doubt about the authenticity and integrity of any CoSWID tags signed using the compromised keys. In such cases, the legitimate tag signer (namely, the software provider for an authoritative CoSWID tag) can employ uncompromised signing credentials to create a new signature on the original tag. The tag version number would not be incremented since the tag itself was not modified. Consumers of CoSWID tags would need to validate the tag using the new credentials and would also need to revoke certificates associated with the compromised credentials to avoid validating tags signed with them. The process for doing this is beyond the scope of this specification.
+
 CoSWID tags are intended to contain public information about software components and, as
 such, the contents of a CoSWID tag does not need to be protected against unintended disclosure on an endpoint.
 
 CoSWID tags are intended to be easily discoverable by
-authorized applications and users on an endpoint in order to make it easy to determine the tagged software load. Access to the collection of an endpoint's SWID tags needs to be appropriately controlled to authorized applications and users using an appropriate access control mechanism.
+authorized applications and users on an endpoint in order to make it easy to determine the tagged software load. Access to the collection of an endpoint's CoSWID tags needs to be appropriately controlled to authorized applications and users using an appropriate access control mechanism.
+
+Since the tag-id of a CoSWID tag can be used as a global index value, failure to ensure the tag-id's uniqueness can cause collisions or ambiguity in CoSWID tags that are retrieved or processed using this identifier. CoSWID is designed to not require a registry of identifiers. As a result, CoSWID requires the tag creator employ a method of generating a unique tag identifier. Specific methods of generating a unique identifier are beyond the scope of this specification. A collision in tag-ids may result in false positives/negatives in software integrity checks or mis-identification of installed software, undermining CoSWID use cases such as vulnerability identification, software inventory, etc. If such a collision is detected, then the tag consumer should contact the maintainer of the CoSWID to have them issue a correction addressing the collision.
 
 CoSWID tags are designed to be easily added and removed from an
 endpoint along with the installation or removal of software components.
 On endpoints where addition or removal of software components is
-tightly controlled, the addition or removal of SWID tags can be
+tightly controlled, the addition or removal of CoSWID tags can be
 similarly controlled.  On more open systems, where many users can
 manage the software inventory, CoSWID tags can be easier to add or
 remove.  On such systems, it can be possible to add or remove CoSWID
 tags in a way that does not reflect the actual presence or absence of
 corresponding software components.  Similarly, not all software
 products automatically install CoSWID tags, so products can be present
-on an endpoint without providing a corresponding SWID tag.  As such,
+on an endpoint without providing a corresponding CoSWID tag.  As such,
 any collection of CoSWID tags cannot automatically be assumed to
 represent either a complete or fully accurate representation of the
 software inventory of the endpoint.  However, especially on endpoint devices
 that more strictly control the ability to add or remove applications,
-CoSWID tags are an easy way to provide an preliminary understanding of
+CoSWID tags are an easy way to provide a preliminary understanding of
 that endpoint's software inventory.
 
 Any report of an endpoint's CoSWID tag collection provides
@@ -1692,6 +1689,10 @@ of creating non-deterministic states during validation or processing of those ta
 providers are unlikely to do this, CoSWID tags can be created by any party and the CoSWID tags
 collected from an endpoint could contain a mixture of vendor and non-vendor created tags. For this
 reason, a CoSWID tag might contain potentially malicious content. Input sanitization, loop detection, and signature verification are ways that implementations can address this concern.
+
+# Privacy Consideration
+
+As noted in {{sec-sec}}, collected information about an endpoint's software load, such as what might be represented by an endpoint's CoSWID tag collection, could be used to identify vulnerable software for attack. Collections of endpoint software information also can have privacy implications for users. The set of application a user installs can give clues to personal matters such as political affiliation, banking and investments, gender, sexual orientation, medical concerns, etc. While the collection of CoSWID tags on an endpoint wouldn't increase the privacy risk (since a party able to view those tags could also view the applications themselves), if those CoSWID tags are gathered and stored in a repository somewhere, visibility into the repository now also gives visibility into a user's application collection. For this reason, repositories of collected CoSWID tags not only need to be protected against collection by malicious parties, but even authorized parties will need to be vetted and made aware of privacy responsibilities associated with having access to this information. Likewise, users should be made aware that their software inventories are being collected from endpoints. Furthermore, when collected and stored by authorized parties or systems, the inventory data needs to be protected as both security and privacy sensitive information.
 
 #  Change Log
 {: removeinrfc="true"}
