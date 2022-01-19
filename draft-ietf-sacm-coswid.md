@@ -1426,8 +1426,6 @@ Registrations MUST conform to the expert review guidelines defined in {{iana-rev
 
 ## swid+cbor Media Type Registration
 
-***TODO: Per Section 5.1 of RFC6838, was a message sent to media-types@iana.org for preliminary review?  I didn't see it on that mailing list (did I miss it?). Please kick that off.***
-
 IANA is requested to add the following to the IANA "Media Types" registry {{!IANA.media-types}}.
 
 Type name: application
@@ -1502,8 +1500,6 @@ preferably with the specific value requested:
 ## URI Scheme Registrations
 
 The ISO 19770-2:2015 SWID specification describes use of the "swid" and "swidpath" URI schemes, which are currently in use in implementations. This document continues this use for CoSWID. The following subsections provide registrations for these schemes in to ensure that a permanent registration exists for these schemes that is suitable for use in the SWID and CoSWID specifications.
-
-<!-- ***TODO: Per Step 3.2 of Section 7.2 of RFC7595, has this been sent to uri-review@ietf.org?  I didn't see it on that mailing list (did I miss it?).  Please kick that off.*** -->
 
 URI schemes are registered within the "Uniform Resource Identifier (URI)
 Schemes" registry maintained at {{!IANA.uri-schemes}}.
