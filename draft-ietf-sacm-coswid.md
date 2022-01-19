@@ -1647,6 +1647,8 @@ such, the contents of a CoSWID tag does not need to be protected against uninten
 CoSWID tags are intended to be easily discoverable by
 authorized applications and users on an endpoint in order to make it easy to determine the tagged software load. Access to the collection of an endpoint's CoSWID tags needs to be appropriately controlled to authorized applications and users using an appropriate access control mechanism.
 
+Since the tag-id of a CoSWID tag can be used as a global index value, failure to ensure the tag-id's uniqueness can cause collisions or ambiguity in CoSWID tags that are retrieved or processed using this identifier. CoSWID is designed to not require a registry of identifiers. As a result, CoSWID requires the tag creator employ a method of generating a unique tag identifier. Specific methods of generating a unique identifier are beyond the scope of this specification. A collision in tag-ids may result in false positives/negatives in software integrity checks or mis-identification of installed software, undermining CoSWID use cases such as vulnerability identification, software inventory, etc. If such a collision is detected, then the tag consumer should contact the maintainer of the CoSWID to have them issue a correction addressing the collision.
+
 CoSWID tags are designed to be easily added and removed from an
 endpoint along with the installation or removal of software components.
 On endpoints where addition or removal of software components is
