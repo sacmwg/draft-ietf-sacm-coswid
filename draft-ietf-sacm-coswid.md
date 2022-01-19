@@ -1018,7 +1018,7 @@ The following table indicates the index value to use for the entity-entry group'
 | 6     | maintainer      | The person or organization that is responsible for coordinating and making updates to the source code for the software component. This SHOULD be used when the "maintainer" is a different person or organization than the original "softwareCreator".
 {: #tbl-indexed-entity-role-values title="Entity Role Values"}
 
-The values above are registered in the IANA "Software Tag Entity Role Values" registry defined in {{iana-entity-role}}. Additional values will likely be registered over time. Additionally, the index values 128 through 255 and the name prefix "x_" have been reserved for private use.
+The values above are registered in the IANA "Software Tag Entity Role Values" registry defined in {{iana-entity-role}}. Additional values will likely be registered over time.
 
 {: #indexed-link-ownership}
 ## Link Ownership Values
@@ -1032,7 +1032,7 @@ The following table indicates the index value to use for the link-entry group's 
 | 3 | shared | If the software component referenced by the CoSWID tag is uninstalled, then the referenced software SHOULD be uninstalled if no other components sharing the software.
 {: #tbl-indexed-link-ownership-values title="Link Ownership Values"}
 
-The values above are registered in the IANA "Software Tag Link Ownership Values" registry defined in {{iana-link-ownership}}. Additional values will likely be registered over time. Additionally, the index values 128 through 255 and the name prefix "x_" have been reserved for private use.
+The values above are registered in the IANA "Software Tag Link Ownership Values" registry defined in {{iana-link-ownership}}. Additional values will likely be registered over time.
 
 {: #indexed-link-rel}
 ## Link Rel Values
@@ -1054,7 +1054,7 @@ The following table indicates the index value to use for the link-entry group's 
 | 11    | supplemental      | The link references a software tag that the referencing tag supplements. Used on supplemental tags (see {{intro-lifecycle}}).
 {: #tbl-indexed-link-rel-values title="Link Relationship Values"}
 
-The values above are registered in the IANA "Software Tag Link Relationship Values" registry defined in {{iana-link-rel}}. Additional values will likely be registered over time. Additionally, the index values 32768 through 65535 and the name prefix "x_" have been reserved for private use.
+The values above are registered in the IANA "Software Tag Link Relationship Values" registry defined in {{iana-link-rel}}. Additional values will likely be registered over time.
 
 {: #indexed-link-use}
 ## Link Use Values
@@ -1068,7 +1068,7 @@ The following table indicates the index value to use for the link-entry group's 
 | 3     | recommended | From {{SWID}}, "Not absolutely required; the \[Link\]'d software is installed unless specified otherwise."
 {: #tbl-indexed-link-use-values title="Link Use Values"}
 
-The values above are registered in the IANA "Software Tag Link Use Values" registry defined in {{iana-link-use}}. Additional values will likely be registered over time. Additionally, the index values 128 through 255 and the name prefix "x_" have been reserved for private use.
+The values above are registered in the IANA "Software Tag Link Use Values" registry defined in {{iana-link-use}}. Additional values will likely be registered over time.
 
 
 # URI Schemes
