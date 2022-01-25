@@ -1202,7 +1202,7 @@ are provided below. Assignments consist of an integer index value, the item name
 {: #iana-value-registries}
 ## Software Tag Values Registries
 
-The following IANA registries provide a mechanism for new values to be added over time to common enumerations used by SWID and CoSWID.
+The following IANA registries provide a mechanism for new values to be added over time to common enumerations used by SWID and CoSWID. While neither the CoSWID nor SWID specification is subordinate to the other and will evolve as their respective standards group chooses, there is value in supporting alignment between the two standards. Shared use of common code points, as spelled out in these registries, will facilitate this alignment, hence the intent for shared use of these registries and the decision to use "swid" (rather than "coswid") in registry names.
 
 {: #iana-registration-procedures}
 ### Registration Procedures
