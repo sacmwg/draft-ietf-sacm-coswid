@@ -1128,7 +1128,7 @@ registry are to be made based on {{RFC8126}} as follows:
 
 | Range             | Registration Procedures
 |---
-| 0-32767           | Standards Action
+| 0-32767           | Standards Action with Expert Review
 | 32768-4294967295  | Specification Required
 {: #tbl-iana-coswid-items-reg-procedures title="CoSWID Items Registration Procedures"}
 
@@ -1207,7 +1207,7 @@ The following IANA registries provide a mechanism for new values to be added ove
 {: #iana-registration-procedures}
 ### Registration Procedures
 
-The following registries allow for the registration of index values and names. New registrations will be permitted through either the Standards Action policy or the Specification Required policy {{BCP26}}. New index values will be provided on a First Come First Served as defined by {{BCP26}}.
+The following registries allow for the registration of index values and names. New registrations will be permitted through either a Standards Action with Expert Review policy or a Specification Required policy {{BCP26}}. New index values will be provided on a First Come First Served as defined by {{BCP26}}.
 
 The following registries also reserve the integer-based index values in the range of -1 to -256 for private use as defined by {{BCP26}} in Section 4.1. This allows values -1 to -24 to be expressed as a single uint_8t in CBOR, and values -25 to -256 to be expressed using an additional uint_8t in CBOR.
 
@@ -1249,7 +1249,7 @@ This registry uses the registration procedures defined in {{iana-registration-pr
 
 | Range        | Registration Procedures
 |---
-| 0-16383      | Standards Action
+| 0-16383      | Standards Action with Expert Review
 | 16384-65535  | Specification Required
 {: #tbl-iana-version-scheme-reg-procedures title="CoSWID Version Scheme Registration Procedures"}
 
@@ -1288,7 +1288,7 @@ This registry uses the registration procedures defined in {{iana-registration-pr
 
 | Range   | Registration Procedures
 |---
-| 0-127    | Standards Action
+| 0-127    | Standards Action with Expert Review
 | 128-255  | Specification Required
 {: #tbl-iana-entity-role-reg-procedures title="CoSWID Entity Role Registration Procedures"}
 
@@ -1325,7 +1325,7 @@ This registry uses the registration procedures defined in {{iana-registration-pr
 
 | Range   | Registration Procedures
 |---
-| 0-127    | Standards Action
+| 0-127    | Standards Action with Expert Review
 | 128-255  | Specification Required
 {: #tbl-iana-link-ownership-reg-procedures title="CoSWID Link Ownership Registration Procedures"}
 
@@ -1359,7 +1359,7 @@ This registry uses the registration procedures defined in {{iana-registration-pr
 
 | Range        | Registration Procedures
 |---
-| 0-32767      | Standards Action
+| 0-32767      | Standards Action with Expert Review
 | 32768-65535  | Specification Required
 {: #tbl-iana-link-rel-reg-procedures title="CoSWID Link Relationship Registration Procedures"}
 
@@ -1403,7 +1403,7 @@ This registry uses the registration procedures defined in {{iana-registration-pr
 
 | Range   | Registration Procedures
 |---
-| 0-127    | Standards Action
+| 0-127    | Standards Action with Expert Review
 | 128-255  | Specification Required
 {: #tbl-iana-link-use-reg-procedures title="CoSWID Link Use Registration Procedures"}
 
