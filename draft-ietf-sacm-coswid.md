@@ -1123,7 +1123,7 @@ This registry uses integer values as index values in CBOR maps.
 
 This document defines a new registry titled
 "CoSWID Items". Future registrations for this
-registry are to be made based on {{RFC8126}} as follows:
+registry are to be made based on {{BCP26}} as follows:
 
 | Range             | Registration Procedures
 |---
