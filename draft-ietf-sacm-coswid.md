@@ -198,10 +198,10 @@ Binary Object Representation (CBOR) {{RFC8949}}.
 Size comparisons between XML SWID and CoSWID mainly depend on domain-specific applications and the complexity of attributes used in instances.
 While the values stored in CoSWID are often unchanged and therefore not reduced in size compared to an XML SWID, the scaffolding that the CoSWID encoding represents is significantly smaller by taking up 10 percent or less in size.
 This effect is visible in instances sizes, which can benefit from a 50 percent to 85 percent reduction of size in generic usage scenarios.
-Additional size reduction is enabled with respect to the memory footprint of XML parsing/validation as well as the reduction of stack sizes where XML processing is now obsolete. 
+Additional size reduction is enabled with respect to the memory footprint of XML parsing/validation as well as the reduction of stack sizes where XML processing is now obsolete.
 
 In a CoSWID, the human-readable labels of SWID data items are replaced with
-more concise integer labels (indices). This approach allows SWID and CoSWID to share a common implicit information model, with CoSWID providing an alternate data model {{RFC3444}}. While SWID and CoSWID are intended to share the same implicit information model, this specification does not define this information model, or a mapping between the the two data formats. While an attempt to align SWID and CoSWID tags has been made here, future revisions of ISO/IEC 19770-2:2015 or this specification might cause this implicit information model to diverge, since these specifications are maintained by different standards groups.
+more concise integer labels (indices). This approach allows SWID and CoSWID to share a common implicit information model, with CoSWID providing an alternate data model {{RFC3444}}. While SWID and CoSWID are intended to share the same implicit information model, this specification does not define this information model, or a mapping between the two data formats. While an attempt to align SWID and CoSWID tags has been made here, future revisions of ISO/IEC 19770-2:2015 or this specification might cause this implicit information model to diverge, since these specifications are maintained by different standards groups.
 
 The use of CBOR to express SWID information in CoSWID tags allows both CoSWID and SWID tags to be part of an
 enterprise security solution for a wider range of endpoints and environments.
@@ -291,14 +291,14 @@ XML attribute and element names defined in ISO/IEC 19770-2:2015.
 The following describes the general rules and processes for encoding data using CDDL representation. Prior familiarity with CBOR and CDDL concepts will be helpful in understanding this CoSWID specification.
 
 This section describes the conventions by which a CoSWID is represented in the CDDL structure. The CamelCase {{CamelCase}} notation used in the XML schema definition is changed to a hyphen-separated
-notation {{KebabCase}} (e.g. ResourceCollection is named resource-collection) in the CoSWID CDDL specification.
+notation {{KebabCase}} (e.g., ResourceCollection is named resource-collection) in the CoSWID CDDL specification.
 This deviation from the original notation used in the XML representation reduces ambiguity when referencing
 certain attributes in corresponding textual descriptions. An attribute referred to by its name in CamelCase
 notation explicitly relates to XML SWID tags; an attribute referred to by its name in
 KebabCase notation explicitly relates to CBOR CoSWID tags. This approach simplifies the
 composition of further work that reference both XML SWID and CBOR CoSWID documents.
 
-In most cases, mapping attribute names between SWID and CoSWID can be done automatically by converting between CamelCase and KebabCase attribute names. However, some CoSWID CDDL attribute names show greater variation relative to their corresponding SWID XML Schema attributes. This is done when the change improves clarity in the CoSWID specification. For example the "name" and "version" SWID fields corresponds to the "software-name" and "software-version" CoSWID fields, respectively. As such, it is not always possible to mechanically translate between corresponding attribute names in the two formats. In such cases, a manual mapping will need to be used. These cases are specifically noted in this and subsequent sections using an {{-xpath}} where a manual mapping is needed.
+In most cases, mapping attribute names between SWID and CoSWID can be done automatically by converting between CamelCase and KebabCase attribute names. However, some CoSWID CDDL attribute names show greater variation relative to their corresponding SWID XML Schema attributes. This is done when the change improves clarity in the CoSWID specification. For example, the "name" and "version" SWID fields corresponds to the "software-name" and "software-version" CoSWID fields, respectively. As such, it is not always possible to mechanically translate between corresponding attribute names in the two formats. In such cases, a manual mapping will need to be used. These cases are specifically noted in this and subsequent sections using an {{-xpath}} where a manual mapping is needed.
 
 The 57 human-readable text labels of the CDDL-based CoSWID vocabulary are mapped to integer indices via a block of rules at the bottom of the definition. This allows a more concise integer-based form to be stored or transported, as compared to the less efficient text-based form of the original vocabulary.
 
@@ -446,9 +446,9 @@ The following describes each member of the concise-swid-tag root map.
 - global-attributes: A list of items including an optional language definition to support the
 processing of text-string values and an unbounded set of any-attribute items. Described in {{model-global-attributes}}.
 
-- tag-id (index 0): A 16 byte binary string or textual identifier uniquely referencing a software component. The tag
-identifier MUST be globally unique. Failure to ensure global uniqueness can create ambiguity in tag use since the tag-id serves as the global key for matching and lookups. If represented as a 16 byte binary string, the identifier MUST be a valid universally unique identifier as defined by {{RFC4122}}. There are no strict guidelines on
-how this identifier is structured, but examples include a 16 byte GUID (e.g.
+- tag-id (index 0): A 16-byte binary string or textual identifier uniquely referencing a software component. The tag
+identifier MUST be globally unique. Failure to ensure global uniqueness can create ambiguity in tag use since the tag-id serves as the global key for matching and lookups. If represented as a 16-byte binary string, the identifier MUST be a valid universally unique identifier as defined by {{RFC4122}}. There are no strict guidelines on
+how this identifier is structured, but examples include a 16-byte GUID (e.g.,
 class 4 UUID) {{RFC4122}}, or a text string appended to a DNS domain name to ensure uniqueness across organizations.
 
 - tag-version (index 12): An integer value that indicate the specific release revision of the tag. Typically, the initial value of this field is set to 0 and the value is monotonically increased for subsequent tags produced for the same software component release. This value allows a CoSWID tag producer to correct an incorrect tag previously released without indicating a change to the underlying software component the tag represents. For example, the tag version could be changed to add new metadata, to correct a broken link, to add a missing payload entry, etc. When producing a revised tag, the new tag-version value MUST be greater than the old tag-version value.
@@ -466,7 +466,7 @@ class 4 UUID) {{RFC4122}}, or a text string appended to a DNS domain name to ens
 - version-scheme (index 14): An integer or textual value representing the versioning scheme used for the software-version item. If an integer value is used it MUST be an index value in the range -256 to 65535. Integer values in the range -256 to -1 are reserved for testing and use in closed environments (see {{iana-private-use}}). Integer values in the range 0 to 65535 correspond to registered entries in the IANA "Software Tag Version Scheme Values" registry (see {{iana-version-scheme}}. If a string value is used it MUST be a private use name as defined in {{iana-private-use}}. String values based on a Version Scheme Name from the IANA "Software Tag Version Scheme Values" registry MUST NOT be used, as these values are less concise than their index value equivalent.
 
 - media (index 10): This text value is a hint to the tag consumer to understand what target platform this tag
-applies to. This item item MUST be formatted as a 
+applies to. This item item MUST be formatted as a
 query as defined by the W3C Media Queries Recommendation (see {{-css3-mediaqueries}}). Support for media queries are included here for interoperability with {{SWID}}, which does not provide any further requirements for media query use. Thus, this specification does not clarify how a media query is to be used for a CoSWID.
 
 - software-meta (index 5): An open-ended map of key/value data pairs.
@@ -478,7 +478,7 @@ attribute to be included in the tag. It is expected that industry groups will us
 CoSWID tag. Described in {{model-entity}}.
 
 - link (index 4): Provides a means to establish relationship arcs between the tag and another items. A given link can be used to establish the relationship between tags or to reference another resource that is related to the
-CoSWID tag, e.g.
+CoSWID tag, e.g.,
 vulnerability database association, ROLIE feed {{-rolie}}, MUD resource {{-mud}}, software download location, etc).
 This is modeled after the HTML "link" element.  Described in {{model-link}}.
 
@@ -576,7 +576,7 @@ The following describes each child item of this group.
 - entity-name (index 31): The textual name of the organizational entity claiming the roles specified by the role item for the CoSWID tag. This item maps to '/SoftwareIdentity/Entity/@name' in {{SWID}}.
 
 - reg-id (index 32): The registration id value is intended to uniquely identify a naming authority in a
-given scope (e.g. global, organization, vendor, customer, administrative domain,
+given scope (e.g., global, organization, vendor, customer, administrative domain,
 etc.) for the referenced entity. The value of a
 registration ID MUST be a RFC 3986 URI. The scope will usually be the scope of an organization.
 
@@ -733,9 +733,9 @@ The following describes each child item of this group.
 
 - global-attributes: The global-attributes group described in {{model-global-attributes}}.
 
-- activation-status (index 43): A textual value that identifies how the software component has been activated, which might relate to specific terms and conditions for its use (e.g. Trial, Serialized, Licensed, Unlicensed, etc) and relate to an entitlement.  This attribute is typically used in supplemental tags as it contains information that might be selected during a specific install.
+- activation-status (index 43): A textual value that identifies how the software component has been activated, which might relate to specific terms and conditions for its use (e.g., Trial, Serialized, Licensed, Unlicensed, etc) and relate to an entitlement.  This attribute is typically used in supplemental tags as it contains information that might be selected during a specific install.
 
-- channel-type (index 44): A textual value that identifies which sales, licensing, or marketing channel the software component has been targeted for (e.g. Volume, Retail, OEM, Academic, etc). This attribute is typically used in supplemental tags as it contains information that might be selected during a specific install.
+- channel-type (index 44): A textual value that identifies which sales, licensing, or marketing channel the software component has been targeted for (e.g., Volume, Retail, OEM, Academic, etc). This attribute is typically used in supplemental tags as it contains information that might be selected during a specific install.
 
 - colloquial-version (index 45): A textual value for the software component's informal or colloquial version. Examples may include a year value, a major version number, or similar value that are used to identify a group of specific software component releases that are part of the same release/support cycle. This version can be the same through multiple releases of a software component, while the software-version specified in the concise-swid-tag group is much more specific and will change for each software component release. This version is intended to be used for string comparison only and is not intended to be used to determine if a specific value is earlier or later in a sequence.
 
@@ -1573,7 +1573,7 @@ Deriving Software Identifiers:
 
     TAG_CREATOR_REGID "_" "_" UNIQUE_ID
 
-  Where TAG_CREATOR_REGID is the reg-id item value of the tag's entity item having the role value of 1 (corresponding to "tag creator"), and the UNIQUE_ID is the same tag's tag-id item. If the tag-id item's value is expressed as a 16 byte binary string, the UNIQUE_ID MUST be represented using the UUID string representation defined in {{RFC4122}} including the "urn:uuid:" prefix.
+  Where TAG_CREATOR_REGID is the reg-id item value of the tag's entity item having the role value of 1 (corresponding to "tag creator"), and the UNIQUE_ID is the same tag's tag-id item. If the tag-id item's value is expressed as a 16-byte binary string, the UNIQUE_ID MUST be represented using the UUID string representation defined in {{RFC4122}} including the "urn:uuid:" prefix.
 
   The TAG_CREATOR_REGID and the UNIQUE_ID are connected with a double underscore (_), without any other connecting character or whitespace.
 
@@ -1617,7 +1617,7 @@ In case an unsigned CoSWID is tagged, a CoSWID CBOR tag MUST be appended before 
 ~~~~
 {: sourcecode-markers="true"}
 
-This specification allows for a tagged CoSWID tag to reside in a COSE envelope that is also tagged with a CoSWID CBOR tag. In cases where a tag creator is not a signer (e.g., hand-offs between entities in a trusted portion of a supply-chain), retaining CBOR tags attached to unsigned CoSWID tags can be of great use. Nevertheless, redundant use of tags SHOULD be avoided when possible. 
+This specification allows for a tagged CoSWID tag to reside in a COSE envelope that is also tagged with a CoSWID CBOR tag. In cases where a tag creator is not a signer (e.g., hand-offs between entities in a trusted portion of a supply-chain), retaining CBOR tags attached to unsigned CoSWID tags can be of great use. Nevertheless, redundant use of tags SHOULD be avoided when possible.
 
 {: #sec-sec}
 # Security Considerations
@@ -1752,7 +1752,7 @@ Changes from version 01 to version 02:
 
 - Enforced a more strict separation between the core CoSWID definition and additional usage by
 moving content to corresponding appendices.
-- Removed artifacts inherited from the reference schema provided by ISO (e.g. NMTOKEN(S))
+- Removed artifacts inherited from the reference schema provided by ISO (e.g., NMTOKEN(S))
 - Simplified the core data definition by removing group and type choices where possible
 - Minor reordering of map members
 - Added a first extension point to address requested flexibility for extensions beyond the
@@ -1771,7 +1771,7 @@ Changes since adopted as a WG I-D -00:
 - Fixed broken multi-map members
 - Introduced a more restrictive item (any-element-map) to represent custom maps, increased restriction on types for the any-attribute, accordingly
 - Fixed X.1520 reference
-- Minor type changes of some attributes (e.g. NMTOKENS)
+- Minor type changes of some attributes (e.g., NMTOKENS)
 - Added semantic differentiation of various name types (e,g. fs-name)
 
 Changes from version 06 to version 07:
