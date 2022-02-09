@@ -78,7 +78,6 @@ normative:
   RFC5892:
   RFC8949:
   RFC7252:
-  RFC8126:
   RFC8152: cose-msg
   RFC8412:
   RFC8288:
