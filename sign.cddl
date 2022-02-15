@@ -1,6 +1,6 @@
 COSE-Sign-coswid<payload> = [
     protected: bstr .cbor protected-signed-coswid-header1,
-    unprotected: unprotected-signed-coswid-header,
+    unprotected: unprotected-sign-coswid-header,
     payload: bstr .cbor payload,
     signature: [ * COSE_Signature ],
 ]
