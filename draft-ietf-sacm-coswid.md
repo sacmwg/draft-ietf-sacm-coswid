@@ -368,6 +368,7 @@ The following CDDL sockets (extension points) are defined in this document, whic
 | entity-entry | $$entity-extension | {{model-entity}}
 | link-entry | $$link-extension | {{model-link}}
 | software-meta-entry | $$software-meta-extension | {{model-software-meta}}
+| resource-collection | $$resource-collection-extension | {{model-resource-collection}}
 | file-entry | $$file-extension | {{model-resource-collection}}
 | directory-entry | $$directory-extension | {{model-resource-collection}}
 | process-entry | $$process-extension | {{model-resource-collection}}
