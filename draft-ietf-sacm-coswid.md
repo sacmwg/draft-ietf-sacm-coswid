@@ -305,7 +305,7 @@ The 57 human-readable text labels of the CDDL-based CoSWID vocabulary are mapped
 Through use of CDDL-based integer labels, CoSWID allows for future expansion in subsequent revisions of this specification and through extensions (see {{model-extension}}). New constructs can be associated with a new integer index. A deprecated construct can be replaced by a new construct with a new integer index. An implementation can use these integer indexes to identify the construct to parse. The CoSWID Items registry, defined in {{iana-coswid-items}}, is used to ensure that new constructs are assigned a unique index value. This approach avoids the need to have an explicit CoSWID version.
 
 In a number of places, the value encoding admits both integer values and text strings.
-The integer values are defined in a registry specific to the kind of value; the text values are not intended for interchange and exclusively meant for private use as defined in {{iana-private-use}}. 
+The integer values are defined in a registry specific to the kind of value; the text values are not intended for interchange and exclusively meant for private use as defined in {{iana-private-use}}.
 Encoders SHOULD NOT use string values based on the names registered in the registry, as these values are less concise than their index value equivalent; a decoder MUST however be prepared to accept text strings that are not specified in this document (and ignore the construct if that string is unknown).
 In the rest of the document, we call this an "integer label with text escape".
 
