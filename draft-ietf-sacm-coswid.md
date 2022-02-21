@@ -1597,14 +1597,15 @@ In general, tags are signed by the tag creator (typically, although not exclusiv
 Cryptographic signatures can make any modification of the tag detectable, which is especially important if the integrity of the tag is important, such as when the tag is providing reference integrity measurements for files.
 The ISO-19770-2:2015 XML schema uses XML DSIG to support cryptographic signatures.
 
-Signing CoSWID tags follows the procedures defined in CBOR Object Signing and Encryption {{RFC8152}}. A CoSWID tag MUST be wrapped in a COSE Single Signer Data Object (COSE_Sign1) that contains a single signature and MUST be signed by the tag creator. The following CDDL specification defines a restrictive subset of COSE header parameters that MUST be used in the protected header.
+Signing CoSWID tags follows the procedures defined in CBOR Object Signing and Encryption {{RFC8152}}. A CoSWID tag MUST be wrapped in a COSE Signature structure, either COSE_Sign1 or COSE_Sign.
+In the first case, a Single Signer Data Object (COSE_Sign1) contains a single signature and MUST be signed by the tag creator. The following CDDL specification defines a restrictive subset of COSE header parameters that MUST be used in the protected header in this case.
 
 ~~~~ CDDL
 {::include sign1.cddl}
 ~~~~
 {: sourcecode-markers="true"}
 
-The COSE_Sign structure that allows for more than one signature to be applied to a CoSWID tag MAY be used. The corresponding usage scenarios are domain-specific and require well-specified application guidance.
+The COSE_Sign structure allows for more than one signature, one of which MUST be issued by the tag creator, to be applied to a CoSWID tag and MAY be used. The corresponding usage scenarios are domain-specific and require well-specified application guidance.
 
 ~~~~ CDDL
 {::include sign.cddl}
@@ -1613,7 +1614,7 @@ The COSE_Sign structure that allows for more than one signature to be applied to
 
 Additionally, the COSE Header counter signature MAY be used as an attribute in the unprotected header map of the COSE envelope of a CoSWID. The application of counter signing enables second parties to provide a signature on a signature allowing for a proof that a signature existed at a given time (i.e., a timestamp).
 
-A CoSWID SHOULD be signed, using the above mechanism, to protect the integrity of the CoSWID tag. See the security considerations (in {{sec-sec}}) for more information on why a signed CoSWID is valuable in most cases.
+A CoSWID MUST be signed, using the above mechanism, to protect the integrity of the CoSWID tag. See the security considerations (in {{sec-sec}}) for more information on why a signed CoSWID is valuable in most cases.
 
 # Tagged CoSWID Tags {#tagged}
 
