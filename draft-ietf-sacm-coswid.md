@@ -1116,7 +1116,11 @@ To enable usage without fear of conflicts with current or future actual schemes,
 
 URIs specifying the "swidpath" scheme are used to filter tags out of a base collection, so that matching tags are included in the identified tag collection.
 The XPath expression {{-xpath}} references the data that must be found in a given software tag out of base collection for that tag to be considered a matching tag.
+<<<<<<< HEAD
 Tags to be evaluated (the base collection) include all tags in the context of where the "swidpath URI"" is referenced from.
+=======
+Tags to be evaluated (the base collection) include all tags in the context of where the "swidpath URI" is referenced from.
+>>>>>>> 7842f128fa8561302df9e90a0bb8ef5d90fbada1
 For example, when a tag is installed on a given device, that tag can reference related tags on the same device using a URI with this scheme.
 
 For URIs that use the "swidpath" scheme, the following requirements apply:
