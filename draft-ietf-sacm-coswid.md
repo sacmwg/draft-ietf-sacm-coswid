@@ -298,7 +298,7 @@ notation explicitly relates to XML SWID tags; an attribute referred to by its na
 KebabCase notation explicitly relates to CBOR CoSWID tags. This approach simplifies the
 composition of further work that reference both XML SWID and CBOR CoSWID documents.
 
-In most cases, mapping attribute names between SWID and CoSWID can be done automatically by converting between CamelCase and KebabCase attribute names. However, some CoSWID CDDL attribute names show greater variation relative to their corresponding SWID XML Schema attributes. This is done when the change improves clarity in the CoSWID specification. For example, the "name" and "version" SWID fields corresponds to the "software-name" and "software-version" CoSWID fields, respectively. As such, it is not always possible to mechanically translate between corresponding attribute names in the two formats. In such cases, a manual mapping will need to be used. These cases are specifically noted in this and subsequent sections using an {{-xpath}} where a manual mapping is needed.
+In most cases, mapping attribute names between SWID and CoSWID can be done automatically by converting between CamelCase and KebabCase attribute names. However, some CoSWID CDDL attribute names show greater variation relative to their corresponding SWID XML Schema attributes. This is done when the change improves clarity in the CoSWID specification. For example, the "name" and "version" SWID fields corresponds to the "software-name" and "software-version" CoSWID fields, respectively. As such, it is not always possible to mechanically translate between corresponding attribute names in the two formats. In such cases, a manual mapping will need to be used.  XPath expressions {{-xpath}} need to use SWID names, see {{uri-scheme-swidpath}}.
 
 The 57 human-readable text labels of the CDDL-based CoSWID vocabulary are mapped to integer indices via a block of rules at the bottom of the definition. This allows a more concise integer-based form to be stored or transported, as compared to the less efficient text-based form of the original vocabulary.
 
@@ -679,7 +679,7 @@ The following describes each member of this map.
   URI needs to be resolved in the context of the endpoint by software
   that can lookup other SWID or CoSWID tags. For example, "swid:2df9de35-0aff-4a86-ace6-f7dddd1ade4c" references the tag with the tag-id value "2df9de35-0aff-4a86-ace6-f7dddd1ade4c".
   - a URI with "swidpath:" as the scheme, which refers to another software tag via an
-  XPATH query {{-xpath}}. This scheme is provided for compatibility with {{SWID}}. This specification does not define how to resolve an XPATH query in the context of CBOR.
+  XPATH query {{-xpath}} that matches items in that tag ({{uri-scheme-swidpath}}). This scheme is provided for compatibility with {{SWID}}. This specification does not define how to resolve an XPATH query in the context of CBOR, see {{uri-scheme-swidpath}}.
 
 - media (index 10): A hint to the consumer of the link to what target platform the link is applicable to. This item represents a
 query as defined by the W3C Media Queries Recommendation (see {{-css3-mediaqueries}}). As highlighted in media defined in {{model-concise-swid-tag}}, support for media queries are included here for interoperability with {{SWID}}, which does not provide any further requirements for media query use. Thus, this specification does not clarify how a media query is to be used for a CoSWID.
@@ -1094,7 +1094,7 @@ defined going forward.
 {: #uri-scheme-swid}
 ## "swid" URI Scheme
 
-There is a need for a scheme name that can be used in URIs that point to a specific software tag by that tag's tag-id, such as the use of the link entry as described in {{model-link}}) of this document. Since this scheme is used both in a standards track document and an ISO standard, this scheme needs to be used without fear of conflicts with current or future actual schemes.  In {{swid-reg}}, the scheme "swid" is registered as a 'permanent' scheme for that purpose.
+There is a need for a scheme name that can be used in URIs that point to a specific software tag by that tag's tag-id, such as the use of the link entry as described in {{model-link}}. Since this scheme is used both in a standards track document and an ISO standard, this scheme needs to be used without fear of conflicts with current or future actual schemes.  In {{swid-reg}}, the scheme "swid" is registered as a 'permanent' scheme for that purpose.
 
 URIs specifying the "swid" scheme are used to reference a software tag by its tag-id. A tag-id referenced in this way can be used to identify the tag resource in the context of where it is referenced from. For example, when a tag is installed on a given device, that tag can reference related tags on the same device using URIs with this scheme.
 
@@ -1109,19 +1109,24 @@ swid:2df9de35-0aff-4a86-ace6-f7dddd1ade4c
 {: #uri-scheme-swidpath}
 ## "swidpath" URI Scheme
 
-There is a need for a scheme name that can be used in URIs to identify a collection of specific software tags with data elements that match an XPath expression, such as the use of the link entry as described in {{model-link}}) of this document.
-Since this scheme is used both in a standards track document and an ISO standard, this scheme needs to be used without fear of conflicts with current or future actual schemes.
-In {{swidpath-reg}}, the scheme "swidpath" is hereby registered as a
-'permanent' scheme for that purpose.
+There is a need for a scheme name that can be used in URIs to identify a collection of specific software tags with data elements that match an XPath expression, such as the use of the link entry as described in {{model-link}}.
+The scheme named "swidpath" is used for this purpose in {{SWID}}, but not registered.
+To enable usage without fear of conflicts with current or future actual schemes, the present document registers it as a
+'permanent' scheme for that purpose (see {{swidpath-reg}}).
 
-URIs specifying the "swidpath" scheme are used to reference the data that must be found in a given software tag for that tag to be considered a matching tag to be included in the identified tag collection. Tags to be evaluated include all tags in the context of where the tag is referenced from. For example, when a tag is installed on a given device, that tag can reference related tags on the same device using a URI with this scheme.
+URIs specifying the "swidpath" scheme are used to filter tags out of a base collection, so that matching tags are included in the identified tag collection.
+The XPath expression {{-xpath}} references the data that must be found in a given software tag out of base collection for that tag to be considered a matching tag.
+Tags to be evaluated (the base collection) include all tags in the context of where the "swidpath URI" is referenced from.
+For example, when a tag is installed on a given device, that tag can reference related tags on the same device using a URI with this scheme.
 
-For URIs that use the "swidpath" scheme, the requirements apply.
+For URIs that use the "swidpath" scheme, the following requirements apply:
 
-The scheme specific part MUST be an XPath expression as defined by {{-xpath}}. The included XPath expression will be URI encoded according to {{RFC3986}} Section 2.1.
+* The scheme specific part MUST be an XPath expression as defined by {{-xpath}}. The included XPath expression will be URI encoded according to {{RFC3986}} Section 2.1.
 
-This XPath is evaluated over SWID or CoSWID tags found on a system. A given tag MUST be considered a match if the XPath evaluation result value has an effective boolean value of "true" according to {{-xpath}} Section 2.4.3.
+* This XPath is evaluated over SWID tags, or COSWID tags transformed into SWID tags, found on a system. A given tag MUST be considered a match if the XPath evaluation result value has an effective boolean value of "true" according to {{-xpath}} Section 2.4.3.
 
+<!-- In other words: If SWID tags were cars, the XPath says "automatic
+transmission" and yields a set of cars. -->
 
 {: #iana}
 #  IANA Considerations
