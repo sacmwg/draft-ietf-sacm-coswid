@@ -302,7 +302,7 @@ In most cases, mapping attribute names between SWID and CoSWID can be done autom
 
 The 57 human-readable text labels of the CDDL-based CoSWID vocabulary are mapped to integer indices via a block of rules at the bottom of the definition. This allows a more concise integer-based form to be stored or transported, as compared to the less efficient text-based form of the original vocabulary.
 
-Through use of CDDL-based integer labels, CoSWID allows for future expansion in subsequent revisions of this specification and through extensions (see {{model-extension}}). New constructs can be associated with a new integer index. A deprecated construct can be replaced by a new construct with a new integer index. An implementation can use these integer indexes to identify the construct to parse. The CoSWID Items registry, defined in {{iana-coswid-items}}, is used to ensure that new constructs are assigned a unique index value on a first-come, first-served basis. This approach avoids the need to have an explicit CoSWID version.
+Through use of CDDL-based integer labels, CoSWID allows for future expansion in subsequent revisions of this specification and through extensions (see {{model-extension}}). New constructs can be associated with a new integer index. A deprecated construct can be replaced by a new construct with a new integer index. An implementation can use these integer indexes to identify the construct to parse. The CoSWID Items registry, defined in {{iana-coswid-items}}, is used to ensure that new constructs are assigned a unique index value. This approach avoids the need to have an explicit CoSWID version.
 
 In a number of places, the value encoding admits both integer values and text strings.
 The integer values are defined in a registry specific to the kind of value; the text values are not intended for interchange and exclusively meant for private use as defined in {{iana-private-use}}. 
@@ -1219,7 +1219,7 @@ The following IANA registries provide a mechanism for new values to be added ove
 {: #iana-registration-procedures}
 ### Registration Procedures
 
-The following registries allow for the registration of index values and names. New registrations will be permitted through either a Standards Action with Expert Review policy or a Specification Required policy {{BCP26}}. New index values will be provided on a First Come First Served as defined by {{BCP26}}.
+The following registries allow for the registration of index values and names. New registrations will be permitted through either a Standards Action with Expert Review policy or a Specification Required policy {{BCP26}}.
 
 The following registries also reserve the integer-based index values in the range of -1 to -256 for private use as defined by {{BCP26}} in Section 4.1. This allows values -1 to -24 to be expressed as a single uint_8t in CBOR, and values -25 to -256 to be expressed using an additional uint_8t in CBOR.
 
