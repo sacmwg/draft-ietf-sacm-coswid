@@ -629,9 +629,9 @@ $ownership /= shared
 $ownership /= private
 $ownership /= abandon
 $ownership /= int / text
-shared=1
+abandon=1
 private=2
-abandon=3
+shared=3
 
 $rel /= ancestor
 $rel /= component
