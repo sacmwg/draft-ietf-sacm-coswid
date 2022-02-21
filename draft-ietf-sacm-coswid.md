@@ -1005,11 +1005,15 @@ The following table contains a set of values for use in the concise-swid-tag gro
 
 The values above are registered in the IANA "Software Tag Version Scheme Values" registry defined in Section {{iana-version-scheme}}. Additional entries will likely be registered over time in this registry.
 
-These version schemes have partially overlapping value spaces. A CoSWID producer that is aware of the version scheme behind the version value, it SHOULD include the optional version-scheme item to avoid semantic ambiguity. If the CoSWID producer does not have this information it, SHOULD omit the version-scheme item. The following heuristics can be used by a CoSWID consumer:
+A CoSWID producer that is aware of the version scheme that has been used to select the version value, SHOULD include the optional version-scheme item to avoid semantic ambiguity.
+If the CoSWID producer does not have this information, it SHOULD omit the version-scheme item.
+The following heuristics can be used by a CoSWID consumer, based on the version schemes' partially overlapping value spaces:
 
-- "decimal" and "multipartnumeric" partially overlap in their value space when a value matches a decimal number. When a corresponding software-version item's value falls within this overlapping value space, the "decimal" version scheme SHOULD be used.
+- "decimal" and "multipartnumeric" partially overlap in their value space when a value matches a decimal number. When a corresponding software-version item's value falls within this overlapping value space, the "decimal" version scheme SHOULD be assumed.
 - "multipartnumeric" and "semver" partially overlap in their value space when a "multipartnumeric" value matches the semantic versioning syntax. When a corresponding software-version item's value falls within this overlapping value space, the "semver" version scheme SHOULD be assumed.
-- "alphanumeric" and other version schemes might overlap in their value space. When a corresponding software-version item's value falls within this overlapping value space, the other version scheme SHOULD be used instead of "alphanumeric".
+- "alphanumeric" and other version schemes might overlap in their value space. When a corresponding software-version item's value falls within this overlapping value space, the other version scheme SHOULD be assumed instead of "alphanumeric".
+
+Note that these heuristics are imperfect and can guess wrong, which is the reason the version-scheme item SHOULD be included by the producer.
 
 {: #indexed-entity-role}
 ## Entity Role Values
