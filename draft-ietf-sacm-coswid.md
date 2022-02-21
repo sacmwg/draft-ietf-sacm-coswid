@@ -283,7 +283,7 @@ XML attribute and element names defined in ISO/IEC 19770-2:2015.
 
 ## Requirements Notation
 
-{::boilerplate bcp14}
+{::boilerplate bcp14-tagged}
 
 {: #data-def}
 # Concise SWID Data Definition
