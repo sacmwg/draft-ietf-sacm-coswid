@@ -501,7 +501,7 @@ endpoint when the software component is installed or run. This item is mutually 
 
 ##  concise-swid-tag Co-Constraints
 
-The following co-constraints apply to the information provided in the concise-swid-tag group.
+The following co-constraints apply to the information provided in the concise-swid-tag group. If any of these constraint is not met, a signed tag cannot be used anymore as a signed statement.
 
 - The patch and supplemental items MUST NOT both be set to "true".
 
@@ -510,7 +510,6 @@ The following co-constraints apply to the information provided in the concise-sw
 - If the supplemental item is set to "true", the tag SHOULD contain at least one link item with both the rel item value of "supplemental" and an href item specifying an association with the software that is supplemented. Without at least one link item the target of supplement tag cannot be identified and the patch tag cannot be applied without external context.
 
 - If all of the corpus, patch, and supplemental items are "false", or if the corpus item is set to "true", then a software-version item MUST be included with a value set to the version of the software component. This ensures that primary and corpus tags have an identifiable software version.
-
 {: #model-global-attributes}
 ## The global-attributes Group
 
