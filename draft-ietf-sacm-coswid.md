@@ -511,6 +511,7 @@ The following co-constraints apply to the information provided in the concise-sw
 
 - If all of the corpus, patch, and supplemental items are "false", or if the corpus item is set to "true", then a software-version item MUST be included with a value set to the version of the software component. This ensures that primary and corpus tags have an identifiable software version.
 {: #model-global-attributes}
+
 ## The global-attributes Group
 
 The global-attributes group provides a list of items, including an optional
@@ -585,7 +586,7 @@ The following describes each child item of this group.
 - reg-id (index 32): The registration id value is intended to uniquely identify a naming authority in a
 given scope (e.g., global, organization, vendor, customer, administrative domain,
 etc.) for the referenced entity. The value of a
-registration ID MUST be a RFC 3986 URI. The scope will usually be the scope of an organization.
+registration ID MUST be a RFC 3986 URI; it is not intended to be dereferenced. The scope will usually be the scope of an organization.
 
 - role (index 33): An integer or textual value (integer label with text escape, see {{data-def}}) representing the relationship(s) between the entity, and this tag or the referenced software component. If an integer value is used it MUST be an index value in the range -256 to 255. Integer values in the range -256 to -1 are reserved for testing and use in closed environments (see {{iana-private-use}}). Integer values in the range 0 to 255 correspond to registered entries in the IANA "Software Tag Entity Role Values" registry (see {{iana-entity-role}}.
 
