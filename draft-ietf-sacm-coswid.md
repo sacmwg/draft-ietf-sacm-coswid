@@ -493,9 +493,9 @@ This is modeled after the HTML "link" element.  Described in {{model-link}}.
 - payload (index 6): This item represents a collection of software artifacts (described by child items) that compose the target software. For example, these artifacts could be the files included with an installer for a corpus tag or installed on an endpoint when the software component
 is installed for a primary or patch tag. The artifacts listed in a payload may be a superset of the software artifacts that are actually installed. Based on user selections at install time,
 an installation might not include every artifact that could be created or executed on the
-endpoint when the software component is installed or run. Described in {{model-payload}}.
+endpoint when the software component is installed or run. This item is mutually exclusive to evidence, as payload can only be provided by an external entity. Described in {{model-payload}}.
 
-- evidence (index 3): This item can be used to record the results of a software discovery process used to identify untagged software on an endpoint or to represent indicators for why software is believed to be installed on the endpoint. In either case, a CoSWID tag can be created by the tool performing an analysis of the software components installed on the endpoint. Described in {{model-evidence}}.
+- evidence (index 3): This item can be used to record the results of a software discovery process used to identify untagged software on an endpoint or to represent indicators for why software is believed to be installed on the endpoint. In either case, a CoSWID tag can be created by the tool performing an analysis of the software components installed on the endpoint. This item is mutually exclusive to payload, as evidence is always generated on the target device ad-hoc. Described in {{model-evidence}}.
 
 - $$coswid-extension: This CDDL socket is used to add new information structures to the concise-swid-tag root map. See {{model-extension}}.
 
