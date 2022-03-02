@@ -1236,10 +1236,10 @@ The integer-based index values in the private use range (-1 to -256) are intende
 For names that correspond to private use index values, an Internationalized Domain Name prefix MUST be used to prevent name conflicts using the form:
 
 ```
-domain.prefix-name
+domainprefix/name
 ```
 
-Where "domain.prefix" MUST be a valid Internationalized Domain Name as defined by {{RFC5892}}, and "name" MUST be a unique name within the namespace defined by the "domain.prefix". Use of a prefix in this way allows for a name to be used initially in the private use range, and to be registered at a future point in time. This is consistent with the guidance in {{BCP178}}.
+Where "domainprefix" MUST be a valid Internationalized Domain Name as defined by {{RFC5892}}, and "name" MUST be a unique name within the namespace defined by the "domainprefix". Use of a prefix in this way allows for a name to be used initially in the private use range, and to be registered at a future point in time. This is consistent with the guidance in {{BCP178}}.
 
 {: #iana-review-guidelines}
 ### Expert Review Guidelines
