@@ -474,7 +474,7 @@ class 4 UUID) {{RFC4122}}, or a text string appended to a DNS domain name to ens
 
 
 - media (index 10): This text value is a hint to the tag consumer to understand what target platform this tag
-applies to. This item item MUST be formatted as a
+applies to. This item MUST be formatted as a
 query as defined by the W3C Media Queries Recommendation (see {{-css3-mediaqueries}}). Support for media queries are included here for interoperability with {{SWID}}, which does not provide any further requirements for media query use. Thus, this specification does not clarify how a media query is to be used for a CoSWID.
 
 - software-meta (index 5): An open-ended map of key/value data pairs.
