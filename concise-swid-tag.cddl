@@ -255,9 +255,9 @@ licensor=5
 maintainer=6
 
 ; "ownership" integer indexes
-shared=1
+abandon=1
 private=2
-abandon=3
+shared=3
 
 ; "rel" integer indexes
 ancestor=1
