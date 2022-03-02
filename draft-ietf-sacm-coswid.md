@@ -1681,6 +1681,13 @@ that more strictly control the ability to add or remove applications,
 CoSWID tags are an easy way to provide a preliminary understanding of
 that endpoint's software inventory.
 
+This specification makes use of relative paths (e.g., filesystem
+paths) in several places.
+A signed COSWID tag cannot make use of these to derive information
+that is considered to be covered under the signature.
+Typically, relative file system paths will be used to identify
+targets for an installation, not sources of tag information.
+
 Any report of an endpoint's CoSWID tag collection provides
 information about the software inventory of that endpoint.  If such a
 report is exposed to an attacker, this can tell them which software
