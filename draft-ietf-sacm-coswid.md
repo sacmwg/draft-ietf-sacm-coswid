@@ -791,7 +791,7 @@ hash-entry = [
 ]
 ~~~~
 
-The number used as a value for hash-alg-id is an integer-based hash algorithm identifier who's value MUST refer to an ID in the IANA "Named Information Hash Algorithm Registry" {{-NIHAR}} with a Status of "current"; other hash algorithms MUST NOT be used. If the hash-alg-id is not known, then the integer value "0" MUST be used. This ensures parity between the SWID tag specification {{SWID}}, which does not allow an algorithm to be identified for this field.
+The number used as a value for hash-alg-id is an integer-based hash algorithm identifier who's value MUST refer to an ID in the IANA "Named Information Hash Algorithm Registry" {{-NIHAR}} with a Status of "current" (at the time the generator software was built or later); other hash algorithms MUST NOT be used. If the hash-alg-id is not known, then the integer value "0" MUST be used. This ensures parity between the SWID tag specification {{SWID}}, which does not allow an algorithm to be identified for this field.
 
 The hash-value MUST represent the raw hash value in byte representation (in contrast to, e.g., base64 encoded byte representation) of the byte string that represents the hashed resource generated using the hash algorithm indicated by the hash-alg-id.
 
