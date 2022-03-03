@@ -453,10 +453,11 @@ The following describes each member of the concise-swid-tag root map.
 - global-attributes: A list of items including an optional language definition to support the
 processing of text-string values and an unbounded set of any-attribute items. Described in {{model-global-attributes}}.
 
-- tag-id (index 0): A 16-byte binary string or textual identifier uniquely referencing a software component. The tag
+- tag-id (index 0): A 16-byte binary string, or a textual identifier, uniquely referencing a software component. The tag
 identifier MUST be globally unique. Failure to ensure global uniqueness can create ambiguity in tag use since the tag-id serves as the global key for matching and lookups. If represented as a 16-byte binary string, the identifier MUST be a valid universally unique identifier as defined by {{RFC4122}}. There are no strict guidelines on
-how this identifier is structured, but examples include a 16-byte GUID (e.g.,
-class 4 UUID) {{RFC4122}}, or a text string appended to a DNS domain name to ensure uniqueness across organizations.
+how the identifier is structured, but examples include a 16-byte GUID (e.g.,
+class 4 UUID) {{RFC4122}}, or a DNS domain name followed by a "/" and a text string, where the domain name serves to ensure uniqueness across organizations.
+A textual tag-id MUST NOT contain a sequence of two underscores ("__", see {{sec-swima}}).
 
 - tag-version (index 12): An integer value that indicate the specific release revision of the tag. Typically, the initial value of this field is set to 0 and the value is increased for subsequent tags produced for the same software component release. This value allows a CoSWID tag producer to correct an incorrect tag previously released without indicating a change to the underlying software component the tag represents. For example, the tag version could be changed to add new metadata, to correct a broken link, to add a missing payload entry, etc. When producing a revised tag, the new tag-version value MUST be greater than the old tag-version value.
 
@@ -1594,7 +1595,7 @@ Reference:
 {: vspace='0'}
 
 
-## CoSWID Model for use in SWIMA Registration
+## CoSWID Model for use in SWIMA Registration {#sec-swima}
 
 The Software Inventory Message and Attributes (SWIMA) for PA-TNC specification {{RFC8412}} defines a standardized method for collecting an endpoint device's software inventory. A CoSWID can provide evidence of software installation which can then be used and exchanged with SWIMA. This registration adds a new entry to the IANA "Software Data Model Types" registry defined by {{RFC8412}} {{!IANA.pa-tnc-parameters}} to support CoSWID use in SWIMA as follows:
 
