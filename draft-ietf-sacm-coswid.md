@@ -995,6 +995,9 @@ Note: Multiple of the corpus, patch, and supplemental items can have values set 
 
 # CoSWID Indexed Label Values
 
+This section defines a number of kinds of indexed label values that are maintained in a registry each ({{iana}}).
+These values are represented as positive integers.  In each registry, the value 0 is marked as Reserved.
+
 {: #indexed-version-scheme}
 ## Version Scheme
 
