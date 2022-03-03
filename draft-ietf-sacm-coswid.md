@@ -1251,7 +1251,7 @@ For names that correspond to private use index values, an Internationalized Doma
 domainprefix/name
 ```
 
-Where both "domainprefix" and "name" MUST each be either an NR-LDH label or a U-label as defined by {{RFC5890}}, and "name" also MUST be a unique name within the namespace defined by the "domainprefix". Use of a prefix in this way allows for a name to be used initially in the private use range. This is consistent with the guidance in {{BCP178}}.
+Where both "domainprefix" and "name" MUST each be either an NR-LDH label or a U-label as defined by {{RFC5890}}, and "name" also MUST be a unique name within the namespace defined by the "domainprefix". Use of a prefix in this way allows for a name to be used in the private use range. This is consistent with the guidance in {{BCP178}}.
 
 {: #iana-review-guidelines}
 ### Expert Review Guidelines
