@@ -1102,6 +1102,14 @@ Note: These URI schemes are used in {{SWID}} without an IANA registration.
 The present specification ensures that these URI schemes are properly
 defined going forward.
 
+
+[^replace-xxxx]
+
+[^replace-xxxx]: RFC Ed.: throughout this section, please replace
+    RFC-AAAA with the RFC number of this specification and remove this
+    note.
+
+
 {: #uri-scheme-swid}
 ## "swid" URI Scheme
 
@@ -1465,8 +1473,8 @@ Required parameters: none
 
 Optional parameters: none
 
-Encoding considerations: Must be encoded as using {{RFC8949}}. See
-RFC-AAAA for details.
+Encoding considerations: Binary (encoded as CBOR {{RFC8949}}).
+See RFC-AAAA for details.
 
 Security considerations: See {{sec-sec}} of RFC-AAAA.
 
@@ -1480,9 +1488,10 @@ Applications that use this media type: The type is used by software
 asset management systems, vulnerability assessment systems, and in
 applications that use remote integrity verification.
 
-Fragment identifier considerations: Fragment identification for
-application/swid+cbor is supported by using fragment identifiers as
-specified by {{Section 9.5 of RFC8949}}.
+Fragment Identifier Considerations:  The syntax and semantics of
+fragment identifiers specified for "application/swid+cbor" are as specified
+for "application/cbor".  (At publication of RFC-AAAA, there is no
+fragment identification syntax defined for "application/cbor".)
 
 Additional information:
 
