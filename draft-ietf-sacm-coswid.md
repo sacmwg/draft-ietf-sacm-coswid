@@ -472,7 +472,6 @@ class 4 UUID) {{RFC4122}}, or a text string appended to a DNS domain name to ens
 - version-scheme (index 14): An integer or textual value representing the versioning scheme used for the software-version item, as an integer label with text escape ({{data-def}}, for the "Version Scheme" registry {{indexed-version-scheme}}.
 . If an integer value is used it MUST be an index value in the range -256 to 65535. Integer values in the range -256 to -1 are reserved for testing and use in closed environments (see {{iana-private-use}}). Integer values in the range 0 to 65535 correspond to registered entries in the IANA "Software Tag Version Scheme Values" registry (see {{iana-version-scheme}}.
 
-
 - media (index 10): This text value is a hint to the tag consumer to understand what target platform this tag
 applies to. This item MUST be formatted as a
 query as defined by the W3C Media Queries Recommendation (see {{-css3-mediaqueries}}). Support for media queries are included here for interoperability with {{SWID}}, which does not provide any further requirements for media query use. Thus, this specification does not clarify how a media query is to be used for a CoSWID.
@@ -946,6 +945,7 @@ evidence-entry = {
   resource-collection,
   ? date => integer-time,
   ? device-id => text,
+  ? location => text,
   * $$evidence-extension,
   global-attributes,
 }
@@ -963,6 +963,8 @@ The following describes each child item of this group.
 - date (index 35): The date and time the information was collected pertaining to the evidence item.
 
 - device-id (index 36): The endpoint's string identifier from which the evidence was collected.
+
+- location (index 23): The absolute filepath of the location of the CoSWID tag generated as evidence.
 
 - $$evidence-extension:  This CDDL socket can be used to extend the evidence-entry group model. See {{model-extension}}.
 
