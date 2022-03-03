@@ -75,7 +75,7 @@ normative:
   RFC5198:
   RFC5234: ABNF
   RFC5646:
-  RFC5892:
+  RFC5890: IDNA
   RFC8949:
   RFC7252:
   RFC8152: cose-msg
@@ -1251,7 +1251,7 @@ For names that correspond to private use index values, an Internationalized Doma
 domainprefix/name
 ```
 
-Where "domainprefix" MUST be a valid Internationalized Domain Name as defined by {{RFC5892}}, and "name" MUST be a unique name within the namespace defined by the "domainprefix". Use of a prefix in this way allows for a name to be used initially in the private use range, and to be registered at a future point in time. This is consistent with the guidance in {{BCP178}}.
+Where both "domainprefix" and "name" MUST each be either an NR-LDH label or a U-label as defined by {{RFC5890}}, and "name" also MUST be a unique name within the namespace defined by the "domainprefix". Use of a prefix in this way allows for a name to be used initially in the private use range, and to be registered at a future point in time. This is consistent with the guidance in {{BCP178}}.
 
 {: #iana-review-guidelines}
 ### Expert Review Guidelines
