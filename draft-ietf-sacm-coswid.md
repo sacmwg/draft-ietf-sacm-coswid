@@ -78,7 +78,7 @@ normative:
   RFC5890: IDNA
   RFC8949:
   RFC7252:
-  RFC8152: cose-msg
+  I-D.ietf-cose-rfc8152bis-struct: cose-msg
   RFC8412:
   RFC8288:
   RFC8610:
@@ -1614,7 +1614,7 @@ In general, tags are signed by the tag creator (typically, although not exclusiv
 Cryptographic signatures can make any modification of the tag detectable, which is especially important if the integrity of the tag is important, such as when the tag is providing reference integrity measurements for files.
 The ISO-19770-2:2015 XML schema uses XML DSIG to support cryptographic signatures.
 
-Signing CoSWID tags follows the procedures defined in CBOR Object Signing and Encryption {{RFC8152}}. A CoSWID tag MUST be wrapped in a COSE Signature structure, either COSE_Sign1 or COSE_Sign.
+Signing CoSWID tags follows the procedures defined in CBOR Object Signing and Encryption {{-cose-msg}}. A CoSWID tag MUST be wrapped in a COSE Signature structure, either COSE_Sign1 or COSE_Sign.
 In the first case, a Single Signer Data Object (COSE_Sign1) contains a single signature and MUST be signed by the tag creator. The following CDDL specification defines a restrictive subset of COSE header parameters that MUST be used in the protected header in this case.
 
 ~~~~ CDDL
