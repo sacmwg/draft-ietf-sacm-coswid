@@ -890,7 +890,7 @@ The following describes each member of the groups and maps illustrated above.
 
 - key (index 22): A boolean value indicating if a file or directory is significant or required for the software component to execute or function properly. These are files or directories that can be used to affirmatively determine if the software component is installed on an endpoint.
 
-- location (index 23): The filesystem path where a file is expected to be located when installed or copied. The location MUST be either relative to the location of the parent directory item (preferred) or relative to the location of the CoSWID tag if no parent is defined. The location MUST NOT include a file's name, which is provided by the fs-name item.
+- location (index 23): The filesystem path where a file is expected to be located when installed or copied. The location MUST be either relative to the location of the parent directory item (preferred), or relative to the location of the CoSWID tag (as indicated in the location value in the evidence entry map) if no parent is defined. The location MUST NOT include a file's name, which is provided by the fs-name item.
 
 - fs-name (index 24): The name of the directory or file without any path information. This aligns with a file "name" in {{SWID}}. This item maps to '/SoftwareIdentity/(Payload\|Evidence)/(File\|Directory)/@name' in {{SWID}}.
 
@@ -965,6 +965,7 @@ The following describes each child item of this group.
 - device-id (index 36): The endpoint's string identifier from which the evidence was collected.
 
 - location (index 23): The absolute filepath of the location of the CoSWID tag generated as evidence.
+  (Location values in filesystem-items in the payload can be expressed relative to this location.)
 
 - $$evidence-extension:  This CDDL socket can be used to extend the evidence-entry group model. See {{model-extension}}.
 
