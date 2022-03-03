@@ -1008,7 +1008,7 @@ The following table contains a set of values for use in the concise-swid-tag gro
 | 1     | multipartnumeric        | Numbers separated by dots, where the numbers are interpreted as decimal integers (e.g., 1.2.3, 1.2.3.4.5.6.7, 1.4.5, 1.21)
 | 2     | multipartnumeric+suffix | Numbers separated by dots, where the numbers are interpreted as decimal integers with an additional textual suffix (e.g., 1.2.3a)
 | 3     | alphanumeric            | Strictly a string, no interpretation as number
-| 4     | decimal                 | A single decimal floating point number 
+| 4     | decimal                 | A single decimal floating point number
 | 16384 | semver                  | A semantic version as defined by {{SWID}}. Also see the {{SEMVER}} specification for more information
 {: #tbl-indexed-version-scheme-values title="Version Scheme Values"}
 
@@ -1197,6 +1197,7 @@ are provided below. Assignments consist of an integer index value, the item name
 | 27 | process-name | RFC-AAAA
 | 28 | pid | RFC-AAAA
 | 29 | type | RFC-AAAA
+|            30 | Unassigned                |               |
 | 31 | entity-name | RFC-AAAA
 | 32 | reg-id | RFC-AAAA
 | 33 | role | RFC-AAAA
