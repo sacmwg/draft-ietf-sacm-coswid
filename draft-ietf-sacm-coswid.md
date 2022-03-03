@@ -9,6 +9,7 @@ wg: SACM Working Group
 kw: Internet-Draft
 cat: std
 consensus: true
+submissiontype: IETF
 pi:
   toc: yes
   sortrefs: yes
