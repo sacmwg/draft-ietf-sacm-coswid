@@ -1495,7 +1495,7 @@ fragment identification syntax defined for "application/cbor".)
 
 Additional information:
 
-Magic number(s): first five bytes in hex: da 53 57 49 44
+Magic number(s): if tagged, first five bytes in hex: da 53 57 49 44 (see {{tagged}} in RFC-AAAA)
 
 File extension(s): coswid
 
