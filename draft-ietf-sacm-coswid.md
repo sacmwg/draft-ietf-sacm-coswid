@@ -885,7 +885,7 @@ The following describes each member of the groups and maps illustrated above.
 
 - size (index 20): The file's size in bytes.
 
-- file-version (index 21): The file's version as reported by querying information on the file from the operating system. This item maps to '/SoftwareIdentity/(Payload\|Evidence)/File/@version' in {{SWID}}.
+- file-version (index 21): The file's version as reported by querying information on the file from the operating system (if available). This item maps to '/SoftwareIdentity/(Payload\|Evidence)/File/@version' in {{SWID}}.
 
 - hash (index 7): A hash of the file as described in {{model-hash-entry}}.
 
