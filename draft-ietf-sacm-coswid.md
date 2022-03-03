@@ -902,7 +902,7 @@ The following describes each member of the groups and maps illustrated above.
 
 - pid (index 28): The process ID identified for a running instance of the software component in the endpoint's process list. This is used as part of the evidence item.
 
-- type (index 29): A string indicating the type of resource.
+- type (index 29): A human-readable string indicating the type of resource.
 
 - $$resource-collection-extension: This CDDL socket can be used to extend the resource-collection group model. This can be used to add new specialized types of resources. See {{model-extension}}.
 
