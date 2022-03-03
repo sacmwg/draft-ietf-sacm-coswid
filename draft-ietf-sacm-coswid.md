@@ -460,7 +460,7 @@ class 4 UUID) {{RFC4122}}, or a text string appended to a DNS domain name to ens
 
 - tag-version (index 12): An integer value that indicate the specific release revision of the tag. Typically, the initial value of this field is set to 0 and the value is increased for subsequent tags produced for the same software component release. This value allows a CoSWID tag producer to correct an incorrect tag previously released without indicating a change to the underlying software component the tag represents. For example, the tag version could be changed to add new metadata, to correct a broken link, to add a missing payload entry, etc. When producing a revised tag, the new tag-version value MUST be greater than the old tag-version value.
 
-- corpus (index 8): A boolean value that indicates if the tag identifies and describes an installable software component in its pre-installation state. Installable software includes a installation package or installer for a software component, a software update, or a patch. If the CoSWID tag represents installable software, the corpus item MUST be set to "true". If not provided, the default value MUST be considered "false".
+- corpus (index 8): A boolean value that indicates if the tag identifies and describes an installable software component in its pre-installation state. Installable software includes an installation package or installer for a software component, a software update, or a patch. If the CoSWID tag represents installable software, the corpus item MUST be set to "true". If not provided, the default value MUST be considered "false".
 
 - patch (index 9): A boolean value that indicates if the tag identifies and describes an installed patch that has made incremental changes to a software component installed on an endpoint. If a CoSWID tag is for a patch, the patch item MUST be set to "true". If not provided, the default value MUST be considered "false". A patch item's value MUST NOT be set to "true" if the installation of the associated software package changes the version of a software component.
 
@@ -670,7 +670,7 @@ The following describes each member of this map.
 
 - global-attributes: The global-attributes group described in {{model-global-attributes}}.
 
-- artifact (index 37): To be used with rel="installation-media", this item's value provides the absolute filesystem path to the installer executable or script that can be run to launch the referenced installation. [FIXME] Links with the same artifact name MUST be considered mirrors of each other, allowing the installation media to be acquired from any of the described sources.
+- artifact (index 37): To be used with rel="installation-media", this item's value provides the absolute filesystem path to the installer executable or script that can be run to launch the referenced installation.  Links with the same artifact name MUST be considered mirrors of each other, allowing the installation media to be acquired from any of the described sources.
 
 - href (index 38): A URI-reference {{RFC3986}} for the referenced resource. The "href" item's value can be, but is not limited to, the following (which is a slightly modified excerpt from {{SWID}}):
   - If no URI scheme is provided, then the URI-reference is a relative reference relative to the base URI of the CoSWID tag, i.e., the URI under which the CoSWID tag was provided. For example, "./folder/supplemental.coswid".
