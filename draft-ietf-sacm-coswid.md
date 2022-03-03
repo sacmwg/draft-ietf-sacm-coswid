@@ -1005,12 +1005,14 @@ The following table contains a set of values for use in the concise-swid-tag gro
 
 | Index | Version Scheme Name     | Definition
 |---
-| 1     | multipartnumeric        | Numbers separated by dots, where the numbers are interpreted as integers (e.g., 1.2.3, 1.4.5, 1.2.3.4.5.6.7)
-| 2     | multipartnumeric+suffix | Numbers separated by dots, where the numbers are interpreted as integers with an additional textual suffix (e.g., 1.2.3a)
-| 3     | alphanumeric            | Strictly a string, sorting is done alphanumerically
-| 4     | decimal                 | A floating point number (e.g., 1.25 is less than 1.3)
+| 1     | multipartnumeric        | Numbers separated by dots, where the numbers are interpreted as decimal integers (e.g., 1.2.3, 1.2.3.4.5.6.7, 1.4.5, 1.21)
+| 2     | multipartnumeric+suffix | Numbers separated by dots, where the numbers are interpreted as decimal integers with an additional textual suffix (e.g., 1.2.3a)
+| 3     | alphanumeric            | Strictly a string, no interpretation as number
+| 4     | decimal                 | A single decimal floating point number 
 | 16384 | semver                  | A semantic version as defined by {{SWID}}. Also see the {{SEMVER}} specification for more information
 {: #tbl-indexed-version-scheme-values title="Version Scheme Values"}
+
+multipartnumeric and the numbers part of multipartnumeric+suffix are interpreted as a sequence of numbers and are sorted in lexicographical order by these numbers (i.e., not by the digits in the numbers) and then the textual suffix (for multipartnumeric+suffix).  Alphanumeric strings are sorted lexicographically as character strings.  Decimal version numbers are interpreted as a single floating point number (e.g., 1.25 is less than 1.3).
 
 The values above are registered in the IANA "Software Tag Version Scheme Values" registry defined in Section {{iana-version-scheme}}. Additional entries will likely be registered over time in this registry.
 
