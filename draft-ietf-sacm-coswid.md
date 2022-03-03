@@ -1253,10 +1253,10 @@ domainprefix/name
 
 Where both "domainprefix" and "name" MUST each be either an NR-LDH label or a U-label as defined by {{RFC5890}}, and "name" also MUST be a unique name within the namespace defined by the "domainprefix". Use of a prefix in this way allows for a name to be used in the private use range. This is consistent with the guidance in {{BCP178}}.
 
-{: #iana-review-guidelines}
-### Expert Review Guidelines
+{: #iana-review-criteria}
+### Expert Review Criteria
 
-Designated experts MUST ensure that new registration requests meet the following additional guidelines:
+Designated experts MUST ensure that new registration requests meet the following additional criteria:
 
 - The requesting specification MUST provide a clear semantic definition for the new entry. This definition MUST clearly differentiate the requested entry from other previously registered entries.
 - The requesting specification MUST describe the intended use of the entry, including any co-constraints that exist between the use of the entry's index value or name, and other values defined within the SWID/CoSWID model.
@@ -1300,9 +1300,9 @@ defined in {{SWID}}.
 | 16385-65535 | Unassigned               |
 {: #tbl-iana-version-scheme-values title="CoSWID Version Scheme Initial Registrations"}
 
-Registrations MUST conform to the expert review guidelines defined in {{iana-review-guidelines}}.
+Registrations MUST conform to the expert review criteria defined in {{iana-review-criteria}}.
 
-Designated experts MUST also ensure that newly requested entries define a value space for the corresponding version item that is unique from other previously registered entries. Note: The initial registrations violate this requirement, but are included for backwards compatibility with {{SWID}}. Guidelines on how to deconflict these value spaces are defined in {{indexed-version-scheme}}.
+Designated experts MUST also ensure that newly requested entries define a value space for the corresponding version item that is unique from other previously registered entries. Note: The initial registrations violate this requirement, but are included for backwards compatibility with {{SWID}}. See also {{indexed-version-scheme}}.
 
 {: #iana-entity-role}
 ### Software Tag Entity Role Values Registry
@@ -1339,7 +1339,7 @@ defined in {{SWID}}.
 | 7-255   | Unassigned               |
 {: #tbl-iana-entity-role-values title="CoSWID Entity Role Initial Registrations"}
 
-Registrations MUST conform to the expert review guidelines defined in {{iana-review-guidelines}}.
+Registrations MUST conform to the expert review criteria defined in {{iana-review-criteria}}.
 
 {: #iana-link-ownership}
 ### Software Tag Link Ownership Values Registry
@@ -1373,7 +1373,7 @@ defined in {{SWID}}.
 | 4-255       | Unassigned               |
 {: #tbl-iana-link-ownership-values title="CoSWID Link Ownership Inital Registrations"}
 
-Registrations MUST conform to the expert review guidelines defined in {{iana-review-guidelines}}.
+Registrations MUST conform to the expert review criteria defined in {{iana-review-criteria}}.
 
 {: #iana-link-rel}
 ### Software Tag Link Relationship Values Registry
@@ -1415,7 +1415,7 @@ defined in {{SWID}}.
 | 12-65535    | Unassigned               |
 {: #tbl-iana-link-rel-values title="CoSWID Link Relationship Initial Registrations"}
 
-Registrations MUST conform to the expert review guidelines defined in {{iana-review-guidelines}}.
+Registrations MUST conform to the expert review criteria defined in {{iana-review-criteria}}.
 
 Designated experts MUST also ensure that a newly requested entry documents the URI schemes allowed to be used in an href associated with the link relationship and the expected resolution behavior of these URI schemes. This will help to ensure that applications processing software tags are able to interoperate when resolving resources referenced by a link of a given type.
 
@@ -1451,7 +1451,7 @@ defined in {{SWID}}.
 | 4-255   | Unassigned               |
 {: #tbl-iana-link-use-values title="CoSWID Link Use Initial Registrations"}
 
-Registrations MUST conform to the expert review guidelines defined in {{iana-review-guidelines}}.
+Registrations MUST conform to the expert review criteria defined in {{iana-review-criteria}}.
 
 ## swid+cbor Media Type Registration
 
@@ -1764,7 +1764,7 @@ Changes in version 12:
 - Cleaned up descriptions of index ranges throughout the document, removing discussion of 8 bit, 16 bit, etc.
 - Adjusted discussion of private use ranges to use negative integer values and to be more clear throughout the document.
 - Added discussion around resolving overlapping value spaces for version schemes.
-- Added a set of expert review guidelines for new IANA registries created by this document.
+- Added a set of expert review criteria for new IANA registries created by this document.
 - Added new registrations for the "swid" and "swidpath" URI schemes, and for using CoSWID with SWIMA.
 
 Changes from version 03 to version 11:
