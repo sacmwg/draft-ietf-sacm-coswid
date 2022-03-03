@@ -670,7 +670,7 @@ The following describes each member of this map.
 
 - global-attributes: The global-attributes group described in {{model-global-attributes}}.
 
-- artifact (index: 37): To be used with rel="installation-media", this item's value provides the absolute filesystem path to the installer executable or script that can be run to launch the referenced installation. [FIXME] Links with the same artifact name MUST be considered mirrors of each other, allowing the installation media to be acquired from any of the described sources.
+- artifact (index 37): To be used with rel="installation-media", this item's value provides the absolute filesystem path to the installer executable or script that can be run to launch the referenced installation. [FIXME] Links with the same artifact name MUST be considered mirrors of each other, allowing the installation media to be acquired from any of the described sources.
 
 - href (index 38): A URI-reference {{RFC3986}} for the referenced resource. The "href" item's value can be, but is not limited to, the following (which is a slightly modified excerpt from {{SWID}}):
   - If no URI scheme is provided, then the URI-reference is a relative reference relative to the base URI of the CoSWID tag, i.e., the URI under which the CoSWID tag was provided. For example, "./folder/supplemental.coswid".
