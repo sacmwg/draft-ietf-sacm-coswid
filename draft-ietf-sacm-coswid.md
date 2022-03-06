@@ -1644,7 +1644,7 @@ Additionally, the COSE Header counter signature MAY be used as an attribute in t
 
 A CoSWID MUST be signed, using the above mechanism, to protect the integrity of the CoSWID tag. See the security considerations (in {{sec-sec}}) for more information on why a signed CoSWID is valuable in most cases.
 
-# Tagged CoSWID Tags {#tagged}
+# CBOR-Tagged CoSWID Tags {#tagged}
 
 This specification allows for tagged and untagged CBOR data items that are CoSWID tags.
 Consecutively, the CBOR tag for CoSWID tags defined in {{tbl-cbor-tag}} SHOULD be used in conjunction with CBOR data items that are a CoSWID tags.
