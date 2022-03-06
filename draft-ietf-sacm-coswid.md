@@ -1697,7 +1697,7 @@ support for hash algorithms that are generally considered secure, and
 not just marginally so.
 
 CoSWID tags are intended to contain public information about software components and, as
-such, the contents of a CoSWID tag does not need to be protected against unintended disclosure on an endpoint.
+such, the contents of a CoSWID tag (as opposed to the set of tags that apply to the endpoint, see below) does not need to be protected against unintended disclosure on an endpoint.
 Converse, generators of CoSWID tags need to ensure that only public
 information is disclosed.
 Entitlement Keys are an example for information where particular care
