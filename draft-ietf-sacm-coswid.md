@@ -504,7 +504,7 @@ endpoint when the software component is installed or run. This item is mutually 
 
 ##  concise-swid-tag Co-Constraints
 
-The following co-constraints apply to the information provided in the concise-swid-tag group. If any of these constraint is not met, a signed tag cannot be used anymore as a signed statement.
+The following co-constraints apply to the information provided in the concise-swid-tag group. If any of these constraints is not met, a signed tag cannot be used anymore as a signed statement.
 
 - The patch and supplemental items MUST NOT both be set to "true".
 
@@ -797,7 +797,7 @@ hash-entry = [
 
 The number used as a value for hash-alg-id is an integer-based hash algorithm identifier who's value MUST refer to an ID in the IANA "Named Information Hash Algorithm Registry" {{-NIHAR}} with a Status of "current" (at the time the generator software was built or later); other hash algorithms MUST NOT be used. If the hash-alg-id is not known, then the integer value "0" MUST be used. This allows for conversion from ISO SWID tags {{SWID}}, which do not allow an algorithm to be identified for this field.
 
-The hash-value MUST represent the raw hash value in byte representation (in contrast to, e.g., base64 encoded byte representation) of the byte string that represents the hashed resource generated using the hash algorithm indicated by the hash-alg-id.
+The hash-value MUST represent the raw hash value as a byte string (as opposed to, e.g., base64 encoded) generated from the representation of the resource using the hash algorithm indicated by hash-alg-id.
 
 {: #model-resource-collection}
 ### The resource-collection Group
@@ -899,7 +899,7 @@ The following describes each member of the groups and maps illustrated above.
 
 - fs-name (index 24): The name of the directory or file without any path information. This aligns with a file "name" in {{SWID}}. This item maps to '/SoftwareIdentity/(Payload\|Evidence)/(File\|Directory)/@name' in {{SWID}}.
 
-- root (index 25): A filesystem-specific name for the root of the filesystem. The location item is considered relative to this location if specified. If not provided, the value provided by the location item is expected to be relative to its parent or the location of the CoSWID tag if no parent is provided.
+- root (index 25): A host-specific name for the root of the filesystem. The location item is considered relative to this location if specified. If not provided, the value provided by the location item is expected to be relative to its parent or the location of the CoSWID tag if no parent is provided.
 
 - path-elements (index 26): This group allows a hierarchy of directory and file items to be defined in payload or evidence items. This is a construction within the CDDL definition of CoSWID to support shared syntax and does not appear in {{SWID}}.
 
