@@ -504,7 +504,7 @@ endpoint when the software component is installed or run. This item is mutually 
 
 ##  concise-swid-tag Co-Constraints
 
-The following co-constraints apply to the information provided in the concise-swid-tag group. If any of these constraint is not met, a signed tag cannot be used anymore as a signed statement.
+The following co-constraints apply to the information provided in the concise-swid-tag group. If any of these constraints is not met, a signed tag cannot be used anymore as a signed statement.
 
 - The patch and supplemental items MUST NOT both be set to "true".
 
