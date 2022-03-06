@@ -85,9 +85,6 @@ normative:
   RFC8610:
   I-D.ietf-cose-countersign: countersign
 
-  X.1520:
-    title: "Recommendation ITU-T X.1520 (2014), Common vulnerabilities and exposures"
-    date: 2011-04-20
   SAM:
     title: >
       Information technology - Software asset management - Part 5: Overview and vocabulary
@@ -134,6 +131,9 @@ informative:
     target: http://wiki.c2.com/?KebabCase
     title: KebabCase
     date: 2014-12-18
+  X.1520:
+    title: "Recommendation ITU-T X.1520 (2014), Common vulnerabilities and exposures"
+    date: 2011-04-20
   SWID-GUIDANCE:
     target: https://doi.org/10.6028/NIST.IR.8060
     title: Guidelines for the Creation of Interoperable Software Identification (SWID) Tags
