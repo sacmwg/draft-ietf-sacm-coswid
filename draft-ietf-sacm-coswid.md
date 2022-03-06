@@ -1743,7 +1743,7 @@ report is exposed to an attacker, this can tell them which software
 products and versions thereof are present on the endpoint.  By
 examining this list, the attacker might learn of the presence of
 applications that are vulnerable to certain types of attacks.  As
-noted earlier, CoSWID tags are designed to be easily discoverable by an
+noted earlier, CoSWID tags are designed to be easily discoverable by authorized applications and users on an
 endpoint, but this does not present a significant risk since an
 attacker would already need to have access to the endpoint to view
 that information.  However, when the endpoint transmits its software
