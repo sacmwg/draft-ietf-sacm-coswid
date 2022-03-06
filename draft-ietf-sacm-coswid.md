@@ -1892,5 +1892,5 @@ This document draws heavily on the concepts defined in the ISO/IEC 19770-2:2015 
 We are also grateful to the careful reviews provided by ...
 
 
-<!--  LocalWords:  SWID verifier TPM filesystem discoverable
+<!--  LocalWords:  SWID verifier TPM filesystem discoverable CoSWID
  -->
