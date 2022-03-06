@@ -1751,7 +1751,12 @@ tags with link item loops or tags that contain malicious content with the intent
 of creating non-deterministic states during validation or processing of those tags. While software
 providers are unlikely to do this, CoSWID tags can be created by any party and the CoSWID tags
 collected from an endpoint could contain a mixture of vendor and non-vendor created tags. For this
-reason, a CoSWID tag might contain potentially malicious content. Input sanitization, loop detection, and signature verification are ways that implementations can address this concern.
+reason, a CoSWID tag might contain potentially malicious
+content. Input sanitization, loop detection, and signature
+verification are ways that implementations can address this concern.
+
+More generally speaking, the security considerations of {{RFC8949}},
+{{-cose-msg}}, and {{-countersign}} apply.
 
 # Privacy Consideration
 
