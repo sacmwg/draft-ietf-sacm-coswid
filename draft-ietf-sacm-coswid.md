@@ -1682,7 +1682,7 @@ When an authoritative tag is signed, the originator of the signature can be veri
 As always, the validity of a signature does not imply veracity of the
 signed statements: anyone can sign assertions such that the software
 is from a specific software-creator or that a specific persistent-id
-applies; policy needs to be applied to evaluate these statements.
+applies; policy needs to be applied to evaluate these statements and to determine their suitability for a specific use.
 
 Loss of control of signing credentials used to sign CoSWID tags would create doubt about the authenticity and integrity of any CoSWID tags signed using the compromised keys. In such cases, the legitimate tag signer (namely, the software provider for an authoritative CoSWID tag) can employ uncompromised signing credentials to create a new signature on the original tag. The tag version number would not be incremented since the tag itself was not modified. Consumers of CoSWID tags would need to validate the tag using the new credentials and would also need to revoke certificates associated with the compromised credentials to avoid validating tags signed with them. The process for doing this is beyond the scope of this specification.
 
