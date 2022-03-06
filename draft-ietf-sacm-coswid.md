@@ -1717,6 +1717,8 @@ that more strictly control the ability to add or remove applications,
 CoSWID tags are an easy way to provide a preliminary understanding of
 that endpoint's software inventory.
 
+As CoSWID tags do not expire, inhibiting new CoSWID tags from reaching an intended consumer would render that consumer stuck with outdated information, potentially leaving associated vulnerabilities or weaknesses unmitigated. Therefore, a CoSWID tag consumer should actively check for updated tag-versions via more than one means.
+
 This specification makes use of relative paths (e.g., filesystem
 paths) in several places.
 A signed COSWID tag cannot make use of these to derive information
