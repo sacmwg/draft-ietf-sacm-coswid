@@ -1643,7 +1643,7 @@ The COSE_Sign structure allows for more than one signature, one of which MUST be
 {: sourcecode-markers="true"}
 
 Additionally, the COSE Header counter signature MAY be used as an attribute in the unprotected header map of the COSE envelope of a CoSWID {{-countersign}}.
-. The application of counter signing enables second parties to provide a signature on a signature allowing for a proof that a signature existed at a given time (i.e., a timestamp).
+The application of counter signing enables second parties to provide a signature on a signature allowing for a proof that a signature existed at a given time (i.e., a timestamp).
 
 A CoSWID MUST be signed, using the above mechanism, to protect the integrity of the CoSWID tag. See the security considerations (in {{sec-sec}}) for more information on why a signed CoSWID is valuable in most cases.
 
@@ -1680,6 +1680,16 @@ A signed CoSWID tag (see {{coswid-cose}}) whose signature has been validated can
 When an authoritative tag is signed, the originator of the signature can be verified. A trustworthy association between the signature and the originator of the signature can be established via trust anchors. A certification path between a trust anchor and a certificate including a public key enabling the validation of a tag signature can realize the assessment of trustworthiness of an authoritative tag. Verifying that the software provider is the signer is a different matter. This requires an association between the signature and the tag's entity item associated corresponding to the software provider. No mechanism is defined in this draft to make this association; therefore, this association will need to be handled by local policy.
 
 Loss of control of signing credentials used to sign CoSWID tags would create doubt about the authenticity and integrity of any CoSWID tags signed using the compromised keys. In such cases, the legitimate tag signer (namely, the software provider for an authoritative CoSWID tag) can employ uncompromised signing credentials to create a new signature on the original tag. The tag version number would not be incremented since the tag itself was not modified. Consumers of CoSWID tags would need to validate the tag using the new credentials and would also need to revoke certificates associated with the compromised credentials to avoid validating tags signed with them. The process for doing this is beyond the scope of this specification.
+
+The CoSWID format allows the use of hash values without an
+accompanying hash algorithm identifier.
+This exposes the tags to some risk of cross-algorithm attacks.
+We believe that this can become a practical problem only if some
+implementations allow the use of insecure hash algorithms.
+Since it may not become known immediately when an algorithm becomes
+insecure, this leads to a strong recommendation to only include
+support for hash algorithms that are generally considered secure, and
+not just marginally so.
 
 CoSWID tags are intended to contain public information about software components and, as
 such, the contents of a CoSWID tag does not need to be protected against unintended disclosure on an endpoint.
@@ -1889,7 +1899,8 @@ Changes from version 00 to version 01:
 
 This document draws heavily on the concepts defined in the ISO/IEC 19770-2:2015 specification. The authors of this document are grateful for the prior work of the 19770-2 contributors.
 
-We are also grateful to the careful reviews provided by ...
+We are also grateful for the careful reviews provided by the IESG
+reviewers.  Special thanks go to Benjamin Kaduk.
 
 
 <!--  LocalWords:  SWID verifier TPM filesystem discoverable CoSWID
