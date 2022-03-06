@@ -760,6 +760,7 @@ The following describes each child item of this group.
 - entitlement-data-required (index 48): A boolean value that can be used to determine if accompanying proof of entitlement is needed when a software license reconciliation process is performed.
 
 - entitlement-key (index 49): A vendor-specific textual key that can be used to identify and establish a relationship to an entitlement. Examples of an entitlement-key might include a serial number, product key, or license key. For values that relate to a given software component install (i.e., license key), a supplemental tag will typically contain this information. In other cases, where a general-purpose key can be provided that applies to all possible installs of the software component on different endpoints, a primary tag will typically contain this information.
+  Since CoSWID tags are not intended to contain confidential information, tag authors are advised not to record unprotected, private software license keys in this field.
 
 - generator (index 50): The name (or tag-id) of the software component that created the CoSWID tag. If the generating software component has a SWID or CoSWID tag, then the tag-id for the generating software component SHOULD be provided.
 
@@ -1693,6 +1694,11 @@ not just marginally so.
 
 CoSWID tags are intended to contain public information about software components and, as
 such, the contents of a CoSWID tag does not need to be protected against unintended disclosure on an endpoint.
+Converse, generators of CoSWID tags need to ensure that only public
+information is disclosed.
+Entitlement Keys are an example for information where particular care
+is required; tag authors are advised not to record unprotected,
+private software license keys in this field.
 
 CoSWID tags are intended to be easily discoverable by
 authorized applications and users on an endpoint in order to make it easy to determine the tagged software load. Access to the collection of an endpoint's CoSWID tags needs to be appropriately controlled to authorized applications and users using an appropriate access control mechanism.
