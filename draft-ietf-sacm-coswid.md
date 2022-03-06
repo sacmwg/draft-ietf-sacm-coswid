@@ -83,6 +83,8 @@ normative:
   RFC8412:
   RFC8288:
   RFC8610:
+  I-D.ietf-cose-countersign: countersign
+
   X.1520:
     title: "Recommendation ITU-T X.1520 (2014), Common vulnerabilities and exposures"
     date: 2011-04-20
@@ -1640,7 +1642,8 @@ The COSE_Sign structure allows for more than one signature, one of which MUST be
 ~~~~
 {: sourcecode-markers="true"}
 
-Additionally, the COSE Header counter signature MAY be used as an attribute in the unprotected header map of the COSE envelope of a CoSWID. The application of counter signing enables second parties to provide a signature on a signature allowing for a proof that a signature existed at a given time (i.e., a timestamp).
+Additionally, the COSE Header counter signature MAY be used as an attribute in the unprotected header map of the COSE envelope of a CoSWID {{-countersign}}.
+. The application of counter signing enables second parties to provide a signature on a signature allowing for a proof that a signature existed at a given time (i.e., a timestamp).
 
 A CoSWID MUST be signed, using the above mechanism, to protect the integrity of the CoSWID tag. See the security considerations (in {{sec-sec}}) for more information on why a signed CoSWID is valuable in most cases.
 
