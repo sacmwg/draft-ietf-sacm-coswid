@@ -9,6 +9,7 @@ wg: SACM Working Group
 kw: Internet-Draft
 cat: std
 consensus: true
+submissiontype: IETF
 pi:
   toc: yes
   sortrefs: yes
@@ -75,17 +76,15 @@ normative:
   RFC5198:
   RFC5234: ABNF
   RFC5646:
-  RFC5892:
+  RFC5890: IDNA
   RFC8949:
   RFC7252:
-  RFC8126:
-  RFC8152: cose-msg
+  I-D.ietf-cose-rfc8152bis-struct: cose-msg
   RFC8412:
   RFC8288:
   RFC8610:
-  X.1520:
-    title: "Recommendation ITU-T X.1520 (2014), Common vulnerabilities and exposures"
-    date: 2011-04-20
+  I-D.ietf-cose-countersign: countersign
+
   SAM:
     title: >
       Information technology - Software asset management - Part 5: Overview and vocabulary
@@ -132,6 +131,9 @@ informative:
     target: http://wiki.c2.com/?KebabCase
     title: KebabCase
     date: 2014-12-18
+  X.1520:
+    title: "Recommendation ITU-T X.1520 (2014), Common vulnerabilities and exposures"
+    date: 2011-04-20
   SWID-GUIDANCE:
     target: https://doi.org/10.6028/NIST.IR.8060
     title: Guidelines for the Creation of Interoperable Software Identification (SWID) Tags
@@ -197,11 +199,11 @@ Binary Object Representation (CBOR) {{RFC8949}}.
 
 Size comparisons between XML SWID and CoSWID mainly depend on domain-specific applications and the complexity of attributes used in instances.
 While the values stored in CoSWID are often unchanged and therefore not reduced in size compared to an XML SWID, the scaffolding that the CoSWID encoding represents is significantly smaller by taking up 10 percent or less in size.
-This effect is visible in instances sizes, which can benefit from a 50 percent to 85 percent reduction of size in generic usage scenarios.
-Additional size reduction is enabled with respect to the memory footprint of XML parsing/validation as well as the reduction of stack sizes where XML processing is now obsolete. 
+This effect is visible in representation sizes, which in early experiments benefited from a 50 percent to 85 percent reduction in generic usage scenarios.
+Additional size reduction is enabled with respect to the memory footprint of XML parsing/validation.
 
 In a CoSWID, the human-readable labels of SWID data items are replaced with
-more concise integer labels (indices). This approach allows SWID and CoSWID to share a common implicit information model, with CoSWID providing an alternate data model {{RFC3444}}. While SWID and CoSWID are intended to share the same implicit information model, this specification does not define this information model, or a mapping between the the two data formats. While an attempt to align SWID and CoSWID tags has been made here, future revisions of ISO/IEC 19770-2:2015 or this specification might cause this implicit information model to diverge, since these specifications are maintained by different standards groups.
+more concise integer labels (indices). This approach allows SWID and CoSWID to share a common implicit information model, with CoSWID providing an alternate data model {{RFC3444}}. While SWID and CoSWID are intended to share the same implicit information model, this specification does not define this information model, or a mapping between the two data formats. While an attempt to align SWID and CoSWID tags has been made here, future revisions of ISO/IEC 19770-2:2015 or this specification might cause this implicit information model to diverge, since these specifications are maintained by different standards groups.
 
 The use of CBOR to express SWID information in CoSWID tags allows both CoSWID and SWID tags to be part of an
 enterprise security solution for a wider range of endpoints and environments.
@@ -284,25 +286,31 @@ XML attribute and element names defined in ISO/IEC 19770-2:2015.
 
 ## Requirements Notation
 
-{::boilerplate bcp14}
+{::boilerplate bcp14-tagged}
 
+{: #data-def}
 # Concise SWID Data Definition
 
 The following describes the general rules and processes for encoding data using CDDL representation. Prior familiarity with CBOR and CDDL concepts will be helpful in understanding this CoSWID specification.
 
 This section describes the conventions by which a CoSWID is represented in the CDDL structure. The CamelCase {{CamelCase}} notation used in the XML schema definition is changed to a hyphen-separated
-notation {{KebabCase}} (e.g. ResourceCollection is named resource-collection) in the CoSWID CDDL specification.
+notation {{KebabCase}} (e.g., ResourceCollection is named resource-collection) in the CoSWID CDDL specification.
 This deviation from the original notation used in the XML representation reduces ambiguity when referencing
 certain attributes in corresponding textual descriptions. An attribute referred to by its name in CamelCase
 notation explicitly relates to XML SWID tags; an attribute referred to by its name in
 KebabCase notation explicitly relates to CBOR CoSWID tags. This approach simplifies the
 composition of further work that reference both XML SWID and CBOR CoSWID documents.
 
-In most cases, mapping attribute names between SWID and CoSWID can be done automatically by converting between CamelCase and KebabCase attribute names. However, some CoSWID CDDL attribute names show greater variation relative to their corresponding SWID XML Schema attributes. This is done when the change improves clarity in the CoSWID specification. For example the "name" and "version" SWID fields corresponds to the "software-name" and "software-version" CoSWID fields, respectively. As such, it is not always possible to mechanically translate between corresponding attribute names in the two formats. In such cases, a manual mapping will need to be used. These cases are specifically noted in this and subsequent sections using an {{-xpath}} where a manual mapping is needed.
+In most cases, mapping attribute names between SWID and CoSWID can be done automatically by converting between CamelCase and KebabCase attribute names. However, some CoSWID CDDL attribute names show greater variation relative to their corresponding SWID XML Schema attributes. This is done when the change improves clarity in the CoSWID specification. For example, the "name" and "version" SWID fields corresponds to the "software-name" and "software-version" CoSWID fields, respectively. As such, it is not always possible to mechanically translate between corresponding attribute names in the two formats. In such cases, a manual mapping will need to be used.  XPath expressions {{-xpath}} need to use SWID names, see {{uri-scheme-swidpath}}.
 
 The 57 human-readable text labels of the CDDL-based CoSWID vocabulary are mapped to integer indices via a block of rules at the bottom of the definition. This allows a more concise integer-based form to be stored or transported, as compared to the less efficient text-based form of the original vocabulary.
 
-Through use of CDDL-based integer labels, CoSWID allows for future expansion in subsequent revisions of this specification and through extensions (see {{model-extension}}). New constructs can be associated with a new integer index. A deprecated construct can be replaced by a new construct with a new integer index. An implementation can use these integer indexes to identify the construct to parse. The CoSWID Items registry, defined in {{iana-coswid-items}}, is used to ensure that new constructs are assigned a unique index value on a first-come, first-served basis. This approach avoids the need to have an explicit CoSWID version.
+Through use of CDDL-based integer labels, CoSWID allows for future expansion in subsequent revisions of this specification and through extensions (see {{model-extension}}). New constructs can be associated with a new integer index. A deprecated construct can be replaced by a new construct with a new integer index. An implementation can use these integer indexes to identify the construct to parse. The CoSWID Items registry, defined in {{iana-coswid-items}}, is used to ensure that new constructs are assigned a unique index value. This approach avoids the need to have an explicit CoSWID version.
+
+In a number of places, the value encoding admits both integer values and text strings.
+The integer values are defined in a registry specific to the kind of value; the text values are not intended for interchange and exclusively meant for private use as defined in {{iana-private-use}}.
+Encoders SHOULD NOT use string values based on the names registered in the registry, as these values are less concise than their index value equivalent; a decoder MUST however be prepared to accept text strings that are not specified in this document (and ignore the construct if that string is unknown).
+In the rest of the document, we call this an "integer label with text escape".
 
 The root of the CDDL specification provided by this document is the
 rule `coswid` (as defined in {{tagged}}):
@@ -363,6 +371,7 @@ The following CDDL sockets (extension points) are defined in this document, whic
 | entity-entry | $$entity-extension | {{model-entity}}
 | link-entry | $$link-extension | {{model-link}}
 | software-meta-entry | $$software-meta-extension | {{model-software-meta}}
+| resource-collection | $$resource-collection-extension | {{model-resource-collection}}
 | file-entry | $$file-extension | {{model-resource-collection}}
 | directory-entry | $$directory-extension | {{model-resource-collection}}
 | process-entry | $$process-extension | {{model-resource-collection}}
@@ -446,14 +455,15 @@ The following describes each member of the concise-swid-tag root map.
 - global-attributes: A list of items including an optional language definition to support the
 processing of text-string values and an unbounded set of any-attribute items. Described in {{model-global-attributes}}.
 
-- tag-id (index 0): A 16 byte binary string or textual identifier uniquely referencing a software component. The tag
-identifier MUST be globally unique. Failure to ensure global uniqueness can create ambiguity in tag use since the tag-id serves as the global key for matching and lookups. If represented as a 16 byte binary string, the identifier MUST be a valid universally unique identifier as defined by {{RFC4122}}. There are no strict guidelines on
-how this identifier is structured, but examples include a 16 byte GUID (e.g.
-class 4 UUID) {{RFC4122}}, or a text string appended to a DNS domain name to ensure uniqueness across organizations.
+- tag-id (index 0): A 16-byte binary string, or a textual identifier, uniquely referencing a software component. The tag
+identifier MUST be globally unique. Failure to ensure global uniqueness can create ambiguity in tag use since the tag-id serves as the global key for matching and lookups. If represented as a 16-byte binary string, the identifier MUST be a valid universally unique identifier as defined by {{RFC4122}}. There are no strict guidelines on
+how the identifier is structured, but examples include a 16-byte GUID (e.g.,
+class 4 UUID) {{RFC4122}}, or a DNS domain name followed by a "/" and a text string, where the domain name serves to ensure uniqueness across organizations.
+A textual tag-id MUST NOT contain a sequence of two underscores ("__", see {{sec-swima}}).
 
-- tag-version (index 12): An integer value that indicate the specific release revision of the tag. Typically, the initial value of this field is set to 0 and the value is monotonically increased for subsequent tags produced for the same software component release. This value allows a CoSWID tag producer to correct an incorrect tag previously released without indicating a change to the underlying software component the tag represents. For example, the tag version could be changed to add new metadata, to correct a broken link, to add a missing payload entry, etc. When producing a revised tag, the new tag-version value MUST be greater than the old tag-version value.
+- tag-version (index 12): An integer value that indicate the specific release revision of the tag. Typically, the initial value of this field is set to 0 and the value is increased for subsequent tags produced for the same software component release. This value allows a CoSWID tag producer to correct an incorrect tag previously released without indicating a change to the underlying software component the tag represents. For example, the tag version could be changed to add new metadata, to correct a broken link, to add a missing payload entry, etc. When producing a revised tag, the new tag-version value MUST be greater than the old tag-version value.
 
-- corpus (index 8): A boolean value that indicates if the tag identifies and describes an installable software component in its pre-installation state. Installable software includes a installation package or installer for a software component, a software update, or a patch. If the CoSWID tag represents installable software, the corpus item MUST be set to "true". If not provided, the default value MUST be considered "false".
+- corpus (index 8): A boolean value that indicates if the tag identifies and describes an installable software component in its pre-installation state. Installable software includes an installation package or installer for a software component, a software update, or a patch. If the CoSWID tag represents installable software, the corpus item MUST be set to "true". If not provided, the default value MUST be considered "false".
 
 - patch (index 9): A boolean value that indicates if the tag identifies and describes an installed patch that has made incremental changes to a software component installed on an endpoint. If a CoSWID tag is for a patch, the patch item MUST be set to "true". If not provided, the default value MUST be considered "false". A patch item's value MUST NOT be set to "true" if the installation of the associated software package changes the version of a software component.
 
@@ -463,10 +473,11 @@ class 4 UUID) {{RFC4122}}, or a text string appended to a DNS domain name to ens
 
 - software-version (index 13): A textual value representing the specific release or development version of the software component. This item maps to '/SoftwareIdentity/@version' in {{SWID}}.
 
-- version-scheme (index 14): An integer or textual value representing the versioning scheme used for the software-version item. If an integer value is used it MUST be an index value in the range -256 to 65535. Integer values in the range -256 to -1 are reserved for testing and use in closed environments (see {{iana-private-use}}). Integer values in the range 0 to 65535 correspond to registered entries in the IANA "Software Tag Version Scheme Values" registry (see {{iana-version-scheme}}. If a string value is used it MUST be a private use name as defined in {{iana-private-use}}. String values based on a Version Scheme Name from the IANA "Software Tag Version Scheme Values" registry MUST NOT be used, as these values are less concise than their index value equivalent.
+- version-scheme (index 14): An integer or textual value representing the versioning scheme used for the software-version item, as an integer label with text escape ({{data-def}}, for the "Version Scheme" registry {{indexed-version-scheme}}.
+. If an integer value is used it MUST be an index value in the range -256 to 65535. Integer values in the range -256 to -1 are reserved for testing and use in closed environments (see {{iana-private-use}}). Integer values in the range 0 to 65535 correspond to registered entries in the IANA "Software Tag Version Scheme Values" registry (see {{iana-version-scheme}}.
 
 - media (index 10): This text value is a hint to the tag consumer to understand what target platform this tag
-applies to. This item item MUST be formatted as a 
+applies to. This item MUST be formatted as a
 query as defined by the W3C Media Queries Recommendation (see {{-css3-mediaqueries}}). Support for media queries are included here for interoperability with {{SWID}}, which does not provide any further requirements for media query use. Thus, this specification does not clarify how a media query is to be used for a CoSWID.
 
 - software-meta (index 5): An open-ended map of key/value data pairs.
@@ -478,32 +489,32 @@ attribute to be included in the tag. It is expected that industry groups will us
 CoSWID tag. Described in {{model-entity}}.
 
 - link (index 4): Provides a means to establish relationship arcs between the tag and another items. A given link can be used to establish the relationship between tags or to reference another resource that is related to the
-CoSWID tag, e.g.
+CoSWID tag, e.g.,
 vulnerability database association, ROLIE feed {{-rolie}}, MUD resource {{-mud}}, software download location, etc).
 This is modeled after the HTML "link" element.  Described in {{model-link}}.
 
 - payload (index 6): This item represents a collection of software artifacts (described by child items) that compose the target software. For example, these artifacts could be the files included with an installer for a corpus tag or installed on an endpoint when the software component
 is installed for a primary or patch tag. The artifacts listed in a payload may be a superset of the software artifacts that are actually installed. Based on user selections at install time,
 an installation might not include every artifact that could be created or executed on the
-endpoint when the software component is installed or run. Described in {{model-payload}}.
+endpoint when the software component is installed or run. This item is mutually exclusive to evidence, as payload can only be provided by an external entity. Described in {{model-payload}}.
 
-- evidence (index 3): This item can be used to record the results of a software discovery process used to identify untagged software on an endpoint or to represent indicators for why software is believed to be installed on the endpoint. In either case, a CoSWID tag can be created by the tool performing an analysis of the software components installed on the endpoint. Described in {{model-evidence}}.
+- evidence (index 3): This item can be used to record the results of a software discovery process used to identify untagged software on an endpoint or to represent indicators for why software is believed to be installed on the endpoint. In either case, a CoSWID tag can be created by the tool performing an analysis of the software components installed on the endpoint. This item is mutually exclusive to payload, as evidence is always generated on the target device ad-hoc. Described in {{model-evidence}}.
 
 - $$coswid-extension: This CDDL socket is used to add new information structures to the concise-swid-tag root map. See {{model-extension}}.
 
 ##  concise-swid-tag Co-Constraints
 
-The following co-constraints apply to the information provided in the concise-swid-tag group.
+The following co-constraints apply to the information provided in the concise-swid-tag group. If any of these constraints is not met, a signed tag cannot be used anymore as a signed statement.
 
 - The patch and supplemental items MUST NOT both be set to "true".
 
-- If the patch item is set to "true", the tag SHOULD contain at least one link item (see {{model-link}}) with both the rel item value of "patches" and an href item specifying an association with the software that was patched.
+- If the patch item is set to "true", the tag SHOULD contain at least one link item (see {{model-link}}) with both the rel item value of "patches" and an href item specifying an association with the software that was patched. Without at least one link item the target of the patch cannot be identified and the patch tag cannot be applied without external context.
 
-- If the supplemental item is set to "true", the tag SHOULD contain at least one link item with both the rel item value of "supplemental" and an href item specifying an association with the software that is supplemented.
+- If the supplemental item is set to "true", the tag SHOULD contain at least one link item with both the rel item value of "supplemental" and an href item specifying an association with the software that is supplemented. Without at least one link item the target of supplement tag cannot be identified and the patch tag cannot be applied without external context.
 
 - If all of the corpus, patch, and supplemental items are "false", or if the corpus item is set to "true", then a software-version item MUST be included with a value set to the version of the software component. This ensures that primary and corpus tags have an identifiable software version.
-
 {: #model-global-attributes}
+
 ## The global-attributes Group
 
 The global-attributes group provides a list of items, including an optional
@@ -576,11 +587,11 @@ The following describes each child item of this group.
 - entity-name (index 31): The textual name of the organizational entity claiming the roles specified by the role item for the CoSWID tag. This item maps to '/SoftwareIdentity/Entity/@name' in {{SWID}}.
 
 - reg-id (index 32): The registration id value is intended to uniquely identify a naming authority in a
-given scope (e.g. global, organization, vendor, customer, administrative domain,
+given scope (e.g., global, organization, vendor, customer, administrative domain,
 etc.) for the referenced entity. The value of a
-registration ID MUST be a RFC 3986 URI. The scope will usually be the scope of an organization.
+registration ID MUST be a RFC 3986 URI; it is not intended to be dereferenced. The scope will usually be the scope of an organization.
 
-- role (index 33): An integer or textual value representing the relationship(s) between the entity, and this tag or the referenced software component. If an integer value is used it MUST be an index value in the range -256 to 255. Integer values in the range -256 to -1 are reserved for testing and use in closed environments (see {{iana-private-use}}). Integer values in the range 0 to 255 correspond to registered entries in the IANA "Software Tag Entity Role Values" registry (see {{iana-entity-role}}. If a string value is used it MUST be a private use name as defined in {{iana-private-use}}. String values based on a Role Name from the IANA "Software Tag Entity Role Values" registry MUST NOT be used, as these values are less concise than their index value equivalent.
+- role (index 33): An integer or textual value (integer label with text escape, see {{data-def}}) representing the relationship(s) between the entity, and this tag or the referenced software component. If an integer value is used it MUST be an index value in the range -256 to 255. Integer values in the range -256 to -1 are reserved for testing and use in closed environments (see {{iana-private-use}}). Integer values in the range 0 to 255 correspond to registered entries in the IANA "Software Tag Entity Role Values" registry (see {{iana-entity-role}}.
 
   The following additional requirements exist for the use of the "role" item:
 
@@ -621,9 +632,9 @@ $ownership /= shared
 $ownership /= private
 $ownership /= abandon
 $ownership /= int / text
-shared=1
+abandon=1
 private=2
-abandon=3
+shared=3
 
 $rel /= ancestor
 $rel /= component
@@ -662,27 +673,30 @@ The following describes each member of this map.
 
 - global-attributes: The global-attributes group described in {{model-global-attributes}}.
 
-- artifact (index: 37): To be used with rel="installation-media", this item's value provides the path to the installer executable or script that can be run to launch the referenced installation. Links with the same artifact name MUST be considered mirrors of each other, allowing the installation media to be acquired from any of the described sources.
+- artifact (index 37): To be used with rel="installation-media", this item's value provides the absolute filesystem path to the installer executable or script that can be run to launch the referenced installation.  Links with the same artifact name MUST be considered mirrors of each other, allowing the installation media to be acquired from any of the described sources.
 
 - href (index 38): A URI-reference {{RFC3986}} for the referenced resource. The "href" item's value can be, but is not limited to, the following (which is a slightly modified excerpt from {{SWID}}):
-  - If no URI scheme is provided, then the URI-reference is a relative reference relative to the URI of the CoSWID tag. For example, "./folder/supplemental.coswid".
+  - If no URI scheme is provided, then the URI-reference is a relative reference relative to the base URI of the CoSWID tag, i.e., the URI under which the CoSWID tag was provided. For example, "./folder/supplemental.coswid".
   - a physical resource location with any acceptable URI scheme (e.g., file:// http:// https:// ftp://)
   - a URI with "swid:" as the scheme refers to another SWID or CoSWID by the referenced tag's tag-id. This
   URI needs to be resolved in the context of the endpoint by software
   that can lookup other SWID or CoSWID tags. For example, "swid:2df9de35-0aff-4a86-ace6-f7dddd1ade4c" references the tag with the tag-id value "2df9de35-0aff-4a86-ace6-f7dddd1ade4c".
   - a URI with "swidpath:" as the scheme, which refers to another software tag via an
-  XPATH query {{-xpath}}. This scheme is provided for compatibility with {{SWID}}. This specification does not define how to resolve an XPATH query in the context of CBOR.
+  XPATH query {{-xpath}} that matches items in that tag ({{uri-scheme-swidpath}}). This scheme is provided for compatibility with {{SWID}}. This specification does not define how to resolve an XPATH query in the context of CBOR, see {{uri-scheme-swidpath}}.
 
 - media (index 10): A hint to the consumer of the link to what target platform the link is applicable to. This item represents a
 query as defined by the W3C Media Queries Recommendation (see {{-css3-mediaqueries}}). As highlighted in media defined in {{model-concise-swid-tag}}, support for media queries are included here for interoperability with {{SWID}}, which does not provide any further requirements for media query use. Thus, this specification does not clarify how a media query is to be used for a CoSWID.
 
-- ownership (index 39): An integer or textual value used when the "href" item references another software component to indicate the degree of ownership between the software component referenced by the CoSWID tag and the software component referenced by the link. If an integer value is used it MUST be an index value in the range -256 to 255. Integer values in the range -256 to -1 are reserved for testing and use in closed environments (see {{iana-private-use}}). Integer values in the range 0 to 255 correspond to registered entries in the IANA "Software Tag Link Ownership Values" registry (see {{iana-link-ownership}}. If a string value is used it MUST be a private use name as defined in {{iana-private-use}}. String values based on a Ownership Type Name from the IANA "Software Tag Link Ownership Values" registry MUST NOT be used, as these values are less concise than their index value equivalent.
+- ownership (index 39): An integer or textual value (integer label with text escape, see {{data-def}}, for the "Software Tag Link Ownership Values" registry {{indexed-link-ownership}}) used when the "href" item references another software component to indicate the degree of ownership between the software component referenced by the CoSWID tag and the software component referenced by the link. If an integer value is used it MUST be an index value in the range -256 to 255. Integer values in the range -256 to -1 are reserved for testing and use in closed environments (see {{iana-private-use}}). Integer values in the range 0 to 255 correspond to registered entries in the "Software Tag Link Ownership Values" registry.
 
-- rel (index 40): An integer or textual value that identifies the relationship between this CoSWID and the target resource identified by the "href" item. If an integer value is used it MUST be an index value in the range -256 to 65535. Integer values in the range -256 to -1 are reserved for testing and use in closed environments (see {{iana-private-use}}). Integer values in the range 0 to 65535 correspond to registered entries in the IANA "Software Tag Link Relationship Values" registry (see {{iana-link-rel}}. If a string value is used it MUST be either a private use name as defined in {{iana-private-use}} or a "Relation Name" from the IANA "Link Relation Types" registry: https://www.iana.org/assignments/link-relations/link-relations.xhtml as defined by {{RFC8288}}. When a string value defined in the IANA "Software Tag Link Relationship Values" registry matches a Relation Name defined in the IANA "Link Relation Types" registry, the index value in the IANA "Software Tag Link Relationship Values" registry MUST be used instead, as this relationship has a specialized meaning in the context of a CoSWID tag. String values based on a Relationship Type Name from the IANA "Software Tag Link Relationship Values" registry MUST NOT be used, as these values are less concise than their index value equivalent.
+- rel (index 40): An integer or textual value that (integer label with text escape, see {{data-def}}, for the "Software Tag Link Link Relationship Values" registry {{indexed-link-ownership}}) identifies the relationship between this CoSWID and the target resource identified by the "href" item. If an integer value is used it MUST be an index value in the range -256 to 65535. Integer values in the range -256 to -1 are reserved for testing and use in closed environments (see {{iana-private-use}}). Integer values in the range 0 to 65535 correspond to registered entries in the IANA "Software Tag Link Relationship Values" registry (see {{iana-link-rel}}. If a string value is used it MUST be either a private use name as defined in {{iana-private-use}} or a "Relation Name" from the IANA "Link Relation Types" registry: https://www.iana.org/assignments/link-relations/link-relations.xhtml as defined by {{RFC8288}}. When a string value defined in the IANA "Software Tag Link Relationship Values" registry matches a Relation Name defined in the IANA "Link Relation Types" registry, the index value in the IANA "Software Tag Link Relationship Values" registry MUST be used instead, as this relationship has a specialized meaning in the context of a CoSWID tag. String values correspond to registered entries in the "Software Tag Link Relationship Values" registry.
 
-- media-type (index 41): A link can point to arbitrary resources on the endpoint, local network, or Internet using the href item. Use of this item supplies the resource consumer with a hint of what type of resource to expect. Media types are identified by referencing a "Name" from the IANA "Media Types" registry: http://www.iana.org/assignments/media-types/media-types.xhtml. This item maps to '/SoftwareIdentity/Link/@type' in {{SWID}}.
+- media-type (index 41): A link can point to arbitrary resources on the endpoint, local network, or Internet using the href item. Use of this item supplies the resource consumer with a hint of what type of resource to expect.  (This is a *hint*: There
+is no obligation for the server hosting the target of the URI to use the
+indicated media type when the URI is dereferenced.)
+Media types are identified by referencing a "Name" from the IANA "Media Types" registry: http://www.iana.org/assignments/media-types/media-types.xhtml. This item maps to '/SoftwareIdentity/Link/@type' in {{SWID}}.
 
-- use (index 42): An integer or textual value used to determine if the referenced software component has to be installed before installing the software component identified by the COSWID tag. If an integer value is used it MUST be an index value in the range -256 to 255. Integer values in the range -256 to -1 are reserved for testing and use in closed environments (see {{iana-private-use}}). Integer values in the range 0 to 255 correspond to registered entries in the IANA "Link Use Values" registry (see {{iana-link-use}}. If a string value is used it MUST be a private use name as defined in {{iana-private-use}}. String values based on an Link Use Type Name from the IANA "Software Tag Link Use Values" registry MUST NOT be used, as these values are less concise than their index value equivalent.
+- use (index 42): An integer or textual value (integer label with text escape, see {{data-def}}, for the "Software Tag Link Link Relationship Values" registry {{indexed-link-ownership}}) used to determine if the referenced software component has to be installed before installing the software component identified by the COSWID tag. If an integer value is used it MUST be an index value in the range -256 to 255. Integer values in the range -256 to -1 are reserved for testing and use in closed environments (see {{iana-private-use}}). Integer values in the range 0 to 255 correspond to registered entries in the IANA "Link Use Values" registry (see {{iana-link-use}}. If a string value is used it MUST be a private use name as defined in {{iana-private-use}}. String values correspond to registered entries in the "Software Tag Link Use Values" registry.
 
 - $$link-extension: This CDDL socket can be used to extend the link-entry map model. See {{model-extension}}.
 
@@ -700,7 +714,7 @@ software-meta-entry = {
   ? edition => text,
   ? entitlement-data-required => bool,
   ? entitlement-key => text,
-  ? generator => text,
+  ? generator =>  text / bstr .size 16,
   ? persistent-id => text,
   ? product => text,
   ? product-family => text,
@@ -733,11 +747,11 @@ The following describes each child item of this group.
 
 - global-attributes: The global-attributes group described in {{model-global-attributes}}.
 
-- activation-status (index 43): A textual value that identifies how the software component has been activated, which might relate to specific terms and conditions for its use (e.g. Trial, Serialized, Licensed, Unlicensed, etc) and relate to an entitlement.  This attribute is typically used in supplemental tags as it contains information that might be selected during a specific install.
+- activation-status (index 43): A textual value that identifies how the software component has been activated, which might relate to specific terms and conditions for its use (e.g., Trial, Serialized, Licensed, Unlicensed, etc) and relate to an entitlement.  This attribute is typically used in supplemental tags as it contains information that might be selected during a specific install.
 
-- channel-type (index 44): A textual value that identifies which sales, licensing, or marketing channel the software component has been targeted for (e.g. Volume, Retail, OEM, Academic, etc). This attribute is typically used in supplemental tags as it contains information that might be selected during a specific install.
+- channel-type (index 44): A textual value that identifies which sales, licensing, or marketing channel the software component has been targeted for (e.g., Volume, Retail, OEM, Academic, etc). This attribute is typically used in supplemental tags as it contains information that might be selected during a specific install.
 
-- colloquial-version (index 45): A textual value for the software component's informal or colloquial version. Examples may include a year value, a major version number, or similar value that are used to identify a group of specific software component releases that are part of the same release/support cycle. This version can be the same through multiple releases of a software component, while the software-version specified in the concise-swid-tag group is much more specific and will change for each software component release. This version is intended to be used for string comparison only and is not intended to be used to determine if a specific value is earlier or later in a sequence.
+- colloquial-version (index 45): A textual value for the software component's informal or colloquial version. Examples may include a year value, a major version number, or similar value that are used to identify a group of specific software component releases that are part of the same release/support cycle. This version can be the same through multiple releases of a software component, while the software-version specified in the concise-swid-tag group is much more specific and will change for each software component release. This version is intended to be used for string comparison (byte-by-byte) only and is not intended to be used to determine if a specific value is earlier or later in a sequence.
 
 - description (index 46): A textual value that provides a detailed description of the software component. This value MAY be multiple paragraphs separated by CR LF characters as described by {{RFC5198}}.
 
@@ -746,6 +760,7 @@ The following describes each child item of this group.
 - entitlement-data-required (index 48): A boolean value that can be used to determine if accompanying proof of entitlement is needed when a software license reconciliation process is performed.
 
 - entitlement-key (index 49): A vendor-specific textual key that can be used to identify and establish a relationship to an entitlement. Examples of an entitlement-key might include a serial number, product key, or license key. For values that relate to a given software component install (i.e., license key), a supplemental tag will typically contain this information. In other cases, where a general-purpose key can be provided that applies to all possible installs of the software component on different endpoints, a primary tag will typically contain this information.
+  Since CoSWID tags are not intended to contain confidential information, tag authors are advised not to record unprotected, private software license keys in this field.
 
 - generator (index 50): The name (or tag-id) of the software component that created the CoSWID tag. If the generating software component has a SWID or CoSWID tag, then the tag-id for the generating software component SHOULD be provided.
 
@@ -780,9 +795,9 @@ hash-entry = [
 ]
 ~~~~
 
-The number used as a value for hash-alg-id is an integer-based hash algorithm identifier who's value MUST refer to an ID in the IANA "Named Information Hash Algorithm Registry" {{-NIHAR}} with a Status of "current"; other hash algorithms MUST NOT be used. If the hash-alg-id is not known, then the integer value "0" MUST be used. This ensures parity between the SWID tag specification {{SWID}}, which does not allow an algorithm to be identified for this field.
+The number used as a value for hash-alg-id is an integer-based hash algorithm identifier who's value MUST refer to an ID in the IANA "Named Information Hash Algorithm Registry" {{-NIHAR}} with a Status of "current" (at the time the generator software was built or later); other hash algorithms MUST NOT be used. If the hash-alg-id is not known, then the integer value "0" MUST be used. This allows for conversion from ISO SWID tags {{SWID}}, which do not allow an algorithm to be identified for this field.
 
-The hash-value MUST represent the raw hash value in byte representation (in contrast to, e.g., base64 encoded byte representation) of the byte string that represents the hashed resource generated using the hash algorithm indicated by the hash-alg-id.
+The hash-value MUST represent the raw hash value as a byte string (as opposed to, e.g., base64 encoded) generated from the representation of the resource using the hash algorithm indicated by hash-alg-id.
 
 {: #model-resource-collection}
 ### The resource-collection Group
@@ -874,17 +889,17 @@ The following describes each member of the groups and maps illustrated above.
 
 - size (index 20): The file's size in bytes.
 
-- file-version (index 21): The file's version as reported by querying information on the file from the operating system. This item maps to '/SoftwareIdentity/(Payload\|Evidence)/File/@version' in {{SWID}}.
+- file-version (index 21): The file's version as reported by querying information on the file from the operating system (if available). This item maps to '/SoftwareIdentity/(Payload\|Evidence)/File/@version' in {{SWID}}.
 
 - hash (index 7): A hash of the file as described in {{model-hash-entry}}.
 
 - key (index 22): A boolean value indicating if a file or directory is significant or required for the software component to execute or function properly. These are files or directories that can be used to affirmatively determine if the software component is installed on an endpoint.
 
-- location (index 23): The filesystem path where a file is expected to be located when installed or copied. The location MUST be either relative to the location of the parent directory item (preferred) or relative to the location of the CoSWID tag if no parent is defined. The location MUST NOT include a file's name, which is provided by the fs-name item.
+- location (index 23): The filesystem path where a file is expected to be located when installed or copied. The location MUST be either relative to the location of the parent directory item (preferred), or relative to the location of the CoSWID tag (as indicated in the location value in the evidence entry map) if no parent is defined. The location MUST NOT include a file's name, which is provided by the fs-name item.
 
 - fs-name (index 24): The name of the directory or file without any path information. This aligns with a file "name" in {{SWID}}. This item maps to '/SoftwareIdentity/(Payload\|Evidence)/(File\|Directory)/@name' in {{SWID}}.
 
-- root (index 25): A filesystem-specific name for the root of the filesystem. The location item is considered relative to this location if specified. If not provided, the value provided by the location item is expected to be relative to its parent or the location of the CoSWID tag if no parent is provided.
+- root (index 25): A host-specific name for the root of the filesystem. The location item is considered relative to this location if specified. If not provided, the value provided by the location item is expected to be relative to its parent or the location of the CoSWID tag if no parent is provided.
 
 - path-elements (index 26): This group allows a hierarchy of directory and file items to be defined in payload or evidence items. This is a construction within the CDDL definition of CoSWID to support shared syntax and does not appear in {{SWID}}.
 
@@ -892,7 +907,7 @@ The following describes each member of the groups and maps illustrated above.
 
 - pid (index 28): The process ID identified for a running instance of the software component in the endpoint's process list. This is used as part of the evidence item.
 
-- type (index 29): A string indicating the type of resource.
+- type (index 29): A human-readable string indicating the type of resource.
 
 - $$resource-collection-extension: This CDDL socket can be used to extend the resource-collection group model. This can be used to add new specialized types of resources. See {{model-extension}}.
 
@@ -935,6 +950,7 @@ evidence-entry = {
   resource-collection,
   ? date => integer-time,
   ? device-id => text,
+  ? location => text,
   * $$evidence-extension,
   global-attributes,
 }
@@ -952,6 +968,9 @@ The following describes each child item of this group.
 - date (index 35): The date and time the information was collected pertaining to the evidence item.
 
 - device-id (index 36): The endpoint's string identifier from which the evidence was collected.
+
+- location (index 23): The absolute filepath of the location of the CoSWID tag generated as evidence.
+  (Location values in filesystem-items in the payload can be expressed relative to this location.)
 
 - $$evidence-extension:  This CDDL socket can be used to extend the evidence-entry group model. See {{model-extension}}.
 
@@ -981,27 +1000,36 @@ Note: Multiple of the corpus, patch, and supplemental items can have values set 
 
 # CoSWID Indexed Label Values
 
+This section defines a number of kinds of indexed label values that are maintained in a registry each ({{iana}}).
+These values are represented as positive integers.  In each registry, the value 0 is marked as Reserved.
+
 {: #indexed-version-scheme}
 ## Version Scheme
 
-The following table contains a set of values for use in the concise-swid-tag group's version-scheme item. These values match the version schemes defined in the ISO/IEC 19770-2:2015 {{SWID}} specification. Index value indicates the value to use as the version-scheme item's value. The Version Scheme Name provides human-readable text for the value. The Definition describes the syntax of allowed values for each entry.
+The following table contains a set of values for use in the concise-swid-tag group's version-scheme item. Version Scheme Name strings match the version schemes defined in the ISO/IEC 19770-2:2015 {{SWID}} specification. Index value indicates the value to use as the version-scheme item's value. The Version Scheme Name provides human-readable text for the value. The Definition describes the syntax of allowed values for each entry.
 
 | Index | Version Scheme Name     | Definition
 |---
-| 1     | multipartnumeric        | Numbers separated by dots, where the numbers are interpreted as integers (e.g., 1.2.3, 1.4.5, 1.2.3.4.5.6.7)
-| 2     | multipartnumeric+suffix | Numbers separated by dots, where the numbers are interpreted as integers with an additional textual suffix (e.g., 1.2.3a)
-| 3     | alphanumeric            | Strictly a string, sorting is done alphanumerically
-| 4     | decimal                 | A floating point number (e.g., 1.25 is less than 1.3)
+| 1     | multipartnumeric        | Numbers separated by dots, where the numbers are interpreted as decimal integers (e.g., 1.2.3, 1.2.3.4.5.6.7, 1.4.5, 1.21)
+| 2     | multipartnumeric+suffix | Numbers separated by dots, where the numbers are interpreted as decimal integers with an additional textual suffix (e.g., 1.2.3a)
+| 3     | alphanumeric            | Strictly a string, no interpretation as number
+| 4     | decimal                 | A single decimal floating point number
 | 16384 | semver                  | A semantic version as defined by {{SWID}}. Also see the {{SEMVER}} specification for more information
 {: #tbl-indexed-version-scheme-values title="Version Scheme Values"}
 
+multipartnumeric and the numbers part of multipartnumeric+suffix are interpreted as a sequence of numbers and are sorted in lexicographical order by these numbers (i.e., not by the digits in the numbers) and then the textual suffix (for multipartnumeric+suffix).  Alphanumeric strings are sorted lexicographically as character strings.  Decimal version numbers are interpreted as a single floating point number (e.g., 1.25 is less than 1.3).
+
 The values above are registered in the IANA "Software Tag Version Scheme Values" registry defined in Section {{iana-version-scheme}}. Additional entries will likely be registered over time in this registry.
 
-These version schemes have partially overlapping value spaces. The following guidelines help to ensure that the most specific version-scheme is used:
+A CoSWID producer that is aware of the version scheme that has been used to select the version value, SHOULD include the optional version-scheme item to avoid semantic ambiguity.
+If the CoSWID producer does not have this information, it SHOULD omit the version-scheme item.
+The following heuristics can be used by a CoSWID consumer, based on the version schemes' partially overlapping value spaces:
 
-- "decimal" and "multipartnumeric" partially overlap in their value space when a value matches a decimal number. When a corresponding software-version item's value falls within this overlapping value space, the "decimal" version scheme SHOULD be used.
-- "multipartnumeric" and "semver" partially overlap in their value space when a "multipartnumeric" value matches the semantic versioning syntax. When a corresponding software-version item's value falls within this overlapping value space, the "semver" version scheme SHOULD be used.
-- "alphanumeric" and other version schemes might overlap in their value space. When a corresponding software-version item's value falls within this overlapping value space, the other version scheme SHOULD be used instead of "alphanumeric".
+- "decimal" and "multipartnumeric" partially overlap in their value space when a value matches a decimal number. When a corresponding software-version item's value falls within this overlapping value space, the "decimal" version scheme SHOULD be assumed.
+- "multipartnumeric" and "semver" partially overlap in their value space when a "multipartnumeric" value matches the semantic versioning syntax. When a corresponding software-version item's value falls within this overlapping value space, the "semver" version scheme SHOULD be assumed.
+- "alphanumeric" and other version schemes might overlap in their value space. When a corresponding software-version item's value falls within this overlapping value space, the other version scheme SHOULD be assumed instead of "alphanumeric".
+
+Note that these heuristics are imperfect and can guess wrong, which is the reason the version-scheme item SHOULD be included by the producer.
 
 {: #indexed-entity-role}
 ## Entity Role Values
@@ -1079,10 +1107,18 @@ Note: These URI schemes are used in {{SWID}} without an IANA registration.
 The present specification ensures that these URI schemes are properly
 defined going forward.
 
+
+[^replace-xxxx]
+
+[^replace-xxxx]: RFC Ed.: throughout this section, please replace
+    RFC-AAAA with the RFC number of this specification and remove this
+    note.
+
+
 {: #uri-scheme-swid}
 ## "swid" URI Scheme
 
-There is a need for a scheme name that can be used in URIs that point to a specific software tag by that tag's tag-id, such as the use of the link entry as described in {{model-link}}) of this document. Since this scheme is used both in a standards track document and an ISO standard, this scheme needs to be used without fear of conflicts with current or future actual schemes.  In {{swid-reg}}, the scheme "swid" is registered as a 'permanent' scheme for that purpose.
+There is a need for a scheme name that can be used in URIs that point to a specific software tag by that tag's tag-id, such as the use of the link entry as described in {{model-link}}. Since this scheme is used both in a standards track document and an ISO standard, this scheme needs to be used without fear of conflicts with current or future actual schemes.  In {{swid-reg}}, the scheme "swid" is registered as a 'permanent' scheme for that purpose.
 
 URIs specifying the "swid" scheme are used to reference a software tag by its tag-id. A tag-id referenced in this way can be used to identify the tag resource in the context of where it is referenced from. For example, when a tag is installed on a given device, that tag can reference related tags on the same device using URIs with this scheme.
 
@@ -1097,19 +1133,24 @@ swid:2df9de35-0aff-4a86-ace6-f7dddd1ade4c
 {: #uri-scheme-swidpath}
 ## "swidpath" URI Scheme
 
-There is a need for a scheme name that can be used in URIs to identify a collection of specific software tags with data elements that match an XPath expression, such as the use of the link entry as described in {{model-link}}) of this document.
-Since this scheme is used both in a standards track document and an ISO standard, this scheme needs to be used without fear of conflicts with current or future actual schemes.
-In {{swidpath-reg}}, the scheme "swidpath" is hereby registered as a
-'permanent' scheme for that purpose.
+There is a need for a scheme name that can be used in URIs to identify a collection of specific software tags with data elements that match an XPath expression, such as the use of the link entry as described in {{model-link}}.
+The scheme named "swidpath" is used for this purpose in {{SWID}}, but not registered.
+To enable usage without fear of conflicts with current or future actual schemes, the present document registers it as a
+'permanent' scheme for that purpose (see {{swidpath-reg}}).
 
-URIs specifying the "swidpath" scheme are used to reference the data that must be found in a given software tag for that tag to be considered a matching tag to be included in the identified tag collection. Tags to be evaluated include all tags in the context of where the tag is referenced from. For example, when a tag is installed on a given device, that tag can reference related tags on the same device using a URI with this scheme.
+URIs specifying the "swidpath" scheme are used to filter tags out of a base collection, so that matching tags are included in the identified tag collection.
+The XPath expression {{-xpath}} references the data that must be found in a given software tag out of base collection for that tag to be considered a matching tag.
+Tags to be evaluated (the base collection) include all tags in the context of where the "swidpath URI" is referenced from.
+For example, when a tag is installed on a given device, that tag can reference related tags on the same device using a URI with this scheme.
 
-For URIs that use the "swidpath" scheme, the requirements apply.
+For URIs that use the "swidpath" scheme, the following requirements apply:
 
-The scheme specific part MUST be an XPath expression as defined by {{-xpath}}. The included XPath expression will be URI encoded according to {{RFC3986}} Section 2.1.
+* The scheme specific part MUST be an XPath expression as defined by {{-xpath}}. The included XPath expression will be URI encoded according to {{RFC3986}} Section 2.1.
 
-This XPath is evaluated over SWID or CoSWID tags found on a system. A given tag MUST be considered a match if the XPath evaluation result value has an effective boolean value of "true" according to {{-xpath}} Section 2.4.3.
+* This XPath is evaluated over SWID tags, or COSWID tags transformed into SWID tags, found on a system. A given tag MUST be considered a match if the XPath evaluation result value has an effective boolean value of "true" according to {{-xpath}} Section 2.4.3.
 
+<!-- In other words: If SWID tags were cars, the XPath says "automatic
+transmission" and yields a set of cars. -->
 
 {: #iana}
 #  IANA Considerations
@@ -1124,7 +1165,7 @@ This registry uses integer values as index values in CBOR maps.
 
 This document defines a new registry titled
 "CoSWID Items". Future registrations for this
-registry are to be made based on {{RFC8126}} as follows:
+registry are to be made based on {{BCP26}} as follows:
 
 | Range             | Registration Procedures
 |---
@@ -1169,6 +1210,7 @@ are provided below. Assignments consist of an integer index value, the item name
 | 27 | process-name | RFC-AAAA
 | 28 | pid | RFC-AAAA
 | 29 | type | RFC-AAAA
+|            30 | Unassigned                |               |
 | 31 | entity-name | RFC-AAAA
 | 32 | reg-id | RFC-AAAA
 | 33 | role | RFC-AAAA
@@ -1207,7 +1249,7 @@ The following IANA registries provide a mechanism for new values to be added ove
 {: #iana-registration-procedures}
 ### Registration Procedures
 
-The following registries allow for the registration of index values and names. New registrations will be permitted through either a Standards Action with Expert Review policy or a Specification Required policy {{BCP26}}. New index values will be provided on a First Come First Served as defined by {{BCP26}}.
+The following registries allow for the registration of index values and names. New registrations will be permitted through either a Standards Action with Expert Review policy or a Specification Required policy {{BCP26}}.
 
 The following registries also reserve the integer-based index values in the range of -1 to -256 for private use as defined by {{BCP26}} in Section 4.1. This allows values -1 to -24 to be expressed as a single uint_8t in CBOR, and values -25 to -256 to be expressed using an additional uint_8t in CBOR.
 
@@ -1218,20 +1260,20 @@ The integer-based index values in the private use range (-1 to -256) are intende
 
 For names that correspond to private use index values, an Internationalized Domain Name prefix MUST be used to prevent name conflicts using the form:
 
-```
-domain.prefix-name
-```
+~~~
+domainprefix/name
+~~~
 
-Where "domain.prefix" MUST be a valid Internationalized Domain Name as defined by {{RFC5892}}, and "name" MUST be a unique name within the namespace defined by the "domain.prefix". Use of a prefix in this way allows for a name to be used initially in the private use range, and to be registered at a future point in time. This is consistent with the guidance in {{BCP178}}.
+Where both "domainprefix" and "name" MUST each be either an NR-LDH label or a U-label as defined by {{RFC5890}}, and "name" also MUST be a unique name within the namespace defined by the "domainprefix". Use of a prefix in this way allows for a name to be used in the private use range. This is consistent with the guidance in {{BCP178}}.
 
-{: #iana-review-guidelines}
-### Expert Review Guidelines
+{: #iana-review-criteria}
+### Expert Review Criteria
 
-Designated experts MUST ensure that new registration requests meet the following additional guidelines:
+Designated experts MUST ensure that new registration requests meet the following additional criteria:
 
 - The requesting specification MUST provide a clear semantic definition for the new entry. This definition MUST clearly differentiate the requested entry from other previously registered entries.
 - The requesting specification MUST describe the intended use of the entry, including any co-constraints that exist between the use of the entry's index value or name, and other values defined within the SWID/CoSWID model.
-- Index values and names outside the private use space MUST NOT be used without registration. This is considered squatting and SHOULD be avoided. Designated experts MUST ensure that reviewed specifications register all appropriate index values and names.
+- Index values and names outside the private use space MUST NOT be used without registration. This is considered squatting and MUST be avoided. Designated experts MUST ensure that reviewed specifications register all appropriate index values and names.
 - Standards track documents MAY include entries registered in the range reserved for entries under the Specification Required policy. This can occur when a standards track document provides further guidance on the use of index values and names that are in common use, but were not registered with IANA. This situation SHOULD be avoided.
 - All registered names MUST be valid according to the XML Schema NMTOKEN data type (see {{-xml-schema-datatypes}} Section 3.3.4). This ensures that registered names are compatible with the SWID format {{SWID}} where they are used.
 - Registration of vanity names SHOULD be discouraged. The requesting specification MUST provide a description of how a requested name will allow for use by multiple stakeholders.
@@ -1271,9 +1313,9 @@ defined in {{SWID}}.
 | 16385-65535 | Unassigned               |
 {: #tbl-iana-version-scheme-values title="CoSWID Version Scheme Initial Registrations"}
 
-Registrations MUST conform to the expert review guidelines defined in {{iana-review-guidelines}}.
+Registrations MUST conform to the expert review criteria defined in {{iana-review-criteria}}.
 
-Designated experts MUST also ensure that newly requested entries define a value space for the corresponding version item that is unique from other previously registered entries. Note: The initial registrations violate this requirement, but are included for backwards compatibility with {{SWID}}. Guidelines on how to deconflict these value spaces are defined in {{indexed-version-scheme}}.
+Designated experts MUST also ensure that newly requested entries define a value space for the corresponding version item that is unique from other previously registered entries. Note: The initial registrations violate this requirement, but are included for backwards compatibility with {{SWID}}. See also {{indexed-version-scheme}}.
 
 {: #iana-entity-role}
 ### Software Tag Entity Role Values Registry
@@ -1310,7 +1352,7 @@ defined in {{SWID}}.
 | 7-255   | Unassigned               |
 {: #tbl-iana-entity-role-values title="CoSWID Entity Role Initial Registrations"}
 
-Registrations MUST conform to the expert review guidelines defined in {{iana-review-guidelines}}.
+Registrations MUST conform to the expert review criteria defined in {{iana-review-criteria}}.
 
 {: #iana-link-ownership}
 ### Software Tag Link Ownership Values Registry
@@ -1344,7 +1386,7 @@ defined in {{SWID}}.
 | 4-255       | Unassigned               |
 {: #tbl-iana-link-ownership-values title="CoSWID Link Ownership Inital Registrations"}
 
-Registrations MUST conform to the expert review guidelines defined in {{iana-review-guidelines}}.
+Registrations MUST conform to the expert review criteria defined in {{iana-review-criteria}}.
 
 {: #iana-link-rel}
 ### Software Tag Link Relationship Values Registry
@@ -1386,7 +1428,7 @@ defined in {{SWID}}.
 | 12-65535    | Unassigned               |
 {: #tbl-iana-link-rel-values title="CoSWID Link Relationship Initial Registrations"}
 
-Registrations MUST conform to the expert review guidelines defined in {{iana-review-guidelines}}.
+Registrations MUST conform to the expert review criteria defined in {{iana-review-criteria}}.
 
 Designated experts MUST also ensure that a newly requested entry documents the URI schemes allowed to be used in an href associated with the link relationship and the expected resolution behavior of these URI schemes. This will help to ensure that applications processing software tags are able to interoperate when resolving resources referenced by a link of a given type.
 
@@ -1422,7 +1464,7 @@ defined in {{SWID}}.
 | 4-255   | Unassigned               |
 {: #tbl-iana-link-use-values title="CoSWID Link Use Initial Registrations"}
 
-Registrations MUST conform to the expert review guidelines defined in {{iana-review-guidelines}}.
+Registrations MUST conform to the expert review criteria defined in {{iana-review-criteria}}.
 
 ## swid+cbor Media Type Registration
 
@@ -1436,8 +1478,8 @@ Required parameters: none
 
 Optional parameters: none
 
-Encoding considerations: Must be encoded as using {{RFC8949}}. See
-RFC-AAAA for details.
+Encoding considerations: Binary (encoded as CBOR {{RFC8949}}).
+See RFC-AAAA for details.
 
 Security considerations: See {{sec-sec}} of RFC-AAAA.
 
@@ -1451,13 +1493,14 @@ Applications that use this media type: The type is used by software
 asset management systems, vulnerability assessment systems, and in
 applications that use remote integrity verification.
 
-Fragment identifier considerations: Fragment identification for
-application/swid+cbor is supported by using fragment identifiers as
-specified by {{Section 9.5 of RFC8949}}.
+Fragment Identifier Considerations:  The syntax and semantics of
+fragment identifiers specified for "application/swid+cbor" are as specified
+for "application/cbor".  (At publication of RFC-AAAA, there is no
+fragment identification syntax defined for "application/cbor".)
 
 Additional information:
 
-Magic number(s): first five bytes in hex: da 53 57 49 44
+Magic number(s): if tagged, first five bytes in hex: da 53 57 49 44 (see {{tagged}} in RFC-AAAA)
 
 File extension(s): coswid
 
@@ -1555,7 +1598,7 @@ Reference:
 {: vspace='0'}
 
 
-## CoSWID Model for use in SWIMA Registration
+## CoSWID Model for use in SWIMA Registration {#sec-swima}
 
 The Software Inventory Message and Attributes (SWIMA) for PA-TNC specification {{RFC8412}} defines a standardized method for collecting an endpoint device's software inventory. A CoSWID can provide evidence of software installation which can then be used and exchanged with SWIMA. This registration adds a new entry to the IANA "Software Data Model Types" registry defined by {{RFC8412}} {{!IANA.pa-tnc-parameters}} to support CoSWID use in SWIMA as follows:
 
@@ -1573,7 +1616,7 @@ Deriving Software Identifiers:
 
     TAG_CREATOR_REGID "_" "_" UNIQUE_ID
 
-  Where TAG_CREATOR_REGID is the reg-id item value of the tag's entity item having the role value of 1 (corresponding to "tag creator"), and the UNIQUE_ID is the same tag's tag-id item. If the tag-id item's value is expressed as a 16 byte binary string, the UNIQUE_ID MUST be represented using the UUID string representation defined in {{RFC4122}} including the "urn:uuid:" prefix.
+  Where TAG_CREATOR_REGID is the reg-id item value of the tag's entity item having the role value of 1 (corresponding to "tag creator"), and the UNIQUE_ID is the same tag's tag-id item. If the tag-id item's value is expressed as a 16-byte binary string, the UNIQUE_ID MUST be represented using the UUID string representation defined in {{RFC4122}} including the "urn:uuid:" prefix.
 
   The TAG_CREATOR_REGID and the UNIQUE_ID are connected with a double underscore (_), without any other connecting character or whitespace.
 
@@ -1585,25 +1628,27 @@ In general, tags are signed by the tag creator (typically, although not exclusiv
 Cryptographic signatures can make any modification of the tag detectable, which is especially important if the integrity of the tag is important, such as when the tag is providing reference integrity measurements for files.
 The ISO-19770-2:2015 XML schema uses XML DSIG to support cryptographic signatures.
 
-Signing CoSWID tags follows the procedures defined in CBOR Object Signing and Encryption {{RFC8152}}. A CoSWID tag MUST be wrapped in a COSE Single Signer Data Object (COSE_Sign1) that contains a single signature and MUST be signed by the tag creator. The following CDDL specification defines a restrictive subset of COSE header parameters that MUST be used in the protected header.
+Signing CoSWID tags follows the procedures defined in CBOR Object Signing and Encryption {{-cose-msg}}. A CoSWID tag MUST be wrapped in a COSE Signature structure, either COSE_Sign1 or COSE_Sign.
+In the first case, a Single Signer Data Object (COSE_Sign1) contains a single signature and MUST be signed by the tag creator. The following CDDL specification defines a restrictive subset of COSE header parameters that MUST be used in the protected header in this case.
 
 ~~~~ CDDL
 {::include sign1.cddl}
 ~~~~
 {: sourcecode-markers="true"}
 
-The COSE_Sign structure that allows for more than one signature to be applied to a CoSWID tag MAY be used. The corresponding usage scenarios are domain-specific and require well-specified application guidance.
+The COSE_Sign structure allows for more than one signature, one of which MUST be issued by the tag creator, to be applied to a CoSWID tag and MAY be used. The corresponding usage scenarios are domain-specific and require well-specified application guidance.
 
 ~~~~ CDDL
 {::include sign.cddl}
 ~~~~
 {: sourcecode-markers="true"}
 
-Additionally, the COSE Header counter signature MAY be used as an attribute in the unprotected header map of the COSE envelope of a CoSWID. The application of counter signing enables second parties to provide a signature on a signature allowing for a proof that a signature existed at a given time (i.e., a timestamp).
+Additionally, the COSE Header counter signature MAY be used as an attribute in the unprotected header map of the COSE envelope of a CoSWID {{-countersign}}.
+The application of counter signing enables second parties to provide a signature on a signature allowing for a proof that a signature existed at a given time (i.e., a timestamp).
 
-A CoSWID SHOULD be signed, using the above mechanism, to protect the integrity of the CoSWID tag. See the security considerations (in {{sec-sec}}) for more information on why a signed CoSWID is valuable in most cases.
+A CoSWID MUST be signed, using the above mechanism, to protect the integrity of the CoSWID tag. See the security considerations (in {{sec-sec}}) for more information on why a signed CoSWID is valuable in most cases.
 
-# Tagged CoSWID Tags {#tagged}
+# CBOR-Tagged CoSWID Tags {#tagged}
 
 This specification allows for tagged and untagged CBOR data items that are CoSWID tags.
 Consecutively, the CBOR tag for CoSWID tags defined in {{tbl-cbor-tag}} SHOULD be used in conjunction with CBOR data items that are a CoSWID tags.
@@ -1617,7 +1662,7 @@ In case an unsigned CoSWID is tagged, a CoSWID CBOR tag MUST be appended before 
 ~~~~
 {: sourcecode-markers="true"}
 
-This specification allows for a tagged CoSWID tag to reside in a COSE envelope that is also tagged with a CoSWID CBOR tag. In cases where a tag creator is not a signer (e.g., hand-offs between entities in a trusted portion of a supply-chain), retaining CBOR tags attached to unsigned CoSWID tags can be of great use. Nevertheless, redundant use of tags SHOULD be avoided when possible. 
+This specification allows for a tagged CoSWID tag to reside in a COSE envelope that is also tagged with a CoSWID CBOR tag. In cases where a tag creator is not a signer (e.g., hand-offs between entities in a trusted portion of a supply-chain), retaining CBOR tags attached to unsigned CoSWID tags can be of great use. Nevertheless, redundant use of tags SHOULD be avoided when possible.
 
 {: #sec-sec}
 # Security Considerations
@@ -1631,19 +1676,39 @@ The following security considerations for use of CoSWID tags focus on:
 A tag is considered "authoritative" if the CoSWID tag was created by the
 software provider. An authoritative CoSWID tag contains information about a software component provided by the supplier of the software component, who is expected to be an expert in their own software. Thus, authoritative CoSWID tags can represent authoritative information about the software component. The degree to which this information can be trusted depends on the tag's chain of custody and the ability to verify a signature provided by the supplier if present in the CoSWID tag. The provisioning and validation of CoSWID tags are handled by local policy and is outside the scope of this document.
 
-A signed CoSWID tag (see {{coswid-cose}}) whose signature has been validated can be relied upon to be unchanged since it was signed. By contrast, the data contained in unsigned tags can be altered by any user or process with write-access to the tag. To support signature validation, there is the need associate the right key with the software provider or party originating the signature. This operation is application specific and needs to be addressed by the application or a user of the application; a specific approach for which is out-of-scope for this document.
+A signed CoSWID tag (see {{coswid-cose}}) whose signature has been validated can be relied upon to be unchanged since it was signed. By contrast, the data contained in unsigned tags can be altered by any user or process with write-access to the tag. To support signature validation, there is the need to associate the right key with the software provider or party originating the signature in a secure way. This operation is application specific and needs to be addressed by the application or a user of the application; a specific approach for which is out-of-scope for this document.
 
 When an authoritative tag is signed, the originator of the signature can be verified. A trustworthy association between the signature and the originator of the signature can be established via trust anchors. A certification path between a trust anchor and a certificate including a public key enabling the validation of a tag signature can realize the assessment of trustworthiness of an authoritative tag. Verifying that the software provider is the signer is a different matter. This requires an association between the signature and the tag's entity item associated corresponding to the software provider. No mechanism is defined in this draft to make this association; therefore, this association will need to be handled by local policy.
+As always, the validity of a signature does not imply veracity of the
+signed statements: anyone can sign assertions such that the software
+is from a specific software-creator or that a specific persistent-id
+applies; policy needs to be applied to evaluate these statements and to determine their suitability for a specific use.
 
-Loss of control of signing credentials used to sign CoSWID tags would create doubt about the authenticity and integrity of any CoSWID tags signed using the compromised keys. In such cases, the legitimate tag signer (namely, the software provider for an authoritative CoSWID tag) can employ uncompromised signing credentials to create a new signature on the original tag. The tag version number would not be incremented since the tag itself was not modified. Consumers of CoSWID tags would need to validate the tag using the new credentials and would also need to revoke certificates associated with the compromised credentials to avoid validating tags signed with them. The process for doing this is beyond the scope of this specification.
+Loss of control of signing credentials used to sign CoSWID tags would create doubt about the authenticity and integrity of any CoSWID tags signed using the compromised keys. In such cases, the legitimate tag signer (namely, the software provider for an authoritative CoSWID tag) can employ uncompromised signing credentials to create a new signature on the original tag. The tag version number would not be incremented since the tag itself was not modified. Consumers of CoSWID tags would need to validate the tag using the new credentials and would also need to make use of revocation information available for the compromised credentials to avoid validating tags signed with them. The process for doing this is beyond the scope of this specification.
+
+The CoSWID format allows the use of hash values without an
+accompanying hash algorithm identifier.
+This exposes the tags to some risk of cross-algorithm attacks.
+We believe that this can become a practical problem only if some
+implementations allow the use of insecure hash algorithms.
+Since it may not become known immediately when an algorithm becomes
+insecure, this leads to a strong recommendation to only include
+support for hash algorithms that are generally considered secure, and
+not just marginally so.
 
 CoSWID tags are intended to contain public information about software components and, as
-such, the contents of a CoSWID tag does not need to be protected against unintended disclosure on an endpoint.
+such, the contents of a CoSWID tag (as opposed to the set of tags that apply to the endpoint, see below) does not need to be protected against unintended disclosure on an endpoint.
+Converse, generators of CoSWID tags need to ensure that only public
+information is disclosed.
+Entitlement Keys are an example for information where particular care
+is required; tag authors are advised not to record unprotected,
+private software license keys in this field.
 
 CoSWID tags are intended to be easily discoverable by
 authorized applications and users on an endpoint in order to make it easy to determine the tagged software load. Access to the collection of an endpoint's CoSWID tags needs to be appropriately controlled to authorized applications and users using an appropriate access control mechanism.
 
-Since the tag-id of a CoSWID tag can be used as a global index value, failure to ensure the tag-id's uniqueness can cause collisions or ambiguity in CoSWID tags that are retrieved or processed using this identifier. CoSWID is designed to not require a registry of identifiers. As a result, CoSWID requires the tag creator employ a method of generating a unique tag identifier. Specific methods of generating a unique identifier are beyond the scope of this specification. A collision in tag-ids may result in false positives/negatives in software integrity checks or mis-identification of installed software, undermining CoSWID use cases such as vulnerability identification, software inventory, etc. If such a collision is detected, then the tag consumer should contact the maintainer of the CoSWID to have them issue a correction addressing the collision.
+Since the tag-id of a CoSWID tag can be used as a global index value, failure to ensure the tag-id's uniqueness can cause collisions or ambiguity in CoSWID tags that are retrieved or processed using this identifier. CoSWID is designed to not require a registry of identifiers. As a result, CoSWID requires the tag creator to employ a method of generating a unique tag identifier. Specific methods of generating a unique identifier are beyond the scope of this specification. A collision in tag-ids may result in false positives/negatives in software integrity checks or mis-identification of installed software, undermining CoSWID use cases such as vulnerability identification, software inventory, etc. If such a collision is detected, then the tag consumer may want to contact the maintainer of the CoSWID to have them issue a correction addressing the collision; however, this also discloses to the maintainer that the consumer has the other tag with the given tag-id in their database.
+More generally speaking, a tag consumer needs to be robust against such collisions lest the collision become a viable attack vector.
 
 CoSWID tags are designed to be easily added and removed from an
 endpoint along with the installation or removal of software components.
@@ -1663,13 +1728,22 @@ that more strictly control the ability to add or remove applications,
 CoSWID tags are an easy way to provide a preliminary understanding of
 that endpoint's software inventory.
 
+As CoSWID tags do not expire, inhibiting new CoSWID tags from reaching an intended consumer would render that consumer stuck with outdated information, potentially leaving associated vulnerabilities or weaknesses unmitigated. Therefore, a CoSWID tag consumer should actively check for updated tag-versions via more than one means.
+
+This specification makes use of relative paths (e.g., filesystem
+paths) in several places.
+A signed COSWID tag cannot make use of these to derive information
+that is considered to be covered under the signature.
+Typically, relative file system paths will be used to identify
+targets for an installation, not sources of tag information.
+
 Any report of an endpoint's CoSWID tag collection provides
 information about the software inventory of that endpoint.  If such a
 report is exposed to an attacker, this can tell them which software
 products and versions thereof are present on the endpoint.  By
 examining this list, the attacker might learn of the presence of
 applications that are vulnerable to certain types of attacks.  As
-noted earlier, CoSWID tags are designed to be easily discoverable by an
+noted earlier, CoSWID tags are designed to be easily discoverable by authorized applications and users on an
 endpoint, but this does not present a significant risk since an
 attacker would already need to have access to the endpoint to view
 that information.  However, when the endpoint transmits its software
@@ -1688,7 +1762,12 @@ tags with link item loops or tags that contain malicious content with the intent
 of creating non-deterministic states during validation or processing of those tags. While software
 providers are unlikely to do this, CoSWID tags can be created by any party and the CoSWID tags
 collected from an endpoint could contain a mixture of vendor and non-vendor created tags. For this
-reason, a CoSWID tag might contain potentially malicious content. Input sanitization, loop detection, and signature verification are ways that implementations can address this concern.
+reason, a CoSWID tag might contain potentially malicious
+content. Input sanitization, loop detection, and signature
+verification are ways that implementations can address this concern.
+
+More generally speaking, the security considerations of {{RFC8949}},
+{{-cose-msg}}, and {{-countersign}} apply.
 
 # Privacy Consideration
 
@@ -1727,7 +1806,7 @@ Changes in version 12:
 - Cleaned up descriptions of index ranges throughout the document, removing discussion of 8 bit, 16 bit, etc.
 - Adjusted discussion of private use ranges to use negative integer values and to be more clear throughout the document.
 - Added discussion around resolving overlapping value spaces for version schemes.
-- Added a set of expert review guidelines for new IANA registries created by this document.
+- Added a set of expert review criteria for new IANA registries created by this document.
 - Added new registrations for the "swid" and "swidpath" URI schemes, and for using CoSWID with SWIMA.
 
 Changes from version 03 to version 11:
@@ -1752,7 +1831,7 @@ Changes from version 01 to version 02:
 
 - Enforced a more strict separation between the core CoSWID definition and additional usage by
 moving content to corresponding appendices.
-- Removed artifacts inherited from the reference schema provided by ISO (e.g. NMTOKEN(S))
+- Removed artifacts inherited from the reference schema provided by ISO (e.g., NMTOKEN(S))
 - Simplified the core data definition by removing group and type choices where possible
 - Minor reordering of map members
 - Added a first extension point to address requested flexibility for extensions beyond the
@@ -1771,7 +1850,7 @@ Changes since adopted as a WG I-D -00:
 - Fixed broken multi-map members
 - Introduced a more restrictive item (any-element-map) to represent custom maps, increased restriction on types for the any-attribute, accordingly
 - Fixed X.1520 reference
-- Minor type changes of some attributes (e.g. NMTOKENS)
+- Minor type changes of some attributes (e.g., NMTOKENS)
 - Added semantic differentiation of various name types (e,g. fs-name)
 
 Changes from version 06 to version 07:
@@ -1838,8 +1917,9 @@ Changes from version 00 to version 01:
 
 This document draws heavily on the concepts defined in the ISO/IEC 19770-2:2015 specification. The authors of this document are grateful for the prior work of the 19770-2 contributors.
 
-We are also grateful to the careful reviews provided by ...
+We are also grateful for the careful reviews provided by the IESG
+reviewers.  Special thanks go to Benjamin Kaduk.
 
 
-<!--  LocalWords:  SWID verifier TPM filesystem discoverable
+<!--  LocalWords:  SWID verifier TPM filesystem discoverable CoSWID
  -->

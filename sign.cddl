@@ -12,7 +12,6 @@ protected-signed-coswid-header1 = {
 
 protected-signature-coswid-header = {
     1 => int,                      ; algorithm identifier
-    4 => bstr,                     ; key identifier
     * cose-label => cose-values,
 }
 
