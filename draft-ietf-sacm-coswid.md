@@ -963,7 +963,7 @@ The following describes each child item of this group.
 
 - resource-collection: The resource-collection group described in {{model-resource-collection}}.
 
-- date (index 35): The date and time the information was collected pertaining to the evidence item.
+- date (index 35): The date and time the information was collected pertaining to the evidence item in Epoch-Based Date/Time format as specified in Section 3.4.2. in {{RFC8949}}.
 
 - device-id (index 36): The endpoint's string identifier from which the evidence was collected.
 
@@ -1023,9 +1023,9 @@ A CoSWID producer that is aware of the version scheme that has been used to sele
 If the CoSWID producer does not have this information, it SHOULD omit the version-scheme item.
 The following heuristics can be used by a CoSWID consumer, based on the version schemes' partially overlapping value spaces:
 
-- "decimal" and "multipartnumeric" partially overlap in their value space when a value matches a decimal number. When a corresponding software-version item's value falls within this overlapping value space, the "decimal" version scheme SHOULD be assumed.
-- "multipartnumeric" and "semver" partially overlap in their value space when a "multipartnumeric" value matches the semantic versioning syntax. When a corresponding software-version item's value falls within this overlapping value space, the "semver" version scheme SHOULD be assumed.
-- "alphanumeric" and other version schemes might overlap in their value space. When a corresponding software-version item's value falls within this overlapping value space, the other version scheme SHOULD be assumed instead of "alphanumeric".
+- "decimal" and "multipartnumeric" partially overlap in their value space when a value matches a decimal number. When a corresponding software-version item's value falls within this overlapping value space, it is expected that the "decimal" version scheme is used.
+- "multipartnumeric" and "semver" partially overlap in their value space when a "multipartnumeric" value matches the semantic versioning syntax. When a corresponding software-version item's value falls within this overlapping value space, it is expected that the "semver" version scheme is used.
+- "alphanumeric" and other version schemes might overlap in their value space. When a corresponding software-version item's value falls within this overlapping value space, it is expected that the other version scheme is used and "alphanumeric" is not used.
 
 Note that these heuristics are imperfect and can guess wrong, which is the reason the version-scheme item SHOULD be included by the producer.
 
