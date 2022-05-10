@@ -504,7 +504,7 @@ endpoint when the software component is installed or run. This item is mutually 
 
 ##  concise-swid-tag Co-Constraints
 
-The following co-constraints apply to the information provided in the concise-swid-tag group. 
+The following co-constraints apply to the information provided in the concise-swid-tag group.
 
 - The patch and supplemental items MUST NOT both be set to "true".
 
