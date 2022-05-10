@@ -511,8 +511,8 @@ The following co-constraints apply to the information provided in the concise-sw
 - If the patch item is set to "true", the tag MUST contain at least one link item (see {{model-link}}) with both the rel item value of "patches" and an href item specifying an association with the software that was patched. Without at least one link item the target of the patch cannot be identified and the patch tag cannot be applied without external context.
 
 - If all of the corpus, patch, and supplemental items are "false", or if the corpus item is set to "true", then a software-version item MUST be included with a value set to the version of the software component. This ensures that primary and corpus tags have an identifiable software version.
-{: #model-global-attributes}
 
+{: #model-global-attributes}
 ## The global-attributes Group
 
 The global-attributes group provides a list of items, including an optional
