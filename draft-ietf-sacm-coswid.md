@@ -97,14 +97,6 @@ normative:
     date: 2015-10-01
     seriesinfo:
       ISO/IEC: 19770-2:2015
-  SEMVER:
-    target: https://semver.org/spec/v2.0.0.html
-    title: Semantic Versioning 2.0.0
-    author:
-      -
-        ins: T. Preston-Werner
-        name: Tom Preston-Werner
-    date: false
   UNSPSC:
     target: https://www.unspsc.org/
     title: United Nations Standard Products and Services Code
@@ -131,6 +123,14 @@ informative:
     target: http://wiki.c2.com/?KebabCase
     title: KebabCase
     date: 2014-12-18
+  SEMVER:
+    target: https://semver.org/spec/v2.0.0.html
+    title: Semantic Versioning 2.0.0
+    author:
+      -
+        ins: T. Preston-Werner
+        name: Tom Preston-Werner
+    date: false
   X.1520:
     title: "Recommendation ITU-T X.1520 (2014), Common vulnerabilities and exposures"
     date: 2011-04-20
