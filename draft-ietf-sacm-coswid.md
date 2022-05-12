@@ -963,7 +963,7 @@ The following describes each child item of this group.
 
 - resource-collection: The resource-collection group described in {{model-resource-collection}}.
 
-- date (index 35): The date and time the information was collected pertaining to the evidence item in Epoch-Based Date/Time format as specified in Section 3.4.2. in {{RFC8949}}.
+- date (index 35): The date and time the information was collected pertaining to the evidence item in Epoch-Based Date/Time format as specified in Section 3.4.2 of {{RFC8949}}.
 
 - device-id (index 36): The endpoint's string identifier from which the evidence was collected.
 
