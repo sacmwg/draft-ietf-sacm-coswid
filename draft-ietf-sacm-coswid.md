@@ -1,19 +1,15 @@
 ---
+v: 3
+
 title: Concise Software Identification Tags
 abbrev: CoSWID
 docname: draft-ietf-sacm-coswid-latest
-stand_alone: true
-ipr: trust200902
 area: Security
 wg: SACM Working Group
 kw: Internet-Draft
 cat: std
 consensus: true
 submissiontype: IETF
-pi:
-  toc: yes
-  sortrefs: yes
-  symrefs: yes
 
 author:
 - ins: H. Birkholz
