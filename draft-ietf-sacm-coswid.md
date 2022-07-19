@@ -346,7 +346,7 @@ The CDDL "text" type is represented in CBOR as a major type 3, which represents 
 
 To ensure that UTF-8 character strings are able to be encoded/decoded and exchanged interoperably, text strings in CoSWID MUST be encoded consistent with the Net-Unicode definition defined in {{RFC5198}}.
 
-All names registered with IANA according to requirements in {{iana-value-registries}} also MUST be valid according to the XML Schema NMTOKEN data type (see {{-xml-schema-datatypes}} Section 3.3.4) to ensure compatibility with the SWID specification where these names are used.
+All names registered with IANA according to requirements in {{iana-value-registries}} also MUST be valid according to the XML Schema NMTOKEN data type (see {{-xml-schema-datatypes}}, Section 3.3.4) to ensure compatibility with the SWID specification where these names are used.
 
 {: #model-extension}
 ## Concise SWID Extensions
@@ -357,7 +357,7 @@ The CoSWID specification contains two features that are not included in the SWID
   the "any attribute" in the SWID model. These are
   covered in {{model-global-attributes}}.
 
-- The inclusion of extension points in the CoSWID specification using CDDL sockets (see {{RFC8610}} Section 3.9). The use of CDDL sockets allow for well-formed extensions to be defined in supplementary CDDL descriptions that support additional uses of CoSWID tags that go beyond the original scope of ISO-19770-2:2015 tags.
+- The inclusion of extension points in the CoSWID specification using CDDL sockets (see {{Section 3.9 of RFC8610}}). The use of CDDL sockets allow for well-formed extensions to be defined in supplementary CDDL descriptions that support additional uses of CoSWID tags that go beyond the original scope of ISO-19770-2:2015 tags.
 
 The following CDDL sockets (extension points) are defined in this document, which allow the addition of new information structures to their respective CDDL groups.
 
@@ -959,7 +959,7 @@ The following describes each child item of this group.
 
 - resource-collection: The resource-collection group described in {{model-resource-collection}}.
 
-- date (index 35): The date and time the information was collected pertaining to the evidence item in Epoch-Based Date/Time format as specified in Section 3.4.2 of {{RFC8949}}.
+- date (index 35): The date and time the information was collected pertaining to the evidence item in Epoch-Based Date/Time format as specified in {{Section 3.4.2 of RFC8949}}.
 
 - device-id (index 36): The endpoint's string identifier from which the evidence was collected.
 
@@ -1013,7 +1013,7 @@ The following table contains a set of values for use in the concise-swid-tag gro
 
 multipartnumeric and the numbers part of multipartnumeric+suffix are interpreted as a sequence of numbers and are sorted in lexicographical order by these numbers (i.e., not by the digits in the numbers) and then the textual suffix (for multipartnumeric+suffix).  Alphanumeric strings are sorted lexicographically as character strings.  Decimal version numbers are interpreted as a single floating point number (e.g., 1.25 is less than 1.3).
 
-The values above are registered in the IANA "Software ID Version Scheme Values" registry defined in Section {{iana-version-scheme}}. Additional entries will likely be registered over time in this registry.
+The values above are registered in the IANA "Software ID Version Scheme Values" registry defined in {{iana-version-scheme}}. Additional entries will likely be registered over time in this registry.
 
 A CoSWID producer that is aware of the version scheme that has been used to select the version value, SHOULD include the optional version-scheme item to avoid semantic ambiguity.
 If the CoSWID producer does not have this information, it SHOULD omit the version-scheme item.
@@ -1116,7 +1116,7 @@ There is a need for a scheme name that can be used in URIs that point to a speci
 
 URIs specifying the "swid" scheme are used to reference a software tag by its tag-id. A tag-id referenced in this way can be used to identify the tag resource in the context of where it is referenced from. For example, when a tag is installed on a given device, that tag can reference related tags on the same device using URIs with this scheme.
 
-For URIs that use the "swid" scheme, the scheme specific part MUST consist of a referenced software tag's tag-id. This tag-id MUST be URI encoded according to {{RFC3986}} Section 2.1.
+For URIs that use the "swid" scheme, the scheme specific part MUST consist of a referenced software tag's tag-id. This tag-id MUST be URI encoded according to {{Section 2.1 of RFC3986}}.
 
 The following expression is a valid example:
 
@@ -1139,9 +1139,9 @@ For example, when a tag is installed on a given device, that tag can reference r
 
 For URIs that use the "swidpath" scheme, the following requirements apply:
 
-* The scheme specific part MUST be an XPath expression as defined by {{-xpath}}. The included XPath expression will be URI encoded according to {{RFC3986}} Section 2.1.
+* The scheme specific part MUST be an XPath expression as defined by {{-xpath}}. The included XPath expression will be URI encoded according to {{Section 2.1 of RFC3986}}.
 
-* This XPath is evaluated over SWID tags, or COSWID tags transformed into SWID tags, found on a system. A given tag MUST be considered a match if the XPath evaluation result value has an effective boolean value of "true" according to {{-xpath}} Section 2.4.3.
+* This XPath is evaluated over SWID tags, or COSWID tags transformed into SWID tags, found on a system. A given tag MUST be considered a match if the XPath evaluation result value has an effective boolean value of "true" according to {{-xpath}}, Section 2.4.3.
 
 <!-- In other words: If SWID tags were cars, the XPath says "automatic
 transmission" and yields a set of cars. -->
@@ -1245,7 +1245,7 @@ The following IANA registries provide a mechanism for new values to be added ove
 
 The following registries allow for the registration of index values and names. New registrations will be permitted through either a Standards Action with Expert Review policy or a Specification Required policy {{BCP26}}.
 
-The following registries also reserve the integer-based index values in the range of -1 to -256 for private use as defined by {{BCP26}} in Section 4.1. This allows values -1 to -24 to be expressed as a single uint_8t in CBOR, and values -25 to -256 to be expressed using an additional uint_8t in CBOR.
+The following registries also reserve the integer-based index values in the range of -1 to -256 for private use as defined by {{Section 4.1 of BCP26}}. This allows values -1 to -24 to be expressed as a single uint_8t in CBOR, and values -25 to -256 to be expressed using an additional uint_8t in CBOR.
 
 {: #iana-private-use}
 ### Private Use of Index and Name Values
@@ -1269,7 +1269,7 @@ Designated experts MUST ensure that new registration requests meet the following
 - The requesting specification MUST describe the intended use of the entry, including any co-constraints that exist between the use of the entry's index value or name, and other values defined within the SWID/CoSWID model.
 - Index values and names outside the private use space MUST NOT be used without registration. This is considered squatting and MUST be avoided. Designated experts MUST ensure that reviewed specifications register all appropriate index values and names.
 - Standards track documents MAY include entries registered in the range reserved for entries under the Specification Required policy. This can occur when a standards track document provides further guidance on the use of index values and names that are in common use, but were not registered with IANA. This situation SHOULD be avoided.
-- All registered names MUST be valid according to the XML Schema NMTOKEN data type (see {{-xml-schema-datatypes}} Section 3.3.4). This ensures that registered names are compatible with the SWID format {{SWID}} where they are used.
+- All registered names MUST be valid according to the XML Schema NMTOKEN data type (see {{-xml-schema-datatypes}}, Section 3.3.4). This ensures that registered names are compatible with the SWID format {{SWID}} where they are used.
 - Registration of vanity names SHOULD be discouraged. The requesting specification MUST provide a description of how a requested name will allow for use by multiple stakeholders.
 
 {: #iana-version-scheme}
