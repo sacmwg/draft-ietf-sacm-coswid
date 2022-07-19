@@ -1233,7 +1233,7 @@ are provided below. Assignments consist of an integer index value, the item name
 | 56 | unspsc-code | RFC-AAAA
 | 57 | unspsc-version | RFC-AAAA
 | 58-4294967295 | Unassigned               |
-{: #tbl-iana-coswid-items-values title="CoSWID Items Inital Registrations"}
+{: #tbl-iana-coswid-items-values title="CoSWID Items Initial Registrations"}
 
 {: #iana-value-registries}
 ## Software ID Values Registries
@@ -1765,7 +1765,7 @@ More generally speaking, the security considerations of {{RFC8949}},
 
 # Privacy Consideration
 
-As noted in {{sec-sec}}, collected information about an endpoint's software load, such as what might be represented by an endpoint's CoSWID tag collection, could be used to identify vulnerable software for attack. Collections of endpoint software information also can have privacy implications for users. The set of application a user installs can give clues to personal matters such as political affiliation, banking and investments, gender, sexual orientation, medical concerns, etc. While the collection of CoSWID tags on an endpoint wouldn't increase the privacy risk (since a party able to view those tags could also view the applications themselves), if those CoSWID tags are gathered and stored in a repository somewhere, visibility into the repository now also gives visibility into a user's application collection. For this reason, repositories of collected CoSWID tags not only need to be protected against collection by malicious parties, but even authorized parties will need to be vetted and made aware of privacy responsibilities associated with having access to this information. Likewise, users should be made aware that their software inventories are being collected from endpoints. Furthermore, when collected and stored by authorized parties or systems, the inventory data needs to be protected as both security and privacy sensitive information.
+As noted in {{sec-sec}}, collected information about an endpoint's software load, such as what might be represented by an endpoint's CoSWID tag collection, could be used to identify vulnerable software for attack. Collections of endpoint software information also can have privacy implications for users. The set of application a user installs can give clues to personal matters such as political affiliation, banking and investments, gender, sexual orientation, medical concerns, etc. While the collection of CoSWID tags on an endpoint wouldn't increase the privacy risk (since a party able to view those tags could also view the applications themselves), if those CoSWID tags are gathered and stored in a repository somewhere, visibility into the repository now also gives visibility into a user's application collection. For this reason, repositories of collected CoSWID tags not only need to be protected against collection by malicious parties, but even authorized parties will need to be vetted and made aware of privacy responsibilities associated with having access to this information. Likewise, users should be made aware that their software inventories are being collected from endpoints. Furthermore, when collected and stored by authorized parties or systems, the inventory data needs to be protected as both security and privacy-sensitive information.
 
 #  Change Log
 {: removeinrfc="true"}
