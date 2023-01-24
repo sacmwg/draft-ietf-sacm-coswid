@@ -1,0 +1,2348 @@
+{
+  "magic": "E!vIA5L86J2I",
+  "timestamp": "2023-01-24T14:16:13.316439+00:00",
+  "repo": "sacmwg/draft-ietf-sacm-coswid",
+  "labels": [
+    {
+      "name": "bug",
+      "description": null,
+      "color": "ee0701"
+    },
+    {
+      "name": "duplicate",
+      "description": null,
+      "color": "cccccc"
+    },
+    {
+      "name": "enhancement",
+      "description": null,
+      "color": "84b6eb"
+    },
+    {
+      "name": "help wanted",
+      "description": null,
+      "color": "128A0C"
+    },
+    {
+      "name": "invalid",
+      "description": null,
+      "color": "e6e6e6"
+    },
+    {
+      "name": "question",
+      "description": null,
+      "color": "cc317c"
+    },
+    {
+      "name": "wontfix",
+      "description": null,
+      "color": "ffffff"
+    }
+  ],
+  "issues": [
+    {
+      "number": 1,
+      "id": "MDU6SXNzdWUyMTExMTkzNTA=",
+      "title": "CDDL vs JAS (JAEN)",
+      "url": "https://github.com/sacmwg/draft-ietf-sacm-coswid/issues/1",
+      "state": "CLOSED",
+      "author": "athiasjerome",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "More of a pointer/open question for the experts than an issue while I'm trying to figure out how potentially avoid potential duplication of efforts in the representation of overlapping schemas\r\nhttps://github.com/OpenC2-org/jaen",
+      "createdAt": "2017-03-01T15:42:42Z",
+      "updatedAt": "2018-11-08T08:32:39Z",
+      "closedAt": "2018-11-08T08:32:39Z",
+      "comments": [
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "body": "Regarding a quite a few fundamental design principles CDDL is explicitly designed not to be a schema language. If a CDDL-2-JAEN converter is developed it seems feasible to support interoperability of tools. As this issue seems not to have an impact on the process of finalizing CDDL, I am porpoising to table this issue for now until JAS reaches a state, at which point it becomes feasible to talk about interoperability.\r\n\r\nWithout objection from the CBOR WG, this issue will be closed one day before the next moratorium (2018-07-01 (Sunday)).",
+          "createdAt": "2018-06-07T23:41:47Z",
+          "updatedAt": "2018-06-07T23:41:47Z"
+        },
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "body": "Closed with negligible delay ;)",
+          "createdAt": "2018-11-08T08:32:39Z",
+          "updatedAt": "2018-11-08T08:32:39Z"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "id": "MDU6SXNzdWUzMjc3MzgxNTk=",
+      "title": "Ensure cardinalities are in sync with ISO/IEC 19770-2",
+      "url": "https://github.com/sacmwg/draft-ietf-sacm-coswid/issues/4",
+      "state": "CLOSED",
+      "author": "david-waltermire-nist",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Some cardinalities are out-of-sync. These need to be reviewed and synced up.",
+      "createdAt": "2018-05-30T13:45:24Z",
+      "updatedAt": "2019-07-25T04:47:39Z",
+      "closedAt": "2019-07-25T04:47:39Z",
+      "comments": [
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "body": "Yes :-)\r\n\r\nhttp://standards.iso.org/iso/19770/-2/2015-current/schema.xsd,\r\nthe current ISO text,\r\nand the actual intend the ISO spec authors wanted to convey have to be assessed and aligned in the final draft.\r\n\r\nWe are close, but I might have introduced a \"wishful-thinking\" error wrt to payload & evidence quantities in the current CDDL.\r\n\r\nThe editors should resolve this as soon as possible and provide a candidate for final draft for the next meeting (102).",
+          "createdAt": "2018-06-07T23:49:04Z",
+          "updatedAt": "2018-06-07T23:49:04Z"
+        },
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "body": "Every obvious cardinality error seems to be fixed now.\r\n\r\nDid I miss something?",
+          "createdAt": "2018-06-08T15:34:52Z",
+          "updatedAt": "2018-06-08T15:34:52Z"
+        },
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "body": "Leaving this open to be closed at SACM WG session in BKK.",
+          "createdAt": "2018-11-08T08:31:32Z",
+          "updatedAt": "2018-11-08T08:31:32Z"
+        },
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "body": "Addressed",
+          "createdAt": "2019-07-25T04:47:39Z",
+          "updatedAt": "2019-07-25T04:47:39Z"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "id": "MDU6SXNzdWUzMzA3MDczNzU=",
+      "title": "Express enumerations that are not defined in the current XSD but per nomartive text explictitly via cddl rules",
+      "url": "https://github.com/sacmwg/draft-ietf-sacm-coswid/issues/5",
+      "state": "CLOSED",
+      "author": "henkbirkholz",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "There still might be a few cases left, where the value is text, but semantically it is a type-choice / enumeration. This should be double checked before meeting 102.",
+      "createdAt": "2018-06-08T15:37:57Z",
+      "updatedAt": "2019-07-25T04:46:51Z",
+      "closedAt": "2019-07-25T04:46:51Z",
+      "comments": [
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "body": "Used role (label 33) & rel (label 40) as proposal by example. The roles & rels type-choices still require an extension-point, I assume.\r\n\r\nmedia (label 10) is currently a text value with a semantic that is a tad bit more complex than a type-choice: \"EXPRESSION [[OPERATOR] [EXPRESSION] ... ]\", where EXPRESSION can be a simple type-choice.... or ... \"([PREFIX-]ENVIRONMENT.ATTRIBUTE:VALUE)\" ... and so on and on....\r\n\r\nI propose to deal with.... that in cddl, too. \r\n\r\nAlso, the definition of rel seems to be wrong at the moment, as every SWID enumeration is actually NOT defined in https://www.iana.org/assignments/link-relations/link-relations.xhtml\r\n\r\nThis needs fixing.",
+          "createdAt": "2018-06-08T16:02:16Z",
+          "updatedAt": "2018-06-08T16:02:16Z"
+        },
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "body": "Addressed (with the exception of https://github.com/sacmwg/draft-ietf-sacm-coswid/issues/6).\r\nLeaving this open to be closed at SACM WG session in BKK.",
+          "createdAt": "2018-11-08T08:30:57Z",
+          "updatedAt": "2018-11-08T08:30:57Z"
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "id": "MDU6SXNzdWUzMzExODQ5MTA=",
+      "title": "Representation of media (label: 10)",
+      "url": "https://github.com/sacmwg/draft-ietf-sacm-coswid/issues/6",
+      "state": "CLOSED",
+      "author": "henkbirkholz",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "The cddl now includes a proposal how to represent the semantics of the media attribute.\r\n\r\nOn one hand, I am fairly uncertain on how correct the proposal is. On the other hand, I am fairly certain that an SWID expert has to check this new cddl type.",
+      "createdAt": "2018-06-11T13:17:16Z",
+      "updatedAt": "2019-07-25T04:47:20Z",
+      "closedAt": "2019-07-25T04:47:19Z",
+      "comments": [
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "body": "Still open, resolve for WGLC",
+          "createdAt": "2018-11-08T08:29:35Z",
+          "updatedAt": "2018-11-08T08:29:35Z"
+        },
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "body": "Addressed",
+          "createdAt": "2019-07-25T04:47:19Z",
+          "updatedAt": "2019-07-25T04:47:19Z"
+        }
+      ]
+    },
+    {
+      "number": 18,
+      "id": "MDU6SXNzdWU2MTIzNDU2MzY=",
+      "title": "Floating-point dates",
+      "url": "https://github.com/sacmwg/draft-ietf-sacm-coswid/issues/18",
+      "state": "CLOSED",
+      "author": "laurencelundblade",
+      "authorAssociation": "NONE",
+      "assignees": [
+        "henkbirkholz"
+      ],
+      "labels": [],
+      "body": "In 2.9.4.  The evidence-entry Map, there is a reference to CDDL \"time\", which by RFC8610 is an int or a float.  The only advantage of float for human time scales is fractions of seconds, and there is burden to support float.",
+      "createdAt": "2020-05-05T05:20:00Z",
+      "updatedAt": "2021-02-21T19:20:16Z",
+      "closedAt": "2021-02-21T19:20:16Z",
+      "comments": [
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "body": "While I see a potential concern with \"too much resolution possible\", I am very in favor of using tag #6.1 here.\r\n\r\nMaybe using an explicit #6.1(int) in the CDDL would be a compromise?",
+          "createdAt": "2020-10-28T13:59:21Z",
+          "updatedAt": "2020-10-28T13:59:21Z"
+        },
+        {
+          "author": "laurencelundblade",
+          "authorAssociation": "NONE",
+          "body": "Yes, #6.1(int) seems very good to me.\r\n\r\nI assume that if the time is unknown, possibly because the clock was unset, you just leave it out. No need for a special value. Right?\r\n\r\n(I wish there was a standard CBOR definition of a time that is #6.1(int) plus some way to indicate very far in the future for use cases that need to express things like no expiration. That is all we need for X.509, EAT and so on. That float is included in #6.1 disrupts this some.)",
+          "createdAt": "2020-10-29T17:07:03Z",
+          "updatedAt": "2020-10-29T17:10:57Z"
+        }
+      ]
+    },
+    {
+      "number": 19,
+      "id": "MDU6SXNzdWU3MTY2NjM4NDU=",
+      "title": "wrong index for entity-name",
+      "url": "https://github.com/sacmwg/draft-ietf-sacm-coswid/issues/19",
+      "state": "CLOSED",
+      "author": "thomas-fossati",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "context: section 2.4, textual description of the entity type\r\n\r\nentity-name is given index 32, it should be 31 instead.",
+      "createdAt": "2020-10-07T16:07:34Z",
+      "updatedAt": "2021-02-18T14:23:34Z",
+      "closedAt": "2021-02-18T14:23:34Z",
+      "comments": [
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "body": "Nice catch!\r\n\r\nFixed",
+          "createdAt": "2020-10-28T13:30:48Z",
+          "updatedAt": "2020-10-28T13:30:48Z"
+        }
+      ]
+    },
+    {
+      "number": 21,
+      "id": "MDU6SXNzdWU3MTc1MDQ2OTc=",
+      "title": "What is the extension story around global-attributes?",
+      "url": "https://github.com/sacmwg/draft-ietf-sacm-coswid/issues/21",
+      "state": "CLOSED",
+      "author": "thomas-fossati",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [
+        "henkbirkholz"
+      ],
+      "labels": [],
+      "body": "The omnipresent `global-attributes` has an `any-attribute` sub-group with apparent unbounded freedom to pick a label.   AFAICS, this extension point is not governed by a registry or an allocation policy.  So it's not clear to me how do we plan to prevent clashes?\r\n\r\n(Note that the SWID equivalent seems to be `BaseElement`'s `anyAttribute`, which has proper namespace separation.  The relevant SWID XSD comment says: _\"Allows any undeclared attributes on any element as long as the attribute is placed in a different namespace.\"_)\r\n\r\nMaybe I am just confused and it all works fine, but I think that the envisaged extension story around `global-attributes` needs to be made a bit clearer.",
+      "createdAt": "2020-10-08T16:46:36Z",
+      "updatedAt": "2021-02-22T17:26:30Z",
+      "closedAt": "2021-02-22T17:26:30Z",
+      "comments": [
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "body": "Potentially addressed by #29.\r\n\r\nBut even \"contained\" in their own map, the any-attributes can never be validated and should be processed with care. The namespace checking for the any-attribute in the ISO XSD is set to lax, which allows for omission of a namespace.\r\n\r\nThe closest \"equivalent\" to \"any-attributes that have their own schema and namespace\" in CDDL is the definition of extension CDDL using the existing sockets. \r\n\r\nThe closest \"equivalent\" to \"any-attributes that have no schema or namespace\" in CDDL is the use of the any-attribute (now augmented by the proposal to contain them in their own map).",
+          "createdAt": "2020-10-28T13:26:10Z",
+          "updatedAt": "2020-10-28T13:26:10Z"
+        },
+        {
+          "author": "thomas-fossati",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "> The namespace checking for the any-attribute in the ISO XSD is set to lax, which allows for omission of a namespace.\r\n\r\n\"lax\" only means that if the XML processor hasn't been able to retrieve the schema for validating the attributes from that namespace, it won't fail validation. It doesn't mean you can omit the namespace.",
+          "createdAt": "2020-10-30T10:03:48Z",
+          "updatedAt": "2020-10-30T10:05:02Z"
+        },
+        {
+          "author": "thomas-fossati",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "closed by accident, not sure what button got pushed... :-)",
+          "createdAt": "2020-10-30T11:55:24Z",
+          "updatedAt": "2020-10-30T11:55:24Z"
+        },
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "body": "Which maps to using a placeholder namespace and never providing it. A machine will never be able to infer the difference and therefore - semantically and in consequence implementation-wise - lax breaks down to the expect-able worst case of: there will never be any kind of validation for this.\r\n\r\nBut I have to admit, I am approaching the problem a bit formally, as I am generating and validating XML... let's say rarely :-) ",
+          "createdAt": "2020-10-30T11:59:05Z",
+          "updatedAt": "2020-10-30T11:59:05Z"
+        },
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "body": "The summary we settled on and now reconfirmed is this:\r\n\r\nWhile XML SWID require a namespace for extension for validation, they can be verified without a supplied XSD. This allows for un-verified portions of XML where no XSD can be acquired or _is defined_. We map this behavior via extension points that mandate a CDDL (analogous to XML namespace ##Other) and then allow for the any-attributes (analogous lax contentProcess and the XML any attribute).\r\n\r\nAn errata to XML SWID might come up in the future, but now we are sticking with similar expressiveness.",
+          "createdAt": "2021-02-22T08:07:49Z",
+          "updatedAt": "2021-02-22T08:07:49Z"
+        },
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "body": "We can resurrect this issue, if need be. For now I'll bury this in is:closed.",
+          "createdAt": "2021-02-22T17:26:30Z",
+          "updatedAt": "2021-02-22T17:26:30Z"
+        }
+      ]
+    },
+    {
+      "number": 22,
+      "id": "MDU6SXNzdWU3MTc2ODUxMDk=",
+      "title": "any-element-entry defined but not used",
+      "url": "https://github.com/sacmwg/draft-ietf-sacm-coswid/issues/22",
+      "state": "CLOSED",
+      "author": "thomas-fossati",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "The `any-element-entry (label 7)` item is defined in section 2.1 but is not used in any other place. ",
+      "createdAt": "2020-10-08T21:43:04Z",
+      "updatedAt": "2020-10-29T14:49:28Z",
+      "closedAt": "2020-10-29T14:49:28Z",
+      "comments": [
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "body": "Index 7 is the label for hash and defined in 2.9.1\r\n\r\nI am not sure which source you are referring to, to be honest. An \"entry\" typically is a type that is not used as a label and therefore by principle is not assigned an index.",
+          "createdAt": "2020-10-28T13:17:47Z",
+          "updatedAt": "2020-10-28T13:17:47Z"
+        },
+        {
+          "author": "thomas-fossati",
+          "authorAssociation": "NONE",
+          "body": "Same as the previous issue, you are right.  I got confused with an older version.",
+          "createdAt": "2020-10-29T14:49:28Z",
+          "updatedAt": "2020-10-29T14:49:28Z"
+        }
+      ]
+    },
+    {
+      "number": 23,
+      "id": "MDU6SXNzdWU3MTc2ODUyOTQ=",
+      "title": "any-element-entry defined but not used",
+      "url": "https://github.com/sacmwg/draft-ietf-sacm-coswid/issues/23",
+      "state": "CLOSED",
+      "author": "thomas-fossati",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "The `any-element-entry (label 7)` item is defined in section 2.1 but is not used in any other place. ",
+      "createdAt": "2020-10-08T21:43:25Z",
+      "updatedAt": "2020-10-08T21:46:12Z",
+      "closedAt": "2020-10-08T21:46:12Z",
+      "comments": []
+    },
+    {
+      "number": 24,
+      "id": "MDU6SXNzdWU3MTc2ODcxMTY=",
+      "title": "coswid-extension used but not defined",
+      "url": "https://github.com/sacmwg/draft-ietf-sacm-coswid/issues/24",
+      "state": "CLOSED",
+      "author": "thomas-fossati",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "The `coswid-extension` CDDL socket is defined in section 2.1 (and 2.8) but never defined.",
+      "createdAt": "2020-10-08T21:46:57Z",
+      "updatedAt": "2020-10-29T14:46:45Z",
+      "closedAt": "2020-10-29T14:46:45Z",
+      "comments": [
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "body": "It is defined in Section 2.2 and elaborated on in 2.3\r\n\r\nIt is not the only extension point that is not used by the spec itself as it provides a socket for future or custom extensions. Just to be sure we are talking about the same thing: 2.1 is about Character Encoding and 2.8. is about software-meta-entry.",
+          "createdAt": "2020-10-28T13:09:14Z",
+          "updatedAt": "2020-10-28T13:09:14Z"
+        },
+        {
+          "author": "thomas-fossati",
+          "authorAssociation": "NONE",
+          "body": "You are right.  Apologies!",
+          "createdAt": "2020-10-29T14:46:45Z",
+          "updatedAt": "2020-10-29T14:46:45Z"
+        }
+      ]
+    },
+    {
+      "number": 25,
+      "id": "MDU6SXNzdWU3MTc5ODEwMTg=",
+      "title": "wrong CDDL in global-attributes group definition",
+      "url": "https://github.com/sacmwg/draft-ietf-sacm-coswid/issues/25",
+      "state": "CLOSED",
+      "author": "thomas-fossati",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [
+        "henkbirkholz"
+      ],
+      "labels": [],
+      "body": "In section 2.5 `global-attributes` is defined as\r\n```\r\n   global-attributes = (\r\n     ? lang,\r\n     * any-attribute,\r\n   )\r\n```\r\nInstead, it should be:\r\n```\r\n   global-attributes = (\r\n     ? lang => text,\r\n     * any-attribute,\r\n   )\r\n```\r\nThis kind of copy&paste error could be avoided by having one true CDDL source; an example [here](https://github.com/thomas-fossati/draft-psa-token/tree/master/cddl).",
+      "createdAt": "2020-10-09T09:03:29Z",
+      "updatedAt": "2021-02-22T17:24:59Z",
+      "closedAt": "2021-02-22T17:24:59Z",
+      "comments": [
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "body": "Breaking out CDDL should be automated - I absolute agree. There are mechanisms in place for younger I-Ds. I admit that I was too lazy to backport them here. And this is the consequence :-)",
+          "createdAt": "2020-10-28T13:03:49Z",
+          "updatedAt": "2020-10-28T13:03:49Z"
+        },
+        {
+          "author": "cabo",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Please use {::include foo.cddl} and make sure these CDDL files build/validate (write a Makefile).\r\n",
+          "createdAt": "2020-10-28T13:10:08Z",
+          "updatedAt": "2020-10-28T13:10:08Z"
+        },
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "body": "We currently use:\r\n\r\n```\r\n~~~ CDDL\r\n<CODE BEGINS>\r\n{::include concise-swid-tag.cddl}\r\n<CODE ENDS>\r\n~~~\r\n```\r\n\r\nBut not for the exepositional CDDL fragments that are used to improve readability throughout the text. Using regexp here to extract fragments from the full CDDL usually helps. We did not do this here. The fragments used as examples are not intended to build/validate by their own.\r\n\r\n",
+          "createdAt": "2020-10-28T13:14:33Z",
+          "updatedAt": "2020-10-28T13:14:33Z"
+        },
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "body": "Should be consistent now",
+          "createdAt": "2021-02-22T08:01:07Z",
+          "updatedAt": "2021-02-22T08:01:07Z"
+        },
+        {
+          "author": "cabo",
+          "authorAssociation": "COLLABORATOR",
+          "body": "The XPath expression `//sourcecode[@type='cddl']/text()` can be used on the XML form of this specification to extract the CDDL defined here.\r\n\r\nYou could make sure that this validates.\r\n\r\n",
+          "createdAt": "2021-02-22T08:25:54Z",
+          "updatedAt": "2021-02-22T08:25:54Z"
+        },
+        {
+          "author": "cabo",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Oh, can you please commit the referenced cddl files?\r\n",
+          "createdAt": "2021-02-22T08:28:21Z",
+          "updatedAt": "2021-02-22T08:28:21Z"
+        },
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "body": "done. check-cddl.sh can now be found in the repo",
+          "createdAt": "2021-02-22T17:24:58Z",
+          "updatedAt": "2021-02-22T17:24:58Z"
+        }
+      ]
+    },
+    {
+      "number": 26,
+      "id": "MDU6SXNzdWU3MTc5ODg5Nzk=",
+      "title": "any-uri's type could be uri instead of text",
+      "url": "https://github.com/sacmwg/draft-ietf-sacm-coswid/issues/26",
+      "state": "CLOSED",
+      "author": "thomas-fossati",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [
+        "henkbirkholz"
+      ],
+      "labels": [],
+      "body": "I am not sure why `any-uri` doesn't use `uri` (`#6.32(tstr)`) from the CDDL preamble instead of `text`?\r\n",
+      "createdAt": "2020-10-09T09:15:41Z",
+      "updatedAt": "2021-02-21T19:20:16Z",
+      "closedAt": "2021-02-21T19:20:16Z",
+      "comments": [
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "body": "Thanks!\r\n\r\nThis is an easy one (and an artifact from the early days). Fixed",
+          "createdAt": "2020-10-28T12:58:10Z",
+          "updatedAt": "2020-10-28T12:58:10Z"
+        },
+        {
+          "author": "david-waltermire-nist",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "@henkbirkholz I don't see a commit with a fix yet.",
+          "createdAt": "2021-02-18T14:46:29Z",
+          "updatedAt": "2021-02-18T14:46:29Z"
+        }
+      ]
+    },
+    {
+      "number": 27,
+      "id": "MDU6SXNzdWU3MTgwODE1OTE=",
+      "title": "are SWID and CoSWID isomorphic?",
+      "url": "https://github.com/sacmwg/draft-ietf-sacm-coswid/issues/27",
+      "state": "CLOSED",
+      "author": "thomas-fossati",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [
+        "henkbirkholz"
+      ],
+      "labels": [],
+      "body": "It is not clear to me whether the intent is that SWID and CoSWID are equivalent data models?\r\n\r\nIf so, I think `entity-entry` is a bit problematic in this respect because `entity-extension` and SWID's `Meta(s)` are not the same thing.  An `entity-extension` could be constrained to resemble a `Meta` but this doesn't seem to be the case, at least in the version of the draft I'm reading (i.e., -15).\r\n\r\nAnother point of apparent divergence is the explicit definition of `hash` in the `file-entry` map.  In SWID hashes are introduced via `Meta` and there can be any number of them (e.g., one for SHA1, one for MD5, one for SHA256).\r\n\r\nSurely, in CoSWID one could add an `extra-hash` extension via `file-extension` like this:\r\n```\r\n$$file-extension //= (\r\n  extra-hash => hash-entry / [ 2* hash-entry ],\r\n)\r\nextra-hash = -666\r\n```\r\nbut then I wonder why can't we just do the above and get rid of the special diversion?  (We'd be exercising the extension path too, which seems like a plus.)",
+      "createdAt": "2020-10-09T11:47:00Z",
+      "updatedAt": "2021-02-21T19:20:16Z",
+      "closedAt": "2021-02-21T19:20:16Z",
+      "comments": [
+        {
+          "author": "thomas-fossati",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Another bit that looks pretty suspicious is around the definition of payload and evidence:\r\n```\r\npayload-or-evidence //= ( payload => [ 2* payload-entry ] )\r\n[...]\r\npayload-or-evidence //= ( evidence => [ 2* evidence-entry ] )\r\n```\r\nwhere multiple payloads and evidences seem to be allowed in the same CoSWID.  This is different from SWID which allows at most one Evidence and/or Payload:\r\n```\r\n<xs:element name=\"Payload\" type=\"ResourceCollection\" minOccurs=\"0\" maxOccurs=\"1\">\r\n[...]\r\n<xs:element name=\"Evidence\" type=\"Evidence\" minOccurs=\"0\" maxOccurs=\"1\">\r\n```",
+          "createdAt": "2020-10-27T12:33:50Z",
+          "updatedAt": "2020-10-27T12:33:50Z"
+        },
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "body": "At first glance it appears to be a 0-1 quantity. Alas, both (and other) are embedded in  a 0-n choice:\r\n\r\n`<xs:choice maxOccurs=\"unbounded\">`",
+          "createdAt": "2020-10-27T12:39:01Z",
+          "updatedAt": "2020-10-27T12:39:01Z"
+        },
+        {
+          "author": "thomas-fossati",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Thanks! I had overlooked the wrapping `choice`.  Do you know what purpose does it serve?",
+          "createdAt": "2020-10-27T13:03:34Z",
+          "updatedAt": "2020-10-27T13:03:34Z"
+        },
+        {
+          "author": "thomas-fossati",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Another thing still on the alignment between CoSWID and SWID: in SWID there seem to be no restrictions about mixing Evidence and Payload (at least at a syntactic level).  Why is CoSWID enforcing their mutual exclusion?",
+          "createdAt": "2020-10-27T13:11:17Z",
+          "updatedAt": "2020-10-27T13:11:17Z"
+        },
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "body": "The authors are currently meeting on a regular basis and are generating a shared agreement on all inputs, including yours. Each issue leads to discussions of various sizes, currently :-) One of the big topics discussed is the relationship between SWID and CoSWID. As soon as all authors agreed on a way to address a topic, e.g. SWID & CoSWID alignment, we will pull new content into the I-D and reply to the corresponding issue.\r\n\r\nAccording to NIST SP 8060, file hashes are stored in XML any-attributes associated with file types. Currently, CoSWID provides more explicit structures and therefore is intentionally more specific (not allowing SHA1 or MD5, for example & or disallowing the mixture of Evidence and Payload). ",
+          "createdAt": "2020-10-27T14:28:53Z",
+          "updatedAt": "2020-10-27T14:28:53Z"
+        },
+        {
+          "author": "thomas-fossati",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Since the use of `choice` in the SWID xsd looks like a misprint, and that it's contradicted by the spec [1], wouldn't it be better to make that explicit in the CDDL?  I.e.,:\r\n```\r\npayload-or-evidence //= ( payload => payload-entry )\r\npayload-or-evidence //= ( evidence => evidence-entry )\r\n```\r\n\r\n[1] ISO/IEC 19770-2:2015, Section 8.5.3 and Section 8.5.6 (which might also contain another typo)",
+          "createdAt": "2020-10-29T14:40:08Z",
+          "updatedAt": "2020-10-29T14:40:08Z"
+        },
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "body": "As the release of the iso spec and corresponding xsd is simply inconsistent, there is no simple way forward here.\r\n\r\nWe came to the decision that it is likely that implementers start from the XSD, than from the written definition in the spec table (it seems you did, too?).\r\nThe assessment included that it does hurt less to allow more than one of each mutual exclusive type of element, than restricting the quantity to one and thereby - potentially - making transformation from a XML SWID tag that uses the unbounded quantity harder.\r\n\r\nHaving said this. Do you still think it would be better to restrict the quantity here to 1?",
+          "createdAt": "2020-10-29T14:53:17Z",
+          "updatedAt": "2020-10-29T14:53:17Z"
+        },
+        {
+          "author": "thomas-fossati",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "An implementation can always make the syntactic layer refuse to decode more than one entry (not what I do at the moment, but that can be easily fixed).  But I guess the naive implementer - including yours truly in the lot :-) - is likely to code the syntactic layer as per CDDL and then on top of that put a semantic layer that will refuse multiple entries.  And that space between syntax and sema checks potentially creates waste of resources (on the constrained side, where they are more scarce), and ultimately attack surface.\r\n\r\nIf YAGNI then drop it :-)\r\n\r\n",
+          "createdAt": "2020-10-29T15:32:19Z",
+          "updatedAt": "2020-10-29T15:33:23Z"
+        },
+        {
+          "author": "david-waltermire-nist",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I believe we should follow the spec as it is normative, not the XSD. So we should restrict the payload and evidence to a single optional instance.",
+          "createdAt": "2021-02-18T14:44:14Z",
+          "updatedAt": "2021-02-18T14:44:14Z"
+        },
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "body": "that would result in:\r\n\r\npayload-or-evidence //= ( payload => payload-entry )\r\npayload-or-evidence //= ( evidence => evidence-entry )",
+          "createdAt": "2021-02-18T15:14:34Z",
+          "updatedAt": "2021-02-18T15:14:34Z"
+        }
+      ]
+    },
+    {
+      "number": 28,
+      "id": "MDU6SXNzdWU3MTk0NjMxOTY=",
+      "title": "Missing hash description in resource-collection",
+      "url": "https://github.com/sacmwg/draft-ietf-sacm-coswid/issues/28",
+      "state": "CLOSED",
+      "author": "thomas-fossati",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [
+        "david-waltermire-nist"
+      ],
+      "labels": [],
+      "body": "There is no description of the `hash` entry in the `resource-collection` group (Section 2.9.2).  Also the CDDL in the same section does not define the `hash` code point.  It is probably better to keep all the relevant bits tightly packed.",
+      "createdAt": "2020-10-12T15:20:05Z",
+      "updatedAt": "2021-02-22T17:19:06Z",
+      "closedAt": "2021-02-22T17:19:06Z",
+      "comments": [
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "body": "It is described in 2.9.1 just before resource-collection. This includes the \"code point\" and the definition of index 7.\r\n\r\nIs your proposal to merge 2.9.1 into 2.9.2? At the moment, I think being next to each other could satisfy the requirement of \"relevant bits are tightly packed\".",
+          "createdAt": "2020-10-28T12:57:23Z",
+          "updatedAt": "2020-10-28T12:57:23Z"
+        },
+        {
+          "author": "thomas-fossati",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Currently the full information about hash is spread across three different sections - 2.9.1, 2.9.2 and 2.10.\r\n\r\n> Is your proposal to merge 2.9.1 into 2.9.2? \r\n\r\nYep, and also copy `hash = 7` from 2.10 into the \"scoped\" CDDL.\r\n\r\nThis is by no means a blocker or anything of that sort.  It's just a suggestion to make the document more easily consumable.  When I implemented it, I was going through each section and build the encoder/decoder from the description, and it all went great until I hit section 2.9.1 :-)",
+          "createdAt": "2020-10-29T14:32:14Z",
+          "updatedAt": "2020-10-29T14:32:14Z"
+        },
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "body": "Well... it's hard to argue with that :-)\r\n\r\nIt's now on the list for the next authors meeting!",
+          "createdAt": "2020-10-29T14:36:04Z",
+          "updatedAt": "2020-10-29T14:36:16Z"
+        },
+        {
+          "author": "david-waltermire-nist",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I consolidated the hash information into the specific section in PR #35.",
+          "createdAt": "2021-02-22T02:12:20Z",
+          "updatedAt": "2021-02-22T02:12:20Z"
+        }
+      ]
+    },
+    {
+      "number": 29,
+      "id": "MDU6SXNzdWU3MjEzNDY0MzA=",
+      "title": "can't use CDDL to validate seemingly valid CBOR",
+      "url": "https://github.com/sacmwg/draft-ietf-sacm-coswid/issues/29",
+      "state": "CLOSED",
+      "author": "thomas-fossati",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [
+        "henkbirkholz"
+      ],
+      "labels": [],
+      "body": "If I try to validate the following minimalist (and seemingly valid) `file-entry` using the CDDL provided in the draft:\r\n```\r\n# diag\r\n{ 24: \"fw.bin\" }\r\n\r\n# pretty\r\na1                 # map(1)\r\n   18 18           # unsigned(24)\r\n   66              # text(6)\r\n      66772e62696e # \"fw.bin\"\r\n```\r\nI get the following error from the [cddl](https://rubygems.org/gems/cddl) tool:\r\n```\r\n$ cddl file-entry.cddl validate min.cbor\r\nCDDL validation failure (nil for {24=>\"fw.bin\"}):\r\n[\"fw.bin\", [:prim, 3], nil]\r\n[\"fw.bin\", [:prim, 3], null]\r\n```\r\nThis happens because the inlined `any-attribute` consumes all of the map, leaving nothing for `fs-name => text` (this is what the rather cryptic message from the cddl tool is about.)\r\n\r\nOne could fix this specific bit of CDDL by relocating `global-attributes` to the bottom of `filesystem-item`, but given the pervasiveness of the `global-attributes` group embedding, it's almost certain that similar situations will arise in other places too depending on the relative positioning of the various pieces.\r\n\r\nMy suggestion would be to make `global-attributes` a map instead, in order remove ambiguities by enforcing tighter namespace segregation.\r\n\r\nNote that SWID uses explicit namespacing to cleanly handle these kinds of conflicts.  For example, the following is valid SWID because the `foofoo` extension is explicitly provided under a `tns` namespace:\r\n```\r\n<SoftwareIdentity\r\n  xmlns=\"http://standards.iso.org/iso/19770/-2/2015/schema.xsd\"\r\n  xmlns:tns=\"http://localhost/foo.xsd\"\r\n  name=\"Roadrunner boot loader\"\r\n  tagId=\"example.acme.roadrunner-sw-bl-v1-0-0\"\r\n  version=\"1.0.0\"\r\n  tns:foofoo=\"bing\"\r\n>\r\n[...]\r\n</SoftwareIdentity>\r\n```\r\nWhereas this non-namespaced `foofoo` (closely matching the `any-attribute` philosophy) would fail validation:\r\n```\r\n<SoftwareIdentity\r\n  xmlns=\"http://standards.iso.org/iso/19770/-2/2015/schema.xsd\"\r\n  name=\"Roadrunner boot loader\"\r\n  tagId=\"example.acme.roadrunner-sw-bl-v1-0-0\"\r\n  version=\"1.0.0\"\r\n  foofoo=\"bong\"\r\n>\r\n[...]\r\n</SoftwareIdentity>\r\n```\r\n\r\nSo more generally it seems to me that the way `global-attributes` are currently handled is way too lax and doesn't reflect the original SWID approach.\r\n\r\n\r\n\r\n",
+      "createdAt": "2020-10-14T10:41:25Z",
+      "updatedAt": "2021-02-21T19:20:15Z",
+      "closedAt": "2021-02-21T19:20:15Z",
+      "comments": [
+        {
+          "author": "cabo",
+          "authorAssociation": "COLLABORATOR",
+          "body": "From a tool perspective, I think having a map with both a catch-all like that provided in global-attributes and an extensible socket like `* $$coswid-extension` in a single map can be problematic even if the order is fixed: extensions not known will then turn up in global-attributes, known extensions in $$coswid-extension, which may or may not be what the application expects.  \r\n",
+          "createdAt": "2020-10-14T11:20:11Z",
+          "updatedAt": "2020-10-14T11:20:11Z"
+        },
+        {
+          "author": "thomas-fossati",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "> From a tool perspective, I think having a map with both a catch-all like that provided in global-attributes and an extensible socket like `* $$coswid-extension` in a single map can be problematic even if the order is fixed: extensions not known will then turn up in global-attributes, known extensions in $$coswid-extension, which may or may not be what the application expects.\r\n\r\nI agree, the two extension points (`global-attributes` and the various `-extension` sockets) should be separated.",
+          "createdAt": "2020-10-14T12:51:28Z",
+          "updatedAt": "2020-10-14T12:51:28Z"
+        },
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "body": "The proposal discussed between authors is:\r\n\r\nseparate any-attribute labels from any other labels in maps by using:\r\n\r\n```\r\nglobal-attributes = (\r\n  ? lang => text,\r\n  ? any-attributes = { + any-attribute },\r\n)\r\n```\r\n\r\nAn alternative and less invasive approach would be to allow all labels in the same map, but moving the \"catch all\" any-attribute to the end of each map any-attribute occurs in.\r\n\r\nWhich approach would you prefer?\r\n",
+          "createdAt": "2020-10-28T12:52:28Z",
+          "updatedAt": "2020-10-28T12:52:28Z"
+        },
+        {
+          "author": "cabo",
+          "authorAssociation": "COLLABORATOR",
+          "body": "```\r\n  ? any-attributes = { + any-attribute },\r\n```\r\nSyntax.",
+          "createdAt": "2020-10-28T13:18:23Z",
+          "updatedAt": "2020-10-28T13:18:23Z"
+        },
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "body": "`? any-attributes => { + any-attribute },`\r\n\r\n:o)",
+          "createdAt": "2020-10-28T13:19:36Z",
+          "updatedAt": "2020-10-28T13:20:06Z"
+        },
+        {
+          "author": "cabo",
+          "authorAssociation": "COLLABORATOR",
+          "body": "You need a label number then.",
+          "createdAt": "2020-10-28T13:21:28Z",
+          "updatedAt": "2020-10-28T13:21:28Z"
+        },
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "body": "Yes, but first we have to agree on the way forward, just reordering the members of map in a way that global-attributes are always appended to the set would not require a new label. As adding such a global label might shift quite a few labels and impacts implementations, I am very careful here.",
+          "createdAt": "2020-10-28T13:28:50Z",
+          "updatedAt": "2020-10-28T13:28:50Z"
+        },
+        {
+          "author": "cabo",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I'm also a bit more focused on the result than on the way of specifying it -- moving the globals to later in the group sequence might solve this problem already.  You just can't have two catch-alls.\r\n",
+          "createdAt": "2020-10-28T13:30:18Z",
+          "updatedAt": "2020-10-28T13:30:18Z"
+        },
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "body": "My favored proposal is \"just\" a reordering, like this:\r\n\r\nall defined-label members,\r\nextension-point,\r\nglobal-attributes,\r\n\r\nImplying that extension-points are not to mess with the lang label in global attributes.",
+          "createdAt": "2020-10-28T13:55:50Z",
+          "updatedAt": "2020-10-28T13:55:50Z"
+        },
+        {
+          "author": "thomas-fossati",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "> My favored proposal is \"just\" a reordering, like this:\r\n> \r\n> all defined-label members,\r\n> extension-point,\r\n> global-attributes,\r\n> \r\n> Implying that extension-points are not to mess with the lang label in global attributes.\r\n\r\nThis seems the least invasive solution implementation-wise.  In fact, this has zero impact on my code.\r\n",
+          "createdAt": "2020-10-29T14:18:51Z",
+          "updatedAt": "2020-10-29T14:18:51Z"
+        },
+        {
+          "author": "david-waltermire-nist",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "@henkbirkholz I don't think this issue has been addressed yet. We should address this now before the spec enters the IESG queue.\r\n\r\nThe inline CDDL will also need to be updated. Can you take this one?",
+          "createdAt": "2021-02-18T14:38:32Z",
+          "updatedAt": "2021-02-18T14:39:17Z"
+        },
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "body": "I might be missing something obvious here, but the inline CDDL addresses the issue like the full CDDL spec.\r\n\r\nThe inline order is:\r\n\r\n```\r\n* stuff\r\nglobal-attributes\r\n* $$extension-point\r\n```",
+          "createdAt": "2021-02-18T15:35:29Z",
+          "updatedAt": "2021-02-18T15:35:53Z"
+        },
+        {
+          "author": "cabo",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Yes, and that was the problem, as global-attributes contains a catch-all that catches everything before the $$extension-point",
+          "createdAt": "2021-02-18T15:45:33Z",
+          "updatedAt": "2021-02-18T15:45:33Z"
+        },
+        {
+          "author": "cabo",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Why is that catch-all not another extension-point?\r\n",
+          "createdAt": "2021-02-18T15:47:13Z",
+          "updatedAt": "2021-02-18T15:47:13Z"
+        },
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "body": "oh... thanks, of course. There is a fix for that out there. Will graft another PR from that.",
+          "createdAt": "2021-02-18T15:47:34Z",
+          "updatedAt": "2021-02-18T15:47:34Z"
+        },
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "body": "because that might be... less isomorphic to the XSD that literally uses the any attribute.\r\n\r\nDo you think it would be more elegant to add another socket? Is there a real world advantage?",
+          "createdAt": "2021-02-18T15:50:26Z",
+          "updatedAt": "2021-02-18T15:50:26Z"
+        },
+        {
+          "author": "cabo",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Right now your CDDL will validate any typo\r\n",
+          "createdAt": "2021-02-18T15:57:00Z",
+          "updatedAt": "2021-02-18T15:57:00Z"
+        },
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "body": "that is the point. well-defined, well-defined extension, and \"the rest\" are distinguished. \"Careful parsing\" can start with \"the rest\" now. We could discuss mandating the use of a CDDL extension for every single occurring map index, but the agreement was to allow for it.",
+          "createdAt": "2021-02-18T16:00:37Z",
+          "updatedAt": "2021-02-18T16:00:37Z"
+        },
+        {
+          "author": "davaya",
+          "authorAssociation": "NONE",
+          "body": "Isn't the point from the original issue that SWID does not accept (non-namespaced) anythings?  The philosophy of writing a security specification that says \"I'll accept A, B, C, and anything else\" seems like a problem.  Contrary to the ijson approach of allowing anything that isn't prohibited, defining an extension before accepting CoSWIDs that match it seems prudent.\r\n\r\nThe CDDL will validate not just any typo, but also a megabyte of malware, or for those who remember PKIX, JPEGs of cats.\r\n",
+          "createdAt": "2021-02-18T17:21:38Z",
+          "updatedAt": "2021-02-18T17:33:22Z"
+        },
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "body": "Well, while I absolutely agree with the concept you illustrated, the ISO provided XSD representing a security specification that allows for that behavior. Quoting from https://standards.iso.org/iso/19770/-2/2015-current/schema.xsd:\r\n\r\n```\r\n<xs:anyAttribute namespace=\"##other\" processContents=\"lax\">\r\n<xs:annotation>\r\n<xs:documentation>\r\nAllows any undeclared attributes on any element as long as the attribute is placed in a different namespace.\r\n</xs:documentation>\r\n</xs:annotation>\r\n</xs:anyAttribute>\r\n```\r\n\r\nWhile ##other is required, in the end processContent is lax. That is exactly what we are mapping here in CoSWID.\r\n\r\nWe can diverge from that and be more strict. I am fine with the idea, but we have to come to consensus.",
+          "createdAt": "2021-02-18T18:09:58Z",
+          "updatedAt": "2021-02-18T18:09:58Z"
+        },
+        {
+          "author": "davaya",
+          "authorAssociation": "NONE",
+          "body": "Extensibility can be viewed as error handling: an unrecognized attribute in a normal container is known bad, but in an extension-point container the application can search for a newer version of the same namespace or try to resolve a different namespace,  Successful resolution allows the attribute to be recognized and validated, unsuccessful raises the validation error.\r\n\r\nI don't know how XML treats _namespace=\"##other\"_, but it might require the specified namespace to resolve before validation succeeds.",
+          "createdAt": "2021-02-18T18:45:59Z",
+          "updatedAt": "2021-02-19T15:28:27Z"
+        },
+        {
+          "author": "davaya",
+          "authorAssociation": "NONE",
+          "body": "My mistake: processContent=\"lax\" does mean that extension schema is not required.  I hope consensus can be obtained on making CoSWID equivalent to \"strict\".",
+          "createdAt": "2021-02-19T15:37:05Z",
+          "updatedAt": "2021-02-19T15:37:05Z"
+        },
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "body": "At the moment it seems that we are steering towards a targeted and concise 2nd WGLC. We'd start such a potential WGLC with a less strict spec definition that maps the \"lax\" concept in alignment with ISO. One outcome could be that the work here will trigger errata in ISO, but that result is neither implied nor guaranteed. If there are changes to ISO in the future, we can adhere to them and adapt the CoSWID specification. Does that sound feasible?",
+          "createdAt": "2021-02-19T15:47:36Z",
+          "updatedAt": "2021-02-19T15:47:36Z"
+        },
+        {
+          "author": "cabo",
+          "authorAssociation": "COLLABORATOR",
+          "body": "For another view at strict/lax, see \r\n\r\n<https://www.ietf.org/archive/id/draft-ietf-asdf-sdf-02.html#name-formal-syntax-of-sdf>\r\nand\r\n<https://www.ietf.org/archive/id/draft-ietf-asdf-sdf-02.html#name-json-schemaorg-rendition-of>\r\n\r\n\r\n",
+          "createdAt": "2021-02-19T17:27:18Z",
+          "updatedAt": "2021-02-19T17:27:18Z"
+        }
+      ]
+    },
+    {
+      "number": 30,
+      "id": "MDU6SXNzdWU3MjE1MTMyNDA=",
+      "title": "small typo in payload-or-evidence",
+      "url": "https://github.com/sacmwg/draft-ietf-sacm-coswid/issues/30",
+      "state": "CLOSED",
+      "author": "thomas-fossati",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "The CDDL in section 2.3 has a small typo in the `payload-or-evidence` definition:\r\n```\r\npayload-or-evidence //= ( payload => [ 2* payload-entry )\r\n```\r\nshould be\r\n```\r\npayload-or-evidence //= ( payload => [ 2* payload-entry ] )\r\n```",
+      "createdAt": "2020-10-14T14:30:43Z",
+      "updatedAt": "2020-10-28T12:42:06Z",
+      "closedAt": "2020-10-28T12:42:06Z",
+      "comments": [
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "body": "Thanks! Fixed",
+          "createdAt": "2020-10-28T12:42:06Z",
+          "updatedAt": "2020-10-28T12:42:06Z"
+        }
+      ]
+    },
+    {
+      "number": 31,
+      "id": "MDU6SXNzdWU3MjE1NTk4MjM=",
+      "title": "rel type should be int rather than uint",
+      "url": "https://github.com/sacmwg/draft-ietf-sacm-coswid/issues/31",
+      "state": "CLOSED",
+      "author": "thomas-fossati",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [
+        "david-waltermire-nist"
+      ],
+      "labels": [],
+      "body": "In the CDDL, `rel` is defined as:\r\n```\r\n$rel /= uint / text\r\n```\r\nbut the textual description that follows allows negative values (for testing and use in closed environments).\r\n\r\nSo I guess it should instead say:\r\n```\r\n$rel /= int / text\r\n```\r\nor even\r\n```\r\n$rel /= -256..65535 / text\r\n```\r\n",
+      "createdAt": "2020-10-14T15:27:10Z",
+      "updatedAt": "2021-02-22T17:19:06Z",
+      "closedAt": "2021-02-22T17:19:06Z",
+      "comments": [
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "body": "Thank you!\r\n\r\n'$rel /= -256..65535 / text'\r\n\r\nsounds fine. Will be included in the next proposal.",
+          "createdAt": "2020-10-28T12:39:09Z",
+          "updatedAt": "2020-10-28T12:39:09Z"
+        },
+        {
+          "author": "david-waltermire-nist",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I fixed this in PR #35.",
+          "createdAt": "2021-02-18T14:39:53Z",
+          "updatedAt": "2021-02-18T14:39:53Z"
+        }
+      ]
+    },
+    {
+      "number": 34,
+      "id": "MDU6SXNzdWU3NDEwNjEzODI=",
+      "title": "Top level tagged / untagged",
+      "url": "https://github.com/sacmwg/draft-ietf-sacm-coswid/issues/34",
+      "state": "CLOSED",
+      "author": "laurencelundblade",
+      "authorAssociation": "NONE",
+      "assignees": [
+        "henkbirkholz"
+      ],
+      "labels": [],
+      "body": "My understanding in CBOR is that a \"tag\" is is made up of the tag number ( 1398229316 ) **and** the tag content. From CBORbis:\r\n\r\n>    We use the term\r\n>    \"tag\" for the entire data item consisting of both a tag number and\r\n>    the tag content: the tag content is the data item that is being\r\n>    tagged\r\n\r\nIn CoSWID the CDDL type concise-swid-tag describes the content. If it was really a tag it would be something more like  concise-swid-tag = #6.1398229316(concise-swid-content) and concise-swid-content would be defined as what concise-swid-tag is.\r\n\r\nIt also seems like the tagging for COSE-wrapped CoSWIDs could be improved or at least clarified. It should be OK do this: #6.1398229316(#6.18()). If by external means one knows some CBOR is a CoSWID, it should be possible to distinguish whether it is signed or unsigned by wrapping with #6.18(). \r\n\r\nMy goal here is to have only one claim in EAT for a CoSWID, rather than EAT having to have separate claims for when a CoSWID is signed or unsigned.",
+      "createdAt": "2020-11-11T20:50:21Z",
+      "updatedAt": "2021-02-22T17:24:06Z",
+      "closedAt": "2021-02-22T17:24:06Z",
+      "comments": [
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "body": "Sections \"Signed CoSWID Tags\" and \"Tagged CoSWID Tags\" are now in master",
+          "createdAt": "2021-02-22T07:59:57Z",
+          "updatedAt": "2021-02-22T07:59:57Z"
+        },
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "body": "Addressed in master",
+          "createdAt": "2021-02-22T17:24:06Z",
+          "updatedAt": "2021-02-22T17:24:06Z"
+        }
+      ]
+    },
+    {
+      "number": 38,
+      "id": "MDU6SXNzdWU4MTI5MjQ0OTE=",
+      "title": "Just checking: smver ref",
+      "url": "https://github.com/sacmwg/draft-ietf-sacm-coswid/issues/38",
+      "state": "CLOSED",
+      "author": "henkbirkholz",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "Placeholder issue to check on current status wrt to semver",
+      "createdAt": "2021-02-21T18:58:26Z",
+      "updatedAt": "2022-01-25T21:00:23Z",
+      "closedAt": "2022-01-25T21:00:23Z",
+      "comments": [
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "body": "resolved",
+          "createdAt": "2022-01-25T21:00:23Z",
+          "updatedAt": "2022-01-25T21:00:23Z"
+        }
+      ]
+    },
+    {
+      "number": 42,
+      "id": "MDU6SXNzdWU4MjI0Njk5NDM=",
+      "title": "COSE and CBOR tags",
+      "url": "https://github.com/sacmwg/draft-ietf-sacm-coswid/issues/42",
+      "state": "OPEN",
+      "author": "laurencelundblade",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "I think what we're after for CoSWID+COSE is almost exactly the same as CWT+UCCS. It's not exactly the same because UCCS uses a different tag number than CWT and CoSWID doesn't.\r\n\r\nI think we want to allow all variants of COSE signing, encryption and MAC just like CWT does. \r\n\r\n```\r\nconcise-swid-tag \u2014 Naked, no COSE, not CBOR tag, like a UCCS\r\n\r\n#6.1398229316(concise-swid-tag) - Just a CoSWID tag, no COSE, like a CWT with no COSE\r\n\r\n#6.1398229316(#6.18(COSE-Sign1<concise-swid-tag>)) A CoSWID tag with signing\r\n\r\n#6.1398229316(#6.17(COSE-Mac01<concise-swid-tag>))\r\n\r\n#6.1398229316(#6.18(COSE-Sign1(#6.96(cose_encrypt<concise-swid-tag>)))\r\n\r\n\u2026plus lots more combos of signing, encrypting and mac\u2019ing \r\n\r\n#6.18(COSE-Sign1<concise-swid-tag>) Signing not a CoSWID CBOR tag\r\n\r\n#6.17(COSE-Mac01<concise-swid-tag>) Mac, not a CoSWID CBOR tag\r\n\r\n#6.18(COSE-Sign1(#6.96(cose_encrypt<concise-swid-tag>)) Signed and encrypted not a CoSWID CBOR tag\r\n\r\n\u2026plus the same combos of signing, encrypting and mac'ing\r\n```\r\n\r\nWhat is NOT allowed, like CWT disallows, are these:\r\n\r\n```\r\n#6.1398229316(COSE-Sign1<concise-swid-tag>)\r\n\r\n#6.1398229316(COSE-Mac01<concise-swid-tag>)\r\n\r\n#6.1398229316(COSE-Sign1<cose_encrypt<concise-swid-tag>>)\r\n```\r\n\r\nAre we in agreement on this?\r\n\r\nAn implementor should be able to use the same COSE code that recursively removes COSE layers it identifies by the COSE tags to get to the final payload just like in CWT. Maybe even exactly the same COSE code.\r\n\r\nI think section 7 and 8 get close to this, but are not exactly right. They don't allow for encryption or mac. I think the CWT description of this is solid and correct though it doesn't use CDDL and doesn't cover UCCS.\r\n\r\nMy thought for bringing CoSWID into EAT is to have a claim that is explicitly a CoSWID so #6.1398229316() is never used. If it is COSE is used then it is a COSE tag. If COSE is not used then it is a concise-swid-tag. It is naked.\r\n\r\n",
+      "createdAt": "2021-03-04T20:12:58Z",
+      "updatedAt": "2021-03-04T20:12:58Z",
+      "closedAt": null,
+      "comments": []
+    }
+  ],
+  "pulls": [
+    {
+      "number": 2,
+      "id": "MDExOlB1bGxSZXF1ZXN0MTczMDA0Mjky",
+      "title": "Submitting the -04 draft revision",
+      "url": "https://github.com/sacmwg/draft-ietf-sacm-coswid/pull/2",
+      "state": "MERGED",
+      "author": "david-waltermire-nist",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Requesting changes posted as -04 be merged into this repo.",
+      "createdAt": "2018-03-05T22:23:28Z",
+      "updatedAt": "2018-03-05T22:23:40Z",
+      "closedAt": "2018-03-05T22:23:40Z",
+      "mergedAt": "2018-03-05T22:23:40Z",
+      "mergedBy": "david-waltermire-nist",
+      "comments": [],
+      "reviews": [],
+      "baseRepository": "sacmwg/draft-ietf-sacm-coswid",
+      "baseRefName": "master",
+      "baseRefOid": "3a2162caa950f2f5ea775ce65ce12be3a67392d1",
+      "headRepository": "david-waltermire-nist/draft-ietf-sacm-coswid",
+      "headRefName": "working",
+      "headRefOid": "86e3414f68e7d26f394a42d3786a4a0a6de9fb22",
+      "mergeCommit": {
+        "oid": "329e1a8b175316a86e88750dac1bbf6a3b3cbfa9"
+      }
+    },
+    {
+      "number": 3,
+      "id": "MDExOlB1bGxSZXF1ZXN0MTc2NTc0Nzcy",
+      "title": "-05 revision",
+      "url": "https://github.com/sacmwg/draft-ietf-sacm-coswid/pull/3",
+      "state": "MERGED",
+      "author": "david-waltermire-nist",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Pulling the -05 revision.",
+      "createdAt": "2018-03-21T18:44:20Z",
+      "updatedAt": "2018-03-21T18:44:33Z",
+      "closedAt": "2018-03-21T18:44:33Z",
+      "mergedAt": "2018-03-21T18:44:33Z",
+      "mergedBy": "david-waltermire-nist",
+      "comments": [],
+      "reviews": [],
+      "baseRepository": "sacmwg/draft-ietf-sacm-coswid",
+      "baseRefName": "master",
+      "baseRefOid": "53b74298faa105481ecb3bf0c8535cdee30c5ac3",
+      "headRepository": "david-waltermire-nist/draft-ietf-sacm-coswid",
+      "headRefName": "master",
+      "headRefOid": "48800a233b48fde1666255de0189bb76d8da27ac",
+      "mergeCommit": {
+        "oid": "ac0f37743d6a805eb8b4f91a0b9c9f13fc44be4e"
+      }
+    },
+    {
+      "number": 7,
+      "id": "MDExOlB1bGxSZXF1ZXN0MjI4MTQ4Mjc1",
+      "title": "Additional edits to address remaining changes ",
+      "url": "https://github.com/sacmwg/draft-ietf-sacm-coswid/pull/7",
+      "state": "MERGED",
+      "author": "david-waltermire-nist",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "- Flagged firmware resource colletion appendix for revision\r\n- Made use of terminology more consistent\r\n- Better defined use of extension points in the CDDL\r\n- Added definitions for indexed values\r\n- Added IANA registry for Link use indexed values",
+      "createdAt": "2018-11-03T23:52:14Z",
+      "updatedAt": "2018-11-03T23:53:28Z",
+      "closedAt": "2018-11-03T23:53:27Z",
+      "mergedAt": "2018-11-03T23:53:27Z",
+      "mergedBy": "david-waltermire-nist",
+      "comments": [],
+      "reviews": [],
+      "baseRepository": "sacmwg/draft-ietf-sacm-coswid",
+      "baseRefName": "master",
+      "baseRefOid": "c833c134db3e1cd1ba9e1232855cf27e82b3813f",
+      "headRepository": "david-waltermire-nist/draft-ietf-sacm-coswid",
+      "headRefName": "master",
+      "headRefOid": "59e5494b4dee149031a41f6d9c34f4740c45b9ce",
+      "mergeCommit": {
+        "oid": "655d8cc2e5d6d8974b853bf601caae961a0cd717"
+      }
+    },
+    {
+      "number": 8,
+      "id": "MDExOlB1bGxSZXF1ZXN0MjY4MDAwOTY4",
+      "title": "Added an IANA registry for CoSWID items supporting future extension.",
+      "url": "https://github.com/sacmwg/draft-ietf-sacm-coswid/pull/8",
+      "state": "MERGED",
+      "author": "david-waltermire-nist",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Cleaned up IANA registrations, fixing some inconsistencies in the table labels.\r\ndded additional CDDL sockets for resource collection entries providing for additional extension points to address future SWID/CoSWID extensions.\r\nUpdated section on extension points to address new CDDL sockets and to reference the new IANA registry for items.\r\nRemoved unused references and added new references to address placeholder comments.\r\nAlso:\r\n- Added changelog entries.\r\n- Updated inline CDDL.\r\n- Normalized use of links in the markdown.",
+      "createdAt": "2019-04-06T01:01:53Z",
+      "updatedAt": "2019-04-06T01:02:44Z",
+      "closedAt": "2019-04-06T01:02:44Z",
+      "mergedAt": "2019-04-06T01:02:44Z",
+      "mergedBy": "david-waltermire-nist",
+      "comments": [],
+      "reviews": [],
+      "baseRepository": "sacmwg/draft-ietf-sacm-coswid",
+      "baseRefName": "master",
+      "baseRefOid": "2ffa54df1e4ca12ca57196858d94b22d438426b3",
+      "headRepository": "david-waltermire-nist/draft-ietf-sacm-coswid",
+      "headRefName": "master",
+      "headRefOid": "5733a129390bd8bba8d4717710d762dbd6031544",
+      "mergeCommit": {
+        "oid": "c36a7e7cee4af99a55fda002642f0ab8996e364e"
+      }
+    },
+    {
+      "number": 9,
+      "id": "MDExOlB1bGxSZXF1ZXN0MjY4MDY5ODk4",
+      "title": "Added missing $$meta-extension socket and other minor changes to the \u2026",
+      "url": "https://github.com/sacmwg/draft-ietf-sacm-coswid/pull/9",
+      "state": "MERGED",
+      "author": "david-waltermire-nist",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "\u2026CDDL.\r\nPerformed a final editorial pass of the document, clarifying language, making term use more consistent, fixing references, and replacing lowercase RFC2119 keywords.\r\nAdded table with semantics for the link ownership item.",
+      "createdAt": "2019-04-06T23:31:38Z",
+      "updatedAt": "2019-04-06T23:32:09Z",
+      "closedAt": "2019-04-06T23:32:09Z",
+      "mergedAt": "2019-04-06T23:32:09Z",
+      "mergedBy": "david-waltermire-nist",
+      "comments": [],
+      "reviews": [],
+      "baseRepository": "sacmwg/draft-ietf-sacm-coswid",
+      "baseRefName": "master",
+      "baseRefOid": "c36a7e7cee4af99a55fda002642f0ab8996e364e",
+      "headRepository": "david-waltermire-nist/draft-ietf-sacm-coswid",
+      "headRefName": "master",
+      "headRefOid": "f1f4dc400e56a66f16548ceba6d3a84005927126",
+      "mergeCommit": {
+        "oid": "056def505f7eb2460746af506e5df9082f01bbc3"
+      }
+    },
+    {
+      "number": 10,
+      "id": "MDExOlB1bGxSZXF1ZXN0MjY4NzI0ODIy",
+      "title": "Fixed an inconsistency between the index values of valid value lists \u2026",
+      "url": "https://github.com/sacmwg/draft-ietf-sacm-coswid/pull/10",
+      "state": "MERGED",
+      "author": "david-waltermire-nist",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "\u2026and the IANA registry.\r\n\r\nAlso fixed a wierd character encoding issue.",
+      "createdAt": "2019-04-09T12:52:17Z",
+      "updatedAt": "2019-04-09T12:52:42Z",
+      "closedAt": "2019-04-09T12:52:42Z",
+      "mergedAt": "2019-04-09T12:52:42Z",
+      "mergedBy": "david-waltermire-nist",
+      "comments": [],
+      "reviews": [],
+      "baseRepository": "sacmwg/draft-ietf-sacm-coswid",
+      "baseRefName": "master",
+      "baseRefOid": "056def505f7eb2460746af506e5df9082f01bbc3",
+      "headRepository": "david-waltermire-nist/draft-ietf-sacm-coswid",
+      "headRefName": "master",
+      "headRefOid": "5de78d3fdc3e855f0c28a225ff0a02d59a823a4d",
+      "mergeCommit": {
+        "oid": "1ef0e2442262d6542cc50c5e02733e61a4c4d2de"
+      }
+    },
+    {
+      "number": 11,
+      "id": "MDExOlB1bGxSZXF1ZXN0MjkxMjY4NDEy",
+      "title": "Completed outstanding changes for -10",
+      "url": "https://github.com/sacmwg/draft-ietf-sacm-coswid/pull/11",
+      "state": "MERGED",
+      "author": "david-waltermire-nist",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2019-06-24T19:39:07Z",
+      "updatedAt": "2019-06-24T19:39:47Z",
+      "closedAt": "2019-06-24T19:39:47Z",
+      "mergedAt": "2019-06-24T19:39:47Z",
+      "mergedBy": "david-waltermire-nist",
+      "comments": [],
+      "reviews": [],
+      "baseRepository": "sacmwg/draft-ietf-sacm-coswid",
+      "baseRefName": "master",
+      "baseRefOid": "c0bb43f1e69505cc9167e34881aa1797f6fdf099",
+      "headRepository": "david-waltermire-nist/draft-ietf-sacm-coswid",
+      "headRefName": "master",
+      "headRefOid": "c349505cbe94fe9eb5a91c28e53144c52e921cbc",
+      "mergeCommit": {
+        "oid": "084a5fa4d4709308e501b705f419542cef92a4e6"
+      }
+    },
+    {
+      "number": 12,
+      "id": "MDExOlB1bGxSZXF1ZXN0MjkyMjMwMDYw",
+      "title": "Addressed a bunch of editorial comments.",
+      "url": "https://github.com/sacmwg/draft-ietf-sacm-coswid/pull/12",
+      "state": "MERGED",
+      "author": "david-waltermire-nist",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2019-06-27T02:05:27Z",
+      "updatedAt": "2019-06-27T02:05:37Z",
+      "closedAt": "2019-06-27T02:05:37Z",
+      "mergedAt": "2019-06-27T02:05:37Z",
+      "mergedBy": "david-waltermire-nist",
+      "comments": [],
+      "reviews": [],
+      "baseRepository": "sacmwg/draft-ietf-sacm-coswid",
+      "baseRefName": "master",
+      "baseRefOid": "084a5fa4d4709308e501b705f419542cef92a4e6",
+      "headRepository": "david-waltermire-nist/draft-ietf-sacm-coswid",
+      "headRefName": "master",
+      "headRefOid": "f2240341eb3f90ddb87906e93985619b3046ed3e",
+      "mergeCommit": {
+        "oid": "24221ee83ac34710d29ff5191ffd66e6d8abb10c"
+      }
+    },
+    {
+      "number": 13,
+      "id": "MDExOlB1bGxSZXF1ZXN0MzAwOTA3OTg0",
+      "title": "Addressed comments from WGLC reviewers.",
+      "url": "https://github.com/sacmwg/draft-ietf-sacm-coswid/pull/13",
+      "state": "MERGED",
+      "author": "david-waltermire-nist",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Addressed comments from Alex, Ira and Carsten.\r\n",
+      "createdAt": "2019-07-24T21:48:46Z",
+      "updatedAt": "2019-07-25T04:13:52Z",
+      "closedAt": "2019-07-25T04:13:52Z",
+      "mergedAt": "2019-07-25T04:13:52Z",
+      "mergedBy": "henkbirkholz",
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3MjY2MzUyMzYy",
+          "commit": {
+            "abbreviatedOid": "fe48345"
+          },
+          "author": "ajnelson-nist",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2019-07-25T00:42:35Z",
+          "updatedAt": "2019-07-25T00:42:36Z",
+          "comments": [
+            {
+              "originalPosition": 77,
+              "body": "This sentence needs a light grammar adjustment.",
+              "createdAt": "2019-07-25T00:42:35Z",
+              "updatedAt": "2019-07-25T00:42:36Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3MjY2MzUzMDk4",
+          "commit": {
+            "abbreviatedOid": "fe48345"
+          },
+          "author": "ajnelson-nist",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2019-07-25T00:45:59Z",
+          "updatedAt": "2019-07-25T00:46:00Z",
+          "comments": [
+            {
+              "originalPosition": 203,
+              "body": "Typo: separated.",
+              "createdAt": "2019-07-25T00:45:59Z",
+              "updatedAt": "2019-07-25T00:46:00Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3MjY2MzUzNTg2",
+          "commit": {
+            "abbreviatedOid": "fe48345"
+          },
+          "author": "ajnelson-nist",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2019-07-25T00:48:25Z",
+          "updatedAt": "2019-07-25T00:48:26Z",
+          "comments": [
+            {
+              "originalPosition": 493,
+              "body": "Typo: guidelines.",
+              "createdAt": "2019-07-25T00:48:25Z",
+              "updatedAt": "2019-07-25T00:48:26Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3MjY2MzUzOTMz",
+          "commit": {
+            "abbreviatedOid": "fe48345"
+          },
+          "author": "ajnelson-nist",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2019-07-25T00:50:10Z",
+          "updatedAt": "2019-07-25T00:50:10Z",
+          "comments": [
+            {
+              "originalPosition": 614,
+              "body": "Typo: \"the the\".",
+              "createdAt": "2019-07-25T00:50:10Z",
+              "updatedAt": "2019-07-25T00:50:10Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3MjY2MzU0Mzk1",
+          "commit": {
+            "abbreviatedOid": "fe48345"
+          },
+          "author": "ajnelson-nist",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2019-07-25T00:52:31Z",
+          "updatedAt": "2019-07-25T00:52:32Z",
+          "comments": [
+            {
+              "originalPosition": 635,
+              "body": "Typo? Dangling `o`.",
+              "createdAt": "2019-07-25T00:52:32Z",
+              "updatedAt": "2019-07-25T00:52:32Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3MjY2MzU0NDIz",
+          "commit": {
+            "abbreviatedOid": "fe48345"
+          },
+          "author": "ajnelson-nist",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2019-07-25T00:52:40Z",
+          "updatedAt": "2019-07-25T00:52:40Z",
+          "comments": [
+            {
+              "originalPosition": 631,
+              "body": "Typo: \"cnsidered\".",
+              "createdAt": "2019-07-25T00:52:40Z",
+              "updatedAt": "2019-07-25T00:52:40Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3MjY2MzU0NTI3",
+          "commit": {
+            "abbreviatedOid": "fe48345"
+          },
+          "author": "ajnelson-nist",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2019-07-25T00:53:14Z",
+          "updatedAt": "2019-07-25T00:53:15Z",
+          "comments": [
+            {
+              "originalPosition": 650,
+              "body": "Typo: \"greatful\".",
+              "createdAt": "2019-07-25T00:53:14Z",
+              "updatedAt": "2019-07-25T00:53:15Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3MjY2MzkxMzE4",
+          "commit": {
+            "abbreviatedOid": "fe48345"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2019-07-25T04:07:18Z",
+          "updatedAt": "2019-07-25T04:07:19Z",
+          "comments": [
+            {
+              "originalPosition": 77,
+              "body": "I think you are correct. Currently, I have a hard time parsing that myself. I'll merge this for now and keep this issue open.",
+              "createdAt": "2019-07-25T04:07:18Z",
+              "updatedAt": "2019-07-25T04:07:19Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3MjY2MzkyMzg2",
+          "commit": {
+            "abbreviatedOid": "fe48345"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "state": "APPROVED",
+          "body": "I agree with all of Alex's comments, which are not addressed by this current merge and have to be addressed after merging. There are some new rage definitions for values, e.g. -256 - 65536 (if I remember correctly) these can be include in the CDDL specification with controls.\r\n\r\nText improvement is significant and strongly accepted.",
+          "createdAt": "2019-07-25T04:12:52Z",
+          "updatedAt": "2019-07-25T04:12:52Z",
+          "comments": []
+        }
+      ],
+      "baseRepository": "sacmwg/draft-ietf-sacm-coswid",
+      "baseRefName": "master",
+      "baseRefOid": "24221ee83ac34710d29ff5191ffd66e6d8abb10c",
+      "headRepository": "david-waltermire-nist/draft-ietf-sacm-coswid",
+      "headRefName": "master",
+      "headRefOid": "fe48345500c5109c062fc2920d81563499af8566",
+      "mergeCommit": {
+        "oid": "c4eb5d15c01c45a9f4351ba9ce5d439ae4b9a849"
+      }
+    },
+    {
+      "number": 14,
+      "id": "MDExOlB1bGxSZXF1ZXN0MzAxMTc2MDMw",
+      "title": "Added changelog notes",
+      "url": "https://github.com/sacmwg/draft-ietf-sacm-coswid/pull/14",
+      "state": "MERGED",
+      "author": "david-waltermire-nist",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2019-07-25T14:39:18Z",
+      "updatedAt": "2019-07-25T14:39:33Z",
+      "closedAt": "2019-07-25T14:39:33Z",
+      "mergedAt": "2019-07-25T14:39:33Z",
+      "mergedBy": "david-waltermire-nist",
+      "comments": [],
+      "reviews": [],
+      "baseRepository": "sacmwg/draft-ietf-sacm-coswid",
+      "baseRefName": "master",
+      "baseRefOid": "039e575a3bd9d48389b7fc483f884c7ec6903da5",
+      "headRepository": "david-waltermire-nist/draft-ietf-sacm-coswid",
+      "headRefName": "master",
+      "headRefOid": "3d35d9497924517fda76614668b3940a241bbaeb",
+      "mergeCommit": {
+        "oid": "0042ae446656f75ce82876bb84ea7973ec49e7c4"
+      }
+    },
+    {
+      "number": 15,
+      "id": "MDExOlB1bGxSZXF1ZXN0MzAxMzMzNDI1",
+      "title": "[WIP] Fixed WGLC issue on -12",
+      "url": "https://github.com/sacmwg/draft-ietf-sacm-coswid/pull/15",
+      "state": "MERGED",
+      "author": "david-waltermire-nist",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Fixed typo identified by Alex Nelson.\r\nAlso removed some extra working text that was accidentally left in an IANA section.\r\n\r\nThis PR will be kept open until the WGLC concludes.",
+      "createdAt": "2019-07-25T22:32:31Z",
+      "updatedAt": "2019-10-04T16:23:25Z",
+      "closedAt": "2019-10-04T16:23:25Z",
+      "mergedAt": "2019-10-04T16:23:25Z",
+      "mergedBy": "david-waltermire-nist",
+      "comments": [],
+      "reviews": [],
+      "baseRepository": "sacmwg/draft-ietf-sacm-coswid",
+      "baseRefName": "master",
+      "baseRefOid": "0042ae446656f75ce82876bb84ea7973ec49e7c4",
+      "headRepository": "david-waltermire-nist/draft-ietf-sacm-coswid",
+      "headRefName": "master",
+      "headRefOid": "49f8cab753c4747f17e71b65bc9a5310b716bdf9",
+      "mergeCommit": {
+        "oid": "14a8d6307e9317e4f2b1abe8291575ba36781956"
+      }
+    },
+    {
+      "number": 16,
+      "id": "MDExOlB1bGxSZXF1ZXN0MzQxODI5NTA5",
+      "title": "Addressed comments from Kathleen Moriarty",
+      "url": "https://github.com/sacmwg/draft-ietf-sacm-coswid/pull/16",
+      "state": "MERGED",
+      "author": "david-waltermire-nist",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2019-11-17T07:46:10Z",
+      "updatedAt": "2019-11-17T07:54:13Z",
+      "closedAt": "2019-11-17T07:54:13Z",
+      "mergedAt": "2019-11-17T07:54:13Z",
+      "mergedBy": "david-waltermire-nist",
+      "comments": [],
+      "reviews": [],
+      "baseRepository": "sacmwg/draft-ietf-sacm-coswid",
+      "baseRefName": "master",
+      "baseRefOid": "14a8d6307e9317e4f2b1abe8291575ba36781956",
+      "headRepository": "david-waltermire-nist/draft-ietf-sacm-coswid",
+      "headRefName": "master",
+      "headRefOid": "8b81ec559d1516ce5f8d0be13fe55cc654d77036",
+      "mergeCommit": {
+        "oid": "938f952bd00e09c918d8078e1b89eb0d2768cdde"
+      }
+    },
+    {
+      "number": 17,
+      "id": "MDExOlB1bGxSZXF1ZXN0NDEyMTYxOTI0",
+      "title": "Adjustments to wrap WGLC",
+      "url": "https://github.com/sacmwg/draft-ietf-sacm-coswid/pull/17",
+      "state": "MERGED",
+      "author": "david-waltermire-nist",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Fixed validation issue with CoSWID CDDL, caused by duplicate definition of \"supplemental\".\r\nAdded \"maintainer\" to entity roles.\r\nFixed one instance of bad requirement text capitalization.\r\n\r\n",
+      "createdAt": "2020-05-01T14:53:41Z",
+      "updatedAt": "2020-05-01T14:54:07Z",
+      "closedAt": "2020-05-01T14:54:06Z",
+      "mergedAt": "2020-05-01T14:54:06Z",
+      "mergedBy": "david-waltermire-nist",
+      "comments": [],
+      "reviews": [],
+      "baseRepository": "sacmwg/draft-ietf-sacm-coswid",
+      "baseRefName": "master",
+      "baseRefOid": "108bd9c8cf298b64a91a05361d5da4a37f97947d",
+      "headRepository": "david-waltermire-nist/draft-ietf-sacm-coswid",
+      "headRefName": "master",
+      "headRefOid": "fc9f48d315689470435fc7f9ef317e996cabbff5",
+      "mergeCommit": {
+        "oid": "430b14eb62c1724e778fe2cea0093318423bdeec"
+      }
+    },
+    {
+      "number": 20,
+      "id": "MDExOlB1bGxSZXF1ZXN0NDk5MzY0MTU4",
+      "title": "fix wrong index in entity-name",
+      "url": "https://github.com/sacmwg/draft-ietf-sacm-coswid/pull/20",
+      "state": "MERGED",
+      "author": "thomas-fossati",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "resolves #19",
+      "createdAt": "2020-10-07T16:12:00Z",
+      "updatedAt": "2021-02-18T14:23:34Z",
+      "baseRepository": "sacmwg/draft-ietf-sacm-coswid",
+      "baseRefName": "master",
+      "baseRefOid": "da78bfeda10f1f66a9832a2f777324dd1c736acd",
+      "headRepository": "thomas-fossati/draft-ietf-sacm-coswid",
+      "headRefName": "patch-1",
+      "headRefOid": "e40aaf7008da2b671ef92f8df4262c07fdd6dff2",
+      "closedAt": "2021-02-18T14:23:34Z",
+      "mergedAt": "2021-02-18T14:23:34Z",
+      "mergedBy": "david-waltermire-nist",
+      "mergeCommit": {
+        "oid": "9939f4351ecacfde4a8ae60dc47c34fe0d307faa"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 32,
+      "id": "MDExOlB1bGxSZXF1ZXN0NTEwODE1Njk0",
+      "title": "SWID/CoSWID AD review edits",
+      "url": "https://github.com/sacmwg/draft-ietf-sacm-coswid/pull/32",
+      "state": "CLOSED",
+      "author": "david-waltermire-nist",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "edits to partially address AD review feedback from Roman Danyliw, with specific focus on SWID/CoSWID issues,",
+      "createdAt": "2020-10-27T14:53:08Z",
+      "updatedAt": "2020-11-02T15:41:48Z",
+      "baseRepository": "sacmwg/draft-ietf-sacm-coswid",
+      "baseRefName": "master",
+      "baseRefOid": "da78bfeda10f1f66a9832a2f777324dd1c736acd",
+      "headRepository": "david-waltermire-nist/draft-ietf-sacm-coswid",
+      "headRefName": "sec-ad-feeback",
+      "headRefOid": "7518adcd6c99705ead99c6b1afec805231ba7b0d",
+      "closedAt": "2020-11-02T15:41:48Z",
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "david-waltermire-nist",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Resubmitting PR as sacmwg/draft-ietf-sacm-coswid#33",
+          "createdAt": "2020-11-02T15:41:48Z",
+          "updatedAt": "2020-11-02T15:41:48Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 33,
+      "id": "MDExOlB1bGxSZXF1ZXN0NTE0MTQ0NTg3",
+      "title": "CoSWID AD review edits",
+      "url": "https://github.com/sacmwg/draft-ietf-sacm-coswid/pull/33",
+      "state": "MERGED",
+      "author": "david-waltermire-nist",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Edits to address AD review feedback from Roman Danyliw, with specific focus on CoSWID issues",
+      "createdAt": "2020-11-02T15:41:14Z",
+      "updatedAt": "2020-11-02T20:13:46Z",
+      "baseRepository": "sacmwg/draft-ietf-sacm-coswid",
+      "baseRefName": "master",
+      "baseRefOid": "da78bfeda10f1f66a9832a2f777324dd1c736acd",
+      "headRepository": "david-waltermire-nist/draft-ietf-sacm-coswid",
+      "headRefName": "sec-ad-feedback",
+      "headRefOid": "7b23b52adba2d6ac7682755285d8bb955479b374",
+      "closedAt": "2020-11-02T20:13:46Z",
+      "mergedAt": "2020-11-02T20:13:46Z",
+      "mergedBy": "henkbirkholz",
+      "mergeCommit": {
+        "oid": "02ff92afef8e725b96e6913f1d5ff885b049c890"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 35,
+      "id": "MDExOlB1bGxSZXF1ZXN0NTc1NzE3NjM5",
+      "title": "Addressing AD review feedback",
+      "url": "https://github.com/sacmwg/draft-ietf-sacm-coswid/pull/35",
+      "state": "MERGED",
+      "author": "david-waltermire-nist",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This PR addresses a portion of the feedback provided by Roman.\r\n\r\nThis is currently a work in progress and should not be merged while the PR is marked as draft.\r\n",
+      "createdAt": "2021-02-18T14:18:32Z",
+      "updatedAt": "2021-02-22T17:19:13Z",
+      "baseRepository": "sacmwg/draft-ietf-sacm-coswid",
+      "baseRefName": "master",
+      "baseRefOid": "f011703a56db7aded10fee728014243d659a9cba",
+      "headRepository": "david-waltermire-nist/draft-ietf-sacm-coswid",
+      "headRefName": "fix-todo",
+      "headRefOid": "b34103d4d367dd4900ee601d24307e20cef12bb8",
+      "closedAt": "2021-02-22T17:19:06Z",
+      "mergedAt": "2021-02-22T17:19:05Z",
+      "mergedBy": "david-waltermire-nist",
+      "mergeCommit": {
+        "oid": "3dcc49c0eca2d8caa1ba38a98bedc5271c62d452"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 36,
+      "id": "MDExOlB1bGxSZXF1ZXN0NTc1NzY3MjE4",
+      "title": "changes date type, evidence & payload quantity, and any-uri-type",
+      "url": "https://github.com/sacmwg/draft-ietf-sacm-coswid/pull/36",
+      "state": "MERGED",
+      "author": "henkbirkholz",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "fixes #18\r\nfixes #26\r\nfixes #27",
+      "createdAt": "2021-02-18T15:24:23Z",
+      "updatedAt": "2021-02-21T19:20:16Z",
+      "baseRepository": "sacmwg/draft-ietf-sacm-coswid",
+      "baseRefName": "master",
+      "baseRefOid": "9939f4351ecacfde4a8ae60dc47c34fe0d307faa",
+      "headRepository": "sacmwg/draft-ietf-sacm-coswid",
+      "headRefName": "issue-18-26-27",
+      "headRefOid": "d5ef987b89910070036ffd2a843c8ca2a41b0f9b",
+      "closedAt": "2021-02-21T19:20:16Z",
+      "mergedAt": "2021-02-21T19:20:16Z",
+      "mergedBy": "henkbirkholz",
+      "mergeCommit": {
+        "oid": "d5ef987b89910070036ffd2a843c8ca2a41b0f9b"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 37,
+      "id": "MDExOlB1bGxSZXF1ZXN0NTc1NzkxMTE4",
+      "title": "reordering of global-attribute in text and full cddl",
+      "url": "https://github.com/sacmwg/draft-ietf-sacm-coswid/pull/37",
+      "state": "MERGED",
+      "author": "henkbirkholz",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "fixes #29",
+      "createdAt": "2021-02-18T15:55:03Z",
+      "updatedAt": "2021-02-21T19:20:15Z",
+      "baseRepository": "sacmwg/draft-ietf-sacm-coswid",
+      "baseRefName": "master",
+      "baseRefOid": "9939f4351ecacfde4a8ae60dc47c34fe0d307faa",
+      "headRepository": "sacmwg/draft-ietf-sacm-coswid",
+      "headRefName": "issue-29",
+      "headRefOid": "4323e4ff1824fc46d09e728c24b539e22f6b3666",
+      "closedAt": "2021-02-21T19:20:15Z",
+      "mergedAt": "2021-02-21T19:20:15Z",
+      "mergedBy": "henkbirkholz",
+      "mergeCommit": {
+        "oid": "1f5f3ac5dc4e4ec7a6e624119cefaa7a8cde74f2"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTkzMzgyNjI2",
+          "commit": {
+            "abbreviatedOid": "62a8cf1"
+          },
+          "author": "cabo",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-02-18T16:06:37Z",
+          "updatedAt": "2021-02-18T16:06:37Z",
+          "comments": [
+            {
+              "originalPosition": 10,
+              "body": "Is this an unrelated change?",
+              "createdAt": "2021-02-18T16:06:37Z",
+              "updatedAt": "2021-02-21T19:17:47Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTkzMzg0Mjk2",
+          "commit": {
+            "abbreviatedOid": "62a8cf1"
+          },
+          "author": "cabo",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-02-18T16:08:09Z",
+          "updatedAt": "2021-02-18T16:08:09Z",
+          "comments": [
+            {
+              "originalPosition": 78,
+              "body": "I think it would be better style to add a\r\n\r\n```\r\ninteger-time = #6.1(int)\r\n```\r\n\r\nand reference that here.\r\n",
+              "createdAt": "2021-02-18T16:08:09Z",
+              "updatedAt": "2021-02-21T19:17:47Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTkzMzg0NzYw",
+          "commit": {
+            "abbreviatedOid": "62a8cf1"
+          },
+          "author": "cabo",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-02-18T16:08:34Z",
+          "updatedAt": "2021-02-18T16:08:35Z",
+          "comments": [
+            {
+              "originalPosition": 15,
+              "body": "Unrelated change?",
+              "createdAt": "2021-02-18T16:08:35Z",
+              "updatedAt": "2021-02-21T19:17:47Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTk0ODcxMjMx",
+          "commit": {
+            "abbreviatedOid": "62a8cf1"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-02-21T19:14:38Z",
+          "updatedAt": "2021-02-21T19:14:39Z",
+          "comments": [
+            {
+              "originalPosition": 10,
+              "body": "yes, that is a change that leaked over from the \"isomorphic issue\"",
+              "createdAt": "2021-02-21T19:14:38Z",
+              "updatedAt": "2021-02-21T19:17:47Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTk0ODcxMjkw",
+          "commit": {
+            "abbreviatedOid": "62a8cf1"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-02-21T19:15:13Z",
+          "updatedAt": "2021-02-21T19:15:13Z",
+          "comments": [
+            {
+              "originalPosition": 15,
+              "body": "ack",
+              "createdAt": "2021-02-21T19:15:13Z",
+              "updatedAt": "2021-02-21T19:17:47Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTk0ODcxMzg1",
+          "commit": {
+            "abbreviatedOid": "62a8cf1"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-02-21T19:16:38Z",
+          "updatedAt": "2021-02-21T19:17:19Z",
+          "comments": [
+            {
+              "originalPosition": 78,
+              "body": "```suggestion\r\n  ? date => integer-time,\r\n```",
+              "createdAt": "2021-02-21T19:16:38Z",
+              "updatedAt": "2021-02-21T19:17:47Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 39,
+      "id": "MDExOlB1bGxSZXF1ZXN0NTc3MTY2ODEy",
+      "title": "Issue 29",
+      "url": "https://github.com/sacmwg/draft-ietf-sacm-coswid/pull/39",
+      "state": "MERGED",
+      "author": "henkbirkholz",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2021-02-21T19:37:26Z",
+      "updatedAt": "2021-02-21T19:39:21Z",
+      "baseRepository": "sacmwg/draft-ietf-sacm-coswid",
+      "baseRefName": "master",
+      "baseRefOid": "654472df7d596b98551b1fb277b49346354046fa",
+      "headRepository": "sacmwg/draft-ietf-sacm-coswid",
+      "headRefName": "issue-29",
+      "headRefOid": "d9ab6c1cdbd845938dd3df041c159accd28d4843",
+      "closedAt": "2021-02-21T19:39:21Z",
+      "mergedAt": "2021-02-21T19:39:21Z",
+      "mergedBy": "henkbirkholz",
+      "mergeCommit": {
+        "oid": "24c4e828f286cddd430150e053765df344e09dc7"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 40,
+      "id": "MDExOlB1bGxSZXF1ZXN0NTc3NDc3OTQ4",
+      "title": "Inconcistencies, markdown usage",
+      "url": "https://github.com/sacmwg/draft-ietf-sacm-coswid/pull/40",
+      "state": "MERGED",
+      "author": "cabo",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2021-02-22T09:19:19Z",
+      "updatedAt": "2021-02-22T09:45:21Z",
+      "baseRepository": "sacmwg/draft-ietf-sacm-coswid",
+      "baseRefName": "master",
+      "baseRefOid": "c58d5f1603bc0c3dd499f4196be02401a4b20c59",
+      "headRepository": "sacmwg/draft-ietf-sacm-coswid",
+      "headRefName": "inconsistencies",
+      "headRefOid": "e30bd0b64af3ba5723d182b73b7d066db0b28bdb",
+      "closedAt": "2021-02-22T09:45:21Z",
+      "mergedAt": "2021-02-22T09:45:21Z",
+      "mergedBy": "henkbirkholz",
+      "mergeCommit": {
+        "oid": "bd8b9114e19b8a563b041cfdec6b16aa7d2f8638"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTk1MTUwNjQ5",
+          "commit": {
+            "abbreviatedOid": "470dff3"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-02-22T09:26:24Z",
+          "updatedAt": "2021-02-22T09:26:25Z",
+          "comments": [
+            {
+              "originalPosition": 17,
+              "body": "```suggestion\r\npayload-or-evidence //= ( payload => payload-entry )\r\npayload-or-evidence //= ( evidence => evidence-entry )\r\n```",
+              "createdAt": "2021-02-22T09:26:24Z",
+              "updatedAt": "2021-02-22T09:30:40Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 41,
+      "id": "MDExOlB1bGxSZXF1ZXN0NTc3NzQ2MTU3",
+      "title": "Use one-or-more<T> instead of T / [ 2* T ]",
+      "url": "https://github.com/sacmwg/draft-ietf-sacm-coswid/pull/41",
+      "state": "MERGED",
+      "author": "cabo",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "... because T is usually verbose...",
+      "createdAt": "2021-02-22T15:56:40Z",
+      "updatedAt": "2021-02-22T17:23:40Z",
+      "baseRepository": "sacmwg/draft-ietf-sacm-coswid",
+      "baseRefName": "master",
+      "baseRefOid": "f011703a56db7aded10fee728014243d659a9cba",
+      "headRepository": "sacmwg/draft-ietf-sacm-coswid",
+      "headRefName": "one-or-more",
+      "headRefOid": "6850dc38fb87947f85af49e79d3d63e97891e6d7",
+      "closedAt": "2021-02-22T17:23:40Z",
+      "mergedAt": "2021-02-22T17:23:40Z",
+      "mergedBy": "henkbirkholz",
+      "mergeCommit": {
+        "oid": "42e7d2c842001724785b06cd8a14fb71773ba8b3"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 43,
+      "id": "MDExOlB1bGxSZXF1ZXN0NjI1MTk3Njk3",
+      "title": "IANA registrations for Uri-schemes and other fixes",
+      "url": "https://github.com/sacmwg/draft-ietf-sacm-coswid/pull/43",
+      "state": "MERGED",
+      "author": "cabo",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2021-04-28T12:51:31Z",
+      "updatedAt": "2021-04-28T14:53:47Z",
+      "baseRepository": "sacmwg/draft-ietf-sacm-coswid",
+      "baseRefName": "master",
+      "baseRefOid": "8be2b6ed07e069ba45094c28a24224d3ced07f65",
+      "headRepository": "sacmwg/draft-ietf-sacm-coswid",
+      "headRefName": "iana-uri",
+      "headRefOid": "c5d41a067557c4bee0817a17e65580e4bebf08ff",
+      "closedAt": "2021-04-28T14:53:47Z",
+      "mergedAt": "2021-04-28T14:53:47Z",
+      "mergedBy": "henkbirkholz",
+      "mergeCommit": {
+        "oid": "9060eba2fea4419e446d6ffeb67de1081fec9455"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NjQ3MTcwNTkw",
+          "commit": {
+            "abbreviatedOid": "c5d41a0"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2021-04-28T14:53:41Z",
+          "updatedAt": "2021-04-28T14:53:41Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 44,
+      "id": "MDExOlB1bGxSZXF1ZXN0Njg3ODM4NTkz",
+      "title": "addressed comments from Roman Danyliw",
+      "url": "https://github.com/sacmwg/draft-ietf-sacm-coswid/pull/44",
+      "state": "MERGED",
+      "author": "david-waltermire-nist",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Addressed the following comments:\r\n\r\n> ** [-15] Section 2.3  Are there any considerations that would need to \r\n> be made for versioning CoSWID beyond the native support provided with CBOR?\r\n\r\n[Per IETF 110] Add text on the order of native CDDL approach for handling version is used.  If a future version of SWID is published which alters the semantics of exists fields, a future version of CoSWID SHOULD (MUST?) use a different tag to represent it.\r\n\r\n[daw: A new paragraph was added to section 2 detailing how index values are used to support revisions and extensions.]\r\n\r\n> ** [-15] Section 4.1 and 5.2.4.  [SEMVER] doesn't meet the threshold \r\n> for a normative requirement and a \"specification required\" - it's just \r\n> a website.  If this is used in SWID then that would be compelling argument to waiver it.\r\n> However, that should be explicitly stated here.  If it isn't, we \r\n> should discuss it a bit more.\r\n> \r\n> [-16: Can the ISO spec please be used as the basis for this reference \r\n> (even it just points to the same website?)]\r\n\r\n[Per IETF 110] see -16.  Use ISO SWID reference for the IANA registry and if desired, used [SEMVER] as an informal reference in the text\r\n\r\n[daw: This has been done in section 4.1.]\r\n\r\n> ** [17] Section 6.*.  Various \"FIXME\" markers need to be populated.\r\n\r\n[daw: The FIXME markers have been replaced with actual text.]\r\n\r\n> \r\n> ** [-15] Section 6.  What are the normative requirements, if any, on \r\n> signing the CoSWID?\r\n> \r\n> [-17] Is there something in SWID preventing normative guidance that \r\n> says SHOULD or MUST sign?\r\n\r\n[daw: Section 7 now details the construction of a signed CoSWID. A SHOULD sign requirement was also added to section 7.]\r\n\r\n[Per IETF 110] We discussed adding language on the order of \"This document specifies a data format and an associated integrity mechanism agnostic of a deployment.  Application which choose to use CoSWID will need to specify explicit guidance which security properties are needed and under which circumstances.\"  > ** [-15] Section 6.  Per \"When an authoritative tag is signed, the software\r\n> provider can be authenticated as the originator of the signature\", \r\n> what is the binding between the software provider and the key used to \r\n> provide the signature?  Put in another way, how do I know the \r\n> signature on the CoSWID really belongs to the software provider?  Same for a supplementary tag?\r\n\r\n[daw: Authenticating the signer is the software provider will require a match between a CoSWID entity and the signer. We are working out a means to do this.]\r\n\r\n> \r\n> [-16] Thanks for the new text.  Unless more detailed will be provided, \r\n> please add that provisioning and validation logic of these tags will \r\n> be done via local policy and is outside the scope of this document]\r\n2\r\n\r\n[daw: Not sure which tags this applies to? Signing? All of section 2?]\r\n\r\n> \r\n> [-17] Section 9. Per \"A trustworthy association between the signature \r\n> and the originator of the signature can be established via trust \r\n> anchors. A certification path between a trust anchor and a certificate \r\n> including a pub-key enabling the validation of a tag signature can \r\n> realize the assessment of trustworthiness of an authoritative tag.\", \r\n> this is true.  Additionally, there is also the problem of how to \r\n> associate the right key with the software provider or party permitted \r\n> to add tags.  This significant complexity does not need to be solved \r\n> here, but please acknowledge that it is someone that needs to be addressed by the users, and is out of scope here.\r\n\r\n[daw: done.]\r\n\r\n> \r\n> ** [-15] Section 6.  Per \"Having a signed authoritative SWID/CoSWID \r\n> tag can be useful when the information in the tag needs to be trusted \r\n> such as when the tag is being used to convey reference integrity \r\n> measurements for software components \", when would this tag not need \r\n> to be trusted?  Perhaps I misunderstood, but I thought the whole \r\n> premise of using SWIDs/CoSWIDs in the SACM context was to support \r\n> asset inventory (i.e., reference integrity measurement of software \r\n> components).  I'm not clear on the use case for unsigned tags - that \r\n> said, I recognize that the SWID spec doesn't specify that either.\r\n\r\n[daw: This confusing text has been removed.]\r\n\r\n> [-17] Please add caution that without an integrity scheme, any user or \r\n> process that has write-access to the CoSWID tag can alter it.  As \r\n> such, any consuming application need to treat this data with caution.\r\n\r\n[daw: done.]\r\n\r\n> ** [-17] Section 9.  Per \"Thus, authoritative CoSWID tags can be \r\n> trusted to represent authoritative information about the software \r\n> component\", this seems too strong of a statement and dependent on the \r\n> custody of that tag.  If it isn't signed, little, if anything, \r\n> extracted from CoSWID tag should be considered authoritative.\r\n\r\n[daw: We added a note about this.]\r\n\r\n> \r\n> ** [-17] Section 9. Nit. s/pub-key/public key/\r\n\r\n[daw: Done.]\r\n\r\n> ** [-17] Section 9.  Per \"Input sanitization and loop detection are \r\n> two ways that implementations can address this concern\", and the use \r\n> of signed tags whose signature is verified on use too.\r\n\r\n[daw: Added signature validation as a way.]\r\n\r\nRegards,\r\nRoman\r\n\r\n> Regards,\r\n> Roman\r\n",
+      "createdAt": "2021-07-12T13:19:47Z",
+      "updatedAt": "2021-07-12T20:05:02Z",
+      "baseRepository": "sacmwg/draft-ietf-sacm-coswid",
+      "baseRefName": "master",
+      "baseRefOid": "9060eba2fea4419e446d6ffeb67de1081fec9455",
+      "headRepository": "david-waltermire-nist/draft-ietf-sacm-coswid",
+      "headRefName": "daw-ad-comments",
+      "headRefOid": "bb4a1734d83a2b983349167cf38fd9ccfeb273c7",
+      "closedAt": "2021-07-12T20:05:02Z",
+      "mergedAt": "2021-07-12T20:05:02Z",
+      "mergedBy": "henkbirkholz",
+      "mergeCommit": {
+        "oid": "034255375a6b2b8d23687eb0e690ad6b282a4149"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NzA0NDk1MTI5",
+          "commit": {
+            "abbreviatedOid": "bb4a173"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2021-07-12T20:04:15Z",
+          "updatedAt": "2021-07-12T20:04:15Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 45,
+      "id": "PR_kwDOBK4aBM4tP6Rv",
+      "title": "tasks assigned to Henk and Charles",
+      "url": "https://github.com/sacmwg/draft-ietf-sacm-coswid/pull/45",
+      "state": "MERGED",
+      "author": "henkbirkholz",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "this is missing an answer to \"Can the tag-id be a digest of the source file?\", which requires a reply to the list",
+      "createdAt": "2021-10-15T11:59:54Z",
+      "updatedAt": "2022-01-19T17:11:37Z",
+      "baseRepository": "sacmwg/draft-ietf-sacm-coswid",
+      "baseRefName": "master",
+      "baseRefOid": "034255375a6b2b8d23687eb0e690ad6b282a4149",
+      "headRepository": "sacmwg/draft-ietf-sacm-coswid",
+      "headRefName": "ietf-112-updates",
+      "headRefOid": "9f635f4d487ba120896f4a9f3ffaa2d586a42e9e",
+      "closedAt": "2022-01-19T17:11:36Z",
+      "mergedAt": "2022-01-19T17:11:36Z",
+      "mergedBy": "henkbirkholz",
+      "mergeCommit": {
+        "oid": "d643186d7681d38717ae558d477288ec1a9e20b6"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOBK4aBM4unaFC",
+          "commit": {
+            "abbreviatedOid": "179e2c1"
+          },
+          "author": "david-waltermire-nist",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-10-18T13:48:51Z",
+          "updatedAt": "2021-10-18T13:48:52Z",
+          "comments": [
+            {
+              "originalPosition": 67,
+              "body": "```suggestion\r\nLoss of control of signing credentials used to sign CoSWID tags would create doubt about the authenticity and integrity of any CoSWID tags signed using the compromised keys. In such cases, the legitimate tag signer (namely, the software provider for an authoritative CoSWID tag) can employ uncompromised signing credentials to create a new signature on the original tag. The tag version number would not be incremented since the tag itself was not modified. Consumers of CoSWID tags would need to validate the tag using the new credentials and would also need to revoke certificates associated with the compromised credentials to avoid validating tags signed with them. The process for doing this is beyond the scope of this specification.\r\n```",
+              "createdAt": "2021-10-18T13:48:51Z",
+              "updatedAt": "2021-10-18T13:48:52Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOBK4aBM4unaVF",
+          "commit": {
+            "abbreviatedOid": "179e2c1"
+          },
+          "author": "david-waltermire-nist",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-10-18T13:49:35Z",
+          "updatedAt": "2021-10-18T13:49:35Z",
+          "comments": [
+            {
+              "originalPosition": 67,
+              "body": "This doesn't sound simple, so removing simple here would be better.",
+              "createdAt": "2021-10-18T13:49:35Z",
+              "updatedAt": "2021-10-18T13:49:35Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOBK4aBM4unbgn",
+          "commit": {
+            "abbreviatedOid": "179e2c1"
+          },
+          "author": "david-waltermire-nist",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-10-18T13:53:12Z",
+          "updatedAt": "2021-10-18T13:53:13Z",
+          "comments": [
+            {
+              "originalPosition": 104,
+              "body": "```suggestion\r\nAs noted in {{sec-sec}}, collected information about an endpoint's software load, such as what might be represented by an endpoint's CoSWID tag collection, could be used to identify vulnerable software for attack. Collections of endpoint software information also can have privacy implications for users. The set of application a user installs can give clues to personal matters such as political affiliation, banking and investments, gender, sexual orientation, medical concerns, etc. While the collection of CoSWID tags on an endpoint wouldn't increase the privacy risk (since a party able to view those tags could also view the applications themselves), if those CoSWID tags are gathered and stored in a repository somewhere, visibility into the repository now also gives visibility into a user's application collection. For this reason, repositories of collected CoSWID tags not only need to be protected against collection by malicious parties, but even authorized parties will need to be vetted and made aware of privacy responsibilities associated with having access to this information. Likewise, users should be made aware that their software inventories are being collected from endpoints. Furthermore, when collected and stored by authorized parties or systems, the inventory data needs to be protected as both security and privacy sensitive information.\r\n```",
+              "createdAt": "2021-10-18T13:53:12Z",
+              "updatedAt": "2021-10-18T13:53:13Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOBK4aBM4unkV6",
+          "commit": {
+            "abbreviatedOid": "179e2c1"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-10-18T14:10:37Z",
+          "updatedAt": "2021-10-18T14:12:34Z",
+          "comments": [
+            {
+              "originalPosition": 67,
+              "body": "ack",
+              "createdAt": "2021-10-18T14:10:37Z",
+              "updatedAt": "2021-10-18T14:12:34Z"
+            },
+            {
+              "originalPosition": 104,
+              "body": "ack",
+              "createdAt": "2021-10-18T14:11:52Z",
+              "updatedAt": "2021-10-18T14:12:34Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOBK4aBM4zFmWk",
+          "commit": {
+            "abbreviatedOid": "9f635f4"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "Approved by editor's consensus",
+          "createdAt": "2022-01-19T17:11:08Z",
+          "updatedAt": "2022-01-19T17:11:08Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 46,
+      "id": "PR_kwDOBK4aBM4xlSMT",
+      "title": "addressing OPSDIR feedback about the SWID registry",
+      "url": "https://github.com/sacmwg/draft-ietf-sacm-coswid/pull/46",
+      "state": "MERGED",
+      "author": "henkbirkholz",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "Additional clarification on registry name",
+      "createdAt": "2022-01-25T20:52:20Z",
+      "updatedAt": "2022-01-25T20:59:51Z",
+      "baseRepository": "sacmwg/draft-ietf-sacm-coswid",
+      "baseRefName": "master",
+      "baseRefOid": "d643186d7681d38717ae558d477288ec1a9e20b6",
+      "headRepository": "sacmwg/draft-ietf-sacm-coswid",
+      "headRefName": "swid-coswid",
+      "headRefOid": "b98f9c3b83527bb19f03a5f969dd49ebfdf8b0e8",
+      "closedAt": "2022-01-25T20:59:51Z",
+      "mergedAt": "2022-01-25T20:59:51Z",
+      "mergedBy": "henkbirkholz",
+      "mergeCommit": {
+        "oid": "9f51257b7fcba5d7f073a2ac49564d719a94ba40"
+      },
+      "comments": [
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "body": "Merging due to Scott's go-ahead.",
+          "createdAt": "2022-01-25T20:59:24Z",
+          "updatedAt": "2022-01-25T20:59:24Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 47,
+      "id": "PR_kwDOBK4aBM4xoNt9",
+      "title": "adding expert review to standard action",
+      "url": "https://github.com/sacmwg/draft-ietf-sacm-coswid/pull/47",
+      "state": "MERGED",
+      "author": "henkbirkholz",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "(might not be literally covered by RFC 8126)",
+      "createdAt": "2022-01-26T17:03:25Z",
+      "updatedAt": "2022-01-26T18:34:22Z",
+      "baseRepository": "sacmwg/draft-ietf-sacm-coswid",
+      "baseRefName": "master",
+      "baseRefOid": "9f51257b7fcba5d7f073a2ac49564d719a94ba40",
+      "headRepository": "sacmwg/draft-ietf-sacm-coswid",
+      "headRefName": "expert-review",
+      "headRefOid": "cb9597cf62276b024ce49d53e160f75196afad29",
+      "closedAt": "2022-01-26T18:34:22Z",
+      "mergedAt": "2022-01-26T18:34:22Z",
+      "mergedBy": "henkbirkholz",
+      "mergeCommit": {
+        "oid": "b02c87419aa26d096ec565202cb1c7e92167c93d"
+      },
+      "comments": [
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "body": "Approved by AD",
+          "createdAt": "2022-01-26T18:34:13Z",
+          "updatedAt": "2022-01-26T18:34:13Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 48,
+      "id": "PR_kwDOBK4aBM4ySrCa",
+      "title": "Addressing IESG evaluation feedback",
+      "url": "https://github.com/sacmwg/draft-ietf-sacm-coswid/pull/48",
+      "state": "MERGED",
+      "author": "henkbirkholz",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2022-02-09T10:45:15Z",
+      "updatedAt": "2022-03-21T12:47:35Z",
+      "baseRepository": "sacmwg/draft-ietf-sacm-coswid",
+      "baseRefName": "master",
+      "baseRefOid": "b02c87419aa26d096ec565202cb1c7e92167c93d",
+      "headRepository": "sacmwg/draft-ietf-sacm-coswid",
+      "headRefName": "iesg-eval",
+      "headRefOid": "75e19f4deb64637e58e4e1ef1bee698d1acfe053",
+      "closedAt": "2022-03-21T12:47:35Z",
+      "mergedAt": "2022-03-21T12:47:35Z",
+      "mergedBy": "henkbirkholz",
+      "mergeCommit": {
+        "oid": "d25e4296fcb3ee30c351fbd47b22cc39f7f7ed86"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 49,
+      "id": "PR_kwDOBK4aBM4y1sGD",
+      "title": "Editorial suggestions from Benjamin Kaduk's IESG Evaluation",
+      "url": "https://github.com/sacmwg/draft-ietf-sacm-coswid/pull/49",
+      "state": "OPEN",
+      "author": "kaduk",
+      "authorAssociation": "FIRST_TIME_CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2022-02-15T07:53:36Z",
+      "updatedAt": "2022-02-15T07:55:33Z",
+      "baseRepository": "sacmwg/draft-ietf-sacm-coswid",
+      "baseRefName": "master",
+      "baseRefOid": "b02c87419aa26d096ec565202cb1c7e92167c93d",
+      "headRepository": "kaduk/draft-ietf-sacm-coswid",
+      "headRefName": "nits",
+      "headRefOid": "029ed68242d0db75b0c047cc45128ff0be465ae6",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOBK4aBM40mzR3",
+          "commit": {
+            "abbreviatedOid": "029ed68"
+          },
+          "author": "kaduk",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2022-02-15T07:55:33Z",
+          "updatedAt": "2022-02-15T07:55:33Z",
+          "comments": [
+            {
+              "originalPosition": 4,
+              "body": "Please check this.\r\nIt looked like the unprotected-sign-coswid-header construction was otherwise unused, but I'm also not sure how much interaction across CDDL snippets we intend.",
+              "createdAt": "2022-02-15T07:55:33Z",
+              "updatedAt": "2022-02-15T07:55:33Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 50,
+      "id": "PR_kwDOBK4aBM43lXtz",
+      "title": "Fixing remaining issues from IESG eval",
+      "url": "https://github.com/sacmwg/draft-ietf-sacm-coswid/pull/50",
+      "state": "OPEN",
+      "author": "henkbirkholz",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "based on: https://mailarchive.ietf.org/arch/msg/sacm/7h7j2WMCMi0fccrhy_I8uqff6bA/\r\n\r\n",
+      "createdAt": "2022-05-10T14:57:18Z",
+      "updatedAt": "2022-07-19T20:05:59Z",
+      "baseRepository": "sacmwg/draft-ietf-sacm-coswid",
+      "baseRefName": "master",
+      "baseRefOid": "d25e4296fcb3ee30c351fbd47b22cc39f7f7ed86",
+      "headRepository": "sacmwg/draft-ietf-sacm-coswid",
+      "headRefName": "iesg-eval",
+      "headRefOid": "7a3d8c344768d4cbf18c41e9cb5006716fe2efcf",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "body": "PR summarized in https://mailarchive.ietf.org/arch/msg/sacm/QLWjAZmBcUk96wmgPnvTsOHJNPM/ for WG feedback.",
+          "createdAt": "2022-05-13T12:34:14Z",
+          "updatedAt": "2022-05-13T12:34:14Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOBK4aBM453VH2",
+          "commit": {
+            "abbreviatedOid": "b4814da"
+          },
+          "author": "david-waltermire-nist",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2022-05-12T12:59:21Z",
+          "updatedAt": "2022-05-12T12:59:22Z",
+          "comments": [
+            {
+              "originalPosition": 102,
+              "body": "```suggestion\r\n- date (index 35): The date and time the information was collected pertaining to the evidence item in Epoch-Based Date/Time format as specified in Section 3.4.2 of {{RFC8949}}.\r\n```",
+              "createdAt": "2022-05-12T12:59:21Z",
+              "updatedAt": "2022-05-12T12:59:22Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOBK4aBM453t3z",
+          "commit": {
+            "abbreviatedOid": "b4814da"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2022-05-12T14:01:23Z",
+          "updatedAt": "2022-05-12T14:01:23Z",
+          "comments": [
+            {
+              "originalPosition": 102,
+              "body": "lgtm",
+              "createdAt": "2022-05-12T14:01:23Z",
+              "updatedAt": "2022-05-12T14:01:23Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 51,
+      "id": "PR_kwDOBK4aBM47rMdC",
+      "title": "Fix nits from iesg-eval branch",
+      "url": "https://github.com/sacmwg/draft-ietf-sacm-coswid/pull/51",
+      "state": "MERGED",
+      "author": "cabo",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2022-07-19T19:53:25Z",
+      "updatedAt": "2022-07-19T20:05:58Z",
+      "baseRepository": "sacmwg/draft-ietf-sacm-coswid",
+      "baseRefName": "iesg-eval",
+      "baseRefOid": "1fff1f7d3f05f30b1ef805ca472234166fafc8e4",
+      "headRepository": "cabo/draft-ietf-sacm-coswid",
+      "headRefName": "iesg-eval",
+      "headRefOid": "56b3fc0de513d65ccbd8197b4ff6b91a656af70f",
+      "closedAt": "2022-07-19T20:05:58Z",
+      "mergedAt": "2022-07-19T20:05:57Z",
+      "mergedBy": "henkbirkholz",
+      "mergeCommit": {
+        "oid": "7a3d8c344768d4cbf18c41e9cb5006716fe2efcf"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOBK4aBM4-Ol2Z",
+          "commit": {
+            "abbreviatedOid": "56b3fc0"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2022-07-19T20:05:47Z",
+          "updatedAt": "2022-07-19T20:05:47Z",
+          "comments": []
+        }
+      ]
+    }
+  ]
+}
