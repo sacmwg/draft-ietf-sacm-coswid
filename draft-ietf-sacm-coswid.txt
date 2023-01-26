@@ -5,12 +5,12 @@
 SACM Working Group                                           H. Birkholz
 Internet-Draft                                            Fraunhofer SIT
 Intended status: Standards Track                     J. Fitzgerald-McKay
-Expires: 22 September 2022                      National Security Agency
+Expires: 30 July 2023                           National Security Agency
                                                               C. Schmidt
                                                    The MITRE Corporation
                                                            D. Waltermire
                                                                     NIST
-                                                           21 March 2022
+                                                         26 January 2023
 
 
                   Concise Software Identification Tags
@@ -43,11 +43,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 22 September 2022.
+   This Internet-Draft will expire on 30 July 2023.
 
 Copyright Notice
 
-   Copyright (c) 2022 IETF Trust and the persons identified as the
+   Copyright (c) 2023 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -92,15 +92,15 @@ Table of Contents
      5.2.  "swidpath" URI Scheme
    6.  IANA Considerations
      6.1.  CoSWID Items Registry
-     6.2.  Software Tag Values Registries
+     6.2.  Software ID Values Registries
        6.2.1.  Registration Procedures
        6.2.2.  Private Use of Index and Name Values
        6.2.3.  Expert Review Criteria
-       6.2.4.  Software Tag Version Scheme Values Registry
-       6.2.5.  Software Tag Entity Role Values Registry
-       6.2.6.  Software Tag Link Ownership Values Registry
-       6.2.7.  Software Tag Link Relationship Values Registry
-       6.2.8.  Software Tag Link Use Values Registry
+       6.2.4.  Software ID Version Scheme Values Registry
+       6.2.5.  Software ID Entity Role Values Registry
+       6.2.6.  Software ID Link Ownership Values Registry
+       6.2.7.  Software ID Link Relationship Values Registry
+       6.2.8.  Software ID Link Use Values Registry
      6.3.  swid+cbor Media Type Registration
      6.4.  CoAP Content-Format Registration
      6.5.  CBOR Tag Registration
@@ -144,7 +144,7 @@ Table of Contents
 
    *  Remote Attestation, which requires a link between reference
       integrity measurements (RIM) and Attester-produced event logs that
-      complement attestation Evidence [I-D.ietf-rats-architecture].
+      complement attestation evidence [I-D.ietf-rats-architecture].
 
    While there are very few required fields in SWID tags, there are many
    optional fields that support different uses.  A SWID tag consisting
@@ -469,7 +469,7 @@ Table of Contents
 
    All names registered with IANA according to requirements in
    Section 6.2 also MUST be valid according to the XML Schema NMTOKEN
-   data type (see [W3C.REC-xmlschema-2-20041028] Section 3.3.4) to
+   data type (see [W3C.REC-xmlschema-2-20041028], Section 3.3.4) to
    ensure compatibility with the SWID specification where these names
    are used.
 
@@ -481,15 +481,14 @@ Table of Contents
    *  The explicit definition of types for some attributes in the ISO-
       19770-2:2015 XML representation that are typically represented by
       the "any attribute" in the SWID model.  These are covered in
-      Section 2.4, Paragraph 2.
+      Section 2.5.
 
    *  The inclusion of extension points in the CoSWID specification
-      using CDDL sockets (see [RFC8610] Section 3.9).  The use of CDDL
-      sockets allow for well-formed extensions to be defined in
+      using CDDL sockets (see Section 3.9 of [RFC8610]).  The use of
+      CDDL sockets allow for well-formed extensions to be defined in
       supplementary CDDL descriptions that support additional uses of
       CoSWID tags that go beyond the original scope of ISO-19770-2:2015
-      tags.  This extension mechanism can also be used to update the
-      CoSWID format as revisions to ISO-19770-2 are published.
+      tags.
 
    The following CDDL sockets (extension points) are defined in this
    document, which allow the addition of new information structures to
@@ -630,8 +629,7 @@ Table of Contents
 
    *  global-attributes: A list of items including an optional language
       definition to support the processing of text-string values and an
-      unbounded set of any-attribute items.  Described in Section 2.4,
-      Paragraph 2.
+      unbounded set of any-attribute items.  Described in Section 2.5.
 
    *  tag-id (index 0): A 16-byte binary string, or a textual
       identifier, uniquely referencing a software component.  The tag
@@ -697,13 +695,13 @@ Table of Contents
    *  version-scheme (index 14): An integer or textual value
       representing the versioning scheme used for the software-version
       item, as an integer label with text escape (Section 2, for the
-      "Version Scheme" registry Section 4.1. . If an integer value is
+      "Version Scheme" registry Section 4.1).  If an integer value is
       used it MUST be an index value in the range -256 to 65535.
       Integer values in the range -256 to -1 are reserved for testing
       and use in closed environments (see Section 6.2.2).  Integer
       values in the range 0 to 65535 correspond to registered entries in
-      the IANA "Software Tag Version Scheme Values" registry (see
-      Section 6.2.4.
+      the IANA "Software ID Version Scheme Values" registry (see
+      Section 6.2.4).
 
    *  media (index 10): This text value is a hint to the tag consumer to
       understand what target platform this tag applies to.  This item
@@ -765,24 +763,16 @@ Table of Contents
 2.4.  concise-swid-tag Co-Constraints
 
    The following co-constraints apply to the information provided in the
-   concise-swid-tag group.  If any of these constraints is not met, a
-   signed tag cannot be used anymore as a signed statement.
+   concise-swid-tag group.
 
    *  The patch and supplemental items MUST NOT both be set to "true".
 
-   *  If the patch item is set to "true", the tag SHOULD contain at
-      least one link item (see Section 2.7) with both the rel item value
-      of "patches" and an href item specifying an association with the
+   *  If the patch item is set to "true", the tag MUST contain at least
+      one link item (see Section 2.7) with both the rel item value of
+      "patches" and an href item specifying an association with the
       software that was patched.  Without at least one link item the
       target of the patch cannot be identified and the patch tag cannot
       be applied without external context.
-
-   *  If the supplemental item is set to "true", the tag SHOULD contain
-      at least one link item with both the rel item value of
-      "supplemental" and an href item specifying an association with the
-      software that is supplemented.  Without at least one link item the
-      target of supplement tag cannot be identified and the patch tag
-      cannot be applied without external context.
 
    *  If all of the corpus, patch, and supplemental items are "false",
       or if the corpus item is set to "true", then a software-version
@@ -863,7 +853,7 @@ Table of Contents
    The following describes each child item of this group.
 
    *  global-attributes: The global-attributes group described in
-      Section 2.4, Paragraph 2.
+      Section 2.5.
 
    *  entity-name (index 31): The textual name of the organizational
       entity claiming the roles specified by the role item for the
@@ -884,8 +874,8 @@ Table of Contents
       in the range -256 to 255.  Integer values in the range -256 to -1
       are reserved for testing and use in closed environments (see
       Section 6.2.2).  Integer values in the range 0 to 255 correspond
-      to registered entries in the IANA "Software Tag Entity Role
-      Values" registry (see Section 6.2.5.
+      to registered entries in the IANA "Software ID Entity Role Values"
+      registry (see Section 6.2.5).
 
       The following additional requirements exist for the use of the
       "role" item:
@@ -976,10 +966,10 @@ Table of Contents
    The following describes each member of this map.
 
    *  global-attributes: The global-attributes group described in
-      Section 2.4, Paragraph 2.
+      Section 2.5.
 
-   *  artifact (index 37): To be used with rel="installation-media",
-      this item's value provides the absolute filesystem path to the
+   *  artifact (index 37): To be used with rel="installationmedia", this
+      item's value provides the absolute filesystem path to the
       installer executable or script that can be run to launch the
       referenced installation.  Links with the same artifact name MUST
       be considered mirrors of each other, allowing the installation
@@ -1022,7 +1012,7 @@ Table of Contents
       a CoSWID.
 
    *  ownership (index 39): An integer or textual value (integer label
-      with text escape, see Section 2, for the "Software Tag Link
+      with text escape, see Section 2, for the "Software ID Link
       Ownership Values" registry Section 4.3) used when the "href" item
       references another software component to indicate the degree of
       ownership between the software component referenced by the CoSWID
@@ -1031,29 +1021,29 @@ Table of Contents
       to 255.  Integer values in the range -256 to -1 are reserved for
       testing and use in closed environments (see Section 6.2.2).
       Integer values in the range 0 to 255 correspond to registered
-      entries in the "Software Tag Link Ownership Values" registry.
+      entries in the "Software ID Link Ownership Values" registry.
 
    *  rel (index 40): An integer or textual value that (integer label
-      with text escape, see Section 2, for the "Software Tag Link Link
+      with text escape, see Section 2, for the "Software ID Link Link
       Relationship Values" registry Section 4.3) identifies the
       relationship between this CoSWID and the target resource
       identified by the "href" item.  If an integer value is used it
       MUST be an index value in the range -256 to 65535.  Integer values
       in the range -256 to -1 are reserved for testing and use in closed
       environments (see Section 6.2.2).  Integer values in the range 0
-      to 65535 correspond to registered entries in the IANA "Software
-      Tag Link Relationship Values" registry (see Section 6.2.7.  If a
+      to 65535 correspond to registered entries in the IANA "Software ID
+      Link Relationship Values" registry (see Section 6.2.7).  If a
       string value is used it MUST be either a private use name as
       defined in Section 6.2.2 or a "Relation Name" from the IANA "Link
       Relation Types" registry: https://www.iana.org/assignments/link-
       relations/link-relations.xhtml as defined by [RFC8288].  When a
-      string value defined in the IANA "Software Tag Link Relationship
+      string value defined in the IANA "Software ID Link Relationship
       Values" registry matches a Relation Name defined in the IANA "Link
-      Relation Types" registry, the index value in the IANA "Software
-      Tag Link Relationship Values" registry MUST be used instead, as
-      this relationship has a specialized meaning in the context of a
-      CoSWID tag.  String values correspond to registered entries in the
-      "Software Tag Link Relationship Values" registry.
+      Relation Types" registry, the index value in the IANA "Software ID
+      Link Relationship Values" registry MUST be used instead, as this
+      relationship has a specialized meaning in the context of a CoSWID
+      tag.  String values correspond to registered entries in the
+      "Software ID Link Relationship Values" registry.
 
    *  media-type (index 41): A link can point to arbitrary resources on
       the endpoint, local network, or Internet using the href item.  Use
@@ -1067,7 +1057,7 @@ Table of Contents
       [SWID].
 
    *  use (index 42): An integer or textual value (integer label with
-      text escape, see Section 2, for the "Software Tag Link Link
+      text escape, see Section 2, for the "Software ID Link Link
       Relationship Values" registry Section 4.3) used to determine if
       the referenced software component has to be installed before
       installing the software component identified by the COSWID tag.
@@ -1075,10 +1065,10 @@ Table of Contents
       -256 to 255.  Integer values in the range -256 to -1 are reserved
       for testing and use in closed environments (see Section 6.2.2).
       Integer values in the range 0 to 255 correspond to registered
-      entries in the IANA "Link Use Values" registry (see Section 6.2.8.
-      If a string value is used it MUST be a private use name as defined
-      in Section 6.2.2.  String values correspond to registered entries
-      in the "Software Tag Link Use Values" registry.
+      entries in the IANA "Link Use Values" registry (see
+      Section 6.2.8).  If a string value is used it MUST be a private
+      use name as defined in Section 6.2.2.  String values correspond to
+      registered entries in the "Software ID Link Use Values" registry.
 
    *  $$link-extension: This CDDL socket can be used to extend the link-
       entry map model.  See Section 2.2.
@@ -1126,7 +1116,7 @@ Table of Contents
    The following describes each child item of this group.
 
    *  global-attributes: The global-attributes group described in
-      Section 2.4, Paragraph 2.
+      Section 2.5.
 
    *  activation-status (index 43): A textual value that identifies how
       the software component has been activated, which might relate to
@@ -1342,7 +1332,7 @@ Table of Contents
       file or directory item.
 
    *  global-attributes: The global-attributes group described in
-      Section 2.4, Paragraph 2.
+      Section 2.5.
 
    *  directory (index 16): A directory item allows child directory and
       file items to be defined within a directory hierarchy for the
@@ -1445,7 +1435,7 @@ Table of Contents
    The following describes each child item of this group.
 
    *  global-attributes: The global-attributes group described in
-      Section 2.4, Paragraph 2.
+      Section 2.5.
 
    *  resource-collection: The resource-collection group described in
       Section 2.9.2.
@@ -1472,13 +1462,14 @@ Table of Contents
    The following describes each child item of this group.
 
    *  global-attributes: The global-attributes group described in
-      Section 2.4, Paragraph 2.
+      Section 2.5.
 
    *  resource-collection: The resource-collection group described in
       Section 2.9.2.
 
    *  date (index 35): The date and time the information was collected
-      pertaining to the evidence item.
+      pertaining to the evidence item in Epoch-Based Date/Time format as
+      specified in Section 3.4.2 of [RFC8949].
 
    *  device-id (index 36): The endpoint's string identifier from which
       the evidence was collected.
@@ -1862,9 +1853,9 @@ Table of Contents
    interpreted as a single floating point number (e.g., 1.25 is less
    than 1.3).
 
-   The values above are registered in the IANA "Software Tag Version
-   Scheme Values" registry defined in Section Section 6.2.4.  Additional
-   entries will likely be registered over time in this registry.
+   The values above are registered in the IANA "Software ID Version
+   Scheme Values" registry defined in Section 6.2.4.  Additional entries
+   will likely be registered over time in this registry.
 
    A CoSWID producer that is aware of the version scheme that has been
    used to select the version value, SHOULD include the optional
@@ -1877,18 +1868,18 @@ Table of Contents
    *  "decimal" and "multipartnumeric" partially overlap in their value
       space when a value matches a decimal number.  When a corresponding
       software-version item's value falls within this overlapping value
-      space, the "decimal" version scheme SHOULD be assumed.
+      space, it is expected that the "decimal" version scheme is used.
 
    *  "multipartnumeric" and "semver" partially overlap in their value
       space when a "multipartnumeric" value matches the semantic
       versioning syntax.  When a corresponding software-version item's
-      value falls within this overlapping value space, the "semver"
-      version scheme SHOULD be assumed.
+      value falls within this overlapping value space, it is expected
+      that the "semver" version scheme is used.
 
    *  "alphanumeric" and other version schemes might overlap in their
       value space.  When a corresponding software-version item's value
-      falls within this overlapping value space, the other version
-      scheme SHOULD be assumed instead of "alphanumeric".
+      falls within this overlapping value space, it is expected that the
+      other version scheme is used and "alphanumeric" is not used.
 
    Note that these heuristics are imperfect and can guess wrong, which
    is the reason the version-scheme item SHOULD be included by the
@@ -1948,7 +1939,7 @@ Table of Contents
 
                        Table 4: Entity Role Values
 
-   The values above are registered in the IANA "Software Tag Entity Role
+   The values above are registered in the IANA "Software ID Entity Role
    Values" registry defined in Section 6.2.5.  Additional values will
    likely be registered over time.
 
@@ -1984,7 +1975,7 @@ Table of Contents
 
                        Table 5: Link Ownership Values
 
-   The values above are registered in the IANA "Software Tag Link
+   The values above are registered in the IANA "Software ID Link
    Ownership Values" registry defined in Section 6.2.6.  Additional
    values will likely be registered over time.
 
@@ -2073,7 +2064,7 @@ Table of Contents
 
                      Table 6: Link Relationship Values
 
-   The values above are registered in the IANA "Software Tag Link
+   The values above are registered in the IANA "Software ID Link
    Relationship Values" registry defined in Section 6.2.7.  Additional
    values will likely be registered over time.
 
@@ -2105,7 +2096,7 @@ Table of Contents
 
                          Table 7: Link Use Values
 
-   The values above are registered in the IANA "Software Tag Link Use
+   The values above are registered in the IANA "Software ID Link Use
    Values" registry defined in Section 6.2.8.  Additional values will
    likely be registered over time.
 
@@ -2141,7 +2132,7 @@ Table of Contents
 
    For URIs that use the "swid" scheme, the scheme specific part MUST
    consist of a referenced software tag's tag-id.  This tag-id MUST be
-   URI encoded according to [RFC3986] Section 2.1.
+   URI encoded according to Section 2.1 of [RFC3986].
 
    The following expression is a valid example:
 
@@ -2174,12 +2165,12 @@ Table of Contents
 
    *  The scheme specific part MUST be an XPath expression as defined by
       [W3C.REC-xpath20-20101214].  The included XPath expression will be
-      URI encoded according to [RFC3986] Section 2.1.
+      URI encoded according to Section 2.1 of [RFC3986].
 
    *  This XPath is evaluated over SWID tags, or COSWID tags transformed
       into SWID tags, found on a system.  A given tag MUST be considered
       a match if the XPath evaluation result value has an effective
-      boolean value of "true" according to [W3C.REC-xpath20-20101214]
+      boolean value of "true" according to [W3C.REC-xpath20-20101214],
       Section 2.4.3.
 
 6.  IANA Considerations
@@ -2335,9 +2326,9 @@ Table of Contents
        | 58-4294967295 | Unassigned                |               |
        +---------------+---------------------------+---------------+
 
-                 Table 9: CoSWID Items Inital Registrations
+                Table 9: CoSWID Items Initial Registrations
 
-6.2.  Software Tag Values Registries
+6.2.  Software ID Values Registries
 
    The following IANA registries provide a mechanism for new values to
    be added over time to common enumerations used by SWID and CoSWID.
@@ -2346,8 +2337,8 @@ Table of Contents
    there is value in supporting alignment between the two standards.
    Shared use of common code points, as spelled out in these registries,
    will facilitate this alignment, hence the intent for shared use of
-   these registries and the decision to use "swid" (rather than
-   "coswid") in registry names.
+   these registries and the decision to use "swidsoftware-id" (rather
+   than "swid" or "coswid") in registry names.
 
 6.2.1.  Registration Procedures
 
@@ -2357,10 +2348,10 @@ Table of Contents
    Required policy [BCP26].
 
    The following registries also reserve the integer-based index values
-   in the range of -1 to -256 for private use as defined by [BCP26] in
-   Section 4.1.  This allows values -1 to -24 to be expressed as a
-   single uint_8t in CBOR, and values -25 to -256 to be expressed using
-   an additional uint_8t in CBOR.
+   in the range of -1 to -256 for private use as defined by Section 4.1
+   of [BCP26].  This allows values -1 to -24 to be expressed as a single
+   uint_8t in CBOR, and values -25 to -256 to be expressed using an
+   additional uint_8t in CBOR.
 
 6.2.2.  Private Use of Index and Name Values
 
@@ -2408,7 +2399,7 @@ Table of Contents
       SHOULD be avoided.
 
    *  All registered names MUST be valid according to the XML Schema
-      NMTOKEN data type (see [W3C.REC-xmlschema-2-20041028]
+      NMTOKEN data type (see [W3C.REC-xmlschema-2-20041028],
       Section 3.3.4).  This ensures that registered names are compatible
       with the SWID format [SWID] where they are used.
 
@@ -2416,15 +2407,15 @@ Table of Contents
       requesting specification MUST provide a description of how a
       requested name will allow for use by multiple stakeholders.
 
-6.2.4.  Software Tag Version Scheme Values Registry
+6.2.4.  Software ID Version Scheme Values Registry
 
-   This document establishes a new registry titled "Software Tag Version
+   This document establishes a new registry titled "Software ID Version
    Scheme Values".  This registry provides index values for use as
    version-scheme item values in this document and version scheme names
    for use in [SWID].
 
    [TO BE REMOVED: This registration should take place at the following
-   location: https://www.iana.org/assignments/swid]
+   location: https://www.iana.org/assignments/software-id]
 
    This registry uses the registration procedures defined in
    Section 6.2.1 with the following associated ranges:
@@ -2437,13 +2428,13 @@ Table of Contents
            | 16384-65535 | Specification Required              |
            +-------------+-------------------------------------+
 
-                Table 10: CoSWID Version Scheme Registration
+             Table 10: Software ID Version Scheme Registration
                                  Procedures
 
    Assignments MUST consist of an integer Index value, the Version
    Scheme Name, and a reference to the defining specification.
 
-   Initial registrations for the "Software Tag Version Scheme Values"
+   Initial registrations for the "Software ID Version Scheme Values"
    registry are provided below, which are derived from the textual
    version scheme names defined in [SWID].
 
@@ -2467,7 +2458,7 @@ Table of Contents
         | 16385-65535 | Unassigned              |                 |
         +-------------+-------------------------+-----------------+
 
-           Table 11: CoSWID Version Scheme Initial Registrations
+         Table 11: Software ID Version Scheme Initial Registrations
 
    Registrations MUST conform to the expert review criteria defined in
    Section 6.2.3.
@@ -2478,15 +2469,15 @@ Table of Contents
    registrations violate this requirement, but are included for
    backwards compatibility with [SWID].  See also Section 4.1.
 
-6.2.5.  Software Tag Entity Role Values Registry
+6.2.5.  Software ID Entity Role Values Registry
 
-   This document establishes a new registry titled "Software Tag Entity
+   This document establishes a new registry titled "Software ID Entity
    Role Values".  This registry provides index values for use as entity-
    entry role item values in this document and entity role names for use
    in [SWID].
 
    [TO BE REMOVED: This registration should take place at the following
-   location: https://www.iana.org/assignments/swid]
+   location: https://www.iana.org/assignments/software-id]
 
    This registry uses the registration procedures defined in
    Section 6.2.1 with the following associated ranges:
@@ -2499,13 +2490,13 @@ Table of Contents
              | 128-255 | Specification Required              |
              +---------+-------------------------------------+
 
-                 Table 12: CoSWID Entity Role Registration
-                                 Procedures
+                     Table 12: Software ID Entity Role
+                          Registration Procedures
 
    Assignments consist of an integer Index value, a Role Name, and a
    reference to the defining specification.
 
-   Initial registrations for the "Software Tag Entity Role Values"
+   Initial registrations for the "Software ID Entity Role Values"
    registry are provided below, which are derived from the textual
    entity role names defined in [SWID].
 
@@ -2529,21 +2520,21 @@ Table of Contents
                | 7-255 | Unassigned      |                 |
                +-------+-----------------+-----------------+
 
-                    Table 13: CoSWID Entity Role Initial
+                 Table 13: Software ID Entity Role Initial
                                Registrations
 
    Registrations MUST conform to the expert review criteria defined in
    Section 6.2.3.
 
-6.2.6.  Software Tag Link Ownership Values Registry
+6.2.6.  Software ID Link Ownership Values Registry
 
-   This document establishes a new registry titled "Software Tag Link
+   This document establishes a new registry titled "Software ID Link
    Ownership Values".  This registry provides index values for use as
    link-entry ownership item values in this document and link ownership
    names for use in [SWID].
 
    [TO BE REMOVED: This registration should take place at the following
-   location: https://www.iana.org/assignments/swid]
+   location: https://www.iana.org/assignments/software-id]
 
    This registry uses the registration procedures defined in
    Section 6.2.1 with the following associated ranges:
@@ -2556,13 +2547,13 @@ Table of Contents
              | 128-255 | Specification Required              |
              +---------+-------------------------------------+
 
-                Table 14: CoSWID Link Ownership Registration
-                                 Procedures
+                    Table 14: Software ID Link Ownership
+                          Registration Procedures
 
    Assignments consist of an integer Index value, an Ownership Type
    Name, and a reference to the defining specification.
 
-   Initial registrations for the "Software Tag Link Ownership Values"
+   Initial registrations for the "Software ID Link Ownership Values"
    registry are provided below, which are derived from the textual
    entity role names defined in [SWID].
 
@@ -2580,21 +2571,21 @@ Table of Contents
              | 4-255 | Unassigned          |                 |
              +-------+---------------------+-----------------+
 
-                   Table 15: CoSWID Link Ownership Inital
+                Table 15: Software ID Link Ownership Inital
                                Registrations
 
    Registrations MUST conform to the expert review criteria defined in
    Section 6.2.3.
 
-6.2.7.  Software Tag Link Relationship Values Registry
+6.2.7.  Software ID Link Relationship Values Registry
 
-   This document establishes a new registry titled "Software Tag Link
+   This document establishes a new registry titled "Software ID Link
    Relationship Values".  This registry provides index values for use as
    link-entry rel item values in this document and link ownership names
    for use in [SWID].
 
    [TO BE REMOVED: This registration should take place at the following
-   location: https://www.iana.org/assignments/swid]
+   location: https://www.iana.org/assignments/software-id]
 
    This registry uses the registration procedures defined in
    Section 6.2.1 with the following associated ranges:
@@ -2607,13 +2598,13 @@ Table of Contents
            | 32768-65535 | Specification Required              |
            +-------------+-------------------------------------+
 
-              Table 16: CoSWID Link Relationship Registration
-                                 Procedures
+                  Table 16: Software ID Link Relationship
+                          Registration Procedures
 
    Assignments consist of an integer Index value, the Relationship Type
    Name, and a reference to the defining specification.
 
-   Initial registrations for the "Software Tag Link Relationship Values"
+   Initial registrations for the "Software ID Link Relationship Values"
    registry are provided below, which are derived from the link
    relationship values defined in [SWID].
 
@@ -2647,7 +2638,7 @@ Table of Contents
           | 12-65535 | Unassigned             |                 |
           +----------+------------------------+-----------------+
 
-                 Table 17: CoSWID Link Relationship Initial
+              Table 17: Software ID Link Relationship Initial
                                Registrations
 
    Registrations MUST conform to the expert review criteria defined in
@@ -2660,15 +2651,15 @@ Table of Contents
    processing software tags are able to interoperate when resolving
    resources referenced by a link of a given type.
 
-6.2.8.  Software Tag Link Use Values Registry
+6.2.8.  Software ID Link Use Values Registry
 
-   This document establishes a new registry titled "Software Tag Link
-   Use Values".  This registry provides index values for use as link-
-   entry use item values in this document and link use names for use in
+   This document establishes a new registry titled "Software ID Link Use
+   Values".  This registry provides index values for use as link-entry
+   use item values in this document and link use names for use in
    [SWID].
 
    [TO BE REMOVED: This registration should take place at the following
-   location: https://www.iana.org/assignments/swid]
+   location: https://www.iana.org/assignments/software-id]
 
    This registry uses the registration procedures defined in
    Section 6.2.1 with the following associated ranges:
@@ -2681,12 +2672,13 @@ Table of Contents
              | 128-255 | Specification Required              |
              +---------+-------------------------------------+
 
-             Table 18: CoSWID Link Use Registration Procedures
+                Table 18: Software ID Link Use Registration
+                                 Procedures
 
    Assignments consist of an integer Index value, the Link Use Type
    Name, and a reference to the defining specification.
 
-   Initial registrations for the "Software Tag Link Use Values" registry
+   Initial registrations for the "Software ID Link Use Values" registry
    are provided below, which are derived from the link relationship
    values defined in [SWID].
 
@@ -2704,7 +2696,8 @@ Table of Contents
              | 4-255 | Unassigned         |                 |
              +-------+--------------------+-----------------+
 
-             Table 19: CoSWID Link Use Initial Registrations
+                  Table 19: Software ID Link Use Initial
+                              Registrations
 
    Registrations MUST conform to the expert review criteria defined in
    Section 6.2.3.
@@ -3089,7 +3082,7 @@ Table of Contents
    components and, as such, the contents of a CoSWID tag (as opposed to
    the set of tags that apply to the endpoint, see below) does not need
    to be protected against unintended disclosure on an endpoint.
-   Converse, generators of CoSWID tags need to ensure that only public
+   Conversely, generators of CoSWID tags need to ensure that only public
    information is disclosed.  Entitlement Keys are an example for
    information where particular care is required; tag authors are
    advised not to record unprotected, private software license keys in
@@ -3209,7 +3202,7 @@ Table of Contents
    should be made aware that their software inventories are being
    collected from endpoints.  Furthermore, when collected and stored by
    authorized parties or systems, the inventory data needs to be
-   protected as both security and privacy sensitive information.
+   protected as both security and privacy-sensitive information.
 
 11.  Change Log
 
@@ -3472,9 +3465,9 @@ Table of Contents
    [I-D.ietf-cose-countersign]
               Schaad, J. and R. Housley, "CBOR Object Signing and
               Encryption (COSE): Countersignatures", Work in Progress,
-              Internet-Draft, draft-ietf-cose-countersign-05, 23 June
-              2021, <https://datatracker.ietf.org/doc/html/draft-ietf-
-              cose-countersign-05>.
+              Internet-Draft, draft-ietf-cose-countersign-10, 20
+              September 2022, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-cose-countersign-10>.
 
    [I-D.ietf-cose-rfc8152bis-struct]
               Schaad, J., "CBOR Object Signing and Encryption (COSE):
@@ -3575,9 +3568,6 @@ Table of Contents
               5: Overview and vocabulary", ISO/IEC 19770-5:2015, 15
               November 2013.
 
-   [SEMVER]   Preston-Werner, T., "Semantic Versioning 2.0.0",
-              <https://semver.org/spec/v2.0.0.html>.
-
    [SWID]     "Information technology - Software asset management - Part
               2: Software identification tag", ISO/IEC 19770-2:2015, 1
               October 2015.
@@ -3586,23 +3576,24 @@ Table of Contents
               October 2020, <https://www.unspsc.org/>.
 
    [W3C.REC-css3-mediaqueries-20120619]
-              Rivoal, F., "Media Queries", World Wide Web Consortium
-              Recommendation REC-css3-mediaqueries-20120619, 19 June
-              2012, <https://www.w3.org/TR/2012/REC-css3-mediaqueries-
-              20120619>.
+              Rivoal, F., Ed., "Media Queries", W3C REC REC-css3-
+              mediaqueries-20120619, W3C REC-css3-mediaqueries-20120619,
+              19 June 2012, <https://www.w3.org/TR/2012/REC-css3-
+              mediaqueries-20120619/>.
 
    [W3C.REC-xmlschema-2-20041028]
-              Biron, P. and A. Malhotra, "XML Schema Part 2: Datatypes
-              Second Edition", World Wide Web Consortium Recommendation 
-              REC-xmlschema-2-20041028, 28 October 2004,
-              <https://www.w3.org/TR/2004/REC-xmlschema-2-20041028>.
+              Malhotra, A., Ed. and P. V. Biron, Ed., "XML Schema Part
+              2: Datatypes Second Edition", W3C REC REC-xmlschema-
+              2-20041028, W3C REC-xmlschema-2-20041028, 28 October 2004,
+              <https://www.w3.org/TR/2004/REC-xmlschema-2-20041028/>.
 
    [W3C.REC-xpath20-20101214]
-              Berglund, A., Boag, S., Chamberlin, D., Fernandez, M.,
-              Kay, M., Robie, J., and J. Simeon, "XML Path Language
-              (XPath) 2.0 (Second Edition)", World Wide Web Consortium
-              Recommendation REC-xpath20-20101214, 14 December 2010,
-              <https://www.w3.org/TR/2010/REC-xpath20-20101214>.
+              Berglund, A., Ed., Chamberlin, D., Ed., Simeon, J., Ed.,
+              Robie, J., Ed., Fernandez, M., Ed., Kay, M., Ed., and S.
+              Boag, Ed., "XML Path Language (XPath) 2.0 (Second
+              Edition)", W3C REC REC-xpath20-20101214, W3C REC-
+              xpath20-20101214, 14 December 2010,
+              <https://www.w3.org/TR/2010/REC-xpath20-20101214/>.
 
 12.2.  Informative References
 
@@ -3612,11 +3603,11 @@ Table of Contents
 
    [I-D.ietf-rats-architecture]
               Birkholz, H., Thaler, D., Richardson, M., Smith, N., and
-              W. Pan, "Remote Attestation Procedures Architecture", Work
-              in Progress, Internet-Draft, draft-ietf-rats-architecture-
-              15, 8 February 2022,
+              W. Pan, "Remote ATtestation procedureS (RATS)
+              Architecture", Work in Progress, Internet-Draft, draft-
+              ietf-rats-architecture-22, 28 September 2022,
               <https://datatracker.ietf.org/doc/html/draft-ietf-rats-
-              architecture-15>.
+              architecture-22>.
 
    [KebabCase]
               "KebabCase", 18 December 2014,
@@ -3647,8 +3638,11 @@ Table of Contents
               DOI 10.17487/RFC8520, March 2019,
               <https://www.rfc-editor.org/rfc/rfc8520>.
 
+   [SEMVER]   Preston-Werner, T., "Semantic Versioning 2.0.0",
+              <https://semver.org/spec/v2.0.0.html>.
+
    [SWID-GUIDANCE]
-              Waltermire, D., Cheikes, B.A., Feldman, L., and G. Witte,
+              Waltermire, D., Cheikes, B. A., Feldman, L., and G. Witte,
               "Guidelines for the Creation of Interoperable Software
               Identification (SWID) Tags", NISTIR 8060, April 2016,
               <https://doi.org/10.6028/NIST.IR.8060>.
@@ -3672,7 +3666,6 @@ Contributors
    Postfach 330440
    D-28359 Bremen
    Germany
-
    Phone: +49-421-218-63921
    Email: cabo@tzi.org
 
@@ -3687,7 +3680,6 @@ Authors' Addresses
    Rheinstrasse 75
    64295 Darmstadt
    Germany
-
    Email: henk.birkholz@sit.fraunhofer.de
 
 
@@ -3696,7 +3688,6 @@ Authors' Addresses
    9800 Savage Road
    Ft. Meade, Maryland
    United States of America
-
    Email: jmfitz2@cyber.nsa.gov
 
 
@@ -3705,7 +3696,6 @@ Authors' Addresses
    202 Burlington Road
    Bedford, Massachusetts 01730
    United States of America
-
    Email: cmschmidt@mitre.org
 
 
@@ -3714,5 +3704,4 @@ Authors' Addresses
    100 Bureau Drive
    Gaithersburg, Maryland 20877
    United States of America
-
    Email: david.waltermire@nist.gov

@@ -12,25 +12,26 @@
 <meta content="
        ISO/IEC 19770-2:2015 Software Identification (SWID) tags provide an extensible XML-based structure to identify and describe individual software components, patches, and installation bundles. SWID tag representations can be too large for devices with network and storage constraints. This document defines a concise representation of SWID tags: Concise SWID (CoSWID) tags. CoSWID supports a similar set of semantics and features as SWID tags, as well as new semantics that allow CoSWIDs to describe additional types of information, all in a more memory efficient format. 
     " name="description">
-<meta content="xml2rfc 3.11.1" name="generator">
+<meta content="xml2rfc 3.12.10" name="generator">
 <meta content="Internet-Draft" name="keyword">
 <meta content="draft-ietf-sacm-coswid-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.11.1
-    Python 3.9.7
+  xml2rfc 3.12.10
+    Python 3.10.4
     appdirs 1.4.4
-    ConfigArgParse 1.3
-    google-i18n-address 2.5.0
+    ConfigArgParse 1.5.3
+    google-i18n-address 2.5.1
     html5lib 1.1
     intervaltree 3.1.0
     Jinja2 2.11.3
     kitchen 1.2.6
-    lxml 4.6.4
+    lxml 4.8.0
+    MarkupSafe 2.0.1
     pycountry 20.7.3
-    pyflakes 2.3.1
-    PyYAML 5.4.1
-    requests 2.26.0
-    setuptools 52.0.0
+    pyflakes 2.4.0
+    PyYAML 6.0
+    requests 2.27.1
+    setuptools 59.4.0
     six 1.16.0
 -->
 <link href="draft-ietf-sacm-coswid.xml" rel="alternate" type="application/rfc+xml">
@@ -155,6 +156,14 @@
   font-weight: 700;
   font-display: swap;
   src: local('Lora Bold'), local('Lora-Bold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-bold-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: local('Lora SemiBold'), local('Lora-SemiBold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-semibold-latin.woff2') format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
@@ -338,7 +347,7 @@ ol, ul {
   padding: 0;
   margin: 0 0 0.5em 2em;
 }
-ol ol, ul ul, ol ul, ul ol {
+:is(ol, ul) :is(ol, ul) {
   margin-left: 1em;
 }
 li {
@@ -353,31 +362,44 @@ ul.empty, .ulEmpty {
 ul.empty li, .ulEmpty li {
   margin-top: 0.5em;
 }
-ul.compact, .ulCompact,
-ol.compact, .olCompact {
+:is(ul, ol).compact, .ulCompact, .olCompact {
   line-height: 100%;
   margin: 0 0 0 2em;
 }
 
 /* definition lists */
 dl {
+  clear: left;
+  --indent: 3ch;
+  /* --indent: attr(indent ch); not supported in any browser, but we can dream */
 }
 dl > dt {
   float: left;
   margin-right: 1em;
+  min-width: 8ch;
+}
+dl.dlNewline > dt {
+  float: none;
 }
 dl > dd {
   margin-bottom: .8em;
-  min-height: 1.3em;
+  margin-left: var(--indent) !important; /* stupid element overrides */
+  min-height: 2ex;
 }
-dl.compact > dd, .dlCompact > dd {
-  margin-bottom: 0em;
+:is(dl.compact, .dlCompact) > dd {
+  margin-bottom: 0;
+}
+:is(dl.compact, .dlCompact) > dd > :is(:first-child, .break:first-child + *) {
+  margin-top: 0;
+}
+:is(dl.compact, .dlCompact) > dd > :is(:last-child) {
+  margin-bottom: 0;
 }
 dl > dd > dl {
   margin-top: 0.5em;
-  margin-bottom: 0em;
+  margin-bottom: 0;
 }
-dd.break {
+:is(dd, span).break {
   display: none;
 }
 
@@ -385,11 +407,11 @@ dd.break {
 a, a[href].selfRef:hover {
   text-decoration: none;
 }
-a[href].selfRef {
-  color: var(--text-color);
-}
 a[href] {
   color: var(--link-color);
+}
+a[href].selfRef, .iref + a[href].internal {
+  color: var(--text-color);
 }
 a[href]:hover {
   text-decoration: underline;
@@ -397,7 +419,7 @@ a[href]:hover {
 a[href].selfRef:hover {
   background-color: var(--highlight-color);
 }
-a.xref {
+a.xref:is(.cite, .auto), :is(#status-of-memo, #copyright) a {
   white-space: nowrap;
 }
 
@@ -409,8 +431,13 @@ tt, code, pre {
 tt, code {
   /* changing the font for inline elements leads to different ascender
      and descender heights; as we want to retain baseline alignment,
-     remove leading to avoid altering the final height of lines */
+     remove leading to avoid altering the final height of lines
+     note: this fails if these blocks take an entire line,
+     a different solution would be great */
   line-height: 0;
+}
+:is(h1, h2, h3, h4, h5, h6) :is(tt, code) {
+  font-size: 84%;
 }
 pre {
   border: 1px solid var(--line-color);
@@ -436,6 +463,19 @@ figcaption, caption {
   text-align: left;
 }
 @media screen {
+  /* Auto-collapse boilerplate. */
+  :is(#status-of-memo, #copyright) p {
+    margin: -2px 0;
+    max-height: 0;
+    transition: max-height 2s ease, margin 0.5s ease 0.5s;
+    overflow: hidden;
+  }
+  :is(#status-of-memo, #copyright):hover p,
+  :is(#status-of-memo, #copyright) h2:target ~ p {
+    margin: 0.5em 0;
+    max-height: 500px;
+    overflow: auto;
+  }
   pre, svg {
     display: inline-block;
     overflow-x: auto;
@@ -451,7 +491,7 @@ figcaption, caption {
     display: block;
     width: calc(100% - 25px);
   }
-  pre + .pilcrow, svg + .pilcrow {
+  :is(pre, svg) + .pilcrow {
     display: inline-block;
     vertical-align: text-bottom;
     padding-bottom: 8px;
@@ -500,17 +540,11 @@ th, td {
 th {
   background-color: var(--line-color);
 }
-tr:nth-child(2n) > td {
+:is(tr:nth-child(2n), thead+tbody > tr:nth-child(2n+1)) > td {
   background-color: var(--background-color);
 }
-tr:nth-child(2n+1) > td {
+:is(tr:nth-child(2n+1), thead+tbody > tr:nth-child(2n)) > td {
   background-color: var(--highlight-color);
-}
-thead+tbody > tr:nth-child(2n) > td {
-  background-color: var(--highlight-color);
-}
-thead+tbody > tr:nth-child(2n+1) > td {
-  background-color: var(--background-color);
 }
 table caption {
   margin: 0;
@@ -550,8 +584,9 @@ hr {
 }
 .bcp14 {
   font-variant: small-caps;
+  font-weight: 600;
+  font-size: 14.5px;
 }
-
 .role {
   font-variant: all-small-caps;
 }
@@ -561,17 +596,18 @@ hr {
   margin: 0;
   font-size: var(--small-font-size);
   line-height: 18px;
-  --identifier-width: 8em;
+  --identifier-width: 15ch;
 }
 #identifiers dt {
   width: var(--identifier-width);
-  margin: 0;
+  min-width: var(--identifier-width);
   clear: left;
   float: left;
   text-align: right;
 }
 #identifiers dd {
-  margin: 0 0 0 calc(1em + var(--identifier-width));
+  margin: 0;
+  margin-left: calc(1em + var(--identifier-width)) !important;
   min-width: 5em;
 }
 #identifiers .authors .author {
@@ -621,8 +657,13 @@ hr {
   font-weight: bold;
   min-width: 7em;
 }
+.references dt:target::before {
+  content: "⇒";
+  width: 15px;
+  margin: 0 10px 0 -25px;
+}
 .references dd {
-  margin-left: 8em;
+  margin-left: 8em !important;
   overflow: auto;
 }
 
@@ -790,7 +831,7 @@ hr.addr {
     margin: 0 0 0 4px;
     font-size: var(--small-font-size);
   }
-  #toc ul p, #toc ul li {
+  #toc ul :is(p, li) {
     margin: 2px 0;
     line-height: 22px;
   }
@@ -889,24 +930,14 @@ a.toplink {
   margin: 8px 0.5em 0;
 }
 
-/* Fix the dl styling to match the RFC 7992 attributes */
-dl > dt,
-dl.dlParallel > dt {
-  float: left;
-  margin-right: 1em;
-}
-dl.dlNewline > dt {
-  float: none;
-}
-
 /* Provide styling for table cell text alignment */
-table .text-left, table .text-left {
+table .text-left {
   text-align: left;
 }
-table .text-center, table .text-center {
+table .text-center {
   text-align: center;
 }
-table .text-right, table .text-right {
+table .text-right {
   text-align: right;
 }
 
@@ -973,12 +1004,6 @@ address div.right {
   }
 
 }
-/* Tweak the bcp14 keyword presentation */
-.bcp14 {
-  font-variant: small-caps;
-  font-weight: bold;
-  font-size: 0.9em;
-}
 
 /* Dark mode. */
 @media (prefers-color-scheme: dark) {
@@ -993,19 +1018,20 @@ address div.right {
   --pilcrow-strong: #666;
   scrollbar-color: #777 #333;
 }
-/* Trick: a prefix match works because only black and white are allowed */
-svg [stroke="black"], svg [stroke^="#000"] {
+}
+
+/* SVG Trick: a prefix match works because only black and white are allowed */
+svg :is([stroke="black"], [stroke^="#000"]) {
   stroke: var(--text-color);
 }
-svg [stroke="white"], svg [stroke^="#fff"] {
+svg :is([stroke="white"], [stroke^="#fff"]) {
   stroke: var(--background-color);
 }
-svg [fill="black"], svg [fill^="#000"], svg :not([fill]) {
+svg :is([fill="black"], [fill^="#000"], :not([fill])) {
   fill: var(--text-color);
 }
-svg [stroke="fill"], svg [fill^="#fff"] {
+svg :is([fill="white"], [fill^="#fff"]) {
   fill: var(--background-color);
-}
 }
 </style>
 
@@ -1015,11 +1041,11 @@ svg [stroke="fill"], svg [fill^="#fff"] {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">CoSWID</td>
-<td class="right">March 2022</td>
+<td class="right">January 2023</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Birkholz, et al.</td>
-<td class="center">Expires 22 September 2022</td>
+<td class="center">Expires 30 July 2023</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1032,12 +1058,12 @@ svg [stroke="fill"], svg [fill^="#fff"] {
 <dd class="internet-draft">draft-ietf-sacm-coswid-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2022-03-21" class="published">21 March 2022</time>
+<time datetime="2023-01-26" class="published">26 January 2023</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2022-09-22">22 September 2022</time></dd>
+<dd class="expires"><time datetime="2023-07-30">30 July 2023</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1083,7 +1109,7 @@ svg [stroke="fill"], svg [fill^="#fff"] {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 22 September 2022.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 30 July 2023.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1092,7 +1118,7 @@ svg [stroke="fill"], svg [fill^="#fff"] {
 <a href="#name-copyright-notice" class="section-name selfRef">Copyright Notice</a>
         </h2>
 <p id="section-boilerplate.2-1">
-            Copyright (c) 2022 IETF Trust and the persons identified as the
+            Copyright (c) 2023 IETF Trust and the persons identified as the
             document authors. All rights reserved.<a href="#section-boilerplate.2-1" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.2-2">
             This document is subject to BCP 78 and the IETF Trust's Legal
@@ -1216,7 +1242,7 @@ svg [stroke="fill"], svg [fill^="#fff"] {
                 <p id="section-toc.1-1.6.2.1.1"><a href="#section-6.1" class="xref">6.1</a>.  <a href="#name-coswid-items-registry" class="xref">CoSWID Items Registry</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.2">
-                <p id="section-toc.1-1.6.2.2.1"><a href="#section-6.2" class="xref">6.2</a>.  <a href="#name-software-tag-values-registr" class="xref">Software Tag Values Registries</a></p>
+                <p id="section-toc.1-1.6.2.2.1"><a href="#section-6.2" class="xref">6.2</a>.  <a href="#name-software-id-values-registri" class="xref">Software ID Values Registries</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.2.2.1">
                     <p id="section-toc.1-1.6.2.2.2.1.1"><a href="#section-6.2.1" class="xref">6.2.1</a>.  <a href="#name-registration-procedures" class="xref">Registration Procedures</a></p>
@@ -1228,19 +1254,19 @@ svg [stroke="fill"], svg [fill^="#fff"] {
                     <p id="section-toc.1-1.6.2.2.2.3.1"><a href="#section-6.2.3" class="xref">6.2.3</a>.  <a href="#name-expert-review-criteria" class="xref">Expert Review Criteria</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.2.2.4">
-                    <p id="section-toc.1-1.6.2.2.2.4.1"><a href="#section-6.2.4" class="xref">6.2.4</a>.  <a href="#name-software-tag-version-scheme" class="xref">Software Tag Version Scheme Values Registry</a></p>
+                    <p id="section-toc.1-1.6.2.2.2.4.1"><a href="#section-6.2.4" class="xref">6.2.4</a>.  <a href="#name-software-id-version-scheme-" class="xref">Software ID Version Scheme Values Registry</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.2.2.5">
-                    <p id="section-toc.1-1.6.2.2.2.5.1"><a href="#section-6.2.5" class="xref">6.2.5</a>.  <a href="#name-software-tag-entity-role-va" class="xref">Software Tag Entity Role Values Registry</a></p>
+                    <p id="section-toc.1-1.6.2.2.2.5.1"><a href="#section-6.2.5" class="xref">6.2.5</a>.  <a href="#name-software-id-entity-role-val" class="xref">Software ID Entity Role Values Registry</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.2.2.6">
-                    <p id="section-toc.1-1.6.2.2.2.6.1"><a href="#section-6.2.6" class="xref">6.2.6</a>.  <a href="#name-software-tag-link-ownership" class="xref">Software Tag Link Ownership Values Registry</a></p>
+                    <p id="section-toc.1-1.6.2.2.2.6.1"><a href="#section-6.2.6" class="xref">6.2.6</a>.  <a href="#name-software-id-link-ownership-" class="xref">Software ID Link Ownership Values Registry</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.2.2.7">
-                    <p id="section-toc.1-1.6.2.2.2.7.1"><a href="#section-6.2.7" class="xref">6.2.7</a>.  <a href="#name-software-tag-link-relations" class="xref">Software Tag Link Relationship Values Registry</a></p>
+                    <p id="section-toc.1-1.6.2.2.2.7.1"><a href="#section-6.2.7" class="xref">6.2.7</a>.  <a href="#name-software-id-link-relationsh" class="xref">Software ID Link Relationship Values Registry</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.2.2.8">
-                    <p id="section-toc.1-1.6.2.2.2.8.1"><a href="#section-6.2.8" class="xref">6.2.8</a>.  <a href="#name-software-tag-link-use-value" class="xref">Software Tag Link Use Values Registry</a></p>
+                    <p id="section-toc.1-1.6.2.2.2.8.1"><a href="#section-6.2.8" class="xref">6.2.8</a>.  <a href="#name-software-id-link-use-values" class="xref">Software ID Link Use Values Registry</a></p>
 </li>
                 </ul>
 </li>
@@ -1329,7 +1355,7 @@ components.<a href="#section-1-3.1" class="pilcrow">¶</a>
 vulnerability descriptions and software components installed on IT-assets <span>[<a href="#X.1520" class="xref">X.1520</a>]</span>.<a href="#section-1-3.2" class="pilcrow">¶</a>
 </li>
         <li class="normal" id="section-1-3.3">Remote Attestation, which requires a link between reference integrity
-measurements (RIM) and Attester-produced event logs that complement attestation Evidence <span>[<a href="#I-D.ietf-rats-architecture" class="xref">I-D.ietf-rats-architecture</a>]</span>.<a href="#section-1-3.3" class="pilcrow">¶</a>
+measurements (RIM) and Attester-produced event logs that complement attestation evidence <span>[<a href="#I-D.ietf-rats-architecture" class="xref">I-D.ietf-rats-architecture</a>]</span>.<a href="#section-1-3.3" class="pilcrow">¶</a>
 </li>
       </ul>
 <p id="section-1-4">While there are very few required fields in SWID tags, there are many optional
@@ -1529,7 +1555,7 @@ _name_ = (_label_ =&gt; one-or-more&lt;_data_&gt;)
         </h3>
 <p id="section-2.1-1">The CDDL "text" type is represented in CBOR as a major type 3, which represents "a string of Unicode characters that [are] encoded as UTF-8 <span>[<a href="#RFC3629" class="xref">RFC3629</a>]</span>" (see <span><a href="https://rfc-editor.org/rfc/rfc8949#section-3.1" class="relref">Section 3.1</a> of [<a href="#RFC8949" class="xref">RFC8949</a>]</span>). Thus both SWID and CoSWID use UTF-8 for the encoding of characters in text strings.<a href="#section-2.1-1" class="pilcrow">¶</a></p>
 <p id="section-2.1-2">To ensure that UTF-8 character strings are able to be encoded/decoded and exchanged interoperably, text strings in CoSWID <span class="bcp14">MUST</span> be encoded consistent with the Net-Unicode definition defined in <span>[<a href="#RFC5198" class="xref">RFC5198</a>]</span>.<a href="#section-2.1-2" class="pilcrow">¶</a></p>
-<p id="section-2.1-3">All names registered with IANA according to requirements in <a href="#iana-value-registries" class="xref">Section 6.2</a> also <span class="bcp14">MUST</span> be valid according to the XML Schema NMTOKEN data type (see <span>[<a href="#W3C.REC-xmlschema-2-20041028" class="xref">W3C.REC-xmlschema-2-20041028</a>]</span> Section 3.3.4) to ensure compatibility with the SWID specification where these names are used.<a href="#section-2.1-3" class="pilcrow">¶</a></p>
+<p id="section-2.1-3">All names registered with IANA according to requirements in <a href="#iana-value-registries" class="xref">Section 6.2</a> also <span class="bcp14">MUST</span> be valid according to the XML Schema NMTOKEN data type (see <span>[<a href="#W3C.REC-xmlschema-2-20041028" class="xref">W3C.REC-xmlschema-2-20041028</a>]</span>, Section 3.3.4) to ensure compatibility with the SWID specification where these names are used.<a href="#section-2.1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="model-extension">
@@ -1541,9 +1567,9 @@ _name_ = (_label_ =&gt; one-or-more&lt;_data_&gt;)
 <ul class="normal">
 <li class="normal" id="section-2.2-2.1">The explicit definition of types for some attributes in the ISO-19770-2:2015 XML representation that are typically represented by
 the "any attribute" in the SWID model. These are
-covered in <a href="#model-global-attributes" class="xref">Section 2.4, Paragraph 2</a>.<a href="#section-2.2-2.1" class="pilcrow">¶</a>
+covered in <a href="#model-global-attributes" class="xref">Section 2.5</a>.<a href="#section-2.2-2.1" class="pilcrow">¶</a>
 </li>
-          <li class="normal" id="section-2.2-2.2">The inclusion of extension points in the CoSWID specification using CDDL sockets (see <span>[<a href="#RFC8610" class="xref">RFC8610</a>]</span> Section 3.9). The use of CDDL sockets allow for well-formed extensions to be defined in supplementary CDDL descriptions that support additional uses of CoSWID tags that go beyond the original scope of ISO-19770-2:2015 tags. This extension mechanism can also be used to update the CoSWID format as revisions to ISO-19770-2 are published.<a href="#section-2.2-2.2" class="pilcrow">¶</a>
+          <li class="normal" id="section-2.2-2.2">The inclusion of extension points in the CoSWID specification using CDDL sockets (see <span><a href="https://rfc-editor.org/rfc/rfc8610#section-3.9" class="relref">Section 3.9</a> of [<a href="#RFC8610" class="xref">RFC8610</a>]</span>). The use of CDDL sockets allow for well-formed extensions to be defined in supplementary CDDL descriptions that support additional uses of CoSWID tags that go beyond the original scope of ISO-19770-2:2015 tags.<a href="#section-2.2-2.2" class="pilcrow">¶</a>
 </li>
         </ul>
 <p id="section-2.2-3">The following CDDL sockets (extension points) are defined in this document, which allow the addition of new information structures to their respective CDDL groups.<a href="#section-2.2-3" class="pilcrow">¶</a></p>
@@ -1758,7 +1784,7 @@ semver = 16384
 <p id="section-2.3-3">The following describes each member of the concise-swid-tag root map.<a href="#section-2.3-3" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-2.3-4.1">global-attributes: A list of items including an optional language definition to support the
-processing of text-string values and an unbounded set of any-attribute items. Described in <a href="#model-global-attributes" class="xref">Section 2.4, Paragraph 2</a>.<a href="#section-2.3-4.1" class="pilcrow">¶</a>
+processing of text-string values and an unbounded set of any-attribute items. Described in <a href="#model-global-attributes" class="xref">Section 2.5</a>.<a href="#section-2.3-4.1" class="pilcrow">¶</a>
 </li>
           <li class="normal" id="section-2.3-4.2">tag-id (index 0): A 16-byte binary string, or a textual identifier, uniquely referencing a software component. The tag
 identifier <span class="bcp14">MUST</span> be globally unique. Failure to ensure global uniqueness can create ambiguity in tag use since the tag-id serves as the global key for matching and lookups. If represented as a 16-byte binary string, the identifier <span class="bcp14">MUST</span> be a valid universally unique identifier as defined by <span>[<a href="#RFC4122" class="xref">RFC4122</a>]</span>. There are no strict guidelines on
@@ -1778,8 +1804,8 @@ A textual tag-id <span class="bcp14">MUST NOT</span> contain a sequence of two u
 </li>
           <li class="normal" id="section-2.3-4.8">software-version (index 13): A textual value representing the specific release or development version of the software component. This item maps to '/SoftwareIdentity/@version' in <span>[<a href="#SWID" class="xref">SWID</a>]</span>.<a href="#section-2.3-4.8" class="pilcrow">¶</a>
 </li>
-          <li class="normal" id="section-2.3-4.9">version-scheme (index 14): An integer or textual value representing the versioning scheme used for the software-version item, as an integer label with text escape (<a href="#data-def" class="xref">Section 2</a>, for the "Version Scheme" registry <a href="#indexed-version-scheme" class="xref">Section 4.1</a>.
-. If an integer value is used it <span class="bcp14">MUST</span> be an index value in the range -256 to 65535. Integer values in the range -256 to -1 are reserved for testing and use in closed environments (see <a href="#iana-private-use" class="xref">Section 6.2.2</a>). Integer values in the range 0 to 65535 correspond to registered entries in the IANA "Software Tag Version Scheme Values" registry (see <a href="#iana-version-scheme" class="xref">Section 6.2.4</a>.<a href="#section-2.3-4.9" class="pilcrow">¶</a>
+          <li class="normal" id="section-2.3-4.9">version-scheme (index 14): An integer or textual value representing the versioning scheme used for the software-version item, as an integer label with text escape (<a href="#data-def" class="xref">Section 2</a>, for the "Version Scheme" registry <a href="#indexed-version-scheme" class="xref">Section 4.1</a>).
+If an integer value is used it <span class="bcp14">MUST</span> be an index value in the range -256 to 65535. Integer values in the range -256 to -1 are reserved for testing and use in closed environments (see <a href="#iana-private-use" class="xref">Section 6.2.2</a>). Integer values in the range 0 to 65535 correspond to registered entries in the IANA "Software ID Version Scheme Values" registry (see <a href="#iana-version-scheme" class="xref">Section 6.2.4</a>).<a href="#section-2.3-4.9" class="pilcrow">¶</a>
 </li>
           <li class="normal" id="section-2.3-4.10">media (index 10): This text value is a hint to the tag consumer to understand what target platform this tag
 applies to. This item <span class="bcp14">MUST</span> be formatted as a
@@ -1815,20 +1841,18 @@ endpoint when the software component is installed or run. This item is mutually 
         <h3 id="name-concise-swid-tag-co-constra">
 <a href="#section-2.4" class="section-number selfRef">2.4. </a><a href="#name-concise-swid-tag-co-constra" class="section-name selfRef">concise-swid-tag Co-Constraints</a>
         </h3>
-<p id="section-2.4-1">The following co-constraints apply to the information provided in the concise-swid-tag group. If any of these constraints is not met, a signed tag cannot be used anymore as a signed statement.<a href="#section-2.4-1" class="pilcrow">¶</a></p>
+<p id="section-2.4-1">The following co-constraints apply to the information provided in the concise-swid-tag group.<a href="#section-2.4-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-2.4-2.1">The patch and supplemental items <span class="bcp14">MUST NOT</span> both be set to "true".<a href="#section-2.4-2.1" class="pilcrow">¶</a>
 </li>
-          <li class="normal" id="section-2.4-2.2">If the patch item is set to "true", the tag <span class="bcp14">SHOULD</span> contain at least one link item (see <a href="#model-link" class="xref">Section 2.7</a>) with both the rel item value of "patches" and an href item specifying an association with the software that was patched. Without at least one link item the target of the patch cannot be identified and the patch tag cannot be applied without external context.<a href="#section-2.4-2.2" class="pilcrow">¶</a>
+          <li class="normal" id="section-2.4-2.2">If the patch item is set to "true", the tag <span class="bcp14">MUST</span> contain at least one link item (see <a href="#model-link" class="xref">Section 2.7</a>) with both the rel item value of "patches" and an href item specifying an association with the software that was patched. Without at least one link item the target of the patch cannot be identified and the patch tag cannot be applied without external context.<a href="#section-2.4-2.2" class="pilcrow">¶</a>
 </li>
-          <li class="normal" id="section-2.4-2.3">If the supplemental item is set to "true", the tag <span class="bcp14">SHOULD</span> contain at least one link item with both the rel item value of "supplemental" and an href item specifying an association with the software that is supplemented. Without at least one link item the target of supplement tag cannot be identified and the patch tag cannot be applied without external context.<a href="#section-2.4-2.3" class="pilcrow">¶</a>
-</li>
-          <li class="normal" id="section-2.4-2.4">If all of the corpus, patch, and supplemental items are "false", or if the corpus item is set to "true", then a software-version item <span class="bcp14">MUST</span> be included with a value set to the version of the software component. This ensures that primary and corpus tags have an identifiable software version.<a href="#section-2.4-2.4" class="pilcrow">¶</a>
+          <li class="normal" id="section-2.4-2.3">If all of the corpus, patch, and supplemental items are "false", or if the corpus item is set to "true", then a software-version item <span class="bcp14">MUST</span> be included with a value set to the version of the software component. This ensures that primary and corpus tags have an identifiable software version.<a href="#section-2.4-2.3" class="pilcrow">¶</a>
 </li>
         </ul>
 </section>
 </div>
-<div id="the-global-attributes-group">
+<div id="model-global-attributes">
 <section id="section-2.5">
         <h3 id="name-the-global-attributes-group">
 <a href="#section-2.5" class="section-number selfRef">2.5. </a><a href="#name-the-global-attributes-group" class="section-name selfRef">The global-attributes Group</a>
@@ -1902,7 +1926,7 @@ maintainer=6
 </div>
 <p id="section-2.6-3">The following describes each child item of this group.<a href="#section-2.6-3" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-2.6-4.1">global-attributes: The global-attributes group described in <a href="#model-global-attributes" class="xref">Section 2.4, Paragraph 2</a>.<a href="#section-2.6-4.1" class="pilcrow">¶</a>
+<li class="normal" id="section-2.6-4.1">global-attributes: The global-attributes group described in <a href="#model-global-attributes" class="xref">Section 2.5</a>.<a href="#section-2.6-4.1" class="pilcrow">¶</a>
 </li>
           <li class="normal" id="section-2.6-4.2">entity-name (index 31): The textual name of the organizational entity claiming the roles specified by the role item for the CoSWID tag. This item maps to '/SoftwareIdentity/Entity/@name' in <span>[<a href="#SWID" class="xref">SWID</a>]</span>.<a href="#section-2.6-4.2" class="pilcrow">¶</a>
 </li>
@@ -1912,7 +1936,7 @@ etc.) for the referenced entity. The value of a
 registration ID <span class="bcp14">MUST</span> be a RFC 3986 URI; it is not intended to be dereferenced. The scope will usually be the scope of an organization.<a href="#section-2.6-4.3" class="pilcrow">¶</a>
 </li>
           <li class="normal" id="section-2.6-4.4">
-            <p id="section-2.6-4.4.1">role (index 33): An integer or textual value (integer label with text escape, see <a href="#data-def" class="xref">Section 2</a>) representing the relationship(s) between the entity, and this tag or the referenced software component. If an integer value is used it <span class="bcp14">MUST</span> be an index value in the range -256 to 255. Integer values in the range -256 to -1 are reserved for testing and use in closed environments (see <a href="#iana-private-use" class="xref">Section 6.2.2</a>). Integer values in the range 0 to 255 correspond to registered entries in the IANA "Software Tag Entity Role Values" registry (see <a href="#iana-entity-role" class="xref">Section 6.2.5</a>.<a href="#section-2.6-4.4.1" class="pilcrow">¶</a></p>
+            <p id="section-2.6-4.4.1">role (index 33): An integer or textual value (integer label with text escape, see <a href="#data-def" class="xref">Section 2</a>) representing the relationship(s) between the entity, and this tag or the referenced software component. If an integer value is used it <span class="bcp14">MUST</span> be an index value in the range -256 to 255. Integer values in the range -256 to -1 are reserved for testing and use in closed environments (see <a href="#iana-private-use" class="xref">Section 6.2.2</a>). Integer values in the range 0 to 255 correspond to registered entries in the IANA "Software ID Entity Role Values" registry (see <a href="#iana-entity-role" class="xref">Section 6.2.5</a>).<a href="#section-2.6-4.4.1" class="pilcrow">¶</a></p>
 <p id="section-2.6-4.4.2">
 The following additional requirements exist for the use of the "role" item:<a href="#section-2.6-4.4.2" class="pilcrow">¶</a></p>
 <ul class="normal">
@@ -1936,7 +1960,7 @@ The following additional requirements exist for the use of the "role" item:<a hr
         </h3>
 <p id="section-2.7-1">The CDDL for the link-entry map follows:<a href="#section-2.7-1" class="pilcrow">¶</a></p>
 <div id="section-2.7-2">
-<pre class="lang-CDDL sourcecode">
+<pre class="breakable lang-CDDL sourcecode">
 link-entry = {
   ? artifact =&gt; text,
   href =&gt; any-uri,
@@ -2000,9 +2024,9 @@ recommended=3
 </div>
 <p id="section-2.7-3">The following describes each member of this map.<a href="#section-2.7-3" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-2.7-4.1">global-attributes: The global-attributes group described in <a href="#model-global-attributes" class="xref">Section 2.4, Paragraph 2</a>.<a href="#section-2.7-4.1" class="pilcrow">¶</a>
+<li class="normal" id="section-2.7-4.1">global-attributes: The global-attributes group described in <a href="#model-global-attributes" class="xref">Section 2.5</a>.<a href="#section-2.7-4.1" class="pilcrow">¶</a>
 </li>
-          <li class="normal" id="section-2.7-4.2">artifact (index 37): To be used with rel="installation-media", this item's value provides the absolute filesystem path to the installer executable or script that can be run to launch the referenced installation.  Links with the same artifact name <span class="bcp14">MUST</span> be considered mirrors of each other, allowing the installation media to be acquired from any of the described sources.<a href="#section-2.7-4.2" class="pilcrow">¶</a>
+          <li class="normal" id="section-2.7-4.2">artifact (index 37): To be used with rel="installationmedia", this item's value provides the absolute filesystem path to the installer executable or script that can be run to launch the referenced installation.  Links with the same artifact name <span class="bcp14">MUST</span> be considered mirrors of each other, allowing the installation media to be acquired from any of the described sources.<a href="#section-2.7-4.2" class="pilcrow">¶</a>
 </li>
           <li class="normal" id="section-2.7-4.3">
             <p id="section-2.7-4.3.1">href (index 38): A URI-reference <span>[<a href="#RFC3986" class="xref">RFC3986</a>]</span> for the referenced resource. The "href" item's value can be, but is not limited to, the following (which is a slightly modified excerpt from <span>[<a href="#SWID" class="xref">SWID</a>]</span>):<a href="#section-2.7-4.3.1" class="pilcrow">¶</a></p>
@@ -2023,16 +2047,16 @@ XPATH query <span>[<a href="#W3C.REC-xpath20-20101214" class="xref">W3C.REC-xpat
           <li class="normal" id="section-2.7-4.4">media (index 10): A hint to the consumer of the link to what target platform the link is applicable to. This item represents a
 query as defined by the W3C Media Queries Recommendation (see <span>[<a href="#W3C.REC-css3-mediaqueries-20120619" class="xref">W3C.REC-css3-mediaqueries-20120619</a>]</span>). As highlighted in media defined in <a href="#model-concise-swid-tag" class="xref">Section 2.3</a>, support for media queries are included here for interoperability with <span>[<a href="#SWID" class="xref">SWID</a>]</span>, which does not provide any further requirements for media query use. Thus, this specification does not clarify how a media query is to be used for a CoSWID.<a href="#section-2.7-4.4" class="pilcrow">¶</a>
 </li>
-          <li class="normal" id="section-2.7-4.5">ownership (index 39): An integer or textual value (integer label with text escape, see <a href="#data-def" class="xref">Section 2</a>, for the "Software Tag Link Ownership Values" registry <a href="#indexed-link-ownership" class="xref">Section 4.3</a>) used when the "href" item references another software component to indicate the degree of ownership between the software component referenced by the CoSWID tag and the software component referenced by the link. If an integer value is used it <span class="bcp14">MUST</span> be an index value in the range -256 to 255. Integer values in the range -256 to -1 are reserved for testing and use in closed environments (see <a href="#iana-private-use" class="xref">Section 6.2.2</a>). Integer values in the range 0 to 255 correspond to registered entries in the "Software Tag Link Ownership Values" registry.<a href="#section-2.7-4.5" class="pilcrow">¶</a>
+          <li class="normal" id="section-2.7-4.5">ownership (index 39): An integer or textual value (integer label with text escape, see <a href="#data-def" class="xref">Section 2</a>, for the "Software ID Link Ownership Values" registry <a href="#indexed-link-ownership" class="xref">Section 4.3</a>) used when the "href" item references another software component to indicate the degree of ownership between the software component referenced by the CoSWID tag and the software component referenced by the link. If an integer value is used it <span class="bcp14">MUST</span> be an index value in the range -256 to 255. Integer values in the range -256 to -1 are reserved for testing and use in closed environments (see <a href="#iana-private-use" class="xref">Section 6.2.2</a>). Integer values in the range 0 to 255 correspond to registered entries in the "Software ID Link Ownership Values" registry.<a href="#section-2.7-4.5" class="pilcrow">¶</a>
 </li>
-          <li class="normal" id="section-2.7-4.6">rel (index 40): An integer or textual value that (integer label with text escape, see <a href="#data-def" class="xref">Section 2</a>, for the "Software Tag Link Link Relationship Values" registry <a href="#indexed-link-ownership" class="xref">Section 4.3</a>) identifies the relationship between this CoSWID and the target resource identified by the "href" item. If an integer value is used it <span class="bcp14">MUST</span> be an index value in the range -256 to 65535. Integer values in the range -256 to -1 are reserved for testing and use in closed environments (see <a href="#iana-private-use" class="xref">Section 6.2.2</a>). Integer values in the range 0 to 65535 correspond to registered entries in the IANA "Software Tag Link Relationship Values" registry (see <a href="#iana-link-rel" class="xref">Section 6.2.7</a>. If a string value is used it <span class="bcp14">MUST</span> be either a private use name as defined in <a href="#iana-private-use" class="xref">Section 6.2.2</a> or a "Relation Name" from the IANA "Link Relation Types" registry: https://www.iana.org/assignments/link-relations/link-relations.xhtml as defined by <span>[<a href="#RFC8288" class="xref">RFC8288</a>]</span>. When a string value defined in the IANA "Software Tag Link Relationship Values" registry matches a Relation Name defined in the IANA "Link Relation Types" registry, the index value in the IANA "Software Tag Link Relationship Values" registry <span class="bcp14">MUST</span> be used instead, as this relationship has a specialized meaning in the context of a CoSWID tag. String values correspond to registered entries in the "Software Tag Link Relationship Values" registry.<a href="#section-2.7-4.6" class="pilcrow">¶</a>
+          <li class="normal" id="section-2.7-4.6">rel (index 40): An integer or textual value that (integer label with text escape, see <a href="#data-def" class="xref">Section 2</a>, for the "Software ID Link Link Relationship Values" registry <a href="#indexed-link-ownership" class="xref">Section 4.3</a>) identifies the relationship between this CoSWID and the target resource identified by the "href" item. If an integer value is used it <span class="bcp14">MUST</span> be an index value in the range -256 to 65535. Integer values in the range -256 to -1 are reserved for testing and use in closed environments (see <a href="#iana-private-use" class="xref">Section 6.2.2</a>). Integer values in the range 0 to 65535 correspond to registered entries in the IANA "Software ID Link Relationship Values" registry (see <a href="#iana-link-rel" class="xref">Section 6.2.7</a>). If a string value is used it <span class="bcp14">MUST</span> be either a private use name as defined in <a href="#iana-private-use" class="xref">Section 6.2.2</a> or a "Relation Name" from the IANA "Link Relation Types" registry: https://www.iana.org/assignments/link-relations/link-relations.xhtml as defined by <span>[<a href="#RFC8288" class="xref">RFC8288</a>]</span>. When a string value defined in the IANA "Software ID Link Relationship Values" registry matches a Relation Name defined in the IANA "Link Relation Types" registry, the index value in the IANA "Software ID Link Relationship Values" registry <span class="bcp14">MUST</span> be used instead, as this relationship has a specialized meaning in the context of a CoSWID tag. String values correspond to registered entries in the "Software ID Link Relationship Values" registry.<a href="#section-2.7-4.6" class="pilcrow">¶</a>
 </li>
           <li class="normal" id="section-2.7-4.7">media-type (index 41): A link can point to arbitrary resources on the endpoint, local network, or Internet using the href item. Use of this item supplies the resource consumer with a hint of what type of resource to expect.  (This is a <em>hint</em>: There
 is no obligation for the server hosting the target of the URI to use the
 indicated media type when the URI is dereferenced.)
 Media types are identified by referencing a "Name" from the IANA "Media Types" registry: http://www.iana.org/assignments/media-types/media-types.xhtml. This item maps to '/SoftwareIdentity/Link/@type' in <span>[<a href="#SWID" class="xref">SWID</a>]</span>.<a href="#section-2.7-4.7" class="pilcrow">¶</a>
 </li>
-          <li class="normal" id="section-2.7-4.8">use (index 42): An integer or textual value (integer label with text escape, see <a href="#data-def" class="xref">Section 2</a>, for the "Software Tag Link Link Relationship Values" registry <a href="#indexed-link-ownership" class="xref">Section 4.3</a>) used to determine if the referenced software component has to be installed before installing the software component identified by the COSWID tag. If an integer value is used it <span class="bcp14">MUST</span> be an index value in the range -256 to 255. Integer values in the range -256 to -1 are reserved for testing and use in closed environments (see <a href="#iana-private-use" class="xref">Section 6.2.2</a>). Integer values in the range 0 to 255 correspond to registered entries in the IANA "Link Use Values" registry (see <a href="#iana-link-use" class="xref">Section 6.2.8</a>. If a string value is used it <span class="bcp14">MUST</span> be a private use name as defined in <a href="#iana-private-use" class="xref">Section 6.2.2</a>. String values correspond to registered entries in the "Software Tag Link Use Values" registry.<a href="#section-2.7-4.8" class="pilcrow">¶</a>
+          <li class="normal" id="section-2.7-4.8">use (index 42): An integer or textual value (integer label with text escape, see <a href="#data-def" class="xref">Section 2</a>, for the "Software ID Link Link Relationship Values" registry <a href="#indexed-link-ownership" class="xref">Section 4.3</a>) used to determine if the referenced software component has to be installed before installing the software component identified by the COSWID tag. If an integer value is used it <span class="bcp14">MUST</span> be an index value in the range -256 to 255. Integer values in the range -256 to -1 are reserved for testing and use in closed environments (see <a href="#iana-private-use" class="xref">Section 6.2.2</a>). Integer values in the range 0 to 255 correspond to registered entries in the IANA "Link Use Values" registry (see <a href="#iana-link-use" class="xref">Section 6.2.8</a>). If a string value is used it <span class="bcp14">MUST</span> be a private use name as defined in <a href="#iana-private-use" class="xref">Section 6.2.2</a>. String values correspond to registered entries in the "Software ID Link Use Values" registry.<a href="#section-2.7-4.8" class="pilcrow">¶</a>
 </li>
           <li class="normal" id="section-2.7-4.9">$$link-extension: This CDDL socket can be used to extend the link-entry map model. See <a href="#model-extension" class="xref">Section 2.2</a>.<a href="#section-2.7-4.9" class="pilcrow">¶</a>
 </li>
@@ -2086,7 +2110,7 @@ unspsc-version = 57
 </div>
 <p id="section-2.8-3">The following describes each child item of this group.<a href="#section-2.8-3" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-2.8-4.1">global-attributes: The global-attributes group described in <a href="#model-global-attributes" class="xref">Section 2.4, Paragraph 2</a>.<a href="#section-2.8-4.1" class="pilcrow">¶</a>
+<li class="normal" id="section-2.8-4.1">global-attributes: The global-attributes group described in <a href="#model-global-attributes" class="xref">Section 2.5</a>.<a href="#section-2.8-4.1" class="pilcrow">¶</a>
 </li>
           <li class="normal" id="section-2.8-4.2">activation-status (index 43): A textual value that identifies how the software component has been activated, which might relate to specific terms and conditions for its use (e.g., Trial, Serialized, Licensed, Unlicensed, etc) and relate to an entitlement.  This attribute is typically used in supplemental tags as it contains information that might be selected during a specific install.<a href="#section-2.8-4.2" class="pilcrow">¶</a>
 </li>
@@ -2159,7 +2183,7 @@ structure and differentiate the content of specific CoSWID tag types. Potential
 content includes directories, files, processes, or resources.<a href="#section-2.9.2-1" class="pilcrow">¶</a></p>
 <p id="section-2.9.2-2">The CDDL for the resource-collection group follows:<a href="#section-2.9.2-2" class="pilcrow">¶</a></p>
 <div id="section-2.9.2-3">
-<pre class="lang-CDDL sourcecode">
+<pre class="breakable lang-CDDL sourcecode">
 path-elements-group = ( ? directory =&gt; one-or-more&lt;directory-entry&gt;,
                         ? file =&gt; one-or-more&lt;file-entry&gt;,
                       )
@@ -2227,7 +2251,7 @@ type = 29
 <ul class="normal">
 <li class="normal" id="section-2.9.2-5.1">filesystem-item: A list of common items used for representing the filesystem root, relative location, name, and significance of a file or directory item.<a href="#section-2.9.2-5.1" class="pilcrow">¶</a>
 </li>
-            <li class="normal" id="section-2.9.2-5.2">global-attributes: The global-attributes group described in <a href="#model-global-attributes" class="xref">Section 2.4, Paragraph 2</a>.<a href="#section-2.9.2-5.2" class="pilcrow">¶</a>
+            <li class="normal" id="section-2.9.2-5.2">global-attributes: The global-attributes group described in <a href="#model-global-attributes" class="xref">Section 2.5</a>.<a href="#section-2.9.2-5.2" class="pilcrow">¶</a>
 </li>
             <li class="normal" id="section-2.9.2-5.3">directory (index 16): A directory item allows child directory and file items to be defined within a directory hierarchy for the software component.<a href="#section-2.9.2-5.3" class="pilcrow">¶</a>
 </li>
@@ -2289,7 +2313,7 @@ payload-entry = {
 </div>
 <p id="section-2.9.3-3">The following describes each child item of this group.<a href="#section-2.9.3-3" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-2.9.3-4.1">global-attributes: The global-attributes group described in <a href="#model-global-attributes" class="xref">Section 2.4, Paragraph 2</a>.<a href="#section-2.9.3-4.1" class="pilcrow">¶</a>
+<li class="normal" id="section-2.9.3-4.1">global-attributes: The global-attributes group described in <a href="#model-global-attributes" class="xref">Section 2.5</a>.<a href="#section-2.9.3-4.1" class="pilcrow">¶</a>
 </li>
             <li class="normal" id="section-2.9.3-4.2">resource-collection: The resource-collection group described in <a href="#model-resource-collection" class="xref">Section 2.9.2</a>.<a href="#section-2.9.3-4.2" class="pilcrow">¶</a>
 </li>
@@ -2321,11 +2345,11 @@ device-id = 36
 </div>
 <p id="section-2.9.4-3">The following describes each child item of this group.<a href="#section-2.9.4-3" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-2.9.4-4.1">global-attributes: The global-attributes group described in <a href="#model-global-attributes" class="xref">Section 2.4, Paragraph 2</a>.<a href="#section-2.9.4-4.1" class="pilcrow">¶</a>
+<li class="normal" id="section-2.9.4-4.1">global-attributes: The global-attributes group described in <a href="#model-global-attributes" class="xref">Section 2.5</a>.<a href="#section-2.9.4-4.1" class="pilcrow">¶</a>
 </li>
             <li class="normal" id="section-2.9.4-4.2">resource-collection: The resource-collection group described in <a href="#model-resource-collection" class="xref">Section 2.9.2</a>.<a href="#section-2.9.4-4.2" class="pilcrow">¶</a>
 </li>
-            <li class="normal" id="section-2.9.4-4.3">date (index 35): The date and time the information was collected pertaining to the evidence item.<a href="#section-2.9.4-4.3" class="pilcrow">¶</a>
+            <li class="normal" id="section-2.9.4-4.3">date (index 35): The date and time the information was collected pertaining to the evidence item in Epoch-Based Date/Time format as specified in <span><a href="https://rfc-editor.org/rfc/rfc8949#section-3.4.2" class="relref">Section 3.4.2</a> of [<a href="#RFC8949" class="xref">RFC8949</a>]</span>.<a href="#section-2.9.4-4.3" class="pilcrow">¶</a>
 </li>
             <li class="normal" id="section-2.9.4-4.4">device-id (index 36): The endpoint's string identifier from which the evidence was collected.<a href="#section-2.9.4-4.4" class="pilcrow">¶</a>
 </li>
@@ -2347,7 +2371,7 @@ device-id = 36
 <p id="section-2.10-1">In order to create a valid CoSWID document the structure of the corresponding CBOR message <span class="bcp14">MUST</span>
 adhere to the following CDDL specification.<a href="#section-2.10-1" class="pilcrow">¶</a></p>
 <div id="section-2.10-2">
-<pre class="lang-CDDL sourcecode">&lt;CODE BEGINS&gt;
+<pre class="breakable lang-CDDL sourcecode">&lt;CODE BEGINS&gt;
 concise-swid-tag = {
   tag-id =&gt; text / bstr .size 16,
   tag-version =&gt; integer,
@@ -2710,16 +2734,16 @@ These values are represented as positive integers.  In each registry, the value 
         </table>
 </div>
 <p id="section-4.1-3">multipartnumeric and the numbers part of multipartnumeric+suffix are interpreted as a sequence of numbers and are sorted in lexicographical order by these numbers (i.e., not by the digits in the numbers) and then the textual suffix (for multipartnumeric+suffix).  Alphanumeric strings are sorted lexicographically as character strings.  Decimal version numbers are interpreted as a single floating point number (e.g., 1.25 is less than 1.3).<a href="#section-4.1-3" class="pilcrow">¶</a></p>
-<p id="section-4.1-4">The values above are registered in the IANA "Software Tag Version Scheme Values" registry defined in Section <a href="#iana-version-scheme" class="xref">Section 6.2.4</a>. Additional entries will likely be registered over time in this registry.<a href="#section-4.1-4" class="pilcrow">¶</a></p>
+<p id="section-4.1-4">The values above are registered in the IANA "Software ID Version Scheme Values" registry defined in <a href="#iana-version-scheme" class="xref">Section 6.2.4</a>. Additional entries will likely be registered over time in this registry.<a href="#section-4.1-4" class="pilcrow">¶</a></p>
 <p id="section-4.1-5">A CoSWID producer that is aware of the version scheme that has been used to select the version value, <span class="bcp14">SHOULD</span> include the optional version-scheme item to avoid semantic ambiguity.
 If the CoSWID producer does not have this information, it <span class="bcp14">SHOULD</span> omit the version-scheme item.
 The following heuristics can be used by a CoSWID consumer, based on the version schemes' partially overlapping value spaces:<a href="#section-4.1-5" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-4.1-6.1">"decimal" and "multipartnumeric" partially overlap in their value space when a value matches a decimal number. When a corresponding software-version item's value falls within this overlapping value space, the "decimal" version scheme <span class="bcp14">SHOULD</span> be assumed.<a href="#section-4.1-6.1" class="pilcrow">¶</a>
+<li class="normal" id="section-4.1-6.1">"decimal" and "multipartnumeric" partially overlap in their value space when a value matches a decimal number. When a corresponding software-version item's value falls within this overlapping value space, it is expected that the "decimal" version scheme is used.<a href="#section-4.1-6.1" class="pilcrow">¶</a>
 </li>
-          <li class="normal" id="section-4.1-6.2">"multipartnumeric" and "semver" partially overlap in their value space when a "multipartnumeric" value matches the semantic versioning syntax. When a corresponding software-version item's value falls within this overlapping value space, the "semver" version scheme <span class="bcp14">SHOULD</span> be assumed.<a href="#section-4.1-6.2" class="pilcrow">¶</a>
+          <li class="normal" id="section-4.1-6.2">"multipartnumeric" and "semver" partially overlap in their value space when a "multipartnumeric" value matches the semantic versioning syntax. When a corresponding software-version item's value falls within this overlapping value space, it is expected that the "semver" version scheme is used.<a href="#section-4.1-6.2" class="pilcrow">¶</a>
 </li>
-          <li class="normal" id="section-4.1-6.3">"alphanumeric" and other version schemes might overlap in their value space. When a corresponding software-version item's value falls within this overlapping value space, the other version scheme <span class="bcp14">SHOULD</span> be assumed instead of "alphanumeric".<a href="#section-4.1-6.3" class="pilcrow">¶</a>
+          <li class="normal" id="section-4.1-6.3">"alphanumeric" and other version schemes might overlap in their value space. When a corresponding software-version item's value falls within this overlapping value space, it is expected that the other version scheme is used and "alphanumeric" is not used.<a href="#section-4.1-6.3" class="pilcrow">¶</a>
 </li>
         </ul>
 <p id="section-4.1-7">Note that these heuristics are imperfect and can guess wrong, which is the reason the version-scheme item <span class="bcp14">SHOULD</span> be included by the producer.<a href="#section-4.1-7" class="pilcrow">¶</a></p>
@@ -2778,7 +2802,7 @@ The following heuristics can be used by a CoSWID consumer, based on the version 
           </tbody>
         </table>
 </div>
-<p id="section-4.2-3">The values above are registered in the IANA "Software Tag Entity Role Values" registry defined in <a href="#iana-entity-role" class="xref">Section 6.2.5</a>. Additional values will likely be registered over time.<a href="#section-4.2-3" class="pilcrow">¶</a></p>
+<p id="section-4.2-3">The values above are registered in the IANA "Software ID Entity Role Values" registry defined in <a href="#iana-entity-role" class="xref">Section 6.2.5</a>. Additional values will likely be registered over time.<a href="#section-4.2-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="indexed-link-ownership">
@@ -2819,7 +2843,7 @@ The following heuristics can be used by a CoSWID consumer, based on the version 
           </tbody>
         </table>
 </div>
-<p id="section-4.3-3">The values above are registered in the IANA "Software Tag Link Ownership Values" registry defined in <a href="#iana-link-ownership" class="xref">Section 6.2.6</a>. Additional values will likely be registered over time.<a href="#section-4.3-3" class="pilcrow">¶</a></p>
+<p id="section-4.3-3">The values above are registered in the IANA "Software ID Link Ownership Values" registry defined in <a href="#iana-link-ownership" class="xref">Section 6.2.6</a>. Additional values will likely be registered over time.<a href="#section-4.3-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="indexed-link-rel">
@@ -2900,7 +2924,7 @@ The following heuristics can be used by a CoSWID consumer, based on the version 
           </tbody>
         </table>
 </div>
-<p id="section-4.4-3">The values above are registered in the IANA "Software Tag Link Relationship Values" registry defined in <a href="#iana-link-rel" class="xref">Section 6.2.7</a>. Additional values will likely be registered over time.<a href="#section-4.4-3" class="pilcrow">¶</a></p>
+<p id="section-4.4-3">The values above are registered in the IANA "Software ID Link Relationship Values" registry defined in <a href="#iana-link-rel" class="xref">Section 6.2.7</a>. Additional values will likely be registered over time.<a href="#section-4.4-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="indexed-link-use">
@@ -2941,7 +2965,7 @@ The following heuristics can be used by a CoSWID consumer, based on the version 
           </tbody>
         </table>
 </div>
-<p id="section-4.5-3">The values above are registered in the IANA "Software Tag Link Use Values" registry defined in <a href="#iana-link-use" class="xref">Section 6.2.8</a>. Additional values will likely be registered over time.<a href="#section-4.5-3" class="pilcrow">¶</a></p>
+<p id="section-4.5-3">The values above are registered in the IANA "Software ID Link Use Values" registry defined in <a href="#iana-link-use" class="xref">Section 6.2.8</a>. Additional values will likely be registered over time.<a href="#section-4.5-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -2965,7 +2989,7 @@ note.</span><a href="#section-5-3" class="pilcrow">¶</a></p>
         </h3>
 <p id="section-5.1-1">There is a need for a scheme name that can be used in URIs that point to a specific software tag by that tag's tag-id, such as the use of the link entry as described in <a href="#model-link" class="xref">Section 2.7</a>. Since this scheme is used both in a standards track document and an ISO standard, this scheme needs to be used without fear of conflicts with current or future actual schemes.  In <a href="#swid-reg" class="xref">Section 6.6.1</a>, the scheme "swid" is registered as a 'permanent' scheme for that purpose.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
 <p id="section-5.1-2">URIs specifying the "swid" scheme are used to reference a software tag by its tag-id. A tag-id referenced in this way can be used to identify the tag resource in the context of where it is referenced from. For example, when a tag is installed on a given device, that tag can reference related tags on the same device using URIs with this scheme.<a href="#section-5.1-2" class="pilcrow">¶</a></p>
-<p id="section-5.1-3">For URIs that use the "swid" scheme, the scheme specific part <span class="bcp14">MUST</span> consist of a referenced software tag's tag-id. This tag-id <span class="bcp14">MUST</span> be URI encoded according to <span>[<a href="#RFC3986" class="xref">RFC3986</a>]</span> Section 2.1.<a href="#section-5.1-3" class="pilcrow">¶</a></p>
+<p id="section-5.1-3">For URIs that use the "swid" scheme, the scheme specific part <span class="bcp14">MUST</span> consist of a referenced software tag's tag-id. This tag-id <span class="bcp14">MUST</span> be URI encoded according to <span><a href="https://rfc-editor.org/rfc/rfc3986#section-2.1" class="relref">Section 2.1</a> of [<a href="#RFC3986" class="xref">RFC3986</a>]</span>.<a href="#section-5.1-3" class="pilcrow">¶</a></p>
 <p id="section-5.1-4">The following expression is a valid example:<a href="#section-5.1-4" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-5.1-5">
 <pre>
@@ -2989,9 +3013,9 @@ Tags to be evaluated (the base collection) include all tags in the context of wh
 For example, when a tag is installed on a given device, that tag can reference related tags on the same device using a URI with this scheme.<a href="#section-5.2-2" class="pilcrow">¶</a></p>
 <p id="section-5.2-3">For URIs that use the "swidpath" scheme, the following requirements apply:<a href="#section-5.2-3" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-5.2-4.1">The scheme specific part <span class="bcp14">MUST</span> be an XPath expression as defined by <span>[<a href="#W3C.REC-xpath20-20101214" class="xref">W3C.REC-xpath20-20101214</a>]</span>. The included XPath expression will be URI encoded according to <span>[<a href="#RFC3986" class="xref">RFC3986</a>]</span> Section 2.1.<a href="#section-5.2-4.1" class="pilcrow">¶</a>
+<li class="normal" id="section-5.2-4.1">The scheme specific part <span class="bcp14">MUST</span> be an XPath expression as defined by <span>[<a href="#W3C.REC-xpath20-20101214" class="xref">W3C.REC-xpath20-20101214</a>]</span>. The included XPath expression will be URI encoded according to <span><a href="https://rfc-editor.org/rfc/rfc3986#section-2.1" class="relref">Section 2.1</a> of [<a href="#RFC3986" class="xref">RFC3986</a>]</span>.<a href="#section-5.2-4.1" class="pilcrow">¶</a>
 </li>
-          <li class="normal" id="section-5.2-4.2">This XPath is evaluated over SWID tags, or COSWID tags transformed into SWID tags, found on a system. A given tag <span class="bcp14">MUST</span> be considered a match if the XPath evaluation result value has an effective boolean value of "true" according to <span>[<a href="#W3C.REC-xpath20-20101214" class="xref">W3C.REC-xpath20-20101214</a>]</span> Section 2.4.3.<a href="#section-5.2-4.2" class="pilcrow">¶</a>
+          <li class="normal" id="section-5.2-4.2">This XPath is evaluated over SWID tags, or COSWID tags transformed into SWID tags, found on a system. A given tag <span class="bcp14">MUST</span> be considered a match if the XPath evaluation result value has an effective boolean value of "true" according to <span>[<a href="#W3C.REC-xpath20-20101214" class="xref">W3C.REC-xpath20-20101214</a>]</span>, Section 2.4.3.<a href="#section-5.2-4.2" class="pilcrow">¶</a>
 </li>
         </ul>
 </section>
@@ -3041,11 +3065,11 @@ registry are to be made based on <span>[<a href="#BCP26" class="xref">BCP26</a>]
 <p id="section-6.1-4">All negative values are reserved for Private Use.<a href="#section-6.1-4" class="pilcrow">¶</a></p>
 <p id="section-6.1-5">Initial registrations for the "CoSWID Items" registry
 are provided below. Assignments consist of an integer index value, the item name, and a reference to the defining specification.<a href="#section-6.1-5" class="pilcrow">¶</a></p>
-<span id="name-coswid-items-inital-registr"></span><div id="tbl-iana-coswid-items-values">
+<span id="name-coswid-items-initial-regist"></span><div id="tbl-iana-coswid-items-values">
 <table class="center" id="table-9">
           <caption>
 <a href="#table-9" class="selfRef">Table 9</a>:
-<a href="#name-coswid-items-inital-registr" class="selfRef">CoSWID Items Inital Registrations</a>
+<a href="#name-coswid-items-initial-regist" class="selfRef">CoSWID Items Initial Registrations</a>
           </caption>
 <thead>
             <tr>
@@ -3357,17 +3381,17 @@ are provided below. Assignments consist of an integer index value, the item name
 </div>
 <div id="iana-value-registries">
 <section id="section-6.2">
-        <h3 id="name-software-tag-values-registr">
-<a href="#section-6.2" class="section-number selfRef">6.2. </a><a href="#name-software-tag-values-registr" class="section-name selfRef">Software Tag Values Registries</a>
+        <h3 id="name-software-id-values-registri">
+<a href="#section-6.2" class="section-number selfRef">6.2. </a><a href="#name-software-id-values-registri" class="section-name selfRef">Software ID Values Registries</a>
         </h3>
-<p id="section-6.2-1">The following IANA registries provide a mechanism for new values to be added over time to common enumerations used by SWID and CoSWID. While neither the CoSWID nor SWID specification is subordinate to the other and will evolve as their respective standards group chooses, there is value in supporting alignment between the two standards. Shared use of common code points, as spelled out in these registries, will facilitate this alignment, hence the intent for shared use of these registries and the decision to use "swid" (rather than "coswid") in registry names.<a href="#section-6.2-1" class="pilcrow">¶</a></p>
+<p id="section-6.2-1">The following IANA registries provide a mechanism for new values to be added over time to common enumerations used by SWID and CoSWID. While neither the CoSWID nor SWID specification is subordinate to the other and will evolve as their respective standards group chooses, there is value in supporting alignment between the two standards. Shared use of common code points, as spelled out in these registries, will facilitate this alignment, hence the intent for shared use of these registries and the decision to use "swidsoftware-id" (rather than "swid" or "coswid") in registry names.<a href="#section-6.2-1" class="pilcrow">¶</a></p>
 <div id="iana-registration-procedures">
 <section id="section-6.2.1">
           <h4 id="name-registration-procedures">
 <a href="#section-6.2.1" class="section-number selfRef">6.2.1. </a><a href="#name-registration-procedures" class="section-name selfRef">Registration Procedures</a>
           </h4>
 <p id="section-6.2.1-1">The following registries allow for the registration of index values and names. New registrations will be permitted through either a Standards Action with Expert Review policy or a Specification Required policy <span>[<a href="#BCP26" class="xref">BCP26</a>]</span>.<a href="#section-6.2.1-1" class="pilcrow">¶</a></p>
-<p id="section-6.2.1-2">The following registries also reserve the integer-based index values in the range of -1 to -256 for private use as defined by <span>[<a href="#BCP26" class="xref">BCP26</a>]</span> in Section 4.1. This allows values -1 to -24 to be expressed as a single uint_8t in CBOR, and values -25 to -256 to be expressed using an additional uint_8t in CBOR.<a href="#section-6.2.1-2" class="pilcrow">¶</a></p>
+<p id="section-6.2.1-2">The following registries also reserve the integer-based index values in the range of -1 to -256 for private use as defined by <span><a href="https://rfc-editor.org/rfc/rfc8126#section-4.1" class="relref">Section 4.1</a> of [<a href="#BCP26" class="xref">BCP26</a>]</span>. This allows values -1 to -24 to be expressed as a single uint_8t in CBOR, and values -25 to -256 to be expressed using an additional uint_8t in CBOR.<a href="#section-6.2.1-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="iana-private-use">
@@ -3400,7 +3424,7 @@ domainprefix/name
 </li>
             <li class="normal" id="section-6.2.3-2.4">Standards track documents <span class="bcp14">MAY</span> include entries registered in the range reserved for entries under the Specification Required policy. This can occur when a standards track document provides further guidance on the use of index values and names that are in common use, but were not registered with IANA. This situation <span class="bcp14">SHOULD</span> be avoided.<a href="#section-6.2.3-2.4" class="pilcrow">¶</a>
 </li>
-            <li class="normal" id="section-6.2.3-2.5">All registered names <span class="bcp14">MUST</span> be valid according to the XML Schema NMTOKEN data type (see <span>[<a href="#W3C.REC-xmlschema-2-20041028" class="xref">W3C.REC-xmlschema-2-20041028</a>]</span> Section 3.3.4). This ensures that registered names are compatible with the SWID format <span>[<a href="#SWID" class="xref">SWID</a>]</span> where they are used.<a href="#section-6.2.3-2.5" class="pilcrow">¶</a>
+            <li class="normal" id="section-6.2.3-2.5">All registered names <span class="bcp14">MUST</span> be valid according to the XML Schema NMTOKEN data type (see <span>[<a href="#W3C.REC-xmlschema-2-20041028" class="xref">W3C.REC-xmlschema-2-20041028</a>]</span>, Section 3.3.4). This ensures that registered names are compatible with the SWID format <span>[<a href="#SWID" class="xref">SWID</a>]</span> where they are used.<a href="#section-6.2.3-2.5" class="pilcrow">¶</a>
 </li>
             <li class="normal" id="section-6.2.3-2.6">Registration of vanity names <span class="bcp14">SHOULD</span> be discouraged. The requesting specification <span class="bcp14">MUST</span> provide a description of how a requested name will allow for use by multiple stakeholders.<a href="#section-6.2.3-2.6" class="pilcrow">¶</a>
 </li>
@@ -3409,19 +3433,19 @@ domainprefix/name
 </div>
 <div id="iana-version-scheme">
 <section id="section-6.2.4">
-          <h4 id="name-software-tag-version-scheme">
-<a href="#section-6.2.4" class="section-number selfRef">6.2.4. </a><a href="#name-software-tag-version-scheme" class="section-name selfRef">Software Tag Version Scheme Values Registry</a>
+          <h4 id="name-software-id-version-scheme-">
+<a href="#section-6.2.4" class="section-number selfRef">6.2.4. </a><a href="#name-software-id-version-scheme-" class="section-name selfRef">Software ID Version Scheme Values Registry</a>
           </h4>
 <p id="section-6.2.4-1">This document establishes a new registry titled
-"Software Tag Version Scheme Values". This registry provides index values for use as version-scheme item values in this document and version scheme names for use in <span>[<a href="#SWID" class="xref">SWID</a>]</span>.<a href="#section-6.2.4-1" class="pilcrow">¶</a></p>
+"Software ID Version Scheme Values". This registry provides index values for use as version-scheme item values in this document and version scheme names for use in <span>[<a href="#SWID" class="xref">SWID</a>]</span>.<a href="#section-6.2.4-1" class="pilcrow">¶</a></p>
 <p id="section-6.2.4-2">[TO BE REMOVED: This registration should take place at the following
-   location: https://www.iana.org/assignments/swid]<a href="#section-6.2.4-2" class="pilcrow">¶</a></p>
+   location: https://www.iana.org/assignments/software-id]<a href="#section-6.2.4-2" class="pilcrow">¶</a></p>
 <p id="section-6.2.4-3">This registry uses the registration procedures defined in <a href="#iana-registration-procedures" class="xref">Section 6.2.1</a> with the following associated ranges:<a href="#section-6.2.4-3" class="pilcrow">¶</a></p>
-<span id="name-coswid-version-scheme-regis"></span><div id="tbl-iana-version-scheme-reg-procedures">
+<span id="name-software-id-version-scheme-r"></span><div id="tbl-iana-version-scheme-reg-procedures">
 <table class="center" id="table-10">
             <caption>
 <a href="#table-10" class="selfRef">Table 10</a>:
-<a href="#name-coswid-version-scheme-regis" class="selfRef">CoSWID Version Scheme Registration Procedures</a>
+<a href="#name-software-id-version-scheme-r" class="selfRef">Software ID Version Scheme Registration Procedures</a>
             </caption>
 <thead>
               <tr>
@@ -3442,14 +3466,14 @@ domainprefix/name
           </table>
 </div>
 <p id="section-6.2.4-5">Assignments <span class="bcp14">MUST</span> consist of an integer Index value, the Version Scheme Name, and a reference to the defining specification.<a href="#section-6.2.4-5" class="pilcrow">¶</a></p>
-<p id="section-6.2.4-6">Initial registrations for the "Software Tag Version Scheme Values" registry
+<p id="section-6.2.4-6">Initial registrations for the "Software ID Version Scheme Values" registry
 are provided below, which are derived from the textual version scheme names
 defined in <span>[<a href="#SWID" class="xref">SWID</a>]</span>.<a href="#section-6.2.4-6" class="pilcrow">¶</a></p>
-<span id="name-coswid-version-scheme-initi"></span><div id="tbl-iana-version-scheme-values">
+<span id="name-software-id-version-scheme-i"></span><div id="tbl-iana-version-scheme-values">
 <table class="center" id="table-11">
             <caption>
 <a href="#table-11" class="selfRef">Table 11</a>:
-<a href="#name-coswid-version-scheme-initi" class="selfRef">CoSWID Version Scheme Initial Registrations</a>
+<a href="#name-software-id-version-scheme-i" class="selfRef">Software ID Version Scheme Initial Registrations</a>
             </caption>
 <thead>
               <tr>
@@ -3513,19 +3537,19 @@ defined in <span>[<a href="#SWID" class="xref">SWID</a>]</span>.<a href="#sectio
 </div>
 <div id="iana-entity-role">
 <section id="section-6.2.5">
-          <h4 id="name-software-tag-entity-role-va">
-<a href="#section-6.2.5" class="section-number selfRef">6.2.5. </a><a href="#name-software-tag-entity-role-va" class="section-name selfRef">Software Tag Entity Role Values Registry</a>
+          <h4 id="name-software-id-entity-role-val">
+<a href="#section-6.2.5" class="section-number selfRef">6.2.5. </a><a href="#name-software-id-entity-role-val" class="section-name selfRef">Software ID Entity Role Values Registry</a>
           </h4>
 <p id="section-6.2.5-1">This document establishes a new registry titled
-"Software Tag Entity Role Values". This registry provides index values for use as entity-entry role item values in this document and entity role names for use in <span>[<a href="#SWID" class="xref">SWID</a>]</span>.<a href="#section-6.2.5-1" class="pilcrow">¶</a></p>
+"Software ID Entity Role Values". This registry provides index values for use as entity-entry role item values in this document and entity role names for use in <span>[<a href="#SWID" class="xref">SWID</a>]</span>.<a href="#section-6.2.5-1" class="pilcrow">¶</a></p>
 <p id="section-6.2.5-2">[TO BE REMOVED: This registration should take place at the following
-   location: https://www.iana.org/assignments/swid]<a href="#section-6.2.5-2" class="pilcrow">¶</a></p>
+   location: https://www.iana.org/assignments/software-id]<a href="#section-6.2.5-2" class="pilcrow">¶</a></p>
 <p id="section-6.2.5-3">This registry uses the registration procedures defined in <a href="#iana-registration-procedures" class="xref">Section 6.2.1</a> with the following associated ranges:<a href="#section-6.2.5-3" class="pilcrow">¶</a></p>
-<span id="name-coswid-entity-role-registra"></span><div id="tbl-iana-entity-role-reg-procedures">
+<span id="name-software-id-entity-role-reg"></span><div id="tbl-iana-entity-role-reg-procedures">
 <table class="center" id="table-12">
             <caption>
 <a href="#table-12" class="selfRef">Table 12</a>:
-<a href="#name-coswid-entity-role-registra" class="selfRef">CoSWID Entity Role Registration Procedures</a>
+<a href="#name-software-id-entity-role-reg" class="selfRef">Software ID Entity Role Registration Procedures</a>
             </caption>
 <thead>
               <tr>
@@ -3546,14 +3570,14 @@ defined in <span>[<a href="#SWID" class="xref">SWID</a>]</span>.<a href="#sectio
           </table>
 </div>
 <p id="section-6.2.5-5">Assignments consist of an integer Index value, a Role Name, and a reference to the defining specification.<a href="#section-6.2.5-5" class="pilcrow">¶</a></p>
-<p id="section-6.2.5-6">Initial registrations for the "Software Tag Entity Role Values" registry
+<p id="section-6.2.5-6">Initial registrations for the "Software ID Entity Role Values" registry
 are provided below, which are derived from the textual entity role names
 defined in <span>[<a href="#SWID" class="xref">SWID</a>]</span>.<a href="#section-6.2.5-6" class="pilcrow">¶</a></p>
-<span id="name-coswid-entity-role-initial-"></span><div id="tbl-iana-entity-role-values">
+<span id="name-software-id-entity-role-ini"></span><div id="tbl-iana-entity-role-values">
 <table class="center" id="table-13">
             <caption>
 <a href="#table-13" class="selfRef">Table 13</a>:
-<a href="#name-coswid-entity-role-initial-" class="selfRef">CoSWID Entity Role Initial Registrations</a>
+<a href="#name-software-id-entity-role-ini" class="selfRef">Software ID Entity Role Initial Registrations</a>
             </caption>
 <thead>
               <tr>
@@ -3617,19 +3641,19 @@ defined in <span>[<a href="#SWID" class="xref">SWID</a>]</span>.<a href="#sectio
 </div>
 <div id="iana-link-ownership">
 <section id="section-6.2.6">
-          <h4 id="name-software-tag-link-ownership">
-<a href="#section-6.2.6" class="section-number selfRef">6.2.6. </a><a href="#name-software-tag-link-ownership" class="section-name selfRef">Software Tag Link Ownership Values Registry</a>
+          <h4 id="name-software-id-link-ownership-">
+<a href="#section-6.2.6" class="section-number selfRef">6.2.6. </a><a href="#name-software-id-link-ownership-" class="section-name selfRef">Software ID Link Ownership Values Registry</a>
           </h4>
 <p id="section-6.2.6-1">This document establishes a new registry titled
-"Software Tag Link Ownership Values". This registry provides index values for use as link-entry ownership item values in this document and link ownership names for use in <span>[<a href="#SWID" class="xref">SWID</a>]</span>.<a href="#section-6.2.6-1" class="pilcrow">¶</a></p>
+"Software ID Link Ownership Values". This registry provides index values for use as link-entry ownership item values in this document and link ownership names for use in <span>[<a href="#SWID" class="xref">SWID</a>]</span>.<a href="#section-6.2.6-1" class="pilcrow">¶</a></p>
 <p id="section-6.2.6-2">[TO BE REMOVED: This registration should take place at the following
-   location: https://www.iana.org/assignments/swid]<a href="#section-6.2.6-2" class="pilcrow">¶</a></p>
+   location: https://www.iana.org/assignments/software-id]<a href="#section-6.2.6-2" class="pilcrow">¶</a></p>
 <p id="section-6.2.6-3">This registry uses the registration procedures defined in <a href="#iana-registration-procedures" class="xref">Section 6.2.1</a> with the following associated ranges:<a href="#section-6.2.6-3" class="pilcrow">¶</a></p>
-<span id="name-coswid-link-ownership-regis"></span><div id="tbl-iana-link-ownership-reg-procedures">
+<span id="name-software-id-link-ownership-r"></span><div id="tbl-iana-link-ownership-reg-procedures">
 <table class="center" id="table-14">
             <caption>
 <a href="#table-14" class="selfRef">Table 14</a>:
-<a href="#name-coswid-link-ownership-regis" class="selfRef">CoSWID Link Ownership Registration Procedures</a>
+<a href="#name-software-id-link-ownership-r" class="selfRef">Software ID Link Ownership Registration Procedures</a>
             </caption>
 <thead>
               <tr>
@@ -3650,14 +3674,14 @@ defined in <span>[<a href="#SWID" class="xref">SWID</a>]</span>.<a href="#sectio
           </table>
 </div>
 <p id="section-6.2.6-5">Assignments consist of an integer Index value, an Ownership Type Name, and a reference to the defining specification.<a href="#section-6.2.6-5" class="pilcrow">¶</a></p>
-<p id="section-6.2.6-6">Initial registrations for the "Software Tag Link Ownership Values" registry
+<p id="section-6.2.6-6">Initial registrations for the "Software ID Link Ownership Values" registry
 are provided below, which are derived from the textual entity role names
 defined in <span>[<a href="#SWID" class="xref">SWID</a>]</span>.<a href="#section-6.2.6-6" class="pilcrow">¶</a></p>
-<span id="name-coswid-link-ownership-inita"></span><div id="tbl-iana-link-ownership-values">
+<span id="name-software-id-link-ownership-i"></span><div id="tbl-iana-link-ownership-values">
 <table class="center" id="table-15">
             <caption>
 <a href="#table-15" class="selfRef">Table 15</a>:
-<a href="#name-coswid-link-ownership-inita" class="selfRef">CoSWID Link Ownership Inital Registrations</a>
+<a href="#name-software-id-link-ownership-i" class="selfRef">Software ID Link Ownership Inital Registrations</a>
             </caption>
 <thead>
               <tr>
@@ -3703,19 +3727,19 @@ defined in <span>[<a href="#SWID" class="xref">SWID</a>]</span>.<a href="#sectio
 </div>
 <div id="iana-link-rel">
 <section id="section-6.2.7">
-          <h4 id="name-software-tag-link-relations">
-<a href="#section-6.2.7" class="section-number selfRef">6.2.7. </a><a href="#name-software-tag-link-relations" class="section-name selfRef">Software Tag Link Relationship Values Registry</a>
+          <h4 id="name-software-id-link-relationsh">
+<a href="#section-6.2.7" class="section-number selfRef">6.2.7. </a><a href="#name-software-id-link-relationsh" class="section-name selfRef">Software ID Link Relationship Values Registry</a>
           </h4>
 <p id="section-6.2.7-1">This document establishes a new registry titled
-"Software Tag Link Relationship Values". This registry provides index values for use as link-entry rel item values in this document and link ownership names for use in <span>[<a href="#SWID" class="xref">SWID</a>]</span>.<a href="#section-6.2.7-1" class="pilcrow">¶</a></p>
+"Software ID Link Relationship Values". This registry provides index values for use as link-entry rel item values in this document and link ownership names for use in <span>[<a href="#SWID" class="xref">SWID</a>]</span>.<a href="#section-6.2.7-1" class="pilcrow">¶</a></p>
 <p id="section-6.2.7-2">[TO BE REMOVED: This registration should take place at the following
-   location: https://www.iana.org/assignments/swid]<a href="#section-6.2.7-2" class="pilcrow">¶</a></p>
+   location: https://www.iana.org/assignments/software-id]<a href="#section-6.2.7-2" class="pilcrow">¶</a></p>
 <p id="section-6.2.7-3">This registry uses the registration procedures defined in <a href="#iana-registration-procedures" class="xref">Section 6.2.1</a> with the following associated ranges:<a href="#section-6.2.7-3" class="pilcrow">¶</a></p>
-<span id="name-coswid-link-relationship-re"></span><div id="tbl-iana-link-rel-reg-procedures">
+<span id="name-software-id-link-relationshi"></span><div id="tbl-iana-link-rel-reg-procedures">
 <table class="center" id="table-16">
             <caption>
 <a href="#table-16" class="selfRef">Table 16</a>:
-<a href="#name-coswid-link-relationship-re" class="selfRef">CoSWID Link Relationship Registration Procedures</a>
+<a href="#name-software-id-link-relationshi" class="selfRef">Software ID Link Relationship Registration Procedures</a>
             </caption>
 <thead>
               <tr>
@@ -3736,14 +3760,14 @@ defined in <span>[<a href="#SWID" class="xref">SWID</a>]</span>.<a href="#sectio
           </table>
 </div>
 <p id="section-6.2.7-5">Assignments consist of an integer Index value, the Relationship Type Name, and a reference to the defining specification.<a href="#section-6.2.7-5" class="pilcrow">¶</a></p>
-<p id="section-6.2.7-6">Initial registrations for the "Software Tag Link Relationship Values" registry
+<p id="section-6.2.7-6">Initial registrations for the "Software ID Link Relationship Values" registry
 are provided below, which are derived from the link relationship values
 defined in <span>[<a href="#SWID" class="xref">SWID</a>]</span>.<a href="#section-6.2.7-6" class="pilcrow">¶</a></p>
-<span id="name-coswid-link-relationship-in"></span><div id="tbl-iana-link-rel-values">
+<span id="name-software-id-link-relationship"></span><div id="tbl-iana-link-rel-values">
 <table class="center" id="table-17">
             <caption>
 <a href="#table-17" class="selfRef">Table 17</a>:
-<a href="#name-coswid-link-relationship-in" class="selfRef">CoSWID Link Relationship Initial Registrations</a>
+<a href="#name-software-id-link-relationship" class="selfRef">Software ID Link Relationship Initial Registrations</a>
             </caption>
 <thead>
               <tr>
@@ -3838,19 +3862,19 @@ defined in <span>[<a href="#SWID" class="xref">SWID</a>]</span>.<a href="#sectio
 </div>
 <div id="iana-link-use">
 <section id="section-6.2.8">
-          <h4 id="name-software-tag-link-use-value">
-<a href="#section-6.2.8" class="section-number selfRef">6.2.8. </a><a href="#name-software-tag-link-use-value" class="section-name selfRef">Software Tag Link Use Values Registry</a>
+          <h4 id="name-software-id-link-use-values">
+<a href="#section-6.2.8" class="section-number selfRef">6.2.8. </a><a href="#name-software-id-link-use-values" class="section-name selfRef">Software ID Link Use Values Registry</a>
           </h4>
 <p id="section-6.2.8-1">This document establishes a new registry titled
-"Software Tag Link Use Values". This registry provides index values for use as link-entry use item values in this document and link use names for use in <span>[<a href="#SWID" class="xref">SWID</a>]</span>.<a href="#section-6.2.8-1" class="pilcrow">¶</a></p>
+"Software ID Link Use Values". This registry provides index values for use as link-entry use item values in this document and link use names for use in <span>[<a href="#SWID" class="xref">SWID</a>]</span>.<a href="#section-6.2.8-1" class="pilcrow">¶</a></p>
 <p id="section-6.2.8-2">[TO BE REMOVED: This registration should take place at the following
-   location: https://www.iana.org/assignments/swid]<a href="#section-6.2.8-2" class="pilcrow">¶</a></p>
+   location: https://www.iana.org/assignments/software-id]<a href="#section-6.2.8-2" class="pilcrow">¶</a></p>
 <p id="section-6.2.8-3">This registry uses the registration procedures defined in <a href="#iana-registration-procedures" class="xref">Section 6.2.1</a> with the following associated ranges:<a href="#section-6.2.8-3" class="pilcrow">¶</a></p>
-<span id="name-coswid-link-use-registratio"></span><div id="tbl-iana-link-use-reg-procedures">
+<span id="name-software-id-link-use-regist"></span><div id="tbl-iana-link-use-reg-procedures">
 <table class="center" id="table-18">
             <caption>
 <a href="#table-18" class="selfRef">Table 18</a>:
-<a href="#name-coswid-link-use-registratio" class="selfRef">CoSWID Link Use Registration Procedures</a>
+<a href="#name-software-id-link-use-regist" class="selfRef">Software ID Link Use Registration Procedures</a>
             </caption>
 <thead>
               <tr>
@@ -3871,14 +3895,14 @@ defined in <span>[<a href="#SWID" class="xref">SWID</a>]</span>.<a href="#sectio
           </table>
 </div>
 <p id="section-6.2.8-5">Assignments consist of an integer Index value, the Link Use Type Name, and a reference to the defining specification.<a href="#section-6.2.8-5" class="pilcrow">¶</a></p>
-<p id="section-6.2.8-6">Initial registrations for the "Software Tag Link Use Values" registry
+<p id="section-6.2.8-6">Initial registrations for the "Software ID Link Use Values" registry
 are provided below, which are derived from the link relationship values
 defined in <span>[<a href="#SWID" class="xref">SWID</a>]</span>.<a href="#section-6.2.8-6" class="pilcrow">¶</a></p>
-<span id="name-coswid-link-use-initial-reg"></span><div id="tbl-iana-link-use-values">
+<span id="name-software-id-link-use-initia"></span><div id="tbl-iana-link-use-values">
 <table class="center" id="table-19">
             <caption>
 <a href="#table-19" class="selfRef">Table 19</a>:
-<a href="#name-coswid-link-use-initial-reg" class="selfRef">CoSWID Link Use Initial Registrations</a>
+<a href="#name-software-id-link-use-initia" class="selfRef">Software ID Link Use Initial Registrations</a>
             </caption>
 <thead>
               <tr>
@@ -4044,39 +4068,33 @@ Schemes" registry maintained at <span>[<a href="#IANA.uri-schemes" class="xref">
 <p id="section-6.6.1-1">IANA is requested to register the URI scheme "swid".
 This registration request complies with <span>[<a href="#RFC7595" class="xref">RFC7595</a>]</span>.<a href="#section-6.6.1-1" class="pilcrow">¶</a></p>
 <span class="break"></span><dl class="dlNewline" id="section-6.6.1-2">
-            <dt id="section-6.6.1-2.1">
-Scheme name:  </dt>
+            <dt id="section-6.6.1-2.1">Scheme name:</dt>
             <dd style="margin-left: 1.5em" id="section-6.6.1-2.2">
               <p id="section-6.6.1-2.2.1">swid<a href="#section-6.6.1-2.2.1" class="pilcrow">¶</a></p>
 </dd>
             <dd class="break"></dd>
-<dt id="section-6.6.1-2.3">
-Status:  </dt>
+<dt id="section-6.6.1-2.3">Status:</dt>
             <dd style="margin-left: 1.5em" id="section-6.6.1-2.4">
               <p id="section-6.6.1-2.4.1">Permanent<a href="#section-6.6.1-2.4.1" class="pilcrow">¶</a></p>
 </dd>
             <dd class="break"></dd>
-<dt id="section-6.6.1-2.5">
-Applications/protocols that use this scheme name:  </dt>
+<dt id="section-6.6.1-2.5">Applications/protocols that use this scheme name:</dt>
             <dd style="margin-left: 1.5em" id="section-6.6.1-2.6">
               <p id="section-6.6.1-2.6.1">Applications that require Software-IDs (SWIDs) or Concise
 Software-IDs (CoSWIDs); see <a href="#uri-scheme-swid" class="xref">Section 5.1</a> of RFC-AAAA.<a href="#section-6.6.1-2.6.1" class="pilcrow">¶</a></p>
 </dd>
             <dd class="break"></dd>
-<dt id="section-6.6.1-2.7">
-Contact:  </dt>
+<dt id="section-6.6.1-2.7">Contact:</dt>
             <dd style="margin-left: 1.5em" id="section-6.6.1-2.8">
               <p id="section-6.6.1-2.8.1">IETF Chair &lt;chair@ietf.org&gt;<a href="#section-6.6.1-2.8.1" class="pilcrow">¶</a></p>
 </dd>
             <dd class="break"></dd>
-<dt id="section-6.6.1-2.9">
-Change controller:  </dt>
+<dt id="section-6.6.1-2.9">Change controller:</dt>
             <dd style="margin-left: 1.5em" id="section-6.6.1-2.10">
               <p id="section-6.6.1-2.10.1">IESG &lt;iesg@ietf.org&gt;<a href="#section-6.6.1-2.10.1" class="pilcrow">¶</a></p>
 </dd>
             <dd class="break"></dd>
-<dt id="section-6.6.1-2.11">
-Reference:  </dt>
+<dt id="section-6.6.1-2.11">Reference:</dt>
             <dd style="margin-left: 1.5em" id="section-6.6.1-2.12">
               <p id="section-6.6.1-2.12.1"><a href="#uri-scheme-swid" class="xref">Section 5.1</a> in RFC-AAAA<a href="#section-6.6.1-2.12.1" class="pilcrow">¶</a></p>
 </dd>
@@ -4092,39 +4110,33 @@ Reference:  </dt>
 <p id="section-6.6.2-1">IANA is requested to register the URI scheme "swidpath". This registration
 request complies with <span>[<a href="#RFC7595" class="xref">RFC7595</a>]</span>.<a href="#section-6.6.2-1" class="pilcrow">¶</a></p>
 <span class="break"></span><dl class="dlNewline" id="section-6.6.2-2">
-            <dt id="section-6.6.2-2.1">
-Scheme name:  </dt>
+            <dt id="section-6.6.2-2.1">Scheme name:</dt>
             <dd style="margin-left: 1.5em" id="section-6.6.2-2.2">
               <p id="section-6.6.2-2.2.1">swidpath<a href="#section-6.6.2-2.2.1" class="pilcrow">¶</a></p>
 </dd>
             <dd class="break"></dd>
-<dt id="section-6.6.2-2.3">
-Status:  </dt>
+<dt id="section-6.6.2-2.3">Status:</dt>
             <dd style="margin-left: 1.5em" id="section-6.6.2-2.4">
               <p id="section-6.6.2-2.4.1">Permanent<a href="#section-6.6.2-2.4.1" class="pilcrow">¶</a></p>
 </dd>
             <dd class="break"></dd>
-<dt id="section-6.6.2-2.5">
-Applications/protocols that use this scheme name:  </dt>
+<dt id="section-6.6.2-2.5">Applications/protocols that use this scheme name:</dt>
             <dd style="margin-left: 1.5em" id="section-6.6.2-2.6">
               <p id="section-6.6.2-2.6.1">Applications that require Software-IDs (SWIDs) or Concise
 Software-IDs (CoSWIDs); see <a href="#uri-scheme-swidpath" class="xref">Section 5.2</a> of RFC-AAAA.<a href="#section-6.6.2-2.6.1" class="pilcrow">¶</a></p>
 </dd>
             <dd class="break"></dd>
-<dt id="section-6.6.2-2.7">
-Contact:  </dt>
+<dt id="section-6.6.2-2.7">Contact:</dt>
             <dd style="margin-left: 1.5em" id="section-6.6.2-2.8">
               <p id="section-6.6.2-2.8.1">IETF Chair &lt;chair@ietf.org&gt;<a href="#section-6.6.2-2.8.1" class="pilcrow">¶</a></p>
 </dd>
             <dd class="break"></dd>
-<dt id="section-6.6.2-2.9">
-Change controller:  </dt>
+<dt id="section-6.6.2-2.9">Change controller:</dt>
             <dd style="margin-left: 1.5em" id="section-6.6.2-2.10">
               <p id="section-6.6.2-2.10.1">IESG &lt;iesg@ietf.org&gt;<a href="#section-6.6.2-2.10.1" class="pilcrow">¶</a></p>
 </dd>
             <dd class="break"></dd>
-<dt id="section-6.6.2-2.11">
-Reference:  </dt>
+<dt id="section-6.6.2-2.11">Reference:</dt>
             <dd style="margin-left: 1.5em" id="section-6.6.2-2.12">
               <p id="section-6.6.2-2.12.1"><a href="#uri-scheme-swidpath" class="xref">Section 5.2</a> in RFC-AAAA<a href="#section-6.6.2-2.12.1" class="pilcrow">¶</a></p>
 </dd>
@@ -4291,7 +4303,7 @@ support for hash algorithms that are generally considered secure, and
 not just marginally so.<a href="#section-9-7" class="pilcrow">¶</a></p>
 <p id="section-9-8">CoSWID tags are intended to contain public information about software components and, as
 such, the contents of a CoSWID tag (as opposed to the set of tags that apply to the endpoint, see below) does not need to be protected against unintended disclosure on an endpoint.
-Converse, generators of CoSWID tags need to ensure that only public
+Conversely, generators of CoSWID tags need to ensure that only public
 information is disclosed.
 Entitlement Keys are an example for information where particular care
 is required; tag authors are advised not to record unprotected,
@@ -4360,7 +4372,7 @@ verification are ways that implementations can address this concern.<a href="#se
       <h2 id="name-privacy-consideration">
 <a href="#section-10" class="section-number selfRef">10. </a><a href="#name-privacy-consideration" class="section-name selfRef">Privacy Consideration</a>
       </h2>
-<p id="section-10-1">As noted in <a href="#sec-sec" class="xref">Section 9</a>, collected information about an endpoint's software load, such as what might be represented by an endpoint's CoSWID tag collection, could be used to identify vulnerable software for attack. Collections of endpoint software information also can have privacy implications for users. The set of application a user installs can give clues to personal matters such as political affiliation, banking and investments, gender, sexual orientation, medical concerns, etc. While the collection of CoSWID tags on an endpoint wouldn't increase the privacy risk (since a party able to view those tags could also view the applications themselves), if those CoSWID tags are gathered and stored in a repository somewhere, visibility into the repository now also gives visibility into a user's application collection. For this reason, repositories of collected CoSWID tags not only need to be protected against collection by malicious parties, but even authorized parties will need to be vetted and made aware of privacy responsibilities associated with having access to this information. Likewise, users should be made aware that their software inventories are being collected from endpoints. Furthermore, when collected and stored by authorized parties or systems, the inventory data needs to be protected as both security and privacy sensitive information.<a href="#section-10-1" class="pilcrow">¶</a></p>
+<p id="section-10-1">As noted in <a href="#sec-sec" class="xref">Section 9</a>, collected information about an endpoint's software load, such as what might be represented by an endpoint's CoSWID tag collection, could be used to identify vulnerable software for attack. Collections of endpoint software information also can have privacy implications for users. The set of application a user installs can give clues to personal matters such as political affiliation, banking and investments, gender, sexual orientation, medical concerns, etc. While the collection of CoSWID tags on an endpoint wouldn't increase the privacy risk (since a party able to view those tags could also view the applications themselves), if those CoSWID tags are gathered and stored in a repository somewhere, visibility into the repository now also gives visibility into a user's application collection. For this reason, repositories of collected CoSWID tags not only need to be protected against collection by malicious parties, but even authorized parties will need to be vetted and made aware of privacy responsibilities associated with having access to this information. Likewise, users should be made aware that their software inventories are being collected from endpoints. Furthermore, when collected and stored by authorized parties or systems, the inventory data needs to be protected as both security and privacy-sensitive information.<a href="#section-10-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="change-log">
@@ -4609,7 +4621,7 @@ any-element<a href="#section-11-12.5" class="pilcrow">¶</a>
 <dd class="break"></dd>
 <dt id="I-D.ietf-cose-countersign">[I-D.ietf-cose-countersign]</dt>
         <dd>
-<span class="refAuthor">Schaad, J.</span> and <span class="refAuthor">R. Housley</span>, <span class="refTitle">"CBOR Object Signing and Encryption (COSE): Countersignatures"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-cose-countersign-05</span>, <time datetime="2021-06-23" class="refDate">23 June 2021</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-cose-countersign-05">https://datatracker.ietf.org/doc/html/draft-ietf-cose-countersign-05</a>&gt;</span>. </dd>
+<span class="refAuthor">Schaad, J.</span> and <span class="refAuthor">R. Housley</span>, <span class="refTitle">"CBOR Object Signing and Encryption (COSE): Countersignatures"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-cose-countersign-10</span>, <time datetime="2022-09-20" class="refDate">20 September 2022</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-cose-countersign-10">https://datatracker.ietf.org/doc/html/draft-ietf-cose-countersign-10</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.ietf-cose-rfc8152bis-struct">[I-D.ietf-cose-rfc8152bis-struct]</dt>
         <dd>
@@ -4695,10 +4707,6 @@ any-element<a href="#section-11-12.5" class="pilcrow">¶</a>
         <dd>
 <span class="refTitle">"Information technology - Software asset management - Part 5: Overview and vocabulary"</span>, <span class="seriesInfo">ISO/IEC 19770-5:2015</span>, <time datetime="2013-11-15" class="refDate">15 November 2013</time>. </dd>
 <dd class="break"></dd>
-<dt id="SEMVER">[SEMVER]</dt>
-        <dd>
-<span class="refAuthor">Preston-Werner, T.</span>, <span class="refTitle">"Semantic Versioning 2.0.0"</span>, <span>&lt;<a href="https://semver.org/spec/v2.0.0.html">https://semver.org/spec/v2.0.0.html</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="SWID">[SWID]</dt>
         <dd>
 <span class="refTitle">"Information technology - Software asset management - Part 2: Software identification tag"</span>, <span class="seriesInfo">ISO/IEC 19770-2:2015</span>, <time datetime="2015-10-01" class="refDate">1 October 2015</time>. </dd>
@@ -4709,15 +4717,15 @@ any-element<a href="#section-11-12.5" class="pilcrow">¶</a>
 <dd class="break"></dd>
 <dt id="W3C.REC-css3-mediaqueries-20120619">[W3C.REC-css3-mediaqueries-20120619]</dt>
         <dd>
-<span class="refAuthor">Rivoal, F.</span>, <span class="refTitle">"Media Queries"</span>, <span class="seriesInfo">World Wide Web Consortium Recommendation REC-css3-mediaqueries-20120619</span>, <time datetime="2012-06-19" class="refDate">19 June 2012</time>, <span>&lt;<a href="https://www.w3.org/TR/2012/REC-css3-mediaqueries-20120619">https://www.w3.org/TR/2012/REC-css3-mediaqueries-20120619</a>&gt;</span>. </dd>
+<span class="refAuthor">Rivoal, F., Ed.</span>, <span class="refTitle">"Media Queries"</span>, <span class="seriesInfo">W3C REC REC-css3-mediaqueries-20120619</span>, <span class="seriesInfo">W3C REC-css3-mediaqueries-20120619</span>, <time datetime="2012-06-19" class="refDate">19 June 2012</time>, <span>&lt;<a href="https://www.w3.org/TR/2012/REC-css3-mediaqueries-20120619/">https://www.w3.org/TR/2012/REC-css3-mediaqueries-20120619/</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="W3C.REC-xmlschema-2-20041028">[W3C.REC-xmlschema-2-20041028]</dt>
         <dd>
-<span class="refAuthor">Biron, P.</span> and <span class="refAuthor">A. Malhotra</span>, <span class="refTitle">"XML Schema Part 2: Datatypes Second Edition"</span>, <span class="seriesInfo">World Wide Web Consortium Recommendation REC-xmlschema-2-20041028</span>, <time datetime="2004-10-28" class="refDate">28 October 2004</time>, <span>&lt;<a href="https://www.w3.org/TR/2004/REC-xmlschema-2-20041028">https://www.w3.org/TR/2004/REC-xmlschema-2-20041028</a>&gt;</span>. </dd>
+<span class="refAuthor">Malhotra, A., Ed.</span> and <span class="refAuthor">P. V. Biron, Ed.</span>, <span class="refTitle">"XML Schema Part 2: Datatypes Second Edition"</span>, <span class="seriesInfo">W3C REC REC-xmlschema-2-20041028</span>, <span class="seriesInfo">W3C REC-xmlschema-2-20041028</span>, <time datetime="2004-10-28" class="refDate">28 October 2004</time>, <span>&lt;<a href="https://www.w3.org/TR/2004/REC-xmlschema-2-20041028/">https://www.w3.org/TR/2004/REC-xmlschema-2-20041028/</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="W3C.REC-xpath20-20101214">[W3C.REC-xpath20-20101214]</dt>
       <dd>
-<span class="refAuthor">Berglund, A.</span>, <span class="refAuthor">Boag, S.</span>, <span class="refAuthor">Chamberlin, D.</span>, <span class="refAuthor">Fernandez, M.</span>, <span class="refAuthor">Kay, M.</span>, <span class="refAuthor">Robie, J.</span>, and <span class="refAuthor">J. Simeon</span>, <span class="refTitle">"XML Path Language (XPath) 2.0 (Second Edition)"</span>, <span class="seriesInfo">World Wide Web Consortium Recommendation REC-xpath20-20101214</span>, <time datetime="2010-12-14" class="refDate">14 December 2010</time>, <span>&lt;<a href="https://www.w3.org/TR/2010/REC-xpath20-20101214">https://www.w3.org/TR/2010/REC-xpath20-20101214</a>&gt;</span>. </dd>
+<span class="refAuthor">Berglund, A., Ed.</span>, <span class="refAuthor">Chamberlin, D., Ed.</span>, <span class="refAuthor">Simeon, J., Ed.</span>, <span class="refAuthor">Robie, J., Ed.</span>, <span class="refAuthor">Fernandez, M., Ed.</span>, <span class="refAuthor">Kay, M., Ed.</span>, and <span class="refAuthor">S. Boag, Ed.</span>, <span class="refTitle">"XML Path Language (XPath) 2.0 (Second Edition)"</span>, <span class="seriesInfo">W3C REC REC-xpath20-20101214</span>, <span class="seriesInfo">W3C REC-xpath20-20101214</span>, <time datetime="2010-12-14" class="refDate">14 December 2010</time>, <span>&lt;<a href="https://www.w3.org/TR/2010/REC-xpath20-20101214/">https://www.w3.org/TR/2010/REC-xpath20-20101214/</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
@@ -4732,7 +4740,7 @@ any-element<a href="#section-11-12.5" class="pilcrow">¶</a>
 <dd class="break"></dd>
 <dt id="I-D.ietf-rats-architecture">[I-D.ietf-rats-architecture]</dt>
         <dd>
-<span class="refAuthor">Birkholz, H.</span>, <span class="refAuthor">Thaler, D.</span>, <span class="refAuthor">Richardson, M.</span>, <span class="refAuthor">Smith, N.</span>, and <span class="refAuthor">W. Pan</span>, <span class="refTitle">"Remote Attestation Procedures Architecture"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-rats-architecture-15</span>, <time datetime="2022-02-08" class="refDate">8 February 2022</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-architecture-15">https://datatracker.ietf.org/doc/html/draft-ietf-rats-architecture-15</a>&gt;</span>. </dd>
+<span class="refAuthor">Birkholz, H.</span>, <span class="refAuthor">Thaler, D.</span>, <span class="refAuthor">Richardson, M.</span>, <span class="refAuthor">Smith, N.</span>, and <span class="refAuthor">W. Pan</span>, <span class="refTitle">"Remote ATtestation procedureS (RATS) Architecture"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-rats-architecture-22</span>, <time datetime="2022-09-28" class="refDate">28 September 2022</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-architecture-22">https://datatracker.ietf.org/doc/html/draft-ietf-rats-architecture-22</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="KebabCase">[KebabCase]</dt>
         <dd>
@@ -4758,9 +4766,13 @@ any-element<a href="#section-11-12.5" class="pilcrow">¶</a>
         <dd>
 <span class="refAuthor">Lear, E.</span>, <span class="refAuthor">Droms, R.</span>, and <span class="refAuthor">D. Romascanu</span>, <span class="refTitle">"Manufacturer Usage Description Specification"</span>, <span class="seriesInfo">RFC 8520</span>, <span class="seriesInfo">DOI 10.17487/RFC8520</span>, <time datetime="2019-03" class="refDate">March 2019</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8520">https://www.rfc-editor.org/rfc/rfc8520</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="SEMVER">[SEMVER]</dt>
+        <dd>
+<span class="refAuthor">Preston-Werner, T.</span>, <span class="refTitle">"Semantic Versioning 2.0.0"</span>, <span>&lt;<a href="https://semver.org/spec/v2.0.0.html">https://semver.org/spec/v2.0.0.html</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="SWID-GUIDANCE">[SWID-GUIDANCE]</dt>
         <dd>
-<span class="refAuthor">Waltermire, D.</span>, <span class="refAuthor">Cheikes, B.A.</span>, <span class="refAuthor">Feldman, L.</span>, and <span class="refAuthor">G. Witte</span>, <span class="refTitle">"Guidelines for the Creation of Interoperable Software Identification (SWID) Tags"</span>, <span class="seriesInfo">NISTIR 8060</span>, <time datetime="2016-04" class="refDate">April 2016</time>, <span>&lt;<a href="https://doi.org/10.6028/NIST.IR.8060">https://doi.org/10.6028/NIST.IR.8060</a>&gt;</span>. </dd>
+<span class="refAuthor">Waltermire, D.</span>, <span class="refAuthor">Cheikes, B. A.</span>, <span class="refAuthor">Feldman, L.</span>, and <span class="refAuthor">G. Witte</span>, <span class="refTitle">"Guidelines for the Creation of Interoperable Software Identification (SWID) Tags"</span>, <span class="seriesInfo">NISTIR 8060</span>, <time datetime="2016-04" class="refDate">April 2016</time>, <span>&lt;<a href="https://doi.org/10.6028/NIST.IR.8060">https://doi.org/10.6028/NIST.IR.8060</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="X.1520">[X.1520]</dt>
       <dd>
