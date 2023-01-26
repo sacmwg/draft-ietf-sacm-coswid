@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-01-24T14:16:13.316439+00:00",
+  "timestamp": "2023-01-26T15:27:00.211159+00:00",
   "repo": "sacmwg/draft-ietf-sacm-coswid",
   "labels": [
     {
@@ -2232,24 +2232,26 @@
       "id": "PR_kwDOBK4aBM43lXtz",
       "title": "Fixing remaining issues from IESG eval",
       "url": "https://github.com/sacmwg/draft-ietf-sacm-coswid/pull/50",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "henkbirkholz",
       "authorAssociation": "MEMBER",
       "assignees": [],
       "labels": [],
       "body": "based on: https://mailarchive.ietf.org/arch/msg/sacm/7h7j2WMCMi0fccrhy_I8uqff6bA/\r\n\r\n",
       "createdAt": "2022-05-10T14:57:18Z",
-      "updatedAt": "2022-07-19T20:05:59Z",
+      "updatedAt": "2023-01-26T15:26:23Z",
       "baseRepository": "sacmwg/draft-ietf-sacm-coswid",
       "baseRefName": "master",
       "baseRefOid": "d25e4296fcb3ee30c351fbd47b22cc39f7f7ed86",
       "headRepository": "sacmwg/draft-ietf-sacm-coswid",
       "headRefName": "iesg-eval",
       "headRefOid": "7a3d8c344768d4cbf18c41e9cb5006716fe2efcf",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2023-01-26T15:26:23Z",
+      "mergedAt": "2023-01-26T15:26:23Z",
+      "mergedBy": "henkbirkholz",
+      "mergeCommit": {
+        "oid": "feb9d401a84396011fd763ee0e2984d289861d9d"
+      },
       "comments": [
         {
           "author": "henkbirkholz",
@@ -2299,6 +2301,19 @@
               "updatedAt": "2022-05-12T14:01:23Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDOBK4aBM5LxgG7",
+          "commit": {
+            "abbreviatedOid": "7a3d8c3"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "submitted as -22",
+          "createdAt": "2023-01-26T15:26:13Z",
+          "updatedAt": "2023-01-26T15:26:13Z",
+          "comments": []
         }
       ]
     },
@@ -2343,6 +2358,32 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 52,
+      "id": "PR_kwDOBK4aBM5Ibw_Z",
+      "title": "Remove URI IANA reg request",
+      "url": "https://github.com/sacmwg/draft-ietf-sacm-coswid/pull/52",
+      "state": "OPEN",
+      "author": "cmschmidt",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Removed IANA registrations for swid and swidpath and updated text to note these are not technically URIs but just expressions using URI syntax.",
+      "createdAt": "2023-01-24T14:51:34Z",
+      "updatedAt": "2023-01-24T14:51:34Z",
+      "baseRepository": "sacmwg/draft-ietf-sacm-coswid",
+      "baseRefName": "master",
+      "baseRefOid": "d25e4296fcb3ee30c351fbd47b22cc39f7f7ed86",
+      "headRepository": "sacmwg/draft-ietf-sacm-coswid",
+      "headRefName": "jan2023-updates",
+      "headRefOid": "d563d5ca95bb6a3735b888c0fb0e5713da936c55",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
