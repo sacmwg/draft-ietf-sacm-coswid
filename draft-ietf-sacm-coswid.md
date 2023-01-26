@@ -672,10 +672,10 @@ The following describes each member of this map.
 - href (index 38): A URI-reference {{RFC3986}} for the referenced resource. The "href" item's value can be, but is not limited to, the following (which is a slightly modified excerpt from {{SWID}}):
   - If no URI scheme is provided, then the URI-reference is a relative reference relative to the base URI of the CoSWID tag, i.e., the URI under which the CoSWID tag was provided. For example, "./folder/supplemental.coswid".
   - a physical resource location with any acceptable URI scheme (e.g., file:// http:// https:// ftp://)
-  - a URI with "swid:" as the scheme refers to another SWID or CoSWID by the referenced tag's tag-id. This
-  URI needs to be resolved in the context of the endpoint by software
+  - a URI-like expression with "swid:" as the scheme refers to another SWID or CoSWID by the referenced tag's tag-id. This
+  expression needs to be resolved in the context of the endpoint by software
   that can lookup other SWID or CoSWID tags. For example, "swid:2df9de35-0aff-4a86-ace6-f7dddd1ade4c" references the tag with the tag-id value "2df9de35-0aff-4a86-ace6-f7dddd1ade4c".
-  - a URI with "swidpath:" as the scheme, which refers to another software tag via an
+  - a URI-like expression with "swidpath:" as the scheme, which refers to another software tag via an
   XPATH query {{-xpath}} that matches items in that tag ({{uri-scheme-swidpath}}). This scheme is provided for compatibility with {{SWID}}. This specification does not define how to resolve an XPATH query in the context of CBOR, see {{uri-scheme-swidpath}}.
 
 - media (index 10): A hint to the consumer of the link to what target platform the link is applicable to. This item represents a
@@ -683,14 +683,14 @@ query as defined by the W3C Media Queries Recommendation (see {{-css3-mediaqueri
 
 - ownership (index 39): An integer or textual value (integer label with text escape, see {{data-def}}, for the "Software ID Link Ownership Values" registry {{indexed-link-ownership}}) used when the "href" item references another software component to indicate the degree of ownership between the software component referenced by the CoSWID tag and the software component referenced by the link. If an integer value is used it MUST be an index value in the range -256 to 255. Integer values in the range -256 to -1 are reserved for testing and use in closed environments (see {{iana-private-use}}). Integer values in the range 0 to 255 correspond to registered entries in the "Software ID Link Ownership Values" registry.
 
-- rel (index 40): An integer or textual value that (integer label with text escape, see {{data-def}}, for the "Software ID Link Link Relationship Values" registry {{indexed-link-ownership}}) identifies the relationship between this CoSWID and the target resource identified by the "href" item. If an integer value is used it MUST be an index value in the range -256 to 65535. Integer values in the range -256 to -1 are reserved for testing and use in closed environments (see {{iana-private-use}}). Integer values in the range 0 to 65535 correspond to registered entries in the IANA "Software ID Link Relationship Values" registry (see {{iana-link-rel}}). If a string value is used it MUST be either a private use name as defined in {{iana-private-use}} or a "Relation Name" from the IANA "Link Relation Types" registry: https://www.iana.org/assignments/link-relations/link-relations.xhtml as defined by {{RFC8288}}. When a string value defined in the IANA "Software ID Link Relationship Values" registry matches a Relation Name defined in the IANA "Link Relation Types" registry, the index value in the IANA "Software ID Link Relationship Values" registry MUST be used instead, as this relationship has a specialized meaning in the context of a CoSWID tag. String values correspond to registered entries in the "Software ID Link Relationship Values" registry.
+- rel (index 40): An integer or textual value that (integer label with text escape, see {{data-def}}, for the "Software Tag Link Relationship Values" registry {{indexed-link-ownership}}) identifies the relationship between this CoSWID and the target resource identified by the "href" item. If an integer value is used it MUST be an index value in the range -256 to 65535. Integer values in the range -256 to -1 are reserved for testing and use in closed environments (see {{iana-private-use}}). Integer values in the range 0 to 65535 correspond to registered entries in the IANA "Software Tag Link Relationship Values" registry (see {{iana-link-rel}}. If a string value is used it MUST be either a private use name as defined in {{iana-private-use}} or a "Relation Name" from the IANA "Link Relation Types" registry: https://www.iana.org/assignments/link-relations/link-relations.xhtml as defined by {{RFC8288}}. When a string value defined in the IANA "Software Tag Link Relationship Values" registry matches a Relation Name defined in the IANA "Link Relation Types" registry, the index value in the IANA "Software Tag Link Relationship Values" registry MUST be used instead, as this relationship has a specialized meaning in the context of a CoSWID tag. String values correspond to registered entries in the "Software Tag Link Relationship Values" registry.
 
 - media-type (index 41): A link can point to arbitrary resources on the endpoint, local network, or Internet using the href item. Use of this item supplies the resource consumer with a hint of what type of resource to expect.  (This is a *hint*: There
 is no obligation for the server hosting the target of the URI to use the
 indicated media type when the URI is dereferenced.)
 Media types are identified by referencing a "Name" from the IANA "Media Types" registry: http://www.iana.org/assignments/media-types/media-types.xhtml. This item maps to '/SoftwareIdentity/Link/@type' in {{SWID}}.
 
-- use (index 42): An integer or textual value (integer label with text escape, see {{data-def}}, for the "Software ID Link Link Relationship Values" registry {{indexed-link-ownership}}) used to determine if the referenced software component has to be installed before installing the software component identified by the COSWID tag. If an integer value is used it MUST be an index value in the range -256 to 255. Integer values in the range -256 to -1 are reserved for testing and use in closed environments (see {{iana-private-use}}). Integer values in the range 0 to 255 correspond to registered entries in the IANA "Link Use Values" registry (see {{iana-link-use}}). If a string value is used it MUST be a private use name as defined in {{iana-private-use}}. String values correspond to registered entries in the "Software ID Link Use Values" registry.
+- use (index 42): An integer or textual value (integer label with text escape, see {{data-def}}, for the "Software Tag Link Relationship Values" registry {{indexed-link-ownership}}) used to determine if the referenced software component has to be installed before installing the software component identified by the COSWID tag. If an integer value is used it MUST be an index value in the range -256 to 255. Integer values in the range -256 to -1 are reserved for testing and use in closed environments (see {{iana-private-use}}). Integer values in the range 0 to 255 correspond to registered entries in the IANA "Link Use Values" registry (see {{iana-link-use}}. If a string value is used it MUST be a private use name as defined in {{iana-private-use}}. String values correspond to registered entries in the "Software Tag Link Use Values" registry.
 
 - $$link-extension: This CDDL socket can be used to extend the link-entry map model. See {{model-extension}}.
 
@@ -1093,13 +1093,9 @@ The following table indicates the index value to use for the link-entry group's 
 The values above are registered in the IANA "Software ID Link Use Values" registry defined in {{iana-link-use}}. Additional values will likely be registered over time.
 
 
-# URI Schemes
+# swid and swidpath Expressions
 
-This specification defines the following URI schemes for use in CoSWID and to provide interoperability with schemes used in {{SWID}}.
-
-Note: These URI schemes are used in {{SWID}} without an IANA registration.
-The present specification ensures that these URI schemes are properly
-defined going forward.
+This specification defines the following expressions for use in CoSWID and to provide interoperability with schemes used in {{SWID}}. Because both the "swid" and "swidpath" schemes are to be interpreted within a local, rather than a global, context, neither of these scheme are URIs as defined in {{RFC3986}} and the swid and swidpath scheme names are not registered as permanent schemes with IANA. That noted, swid and swidpath expressions conform to all rules for URI syntax. All uses of these expressions encountered within a CoSWID are to be interpreted as described in this section.
 
 
 [^replace-xxxx]
@@ -1110,13 +1106,11 @@ defined going forward.
 
 
 {: #uri-scheme-swid}
-## "swid" URI Scheme
+## "swid" Expressions
 
-There is a need for a scheme name that can be used in URIs that point to a specific software tag by that tag's tag-id, such as the use of the link entry as described in {{model-link}}. Since this scheme is used both in a standards track document and an ISO standard, this scheme needs to be used without fear of conflicts with current or future actual schemes.  In {{swid-reg}}, the scheme "swid" is registered as a 'permanent' scheme for that purpose.
+Expressions specifying the "swid" scheme are used to reference a software tag by its tag-id. A tag-id referenced in this way can be used to identify the tag resource in the context of where it is referenced from. For example, when a tag is installed on a given device, that tag can reference related tags on the same device using expressions with this scheme.
 
-URIs specifying the "swid" scheme are used to reference a software tag by its tag-id. A tag-id referenced in this way can be used to identify the tag resource in the context of where it is referenced from. For example, when a tag is installed on a given device, that tag can reference related tags on the same device using URIs with this scheme.
-
-For URIs that use the "swid" scheme, the scheme specific part MUST consist of a referenced software tag's tag-id. This tag-id MUST be URI encoded according to {{Section 2.1 of RFC3986}}.
+For expressions that use the "swid" scheme, the scheme specific part MUST consist of a referenced software tag's tag-id. This tag-id MUST be URI encoded according to {{RFC3986}} Section 2.1.
 
 The following expression is a valid example:
 
@@ -1125,17 +1119,12 @@ swid:2df9de35-0aff-4a86-ace6-f7dddd1ade4c
 ~~~~
 
 {: #uri-scheme-swidpath}
-## "swidpath" URI Scheme
+## "swidpath" Expressions
 
-There is a need for a scheme name that can be used in URIs to identify a collection of specific software tags with data elements that match an XPath expression, such as the use of the link entry as described in {{model-link}}.
-The scheme named "swidpath" is used for this purpose in {{SWID}}, but not registered.
-To enable usage without fear of conflicts with current or future actual schemes, the present document registers it as a
-'permanent' scheme for that purpose (see {{swidpath-reg}}).
-
-URIs specifying the "swidpath" scheme are used to filter tags out of a base collection, so that matching tags are included in the identified tag collection.
+Expressions specifying the "swidpath" scheme are used to filter tags out of a base collection, so that matching tags are included in the identified tag collection.
 The XPath expression {{-xpath}} references the data that must be found in a given software tag out of base collection for that tag to be considered a matching tag.
-Tags to be evaluated (the base collection) include all tags in the context of where the "swidpath URI" is referenced from.
-For example, when a tag is installed on a given device, that tag can reference related tags on the same device using a URI with this scheme.
+Tags to be evaluated (the base collection) include all tags in the context of where the swidpath expression is referenced from.
+For example, when a tag is installed on a given device, that tag can reference related tags on the same device using an expression with this scheme.
 
 For URIs that use the "swidpath" scheme, the following requirements apply:
 
@@ -1534,64 +1523,6 @@ preferably with the specific value requested:
 | 1398229316 | map       | Concise Software Identifier (CoSWID) \[RFC-AAAA\] |
 {: #tbl-cbor-tag title="CoSWID CBOR Tag"}
 
-## URI Scheme Registrations
-
-The ISO 19770-2:2015 SWID specification describes use of the "swid" and "swidpath" URI schemes, which are currently in use in implementations. This document continues this use for CoSWID. The following subsections provide registrations for these schemes in to ensure that a permanent registration exists for these schemes that is suitable for use in the SWID and CoSWID specifications.
-
-URI schemes are registered within the "Uniform Resource Identifier (URI)
-Schemes" registry maintained at {{!IANA.uri-schemes}}.
-
-### URI-scheme swid {#swid-reg}
-
-IANA is requested to register the URI scheme "swid".
-This registration request complies with {{RFC7595}}.
-
-Scheme name:
-: swid
-
-Status:
-: Permanent
-
-Applications/protocols that use this scheme name:
-: Applications that require Software-IDs (SWIDs) or Concise
-  Software-IDs (CoSWIDs); see {{uri-scheme-swid}} of RFC-AAAA.
-
-Contact:
-: IETF Chair \<chair@ietf.org>
-
-Change controller:
-: IESG \<iesg@ietf.org>
-
-Reference:
-:  {{uri-scheme-swid}} in RFC-AAAA
-{: vspace='0'}
-
-### URI-scheme swidpath {#swidpath-reg}
-
-IANA is requested to register the URI scheme "swidpath". This registration
-request complies with {{RFC7595}}.
-
-Scheme name:
-: swidpath
-
-Status:
-: Permanent
-
-Applications/protocols that use this scheme name:
-: Applications that require Software-IDs (SWIDs) or Concise
-  Software-IDs (CoSWIDs); see {{uri-scheme-swidpath}} of RFC-AAAA.
-
-Contact:
-: IETF Chair \<chair@ietf.org>
-
-Change controller:
-: IESG \<iesg@ietf.org>
-
-Reference:
-:  {{uri-scheme-swidpath}} in RFC-AAAA
-{: vspace='0'}
-
-
 ## CoSWID Model for use in SWIMA Registration {#sec-swima}
 
 The Software Inventory Message and Attributes (SWIMA) for PA-TNC specification {{RFC8412}} defines a standardized method for collecting an endpoint device's software inventory. A CoSWID can provide evidence of software installation which can then be used and exchanged with SWIMA. This registration adds a new entry to the IANA "Software Data Model Types" registry defined by {{RFC8412}} {{!IANA.pa-tnc-parameters}} to support CoSWID use in SWIMA as follows:
@@ -1771,6 +1702,10 @@ As noted in {{sec-sec}}, collected information about an endpoint's software load
 {: removeinrfc="true"}
 
 \[THIS SECTION TO BE REMOVED BY THE RFC EDITOR.\]
+
+Changes from version 22 to version 23
+
+- Removed request for IANA registration of swid and swidpath as URI schemes. Updated text to note that that these are not URIs but expressions that follow URI syntax
 
 Changes from version 12 to version 14:
 
