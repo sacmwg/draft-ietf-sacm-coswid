@@ -2872,13 +2872,13 @@ Table of Contents
        * cose-label => cose-values,
    }
 
-   unprotected-sign-coswid-header = {
+   unprotected-signed-coswid-header = {
        * cose-label => cose-values,
    }
 
    COSE_Signature =  [
        protected: bstr .cbor protected-signature-coswid-header,
-       unprotected: unprotected-sign-coswid-header,
+       unprotected: unprotected-signed-coswid-header,
        signature : bstr
    ]
    <CODE ENDS>
