@@ -1225,13 +1225,13 @@ svg :is([fill="white"], [fill^="#fff"]) {
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5">
-            <p id="section-toc.1-1.5.1"><a href="#section-5" class="xref">5</a>.  <a href="#name-uri-schemes" class="xref">URI Schemes</a></p>
+            <p id="section-toc.1-1.5.1"><a href="#section-5" class="xref">5</a>.  <a href="#name-swid-and-swidpath-expressio" class="xref">swid and swidpath Expressions</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.1">
-                <p id="section-toc.1-1.5.2.1.1"><a href="#section-5.1" class="xref">5.1</a>.  <a href="#name-swid-uri-scheme" class="xref">"swid" URI Scheme</a></p>
+                <p id="section-toc.1-1.5.2.1.1"><a href="#section-5.1" class="xref">5.1</a>.  <a href="#name-swid-expressions" class="xref">"swid" Expressions</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2">
-                <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="xref">5.2</a>.  <a href="#name-swidpath-uri-scheme" class="xref">"swidpath" URI Scheme</a></p>
+                <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="xref">5.2</a>.  <a href="#name-swidpath-expressions" class="xref">"swidpath" Expressions</a></p>
 </li>
             </ul>
 </li>
@@ -1280,18 +1280,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
                 <p id="section-toc.1-1.6.2.5.1"><a href="#section-6.5" class="xref">6.5</a>.  <a href="#name-cbor-tag-registration" class="xref">CBOR Tag Registration</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.6">
-                <p id="section-toc.1-1.6.2.6.1"><a href="#section-6.6" class="xref">6.6</a>.  <a href="#name-uri-scheme-registrations" class="xref">URI Scheme Registrations</a></p>
-<ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.6.2.1">
-                    <p id="section-toc.1-1.6.2.6.2.1.1"><a href="#section-6.6.1" class="xref">6.6.1</a>.  <a href="#name-uri-scheme-swid" class="xref">URI-scheme swid</a></p>
-</li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.6.2.2">
-                    <p id="section-toc.1-1.6.2.6.2.2.1"><a href="#section-6.6.2" class="xref">6.6.2</a>.  <a href="#name-uri-scheme-swidpath" class="xref">URI-scheme swidpath</a></p>
-</li>
-                </ul>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.7">
-                <p id="section-toc.1-1.6.2.7.1"><a href="#section-6.7" class="xref">6.7</a>.  <a href="#name-coswid-model-for-use-in-swi" class="xref">CoSWID Model for use in SWIMA Registration</a></p>
+                <p id="section-toc.1-1.6.2.6.1"><a href="#section-6.6" class="xref">6.6</a>.  <a href="#name-coswid-model-for-use-in-swi" class="xref">CoSWID Model for use in SWIMA Registration</a></p>
 </li>
             </ul>
 </li>
@@ -1790,7 +1779,7 @@ processing of text-string values and an unbounded set of any-attribute items. De
 identifier <span class="bcp14">MUST</span> be globally unique. Failure to ensure global uniqueness can create ambiguity in tag use since the tag-id serves as the global key for matching and lookups. If represented as a 16-byte binary string, the identifier <span class="bcp14">MUST</span> be a valid universally unique identifier as defined by <span>[<a href="#RFC4122" class="xref">RFC4122</a>]</span>. There are no strict guidelines on
 how the identifier is structured, but examples include a 16-byte GUID (e.g.,
 class 4 UUID) <span>[<a href="#RFC4122" class="xref">RFC4122</a>]</span>, or a DNS domain name followed by a "/" and a text string, where the domain name serves to ensure uniqueness across organizations.
-A textual tag-id <span class="bcp14">MUST NOT</span> contain a sequence of two underscores ("__", see <a href="#sec-swima" class="xref">Section 6.7</a>).<a href="#section-2.3-4.2" class="pilcrow">¶</a>
+A textual tag-id <span class="bcp14">MUST NOT</span> contain a sequence of two underscores ("__", see <a href="#sec-swima" class="xref">Section 6.6</a>).<a href="#section-2.3-4.2" class="pilcrow">¶</a>
 </li>
           <li class="normal" id="section-2.3-4.3">tag-version (index 12): An integer value that indicate the specific release revision of the tag. Typically, the initial value of this field is set to 0 and the value is increased for subsequent tags produced for the same software component release. This value allows a CoSWID tag producer to correct an incorrect tag previously released without indicating a change to the underlying software component the tag represents. For example, the tag version could be changed to add new metadata, to correct a broken link, to add a missing payload entry, etc. When producing a revised tag, the new tag-version value <span class="bcp14">MUST</span> be greater than the old tag-version value.<a href="#section-2.3-4.3" class="pilcrow">¶</a>
 </li>
@@ -2035,11 +2024,11 @@ recommended=3
 </li>
               <li class="normal" id="section-2.7-4.3.2.2">a physical resource location with any acceptable URI scheme (e.g., file:// http:// https:// ftp://)<a href="#section-2.7-4.3.2.2" class="pilcrow">¶</a>
 </li>
-              <li class="normal" id="section-2.7-4.3.2.3">a URI with "swid:" as the scheme refers to another SWID or CoSWID by the referenced tag's tag-id. This
-URI needs to be resolved in the context of the endpoint by software
+              <li class="normal" id="section-2.7-4.3.2.3">a URI-like expression with "swid:" as the scheme refers to another SWID or CoSWID by the referenced tag's tag-id. This
+expression needs to be resolved in the context of the endpoint by software
 that can lookup other SWID or CoSWID tags. For example, "swid:2df9de35-0aff-4a86-ace6-f7dddd1ade4c" references the tag with the tag-id value "2df9de35-0aff-4a86-ace6-f7dddd1ade4c".<a href="#section-2.7-4.3.2.3" class="pilcrow">¶</a>
 </li>
-              <li class="normal" id="section-2.7-4.3.2.4">a URI with "swidpath:" as the scheme, which refers to another software tag via an
+              <li class="normal" id="section-2.7-4.3.2.4">a URI-like expression with "swidpath:" as the scheme, which refers to another software tag via an
 XPATH query <span>[<a href="#W3C.REC-xpath20-20101214" class="xref">W3C.REC-xpath20-20101214</a>]</span> that matches items in that tag (<a href="#uri-scheme-swidpath" class="xref">Section 5.2</a>). This scheme is provided for compatibility with <span>[<a href="#SWID" class="xref">SWID</a>]</span>. This specification does not define how to resolve an XPATH query in the context of CBOR, see <a href="#uri-scheme-swidpath" class="xref">Section 5.2</a>.<a href="#section-2.7-4.3.2.4" class="pilcrow">¶</a>
 </li>
             </ul>
@@ -2049,14 +2038,14 @@ query as defined by the W3C Media Queries Recommendation (see <span>[<a href="#W
 </li>
           <li class="normal" id="section-2.7-4.5">ownership (index 39): An integer or textual value (integer label with text escape, see <a href="#data-def" class="xref">Section 2</a>, for the "Software ID Link Ownership Values" registry <a href="#indexed-link-ownership" class="xref">Section 4.3</a>) used when the "href" item references another software component to indicate the degree of ownership between the software component referenced by the CoSWID tag and the software component referenced by the link. If an integer value is used it <span class="bcp14">MUST</span> be an index value in the range -256 to 255. Integer values in the range -256 to -1 are reserved for testing and use in closed environments (see <a href="#iana-private-use" class="xref">Section 6.2.2</a>). Integer values in the range 0 to 255 correspond to registered entries in the "Software ID Link Ownership Values" registry.<a href="#section-2.7-4.5" class="pilcrow">¶</a>
 </li>
-          <li class="normal" id="section-2.7-4.6">rel (index 40): An integer or textual value that (integer label with text escape, see <a href="#data-def" class="xref">Section 2</a>, for the "Software ID Link Link Relationship Values" registry <a href="#indexed-link-ownership" class="xref">Section 4.3</a>) identifies the relationship between this CoSWID and the target resource identified by the "href" item. If an integer value is used it <span class="bcp14">MUST</span> be an index value in the range -256 to 65535. Integer values in the range -256 to -1 are reserved for testing and use in closed environments (see <a href="#iana-private-use" class="xref">Section 6.2.2</a>). Integer values in the range 0 to 65535 correspond to registered entries in the IANA "Software ID Link Relationship Values" registry (see <a href="#iana-link-rel" class="xref">Section 6.2.7</a>). If a string value is used it <span class="bcp14">MUST</span> be either a private use name as defined in <a href="#iana-private-use" class="xref">Section 6.2.2</a> or a "Relation Name" from the IANA "Link Relation Types" registry: https://www.iana.org/assignments/link-relations/link-relations.xhtml as defined by <span>[<a href="#RFC8288" class="xref">RFC8288</a>]</span>. When a string value defined in the IANA "Software ID Link Relationship Values" registry matches a Relation Name defined in the IANA "Link Relation Types" registry, the index value in the IANA "Software ID Link Relationship Values" registry <span class="bcp14">MUST</span> be used instead, as this relationship has a specialized meaning in the context of a CoSWID tag. String values correspond to registered entries in the "Software ID Link Relationship Values" registry.<a href="#section-2.7-4.6" class="pilcrow">¶</a>
+          <li class="normal" id="section-2.7-4.6">rel (index 40): An integer or textual value that (integer label with text escape, see <a href="#data-def" class="xref">Section 2</a>, for the "Software Tag Link Relationship Values" registry <a href="#indexed-link-ownership" class="xref">Section 4.3</a>) identifies the relationship between this CoSWID and the target resource identified by the "href" item. If an integer value is used it <span class="bcp14">MUST</span> be an index value in the range -256 to 65535. Integer values in the range -256 to -1 are reserved for testing and use in closed environments (see <a href="#iana-private-use" class="xref">Section 6.2.2</a>). Integer values in the range 0 to 65535 correspond to registered entries in the IANA "Software Tag Link Relationship Values" registry (see <a href="#iana-link-rel" class="xref">Section 6.2.7</a>. If a string value is used it <span class="bcp14">MUST</span> be either a private use name as defined in <a href="#iana-private-use" class="xref">Section 6.2.2</a> or a "Relation Name" from the IANA "Link Relation Types" registry: https://www.iana.org/assignments/link-relations/link-relations.xhtml as defined by <span>[<a href="#RFC8288" class="xref">RFC8288</a>]</span>. When a string value defined in the IANA "Software Tag Link Relationship Values" registry matches a Relation Name defined in the IANA "Link Relation Types" registry, the index value in the IANA "Software Tag Link Relationship Values" registry <span class="bcp14">MUST</span> be used instead, as this relationship has a specialized meaning in the context of a CoSWID tag. String values correspond to registered entries in the "Software Tag Link Relationship Values" registry.<a href="#section-2.7-4.6" class="pilcrow">¶</a>
 </li>
           <li class="normal" id="section-2.7-4.7">media-type (index 41): A link can point to arbitrary resources on the endpoint, local network, or Internet using the href item. Use of this item supplies the resource consumer with a hint of what type of resource to expect.  (This is a <em>hint</em>: There
 is no obligation for the server hosting the target of the URI to use the
 indicated media type when the URI is dereferenced.)
 Media types are identified by referencing a "Name" from the IANA "Media Types" registry: http://www.iana.org/assignments/media-types/media-types.xhtml. This item maps to '/SoftwareIdentity/Link/@type' in <span>[<a href="#SWID" class="xref">SWID</a>]</span>.<a href="#section-2.7-4.7" class="pilcrow">¶</a>
 </li>
-          <li class="normal" id="section-2.7-4.8">use (index 42): An integer or textual value (integer label with text escape, see <a href="#data-def" class="xref">Section 2</a>, for the "Software ID Link Link Relationship Values" registry <a href="#indexed-link-ownership" class="xref">Section 4.3</a>) used to determine if the referenced software component has to be installed before installing the software component identified by the COSWID tag. If an integer value is used it <span class="bcp14">MUST</span> be an index value in the range -256 to 255. Integer values in the range -256 to -1 are reserved for testing and use in closed environments (see <a href="#iana-private-use" class="xref">Section 6.2.2</a>). Integer values in the range 0 to 255 correspond to registered entries in the IANA "Link Use Values" registry (see <a href="#iana-link-use" class="xref">Section 6.2.8</a>). If a string value is used it <span class="bcp14">MUST</span> be a private use name as defined in <a href="#iana-private-use" class="xref">Section 6.2.2</a>. String values correspond to registered entries in the "Software ID Link Use Values" registry.<a href="#section-2.7-4.8" class="pilcrow">¶</a>
+          <li class="normal" id="section-2.7-4.8">use (index 42): An integer or textual value (integer label with text escape, see <a href="#data-def" class="xref">Section 2</a>, for the "Software Tag Link Relationship Values" registry <a href="#indexed-link-ownership" class="xref">Section 4.3</a>) used to determine if the referenced software component has to be installed before installing the software component identified by the COSWID tag. If an integer value is used it <span class="bcp14">MUST</span> be an index value in the range -256 to 255. Integer values in the range -256 to -1 are reserved for testing and use in closed environments (see <a href="#iana-private-use" class="xref">Section 6.2.2</a>). Integer values in the range 0 to 255 correspond to registered entries in the IANA "Link Use Values" registry (see <a href="#iana-link-use" class="xref">Section 6.2.8</a>. If a string value is used it <span class="bcp14">MUST</span> be a private use name as defined in <a href="#iana-private-use" class="xref">Section 6.2.2</a>. String values correspond to registered entries in the "Software Tag Link Use Values" registry.<a href="#section-2.7-4.8" class="pilcrow">¶</a>
 </li>
           <li class="normal" id="section-2.7-4.9">$$link-extension: This CDDL socket can be used to extend the link-entry map model. See <a href="#model-extension" class="xref">Section 2.2</a>.<a href="#section-2.7-4.9" class="pilcrow">¶</a>
 </li>
@@ -2970,52 +2959,44 @@ The following heuristics can be used by a CoSWID consumer, based on the version 
 </div>
 </section>
 </div>
-<div id="uri-schemes">
+<div id="swid-and-swidpath-expressions">
 <section id="section-5">
-      <h2 id="name-uri-schemes">
-<a href="#section-5" class="section-number selfRef">5. </a><a href="#name-uri-schemes" class="section-name selfRef">URI Schemes</a>
+      <h2 id="name-swid-and-swidpath-expressio">
+<a href="#section-5" class="section-number selfRef">5. </a><a href="#name-swid-and-swidpath-expressio" class="section-name selfRef">swid and swidpath Expressions</a>
       </h2>
-<p id="section-5-1">This specification defines the following URI schemes for use in CoSWID and to provide interoperability with schemes used in <span>[<a href="#SWID" class="xref">SWID</a>]</span>.<a href="#section-5-1" class="pilcrow">¶</a></p>
-<p id="section-5-2">Note: These URI schemes are used in <span>[<a href="#SWID" class="xref">SWID</a>]</span> without an IANA registration.
-The present specification ensures that these URI schemes are properly
-defined going forward.<a href="#section-5-2" class="pilcrow">¶</a></p>
-<p id="section-5-3"><span class="cref" id="replace-xxxx">RFC Ed.: throughout this section, please replace
+<p id="section-5-1">This specification defines the following expressions for use in CoSWID and to provide interoperability with schemes used in <span>[<a href="#SWID" class="xref">SWID</a>]</span>. Because both the "swid" and "swidpath" schemes are to be interpreted within a local, rather than a global, context, neither of these scheme are URIs as defined in <span>[<a href="#RFC3986" class="xref">RFC3986</a>]</span> and the swid and swidpath scheme names are not registered as permanent schemes with IANA. That noted, swid and swidpath expressions conform to all rules for URI syntax. All uses of these expressions encountered within a CoSWID are to be interpreted as described in this section.<a href="#section-5-1" class="pilcrow">¶</a></p>
+<p id="section-5-2"><span class="cref" id="replace-xxxx">RFC Ed.: throughout this section, please replace
 RFC-AAAA with the RFC number of this specification and remove this
-note.</span><a href="#section-5-3" class="pilcrow">¶</a></p>
+note.</span><a href="#section-5-2" class="pilcrow">¶</a></p>
 <div id="uri-scheme-swid">
 <section id="section-5.1">
-        <h3 id="name-swid-uri-scheme">
-<a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-swid-uri-scheme" class="section-name selfRef">"swid" URI Scheme</a>
+        <h3 id="name-swid-expressions">
+<a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-swid-expressions" class="section-name selfRef">"swid" Expressions</a>
         </h3>
-<p id="section-5.1-1">There is a need for a scheme name that can be used in URIs that point to a specific software tag by that tag's tag-id, such as the use of the link entry as described in <a href="#model-link" class="xref">Section 2.7</a>. Since this scheme is used both in a standards track document and an ISO standard, this scheme needs to be used without fear of conflicts with current or future actual schemes.  In <a href="#swid-reg" class="xref">Section 6.6.1</a>, the scheme "swid" is registered as a 'permanent' scheme for that purpose.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
-<p id="section-5.1-2">URIs specifying the "swid" scheme are used to reference a software tag by its tag-id. A tag-id referenced in this way can be used to identify the tag resource in the context of where it is referenced from. For example, when a tag is installed on a given device, that tag can reference related tags on the same device using URIs with this scheme.<a href="#section-5.1-2" class="pilcrow">¶</a></p>
-<p id="section-5.1-3">For URIs that use the "swid" scheme, the scheme specific part <span class="bcp14">MUST</span> consist of a referenced software tag's tag-id. This tag-id <span class="bcp14">MUST</span> be URI encoded according to <span><a href="https://rfc-editor.org/rfc/rfc3986#section-2.1" class="relref">Section 2.1</a> of [<a href="#RFC3986" class="xref">RFC3986</a>]</span>.<a href="#section-5.1-3" class="pilcrow">¶</a></p>
-<p id="section-5.1-4">The following expression is a valid example:<a href="#section-5.1-4" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.1-5">
+<p id="section-5.1-1">Expressions specifying the "swid" scheme are used to reference a software tag by its tag-id. A tag-id referenced in this way can be used to identify the tag resource in the context of where it is referenced from. For example, when a tag is installed on a given device, that tag can reference related tags on the same device using expressions with this scheme.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
+<p id="section-5.1-2">For expressions that use the "swid" scheme, the scheme specific part <span class="bcp14">MUST</span> consist of a referenced software tag's tag-id. This tag-id <span class="bcp14">MUST</span> be URI encoded according to <span>[<a href="#RFC3986" class="xref">RFC3986</a>]</span> Section 2.1.<a href="#section-5.1-2" class="pilcrow">¶</a></p>
+<p id="section-5.1-3">The following expression is a valid example:<a href="#section-5.1-3" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.1-4">
 <pre>
 swid:2df9de35-0aff-4a86-ace6-f7dddd1ade4c
-</pre><a href="#section-5.1-5" class="pilcrow">¶</a>
+</pre><a href="#section-5.1-4" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
 <div id="uri-scheme-swidpath">
 <section id="section-5.2">
-        <h3 id="name-swidpath-uri-scheme">
-<a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-swidpath-uri-scheme" class="section-name selfRef">"swidpath" URI Scheme</a>
+        <h3 id="name-swidpath-expressions">
+<a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-swidpath-expressions" class="section-name selfRef">"swidpath" Expressions</a>
         </h3>
-<p id="section-5.2-1">There is a need for a scheme name that can be used in URIs to identify a collection of specific software tags with data elements that match an XPath expression, such as the use of the link entry as described in <a href="#model-link" class="xref">Section 2.7</a>.
-The scheme named "swidpath" is used for this purpose in <span>[<a href="#SWID" class="xref">SWID</a>]</span>, but not registered.
-To enable usage without fear of conflicts with current or future actual schemes, the present document registers it as a
-'permanent' scheme for that purpose (see <a href="#swidpath-reg" class="xref">Section 6.6.2</a>).<a href="#section-5.2-1" class="pilcrow">¶</a></p>
-<p id="section-5.2-2">URIs specifying the "swidpath" scheme are used to filter tags out of a base collection, so that matching tags are included in the identified tag collection.
+<p id="section-5.2-1">Expressions specifying the "swidpath" scheme are used to filter tags out of a base collection, so that matching tags are included in the identified tag collection.
 The XPath expression <span>[<a href="#W3C.REC-xpath20-20101214" class="xref">W3C.REC-xpath20-20101214</a>]</span> references the data that must be found in a given software tag out of base collection for that tag to be considered a matching tag.
-Tags to be evaluated (the base collection) include all tags in the context of where the "swidpath URI" is referenced from.
-For example, when a tag is installed on a given device, that tag can reference related tags on the same device using a URI with this scheme.<a href="#section-5.2-2" class="pilcrow">¶</a></p>
-<p id="section-5.2-3">For URIs that use the "swidpath" scheme, the following requirements apply:<a href="#section-5.2-3" class="pilcrow">¶</a></p>
+Tags to be evaluated (the base collection) include all tags in the context of where the swidpath expression is referenced from.
+For example, when a tag is installed on a given device, that tag can reference related tags on the same device using an expression with this scheme.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
+<p id="section-5.2-2">For URIs that use the "swidpath" scheme, the following requirements apply:<a href="#section-5.2-2" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-5.2-4.1">The scheme specific part <span class="bcp14">MUST</span> be an XPath expression as defined by <span>[<a href="#W3C.REC-xpath20-20101214" class="xref">W3C.REC-xpath20-20101214</a>]</span>. The included XPath expression will be URI encoded according to <span><a href="https://rfc-editor.org/rfc/rfc3986#section-2.1" class="relref">Section 2.1</a> of [<a href="#RFC3986" class="xref">RFC3986</a>]</span>.<a href="#section-5.2-4.1" class="pilcrow">¶</a>
+<li class="normal" id="section-5.2-3.1">The scheme specific part <span class="bcp14">MUST</span> be an XPath expression as defined by <span>[<a href="#W3C.REC-xpath20-20101214" class="xref">W3C.REC-xpath20-20101214</a>]</span>. The included XPath expression will be URI encoded according to <span><a href="https://rfc-editor.org/rfc/rfc3986#section-2.1" class="relref">Section 2.1</a> of [<a href="#RFC3986" class="xref">RFC3986</a>]</span>.<a href="#section-5.2-3.1" class="pilcrow">¶</a>
 </li>
-          <li class="normal" id="section-5.2-4.2">This XPath is evaluated over SWID tags, or COSWID tags transformed into SWID tags, found on a system. A given tag <span class="bcp14">MUST</span> be considered a match if the XPath evaluation result value has an effective boolean value of "true" according to <span>[<a href="#W3C.REC-xpath20-20101214" class="xref">W3C.REC-xpath20-20101214</a>]</span>, Section 2.4.3.<a href="#section-5.2-4.2" class="pilcrow">¶</a>
+          <li class="normal" id="section-5.2-3.2">This XPath is evaluated over SWID tags, or COSWID tags transformed into SWID tags, found on a system. A given tag <span class="bcp14">MUST</span> be considered a match if the XPath evaluation result value has an effective boolean value of "true" according to <span>[<a href="#W3C.REC-xpath20-20101214" class="xref">W3C.REC-xpath20-20101214</a>]</span>, Section 2.4.3.<a href="#section-5.2-3.2" class="pilcrow">¶</a>
 </li>
         </ul>
 </section>
@@ -4052,119 +4033,25 @@ preferably with the specific value requested:<a href="#section-6.5-1" class="pil
 </div>
 </section>
 </div>
-<div id="uri-scheme-registrations">
-<section id="section-6.6">
-        <h3 id="name-uri-scheme-registrations">
-<a href="#section-6.6" class="section-number selfRef">6.6. </a><a href="#name-uri-scheme-registrations" class="section-name selfRef">URI Scheme Registrations</a>
-        </h3>
-<p id="section-6.6-1">The ISO 19770-2:2015 SWID specification describes use of the "swid" and "swidpath" URI schemes, which are currently in use in implementations. This document continues this use for CoSWID. The following subsections provide registrations for these schemes in to ensure that a permanent registration exists for these schemes that is suitable for use in the SWID and CoSWID specifications.<a href="#section-6.6-1" class="pilcrow">¶</a></p>
-<p id="section-6.6-2">URI schemes are registered within the "Uniform Resource Identifier (URI)
-Schemes" registry maintained at <span>[<a href="#IANA.uri-schemes" class="xref">IANA.uri-schemes</a>]</span>.<a href="#section-6.6-2" class="pilcrow">¶</a></p>
-<div id="swid-reg">
-<section id="section-6.6.1">
-          <h4 id="name-uri-scheme-swid">
-<a href="#section-6.6.1" class="section-number selfRef">6.6.1. </a><a href="#name-uri-scheme-swid" class="section-name selfRef">URI-scheme swid</a>
-          </h4>
-<p id="section-6.6.1-1">IANA is requested to register the URI scheme "swid".
-This registration request complies with <span>[<a href="#RFC7595" class="xref">RFC7595</a>]</span>.<a href="#section-6.6.1-1" class="pilcrow">¶</a></p>
-<span class="break"></span><dl class="dlNewline" id="section-6.6.1-2">
-            <dt id="section-6.6.1-2.1">Scheme name:</dt>
-            <dd style="margin-left: 1.5em" id="section-6.6.1-2.2">
-              <p id="section-6.6.1-2.2.1">swid<a href="#section-6.6.1-2.2.1" class="pilcrow">¶</a></p>
-</dd>
-            <dd class="break"></dd>
-<dt id="section-6.6.1-2.3">Status:</dt>
-            <dd style="margin-left: 1.5em" id="section-6.6.1-2.4">
-              <p id="section-6.6.1-2.4.1">Permanent<a href="#section-6.6.1-2.4.1" class="pilcrow">¶</a></p>
-</dd>
-            <dd class="break"></dd>
-<dt id="section-6.6.1-2.5">Applications/protocols that use this scheme name:</dt>
-            <dd style="margin-left: 1.5em" id="section-6.6.1-2.6">
-              <p id="section-6.6.1-2.6.1">Applications that require Software-IDs (SWIDs) or Concise
-Software-IDs (CoSWIDs); see <a href="#uri-scheme-swid" class="xref">Section 5.1</a> of RFC-AAAA.<a href="#section-6.6.1-2.6.1" class="pilcrow">¶</a></p>
-</dd>
-            <dd class="break"></dd>
-<dt id="section-6.6.1-2.7">Contact:</dt>
-            <dd style="margin-left: 1.5em" id="section-6.6.1-2.8">
-              <p id="section-6.6.1-2.8.1">IETF Chair &lt;chair@ietf.org&gt;<a href="#section-6.6.1-2.8.1" class="pilcrow">¶</a></p>
-</dd>
-            <dd class="break"></dd>
-<dt id="section-6.6.1-2.9">Change controller:</dt>
-            <dd style="margin-left: 1.5em" id="section-6.6.1-2.10">
-              <p id="section-6.6.1-2.10.1">IESG &lt;iesg@ietf.org&gt;<a href="#section-6.6.1-2.10.1" class="pilcrow">¶</a></p>
-</dd>
-            <dd class="break"></dd>
-<dt id="section-6.6.1-2.11">Reference:</dt>
-            <dd style="margin-left: 1.5em" id="section-6.6.1-2.12">
-              <p id="section-6.6.1-2.12.1"><a href="#uri-scheme-swid" class="xref">Section 5.1</a> in RFC-AAAA<a href="#section-6.6.1-2.12.1" class="pilcrow">¶</a></p>
-</dd>
-          <dd class="break"></dd>
-</dl>
-</section>
-</div>
-<div id="swidpath-reg">
-<section id="section-6.6.2">
-          <h4 id="name-uri-scheme-swidpath">
-<a href="#section-6.6.2" class="section-number selfRef">6.6.2. </a><a href="#name-uri-scheme-swidpath" class="section-name selfRef">URI-scheme swidpath</a>
-          </h4>
-<p id="section-6.6.2-1">IANA is requested to register the URI scheme "swidpath". This registration
-request complies with <span>[<a href="#RFC7595" class="xref">RFC7595</a>]</span>.<a href="#section-6.6.2-1" class="pilcrow">¶</a></p>
-<span class="break"></span><dl class="dlNewline" id="section-6.6.2-2">
-            <dt id="section-6.6.2-2.1">Scheme name:</dt>
-            <dd style="margin-left: 1.5em" id="section-6.6.2-2.2">
-              <p id="section-6.6.2-2.2.1">swidpath<a href="#section-6.6.2-2.2.1" class="pilcrow">¶</a></p>
-</dd>
-            <dd class="break"></dd>
-<dt id="section-6.6.2-2.3">Status:</dt>
-            <dd style="margin-left: 1.5em" id="section-6.6.2-2.4">
-              <p id="section-6.6.2-2.4.1">Permanent<a href="#section-6.6.2-2.4.1" class="pilcrow">¶</a></p>
-</dd>
-            <dd class="break"></dd>
-<dt id="section-6.6.2-2.5">Applications/protocols that use this scheme name:</dt>
-            <dd style="margin-left: 1.5em" id="section-6.6.2-2.6">
-              <p id="section-6.6.2-2.6.1">Applications that require Software-IDs (SWIDs) or Concise
-Software-IDs (CoSWIDs); see <a href="#uri-scheme-swidpath" class="xref">Section 5.2</a> of RFC-AAAA.<a href="#section-6.6.2-2.6.1" class="pilcrow">¶</a></p>
-</dd>
-            <dd class="break"></dd>
-<dt id="section-6.6.2-2.7">Contact:</dt>
-            <dd style="margin-left: 1.5em" id="section-6.6.2-2.8">
-              <p id="section-6.6.2-2.8.1">IETF Chair &lt;chair@ietf.org&gt;<a href="#section-6.6.2-2.8.1" class="pilcrow">¶</a></p>
-</dd>
-            <dd class="break"></dd>
-<dt id="section-6.6.2-2.9">Change controller:</dt>
-            <dd style="margin-left: 1.5em" id="section-6.6.2-2.10">
-              <p id="section-6.6.2-2.10.1">IESG &lt;iesg@ietf.org&gt;<a href="#section-6.6.2-2.10.1" class="pilcrow">¶</a></p>
-</dd>
-            <dd class="break"></dd>
-<dt id="section-6.6.2-2.11">Reference:</dt>
-            <dd style="margin-left: 1.5em" id="section-6.6.2-2.12">
-              <p id="section-6.6.2-2.12.1"><a href="#uri-scheme-swidpath" class="xref">Section 5.2</a> in RFC-AAAA<a href="#section-6.6.2-2.12.1" class="pilcrow">¶</a></p>
-</dd>
-          <dd class="break"></dd>
-</dl>
-</section>
-</div>
-</section>
-</div>
 <div id="sec-swima">
-<section id="section-6.7">
+<section id="section-6.6">
         <h3 id="name-coswid-model-for-use-in-swi">
-<a href="#section-6.7" class="section-number selfRef">6.7. </a><a href="#name-coswid-model-for-use-in-swi" class="section-name selfRef">CoSWID Model for use in SWIMA Registration</a>
+<a href="#section-6.6" class="section-number selfRef">6.6. </a><a href="#name-coswid-model-for-use-in-swi" class="section-name selfRef">CoSWID Model for use in SWIMA Registration</a>
         </h3>
-<p id="section-6.7-1">The Software Inventory Message and Attributes (SWIMA) for PA-TNC specification <span>[<a href="#RFC8412" class="xref">RFC8412</a>]</span> defines a standardized method for collecting an endpoint device's software inventory. A CoSWID can provide evidence of software installation which can then be used and exchanged with SWIMA. This registration adds a new entry to the IANA "Software Data Model Types" registry defined by <span>[<a href="#RFC8412" class="xref">RFC8412</a>]</span> <span>[<a href="#IANA.pa-tnc-parameters" class="xref">IANA.pa-tnc-parameters</a>]</span> to support CoSWID use in SWIMA as follows:<a href="#section-6.7-1" class="pilcrow">¶</a></p>
-<p id="section-6.7-2">Pen: 0<a href="#section-6.7-2" class="pilcrow">¶</a></p>
-<p id="section-6.7-3">Integer: TBD2<a href="#section-6.7-3" class="pilcrow">¶</a></p>
-<p id="section-6.7-4">Name: Concise Software Identifier (CoSWID)<a href="#section-6.7-4" class="pilcrow">¶</a></p>
-<p id="section-6.7-5">Reference: RFC-AAAA<a href="#section-6.7-5" class="pilcrow">¶</a></p>
-<p id="section-6.7-6">Deriving Software Identifiers:<a href="#section-6.7-6" class="pilcrow">¶</a></p>
-<p id="section-6.7-7">A Software Identifier generated from a CoSWID tag is expressed as a concatenation of the form in  <span>[<a href="#RFC5234" class="xref">RFC5234</a>]</span> as follows:<a href="#section-6.7-7" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-6.7-8">
+<p id="section-6.6-1">The Software Inventory Message and Attributes (SWIMA) for PA-TNC specification <span>[<a href="#RFC8412" class="xref">RFC8412</a>]</span> defines a standardized method for collecting an endpoint device's software inventory. A CoSWID can provide evidence of software installation which can then be used and exchanged with SWIMA. This registration adds a new entry to the IANA "Software Data Model Types" registry defined by <span>[<a href="#RFC8412" class="xref">RFC8412</a>]</span> <span>[<a href="#IANA.pa-tnc-parameters" class="xref">IANA.pa-tnc-parameters</a>]</span> to support CoSWID use in SWIMA as follows:<a href="#section-6.6-1" class="pilcrow">¶</a></p>
+<p id="section-6.6-2">Pen: 0<a href="#section-6.6-2" class="pilcrow">¶</a></p>
+<p id="section-6.6-3">Integer: TBD2<a href="#section-6.6-3" class="pilcrow">¶</a></p>
+<p id="section-6.6-4">Name: Concise Software Identifier (CoSWID)<a href="#section-6.6-4" class="pilcrow">¶</a></p>
+<p id="section-6.6-5">Reference: RFC-AAAA<a href="#section-6.6-5" class="pilcrow">¶</a></p>
+<p id="section-6.6-6">Deriving Software Identifiers:<a href="#section-6.6-6" class="pilcrow">¶</a></p>
+<p id="section-6.6-7">A Software Identifier generated from a CoSWID tag is expressed as a concatenation of the form in  <span>[<a href="#RFC5234" class="xref">RFC5234</a>]</span> as follows:<a href="#section-6.6-7" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-6.6-8">
 <pre>
 TAG_CREATOR_REGID "_" "_" UNIQUE_ID
-</pre><a href="#section-6.7-8" class="pilcrow">¶</a>
+</pre><a href="#section-6.6-8" class="pilcrow">¶</a>
 </div>
-<p id="section-6.7-9">Where TAG_CREATOR_REGID is the reg-id item value of the tag's entity item having the role value of 1 (corresponding to "tag creator"), and the UNIQUE_ID is the same tag's tag-id item. If the tag-id item's value is expressed as a 16-byte binary string, the UNIQUE_ID <span class="bcp14">MUST</span> be represented using the UUID string representation defined in <span>[<a href="#RFC4122" class="xref">RFC4122</a>]</span> including the "urn:uuid:" prefix.<a href="#section-6.7-9" class="pilcrow">¶</a></p>
-<p id="section-6.7-10">The TAG_CREATOR_REGID and the UNIQUE_ID are connected with a double underscore (_), without any other connecting character or whitespace.<a href="#section-6.7-10" class="pilcrow">¶</a></p>
+<p id="section-6.6-9">Where TAG_CREATOR_REGID is the reg-id item value of the tag's entity item having the role value of 1 (corresponding to "tag creator"), and the UNIQUE_ID is the same tag's tag-id item. If the tag-id item's value is expressed as a 16-byte binary string, the UNIQUE_ID <span class="bcp14">MUST</span> be represented using the UUID string representation defined in <span>[<a href="#RFC4122" class="xref">RFC4122</a>]</span> including the "urn:uuid:" prefix.<a href="#section-6.6-9" class="pilcrow">¶</a></p>
+<p id="section-6.6-10">The TAG_CREATOR_REGID and the UNIQUE_ID are connected with a double underscore (_), without any other connecting character or whitespace.<a href="#section-6.6-10" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -4382,222 +4269,227 @@ verification are ways that implementations can address this concern.<a href="#se
       </h2>
 <p id="section-11-1">This section is to be removed before publishing as an RFC.<a href="#section-11-1" class="pilcrow">¶</a></p>
 <p id="section-11-2">[THIS SECTION TO BE REMOVED BY THE RFC EDITOR.]<a href="#section-11-2" class="pilcrow">¶</a></p>
-<p id="section-11-3">Changes from version 12 to version 14:<a href="#section-11-3" class="pilcrow">¶</a></p>
+<p id="section-11-3">Changes from version 22 to version 23<a href="#section-11-3" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-11-4.1">Moved key identifier to protected COSE header<a href="#section-11-4.1" class="pilcrow">¶</a>
-</li>
-        <li class="normal" id="section-11-4.2">Fixed index reference for hash<a href="#section-11-4.2" class="pilcrow">¶</a>
-</li>
-        <li class="normal" id="section-11-4.3">Removed indirection of CDDL type definition for filesystem-item<a href="#section-11-4.3" class="pilcrow">¶</a>
-</li>
-        <li class="normal" id="section-11-4.4">Fixed quantity of resource and process<a href="#section-11-4.4" class="pilcrow">¶</a>
-</li>
-        <li class="normal" id="section-11-4.5">Updated resource-collection<a href="#section-11-4.5" class="pilcrow">¶</a>
-</li>
-        <li class="normal" id="section-11-4.6">Renamed socket name in software-meta to be consistent in naming<a href="#section-11-4.6" class="pilcrow">¶</a>
-</li>
-        <li class="normal" id="section-11-4.7">Aligned excerpt examples in I-D text with full CDDL<a href="#section-11-4.7" class="pilcrow">¶</a>
-</li>
-        <li class="normal" id="section-11-4.8">Fixed titles where title was referring to group instead of map<a href="#section-11-4.8" class="pilcrow">¶</a>
-</li>
-        <li class="normal" id="section-11-4.9">Added missing date in SEMVER<a href="#section-11-4.9" class="pilcrow">¶</a>
-</li>
-        <li class="normal" id="section-11-4.10">Fixed root cardinality for file and directory, etc.<a href="#section-11-4.10" class="pilcrow">¶</a>
-</li>
-        <li class="normal" id="section-11-4.11">Transformed path-elements-entry from map to group for re-usability<a href="#section-11-4.11" class="pilcrow">¶</a>
-</li>
-        <li class="normal" id="section-11-4.12">Scrubbed IANA Section<a href="#section-11-4.12" class="pilcrow">¶</a>
-</li>
-        <li class="normal" id="section-11-4.13">Removed redundant supplemental rule<a href="#section-11-4.13" class="pilcrow">¶</a>
-</li>
-        <li class="normal" id="section-11-4.14">Aligned discrepancy with ISO spec.<a href="#section-11-4.14" class="pilcrow">¶</a>
-</li>
-        <li class="normal" id="section-11-4.15">Addressed comments on typos.<a href="#section-11-4.15" class="pilcrow">¶</a>
-</li>
-        <li class="normal" id="section-11-4.16">Fixed kramdown nits and BCP reference.<a href="#section-11-4.16" class="pilcrow">¶</a>
-</li>
-        <li class="normal" id="section-11-4.17">Addressed comments from WGLC reviewers.<a href="#section-11-4.17" class="pilcrow">¶</a>
+<li class="normal" id="section-11-4.1">Removed request for IANA registration of swid and swidpath as URI schemes. Updated text to note that that these are not URIs but expressions that follow URI syntax<a href="#section-11-4.1" class="pilcrow">¶</a>
 </li>
       </ul>
-<p id="section-11-5">Changes in version 12:<a href="#section-11-5" class="pilcrow">¶</a></p>
+<p id="section-11-5">Changes from version 12 to version 14:<a href="#section-11-5" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-11-6.1">Addressed a bunch of minor editorial issues based on WGLC feedback.<a href="#section-11-6.1" class="pilcrow">¶</a>
+<li class="normal" id="section-11-6.1">Moved key identifier to protected COSE header<a href="#section-11-6.1" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-11-6.2">Added text about the use of UTF-8 in CoSWID.<a href="#section-11-6.2" class="pilcrow">¶</a>
+        <li class="normal" id="section-11-6.2">Fixed index reference for hash<a href="#section-11-6.2" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-11-6.3">Adjusted tag-id to allow for a UUID to be provided as a bstr.<a href="#section-11-6.3" class="pilcrow">¶</a>
+        <li class="normal" id="section-11-6.3">Removed indirection of CDDL type definition for filesystem-item<a href="#section-11-6.3" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-11-6.4">Cleaned up descriptions of index ranges throughout the document, removing discussion of 8 bit, 16 bit, etc.<a href="#section-11-6.4" class="pilcrow">¶</a>
+        <li class="normal" id="section-11-6.4">Fixed quantity of resource and process<a href="#section-11-6.4" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-11-6.5">Adjusted discussion of private use ranges to use negative integer values and to be more clear throughout the document.<a href="#section-11-6.5" class="pilcrow">¶</a>
+        <li class="normal" id="section-11-6.5">Updated resource-collection<a href="#section-11-6.5" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-11-6.6">Added discussion around resolving overlapping value spaces for version schemes.<a href="#section-11-6.6" class="pilcrow">¶</a>
+        <li class="normal" id="section-11-6.6">Renamed socket name in software-meta to be consistent in naming<a href="#section-11-6.6" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-11-6.7">Added a set of expert review criteria for new IANA registries created by this document.<a href="#section-11-6.7" class="pilcrow">¶</a>
+        <li class="normal" id="section-11-6.7">Aligned excerpt examples in I-D text with full CDDL<a href="#section-11-6.7" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-11-6.8">Added new registrations for the "swid" and "swidpath" URI schemes, and for using CoSWID with SWIMA.<a href="#section-11-6.8" class="pilcrow">¶</a>
+        <li class="normal" id="section-11-6.8">Fixed titles where title was referring to group instead of map<a href="#section-11-6.8" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-11-6.9">Added missing date in SEMVER<a href="#section-11-6.9" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-11-6.10">Fixed root cardinality for file and directory, etc.<a href="#section-11-6.10" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-11-6.11">Transformed path-elements-entry from map to group for re-usability<a href="#section-11-6.11" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-11-6.12">Scrubbed IANA Section<a href="#section-11-6.12" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-11-6.13">Removed redundant supplemental rule<a href="#section-11-6.13" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-11-6.14">Aligned discrepancy with ISO spec.<a href="#section-11-6.14" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-11-6.15">Addressed comments on typos.<a href="#section-11-6.15" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-11-6.16">Fixed kramdown nits and BCP reference.<a href="#section-11-6.16" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-11-6.17">Addressed comments from WGLC reviewers.<a href="#section-11-6.17" class="pilcrow">¶</a>
 </li>
       </ul>
-<p id="section-11-7">Changes from version 03 to version 11:<a href="#section-11-7" class="pilcrow">¶</a></p>
+<p id="section-11-7">Changes in version 12:<a href="#section-11-7" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-11-8.1">Reduced representation complexity of the media-entry type and removed the Section describing the older data structure.<a href="#section-11-8.1" class="pilcrow">¶</a>
+<li class="normal" id="section-11-8.1">Addressed a bunch of minor editorial issues based on WGLC feedback.<a href="#section-11-8.1" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-11-8.2">Added more signature schemes from COSE<a href="#section-11-8.2" class="pilcrow">¶</a>
+        <li class="normal" id="section-11-8.2">Added text about the use of UTF-8 in CoSWID.<a href="#section-11-8.2" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-11-8.3">Included a minimal required set of normative language<a href="#section-11-8.3" class="pilcrow">¶</a>
+        <li class="normal" id="section-11-8.3">Adjusted tag-id to allow for a UUID to be provided as a bstr.<a href="#section-11-8.3" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-11-8.4">Reordering of attribute name to integer label by priority according to semantics.<a href="#section-11-8.4" class="pilcrow">¶</a>
+        <li class="normal" id="section-11-8.4">Cleaned up descriptions of index ranges throughout the document, removing discussion of 8 bit, 16 bit, etc.<a href="#section-11-8.4" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-11-8.5">Added an IANA registry for CoSWID items supporting future extension.<a href="#section-11-8.5" class="pilcrow">¶</a>
+        <li class="normal" id="section-11-8.5">Adjusted discussion of private use ranges to use negative integer values and to be more clear throughout the document.<a href="#section-11-8.5" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-11-8.6">Cleaned up IANA registrations, fixing some inconsistencies in the table labels.<a href="#section-11-8.6" class="pilcrow">¶</a>
+        <li class="normal" id="section-11-8.6">Added discussion around resolving overlapping value spaces for version schemes.<a href="#section-11-8.6" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-11-8.7">Added additional CDDL sockets for resource collection entries providing for additional extension points to address future SWID/CoSWID extensions.<a href="#section-11-8.7" class="pilcrow">¶</a>
+        <li class="normal" id="section-11-8.7">Added a set of expert review criteria for new IANA registries created by this document.<a href="#section-11-8.7" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-11-8.8">Updated Section on extension points to address new CDDL sockets and to reference the new IANA registry for items.<a href="#section-11-8.8" class="pilcrow">¶</a>
-</li>
-        <li class="normal" id="section-11-8.9">Removed unused references and added new references to address placeholder comments.<a href="#section-11-8.9" class="pilcrow">¶</a>
-</li>
-        <li class="normal" id="section-11-8.10">Added table with semantics for the link ownership item.<a href="#section-11-8.10" class="pilcrow">¶</a>
-</li>
-        <li class="normal" id="section-11-8.11">Clarified language, made term use more consistent, fixed references, and replacing lowercase RFC2119 keywords.<a href="#section-11-8.11" class="pilcrow">¶</a>
+        <li class="normal" id="section-11-8.8">Added new registrations for the "swid" and "swidpath" URI schemes, and for using CoSWID with SWIMA.<a href="#section-11-8.8" class="pilcrow">¶</a>
 </li>
       </ul>
-<p id="section-11-9">Changes from version 02 to version 03:<a href="#section-11-9" class="pilcrow">¶</a></p>
+<p id="section-11-9">Changes from version 03 to version 11:<a href="#section-11-9" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-11-10.1">Updated core CDDL including the CDDL design pattern according to RFC 8428.<a href="#section-11-10.1" class="pilcrow">¶</a>
+<li class="normal" id="section-11-10.1">Reduced representation complexity of the media-entry type and removed the Section describing the older data structure.<a href="#section-11-10.1" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-11-10.2">Added more signature schemes from COSE<a href="#section-11-10.2" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-11-10.3">Included a minimal required set of normative language<a href="#section-11-10.3" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-11-10.4">Reordering of attribute name to integer label by priority according to semantics.<a href="#section-11-10.4" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-11-10.5">Added an IANA registry for CoSWID items supporting future extension.<a href="#section-11-10.5" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-11-10.6">Cleaned up IANA registrations, fixing some inconsistencies in the table labels.<a href="#section-11-10.6" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-11-10.7">Added additional CDDL sockets for resource collection entries providing for additional extension points to address future SWID/CoSWID extensions.<a href="#section-11-10.7" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-11-10.8">Updated Section on extension points to address new CDDL sockets and to reference the new IANA registry for items.<a href="#section-11-10.8" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-11-10.9">Removed unused references and added new references to address placeholder comments.<a href="#section-11-10.9" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-11-10.10">Added table with semantics for the link ownership item.<a href="#section-11-10.10" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-11-10.11">Clarified language, made term use more consistent, fixed references, and replacing lowercase RFC2119 keywords.<a href="#section-11-10.11" class="pilcrow">¶</a>
 </li>
       </ul>
-<p id="section-11-11">Changes from version 01 to version 02:<a href="#section-11-11" class="pilcrow">¶</a></p>
+<p id="section-11-11">Changes from version 02 to version 03:<a href="#section-11-11" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-11-12.1">Enforced a more strict separation between the core CoSWID definition and additional usage by
-moving content to corresponding appendices.<a href="#section-11-12.1" class="pilcrow">¶</a>
-</li>
-        <li class="normal" id="section-11-12.2">Removed artifacts inherited from the reference schema provided by ISO (e.g., NMTOKEN(S))<a href="#section-11-12.2" class="pilcrow">¶</a>
-</li>
-        <li class="normal" id="section-11-12.3">Simplified the core data definition by removing group and type choices where possible<a href="#section-11-12.3" class="pilcrow">¶</a>
-</li>
-        <li class="normal" id="section-11-12.4">Minor reordering of map members<a href="#section-11-12.4" class="pilcrow">¶</a>
-</li>
-        <li class="normal" id="section-11-12.5">Added a first extension point to address requested flexibility for extensions beyond the
-any-element<a href="#section-11-12.5" class="pilcrow">¶</a>
+<li class="normal" id="section-11-12.1">Updated core CDDL including the CDDL design pattern according to RFC 8428.<a href="#section-11-12.1" class="pilcrow">¶</a>
 </li>
       </ul>
-<p id="section-11-13">Changes from version 00 to version 01:<a href="#section-11-13" class="pilcrow">¶</a></p>
+<p id="section-11-13">Changes from version 01 to version 02:<a href="#section-11-13" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-11-14.1">Ambiguity between evidence and payload eliminated by introducing explicit members (while still<a href="#section-11-14.1" class="pilcrow">¶</a>
+<li class="normal" id="section-11-14.1">Enforced a more strict separation between the core CoSWID definition and additional usage by
+moving content to corresponding appendices.<a href="#section-11-14.1" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-11-14.2">allowing for "empty" SWID tags)<a href="#section-11-14.2" class="pilcrow">¶</a>
+        <li class="normal" id="section-11-14.2">Removed artifacts inherited from the reference schema provided by ISO (e.g., NMTOKEN(S))<a href="#section-11-14.2" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-11-14.3">Added a relatively restrictive COSE envelope using cose_sign1 to define signed CoSWID (single signer only, at the moment)<a href="#section-11-14.3" class="pilcrow">¶</a>
+        <li class="normal" id="section-11-14.3">Simplified the core data definition by removing group and type choices where possible<a href="#section-11-14.3" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-11-14.4">Added a definition how to encode hashes that can be stored in the any-member using existing IANA tables to reference hash-algorithms<a href="#section-11-14.4" class="pilcrow">¶</a>
+        <li class="normal" id="section-11-14.4">Minor reordering of map members<a href="#section-11-14.4" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-11-14.5">Added a first extension point to address requested flexibility for extensions beyond the
+any-element<a href="#section-11-14.5" class="pilcrow">¶</a>
 </li>
       </ul>
-<p id="section-11-15">Changes since adopted as a WG I-D -00:<a href="#section-11-15" class="pilcrow">¶</a></p>
+<p id="section-11-15">Changes from version 00 to version 01:<a href="#section-11-15" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-11-16.1">Removed redundant any-attributes originating from the ISO-19770-2:2015 XML schema definition<a href="#section-11-16.1" class="pilcrow">¶</a>
+<li class="normal" id="section-11-16.1">Ambiguity between evidence and payload eliminated by introducing explicit members (while still<a href="#section-11-16.1" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-11-16.2">Fixed broken multi-map members<a href="#section-11-16.2" class="pilcrow">¶</a>
+        <li class="normal" id="section-11-16.2">allowing for "empty" SWID tags)<a href="#section-11-16.2" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-11-16.3">Introduced a more restrictive item (any-element-map) to represent custom maps, increased restriction on types for the any-attribute, accordingly<a href="#section-11-16.3" class="pilcrow">¶</a>
+        <li class="normal" id="section-11-16.3">Added a relatively restrictive COSE envelope using cose_sign1 to define signed CoSWID (single signer only, at the moment)<a href="#section-11-16.3" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-11-16.4">Fixed X.1520 reference<a href="#section-11-16.4" class="pilcrow">¶</a>
-</li>
-        <li class="normal" id="section-11-16.5">Minor type changes of some attributes (e.g., NMTOKENS)<a href="#section-11-16.5" class="pilcrow">¶</a>
-</li>
-        <li class="normal" id="section-11-16.6">Added semantic differentiation of various name types (e,g. fs-name)<a href="#section-11-16.6" class="pilcrow">¶</a>
+        <li class="normal" id="section-11-16.4">Added a definition how to encode hashes that can be stored in the any-member using existing IANA tables to reference hash-algorithms<a href="#section-11-16.4" class="pilcrow">¶</a>
 </li>
       </ul>
-<p id="section-11-17">Changes from version 06 to version 07:<a href="#section-11-17" class="pilcrow">¶</a></p>
+<p id="section-11-17">Changes since adopted as a WG I-D -00:<a href="#section-11-17" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-11-18.1">Added type choices/enumerations based on textual definitions in 19770-2:2015<a href="#section-11-18.1" class="pilcrow">¶</a>
+<li class="normal" id="section-11-18.1">Removed redundant any-attributes originating from the ISO-19770-2:2015 XML schema definition<a href="#section-11-18.1" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-11-18.2">Added value registry request<a href="#section-11-18.2" class="pilcrow">¶</a>
+        <li class="normal" id="section-11-18.2">Fixed broken multi-map members<a href="#section-11-18.2" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-11-18.3">Added media type registration request<a href="#section-11-18.3" class="pilcrow">¶</a>
+        <li class="normal" id="section-11-18.3">Introduced a more restrictive item (any-element-map) to represent custom maps, increased restriction on types for the any-attribute, accordingly<a href="#section-11-18.3" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-11-18.4">Added content format registration request<a href="#section-11-18.4" class="pilcrow">¶</a>
+        <li class="normal" id="section-11-18.4">Fixed X.1520 reference<a href="#section-11-18.4" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-11-18.5">Added CBOR tag registration request<a href="#section-11-18.5" class="pilcrow">¶</a>
+        <li class="normal" id="section-11-18.5">Minor type changes of some attributes (e.g., NMTOKENS)<a href="#section-11-18.5" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-11-18.6">Removed RIM appendix to be addressed in complementary draft<a href="#section-11-18.6" class="pilcrow">¶</a>
-</li>
-        <li class="normal" id="section-11-18.7">Removed CWT appendix<a href="#section-11-18.7" class="pilcrow">¶</a>
-</li>
-        <li class="normal" id="section-11-18.8">Flagged firmware resource collection appendix for revision<a href="#section-11-18.8" class="pilcrow">¶</a>
-</li>
-        <li class="normal" id="section-11-18.9">Made use of terminology more consistent<a href="#section-11-18.9" class="pilcrow">¶</a>
-</li>
-        <li class="normal" id="section-11-18.10">Better defined use of extension points in the CDDL<a href="#section-11-18.10" class="pilcrow">¶</a>
-</li>
-        <li class="normal" id="section-11-18.11">Added definitions for indexed values<a href="#section-11-18.11" class="pilcrow">¶</a>
-</li>
-        <li class="normal" id="section-11-18.12">Added IANA registry for Link use indexed values<a href="#section-11-18.12" class="pilcrow">¶</a>
+        <li class="normal" id="section-11-18.6">Added semantic differentiation of various name types (e,g. fs-name)<a href="#section-11-18.6" class="pilcrow">¶</a>
 </li>
       </ul>
-<p id="section-11-19">Changes from version 05 to version 06:<a href="#section-11-19" class="pilcrow">¶</a></p>
+<p id="section-11-19">Changes from version 06 to version 07:<a href="#section-11-19" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-11-20.1">Improved quantities<a href="#section-11-20.1" class="pilcrow">¶</a>
+<li class="normal" id="section-11-20.1">Added type choices/enumerations based on textual definitions in 19770-2:2015<a href="#section-11-20.1" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-11-20.2">Included proposals for implicit enumerations that were NMTOKENS<a href="#section-11-20.2" class="pilcrow">¶</a>
+        <li class="normal" id="section-11-20.2">Added value registry request<a href="#section-11-20.2" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-11-20.3">Added extension points<a href="#section-11-20.3" class="pilcrow">¶</a>
+        <li class="normal" id="section-11-20.3">Added media type registration request<a href="#section-11-20.3" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-11-20.4">Improved exemplary firmware-resource extension<a href="#section-11-20.4" class="pilcrow">¶</a>
+        <li class="normal" id="section-11-20.4">Added content format registration request<a href="#section-11-20.4" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-11-20.5">Added CBOR tag registration request<a href="#section-11-20.5" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-11-20.6">Removed RIM appendix to be addressed in complementary draft<a href="#section-11-20.6" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-11-20.7">Removed CWT appendix<a href="#section-11-20.7" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-11-20.8">Flagged firmware resource collection appendix for revision<a href="#section-11-20.8" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-11-20.9">Made use of terminology more consistent<a href="#section-11-20.9" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-11-20.10">Better defined use of extension points in the CDDL<a href="#section-11-20.10" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-11-20.11">Added definitions for indexed values<a href="#section-11-20.11" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-11-20.12">Added IANA registry for Link use indexed values<a href="#section-11-20.12" class="pilcrow">¶</a>
 </li>
       </ul>
-<p id="section-11-21">Changes from version 04 to version 05:<a href="#section-11-21" class="pilcrow">¶</a></p>
+<p id="section-11-21">Changes from version 05 to version 06:<a href="#section-11-21" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-11-22.1">Clarified language around SWID and CoSWID to make more consistent use of these terms.<a href="#section-11-22.1" class="pilcrow">¶</a>
+<li class="normal" id="section-11-22.1">Improved quantities<a href="#section-11-22.1" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-11-22.2">Added language describing CBOR optimizations for single vs. arrays in the model front matter.<a href="#section-11-22.2" class="pilcrow">¶</a>
+        <li class="normal" id="section-11-22.2">Included proposals for implicit enumerations that were NMTOKENS<a href="#section-11-22.2" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-11-22.3">Fixed a number of grammatical, spelling, and wording issues.<a href="#section-11-22.3" class="pilcrow">¶</a>
+        <li class="normal" id="section-11-22.3">Added extension points<a href="#section-11-22.3" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-11-22.4">Documented extension points that use CDDL sockets.<a href="#section-11-22.4" class="pilcrow">¶</a>
-</li>
-        <li class="normal" id="section-11-22.5">Converted IANA registration tables to markdown tables, reserving the 0 value for use when a value is not known.<a href="#section-11-22.5" class="pilcrow">¶</a>
-</li>
-        <li class="normal" id="section-11-22.6">Updated a number of references to their current versions.<a href="#section-11-22.6" class="pilcrow">¶</a>
+        <li class="normal" id="section-11-22.4">Improved exemplary firmware-resource extension<a href="#section-11-22.4" class="pilcrow">¶</a>
 </li>
       </ul>
-<p id="section-11-23">Changes from version 03 to version 04:<a href="#section-11-23" class="pilcrow">¶</a></p>
+<p id="section-11-23">Changes from version 04 to version 05:<a href="#section-11-23" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-11-24.1">Re-index label values in the CDDL.<a href="#section-11-24.1" class="pilcrow">¶</a>
+<li class="normal" id="section-11-24.1">Clarified language around SWID and CoSWID to make more consistent use of these terms.<a href="#section-11-24.1" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-11-24.2">Added a Section describing the CoSWID model in detail.<a href="#section-11-24.2" class="pilcrow">¶</a>
+        <li class="normal" id="section-11-24.2">Added language describing CBOR optimizations for single vs. arrays in the model front matter.<a href="#section-11-24.2" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-11-24.3">Created IANA registries for entity-role and version-scheme<a href="#section-11-24.3" class="pilcrow">¶</a>
+        <li class="normal" id="section-11-24.3">Fixed a number of grammatical, spelling, and wording issues.<a href="#section-11-24.3" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-11-24.4">Documented extension points that use CDDL sockets.<a href="#section-11-24.4" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-11-24.5">Converted IANA registration tables to markdown tables, reserving the 0 value for use when a value is not known.<a href="#section-11-24.5" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-11-24.6">Updated a number of references to their current versions.<a href="#section-11-24.6" class="pilcrow">¶</a>
 </li>
       </ul>
-<p id="section-11-25">Changes from version 02 to version 03:<a href="#section-11-25" class="pilcrow">¶</a></p>
+<p id="section-11-25">Changes from version 03 to version 04:<a href="#section-11-25" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-11-26.1">Updated CDDL to allow for a choice between a payload or evidence<a href="#section-11-26.1" class="pilcrow">¶</a>
+<li class="normal" id="section-11-26.1">Re-index label values in the CDDL.<a href="#section-11-26.1" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-11-26.2">Re-index label values in the CDDL.<a href="#section-11-26.2" class="pilcrow">¶</a>
+        <li class="normal" id="section-11-26.2">Added a Section describing the CoSWID model in detail.<a href="#section-11-26.2" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-11-26.3">Added item definitions<a href="#section-11-26.3" class="pilcrow">¶</a>
-</li>
-        <li class="normal" id="section-11-26.4">Updated references for COSE, CBOR Web Token, and CDDL.<a href="#section-11-26.4" class="pilcrow">¶</a>
+        <li class="normal" id="section-11-26.3">Created IANA registries for entity-role and version-scheme<a href="#section-11-26.3" class="pilcrow">¶</a>
 </li>
       </ul>
-<p id="section-11-27">Changes from version 01 to version 02:<a href="#section-11-27" class="pilcrow">¶</a></p>
+<p id="section-11-27">Changes from version 02 to version 03:<a href="#section-11-27" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-11-28.1">Added extensions for Firmware and CoSWID use as Reference Integrity Measurements (CoSWID RIM)<a href="#section-11-28.1" class="pilcrow">¶</a>
+<li class="normal" id="section-11-28.1">Updated CDDL to allow for a choice between a payload or evidence<a href="#section-11-28.1" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-11-28.2">Changes meta handling in CDDL from use of an explicit use of items to a more flexible unconstrained collection of items.<a href="#section-11-28.2" class="pilcrow">¶</a>
+        <li class="normal" id="section-11-28.2">Re-index label values in the CDDL.<a href="#section-11-28.2" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-11-28.3">Added Sections discussing use of COSE Signatures and CBOR Web Tokens<a href="#section-11-28.3" class="pilcrow">¶</a>
+        <li class="normal" id="section-11-28.3">Added item definitions<a href="#section-11-28.3" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-11-28.4">Updated references for COSE, CBOR Web Token, and CDDL.<a href="#section-11-28.4" class="pilcrow">¶</a>
 </li>
       </ul>
-<p id="section-11-29">Changes from version 00 to version 01:<a href="#section-11-29" class="pilcrow">¶</a></p>
+<p id="section-11-29">Changes from version 01 to version 02:<a href="#section-11-29" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-11-30.1">Added CWT usage for absolute SWID paths on a device<a href="#section-11-30.1" class="pilcrow">¶</a>
+<li class="normal" id="section-11-30.1">Added extensions for Firmware and CoSWID use as Reference Integrity Measurements (CoSWID RIM)<a href="#section-11-30.1" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-11-30.2">Fixed cardinality of type-choices including arrays<a href="#section-11-30.2" class="pilcrow">¶</a>
+        <li class="normal" id="section-11-30.2">Changes meta handling in CDDL from use of an explicit use of items to a more flexible unconstrained collection of items.<a href="#section-11-30.2" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-11-30.3">Included first iteration of firmware resource-collection<a href="#section-11-30.3" class="pilcrow">¶</a>
+        <li class="normal" id="section-11-30.3">Added Sections discussing use of COSE Signatures and CBOR Web Tokens<a href="#section-11-30.3" class="pilcrow">¶</a>
+</li>
+      </ul>
+<p id="section-11-31">Changes from version 00 to version 01:<a href="#section-11-31" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-11-32.1">Added CWT usage for absolute SWID paths on a device<a href="#section-11-32.1" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-11-32.2">Fixed cardinality of type-choices including arrays<a href="#section-11-32.2" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-11-32.3">Included first iteration of firmware resource-collection<a href="#section-11-32.3" class="pilcrow">¶</a>
 </li>
       </ul>
 </section>
@@ -4646,10 +4538,6 @@ any-element<a href="#section-11-12.5" class="pilcrow">¶</a>
 <dt id="IANA.pa-tnc-parameters">[IANA.pa-tnc-parameters]</dt>
         <dd>
 <span class="refAuthor">IANA</span>, <span class="refTitle">"Posture Attribute (PA) Protocol Compatible with Trusted Network Connect (TNC) Parameters"</span>, <span>&lt;<a href="https://www.iana.org/assignments/pa-tnc-parameters">https://www.iana.org/assignments/pa-tnc-parameters</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="IANA.uri-schemes">[IANA.uri-schemes]</dt>
-        <dd>
-<span class="refAuthor">IANA</span>, <span class="refTitle">"Uniform Resource Identifier (URI) Schemes"</span>, <span>&lt;<a href="https://www.iana.org/assignments/uri-schemes">https://www.iana.org/assignments/uri-schemes</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC2119">[RFC2119]</dt>
         <dd>

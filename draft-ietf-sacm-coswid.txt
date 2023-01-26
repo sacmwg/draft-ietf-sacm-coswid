@@ -87,9 +87,9 @@ Table of Contents
      4.3.  Link Ownership Values
      4.4.  Link Rel Values
      4.5.  Link Use Values
-   5.  URI Schemes
-     5.1.  "swid" URI Scheme
-     5.2.  "swidpath" URI Scheme
+   5.  swid and swidpath Expressions
+     5.1.  "swid" Expressions
+     5.2.  "swidpath" Expressions
    6.  IANA Considerations
      6.1.  CoSWID Items Registry
      6.2.  Software ID Values Registries
@@ -104,10 +104,7 @@ Table of Contents
      6.3.  swid+cbor Media Type Registration
      6.4.  CoAP Content-Format Registration
      6.5.  CBOR Tag Registration
-     6.6.  URI Scheme Registrations
-       6.6.1.  URI-scheme swid
-       6.6.2.  URI-scheme swidpath
-     6.7.  CoSWID Model for use in SWIMA Registration
+     6.6.  CoSWID Model for use in SWIMA Registration
    7.  Signed CoSWID Tags
    8.  CBOR-Tagged CoSWID Tags
    9.  Security Considerations
@@ -643,7 +640,7 @@ Table of Contents
       domain name followed by a "/" and a text string, where the domain
       name serves to ensure uniqueness across organizations.  A textual
       tag-id MUST NOT contain a sequence of two underscores ("__", see
-      Section 6.7).
+      Section 6.6).
 
    *  tag-version (index 12): An integer value that indicate the
       specific release revision of the tag.  Typically, the initial
@@ -987,19 +984,20 @@ Table of Contents
       -  a physical resource location with any acceptable URI scheme
          (e.g., file:// http:// https:// ftp://)
 
-      -  a URI with "swid:" as the scheme refers to another SWID or
-         CoSWID by the referenced tag's tag-id.  This URI needs to be
-         resolved in the context of the endpoint by software that can
-         lookup other SWID or CoSWID tags.  For example, "swid:2df9de35-
-         0aff-4a86-ace6-f7dddd1ade4c" references the tag with the tag-id
-         value "2df9de35-0aff-4a86-ace6-f7dddd1ade4c".
+      -  a URI-like expression with "swid:" as the scheme refers to
+         another SWID or CoSWID by the referenced tag's tag-id.  This
+         expression needs to be resolved in the context of the endpoint
+         by software that can lookup other SWID or CoSWID tags.  For
+         example, "swid:2df9de35-0aff-4a86-ace6-f7dddd1ade4c" references
+         the tag with the tag-id value "2df9de35-0aff-
+         4a86-ace6-f7dddd1ade4c".
 
-      -  a URI with "swidpath:" as the scheme, which refers to another
-         software tag via an XPATH query [W3C.REC-xpath20-20101214] that
-         matches items in that tag (Section 5.2).  This scheme is
-         provided for compatibility with [SWID].  This specification
-         does not define how to resolve an XPATH query in the context of
-         CBOR, see Section 5.2.
+      -  a URI-like expression with "swidpath:" as the scheme, which
+         refers to another software tag via an XPATH query
+         [W3C.REC-xpath20-20101214] that matches items in that tag
+         (Section 5.2).  This scheme is provided for compatibility with
+         [SWID].  This specification does not define how to resolve an
+         XPATH query in the context of CBOR, see Section 5.2.
 
    *  media (index 10): A hint to the consumer of the link to what
       target platform the link is applicable to.  This item represents a
@@ -1024,26 +1022,26 @@ Table of Contents
       entries in the "Software ID Link Ownership Values" registry.
 
    *  rel (index 40): An integer or textual value that (integer label
-      with text escape, see Section 2, for the "Software ID Link Link
+      with text escape, see Section 2, for the "Software Tag Link
       Relationship Values" registry Section 4.3) identifies the
       relationship between this CoSWID and the target resource
       identified by the "href" item.  If an integer value is used it
       MUST be an index value in the range -256 to 65535.  Integer values
       in the range -256 to -1 are reserved for testing and use in closed
       environments (see Section 6.2.2).  Integer values in the range 0
-      to 65535 correspond to registered entries in the IANA "Software ID
-      Link Relationship Values" registry (see Section 6.2.7).  If a
+      to 65535 correspond to registered entries in the IANA "Software
+      Tag Link Relationship Values" registry (see Section 6.2.7.  If a
       string value is used it MUST be either a private use name as
       defined in Section 6.2.2 or a "Relation Name" from the IANA "Link
       Relation Types" registry: https://www.iana.org/assignments/link-
       relations/link-relations.xhtml as defined by [RFC8288].  When a
-      string value defined in the IANA "Software ID Link Relationship
+      string value defined in the IANA "Software Tag Link Relationship
       Values" registry matches a Relation Name defined in the IANA "Link
-      Relation Types" registry, the index value in the IANA "Software ID
-      Link Relationship Values" registry MUST be used instead, as this
-      relationship has a specialized meaning in the context of a CoSWID
-      tag.  String values correspond to registered entries in the
-      "Software ID Link Relationship Values" registry.
+      Relation Types" registry, the index value in the IANA "Software
+      Tag Link Relationship Values" registry MUST be used instead, as
+      this relationship has a specialized meaning in the context of a
+      CoSWID tag.  String values correspond to registered entries in the
+      "Software Tag Link Relationship Values" registry.
 
    *  media-type (index 41): A link can point to arbitrary resources on
       the endpoint, local network, or Internet using the href item.  Use
@@ -1057,7 +1055,7 @@ Table of Contents
       [SWID].
 
    *  use (index 42): An integer or textual value (integer label with
-      text escape, see Section 2, for the "Software ID Link Link
+      text escape, see Section 2, for the "Software Tag Link
       Relationship Values" registry Section 4.3) used to determine if
       the referenced software component has to be installed before
       installing the software component identified by the COSWID tag.
@@ -1065,10 +1063,10 @@ Table of Contents
       -256 to 255.  Integer values in the range -256 to -1 are reserved
       for testing and use in closed environments (see Section 6.2.2).
       Integer values in the range 0 to 255 correspond to registered
-      entries in the IANA "Link Use Values" registry (see
-      Section 6.2.8).  If a string value is used it MUST be a private
-      use name as defined in Section 6.2.2.  String values correspond to
-      registered entries in the "Software ID Link Use Values" registry.
+      entries in the IANA "Link Use Values" registry (see Section 6.2.8.
+      If a string value is used it MUST be a private use name as defined
+      in Section 6.2.2.  String values correspond to registered entries
+      in the "Software Tag Link Use Values" registry.
 
    *  $$link-extension: This CDDL socket can be used to extend the link-
       entry map model.  See Section 2.2.
@@ -2100,65 +2098,51 @@ Table of Contents
    Values" registry defined in Section 6.2.8.  Additional values will
    likely be registered over time.
 
-5.  URI Schemes
+5.  swid and swidpath Expressions
 
-   This specification defines the following URI schemes for use in
+   This specification defines the following expressions for use in
    CoSWID and to provide interoperability with schemes used in [SWID].
-
-   Note: These URI schemes are used in [SWID] without an IANA
-   registration.  The present specification ensures that these URI
-   schemes are properly defined going forward.
+   Because both the "swid" and "swidpath" schemes are to be interpreted
+   within a local, rather than a global, context, neither of these
+   scheme are URIs as defined in [RFC3986] and the swid and swidpath
+   scheme names are not registered as permanent schemes with IANA.  That
+   noted, swid and swidpath expressions conform to all rules for URI
+   syntax.  All uses of these expressions encountered within a CoSWID
+   are to be interpreted as described in this section.
 
 
    // RFC Ed.: throughout this section, please replace RFC-AAAA with the
    // RFC number of this specification and remove this note.
 
-5.1.  "swid" URI Scheme
+5.1.  "swid" Expressions
 
-   There is a need for a scheme name that can be used in URIs that point
-   to a specific software tag by that tag's tag-id, such as the use of
-   the link entry as described in Section 2.7.  Since this scheme is
-   used both in a standards track document and an ISO standard, this
-   scheme needs to be used without fear of conflicts with current or
-   future actual schemes.  In Section 6.6.1, the scheme "swid" is
-   registered as a 'permanent' scheme for that purpose.
+   Expressions specifying the "swid" scheme are used to reference a
+   software tag by its tag-id.  A tag-id referenced in this way can be
+   used to identify the tag resource in the context of where it is
+   referenced from.  For example, when a tag is installed on a given
+   device, that tag can reference related tags on the same device using
+   expressions with this scheme.
 
-   URIs specifying the "swid" scheme are used to reference a software
-   tag by its tag-id.  A tag-id referenced in this way can be used to
-   identify the tag resource in the context of where it is referenced
-   from.  For example, when a tag is installed on a given device, that
-   tag can reference related tags on the same device using URIs with
-   this scheme.
-
-   For URIs that use the "swid" scheme, the scheme specific part MUST
-   consist of a referenced software tag's tag-id.  This tag-id MUST be
-   URI encoded according to Section 2.1 of [RFC3986].
+   For expressions that use the "swid" scheme, the scheme specific part
+   MUST consist of a referenced software tag's tag-id.  This tag-id MUST
+   be URI encoded according to [RFC3986] Section 2.1.
 
    The following expression is a valid example:
 
    swid:2df9de35-0aff-4a86-ace6-f7dddd1ade4c
 
-5.2.  "swidpath" URI Scheme
+5.2.  "swidpath" Expressions
 
-   There is a need for a scheme name that can be used in URIs to
-   identify a collection of specific software tags with data elements
-   that match an XPath expression, such as the use of the link entry as
-   described in Section 2.7.  The scheme named "swidpath" is used for
-   this purpose in [SWID], but not registered.  To enable usage without
-   fear of conflicts with current or future actual schemes, the present
-   document registers it as a 'permanent' scheme for that purpose (see
-   Section 6.6.2).
-
-   URIs specifying the "swidpath" scheme are used to filter tags out of
-   a base collection, so that matching tags are included in the
+   Expressions specifying the "swidpath" scheme are used to filter tags
+   out of a base collection, so that matching tags are included in the
    identified tag collection.  The XPath expression
    [W3C.REC-xpath20-20101214] references the data that must be found in
    a given software tag out of base collection for that tag to be
    considered a matching tag.  Tags to be evaluated (the base
-   collection) include all tags in the context of where the "swidpath
-   URI" is referenced from.  For example, when a tag is installed on a
-   given device, that tag can reference related tags on the same device
-   using a URI with this scheme.
+   collection) include all tags in the context of where the swidpath
+   expression is referenced from.  For example, when a tag is installed
+   on a given device, that tag can reference related tags on the same
+   device using an expression with this scheme.
 
    For URIs that use the "swidpath" scheme, the following requirements
    apply:
@@ -2787,67 +2771,7 @@ Table of Contents
 
                         Table 21: CoSWID CBOR Tag
 
-6.6.  URI Scheme Registrations
-
-   The ISO 19770-2:2015 SWID specification describes use of the "swid"
-   and "swidpath" URI schemes, which are currently in use in
-   implementations.  This document continues this use for CoSWID.  The
-   following subsections provide registrations for these schemes in to
-   ensure that a permanent registration exists for these schemes that is
-   suitable for use in the SWID and CoSWID specifications.
-
-   URI schemes are registered within the "Uniform Resource Identifier
-   (URI) Schemes" registry maintained at [IANA.uri-schemes].
-
-6.6.1.  URI-scheme swid
-
-   IANA is requested to register the URI scheme "swid".  This
-   registration request complies with [RFC7595].
-
-   Scheme name:
-      swid
-
-   Status:
-      Permanent
-
-   Applications/protocols that use this scheme name:
-      Applications that require Software-IDs (SWIDs) or Concise
-      Software-IDs (CoSWIDs); see Section 5.1 of RFC-AAAA.
-
-   Contact:
-      IETF Chair <chair@ietf.org>
-
-   Change controller:
-      IESG <iesg@ietf.org>
-
-   Reference:
-      Section 5.1 in RFC-AAAA
-
-6.6.2.  URI-scheme swidpath
-
-   IANA is requested to register the URI scheme "swidpath".  This
-   registration request complies with [RFC7595].
-
-   Scheme name:
-      swidpath
-
-   Status:
-      Permanent
-
-   Applications/protocols that use this scheme name:
-      Applications that require Software-IDs (SWIDs) or Concise
-      Software-IDs (CoSWIDs); see Section 5.2 of RFC-AAAA.
-
-   Contact:
-      IETF Chair <chair@ietf.org>
-
-   Change controller:
-      IESG <iesg@ietf.org>
-
-   Reference:
-      Section 5.2 in RFC-AAAA
-
-6.7.  CoSWID Model for use in SWIMA Registration
+6.6.  CoSWID Model for use in SWIMA Registration
 
    The Software Inventory Message and Attributes (SWIMA) for PA-TNC
    specification [RFC8412] defines a standardized method for collecting
@@ -3210,6 +3134,12 @@ Table of Contents
 
    [THIS SECTION TO BE REMOVED BY THE RFC EDITOR.]
 
+   Changes from version 22 to version 23
+
+   *  Removed request for IANA registration of swid and swidpath as URI
+      schemes.  Updated text to note that that these are not URIs but
+      expressions that follow URI syntax
+
    Changes from version 12 to version 14:
 
    *  Moved key identifier to protected COSE header
@@ -3497,10 +3427,6 @@ Table of Contents
               IANA, "Posture Attribute (PA) Protocol Compatible with
               Trusted Network Connect (TNC) Parameters",
               <https://www.iana.org/assignments/pa-tnc-parameters>.
-
-   [IANA.uri-schemes]
-              IANA, "Uniform Resource Identifier (URI) Schemes",
-              <https://www.iana.org/assignments/uri-schemes>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
