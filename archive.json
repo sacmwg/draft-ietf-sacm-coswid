@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-01-26T15:27:00.211159+00:00",
+  "timestamp": "2023-02-07T16:57:17.079002+00:00",
   "repo": "sacmwg/draft-ietf-sacm-coswid",
   "labels": [
     {
@@ -917,16 +917,45 @@
       "id": "MDU6SXNzdWU4MjI0Njk5NDM=",
       "title": "COSE and CBOR tags",
       "url": "https://github.com/sacmwg/draft-ietf-sacm-coswid/issues/42",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "laurencelundblade",
       "authorAssociation": "NONE",
       "assignees": [],
       "labels": [],
       "body": "I think what we're after for CoSWID+COSE is almost exactly the same as CWT+UCCS. It's not exactly the same because UCCS uses a different tag number than CWT and CoSWID doesn't.\r\n\r\nI think we want to allow all variants of COSE signing, encryption and MAC just like CWT does. \r\n\r\n```\r\nconcise-swid-tag \u2014 Naked, no COSE, not CBOR tag, like a UCCS\r\n\r\n#6.1398229316(concise-swid-tag) - Just a CoSWID tag, no COSE, like a CWT with no COSE\r\n\r\n#6.1398229316(#6.18(COSE-Sign1<concise-swid-tag>)) A CoSWID tag with signing\r\n\r\n#6.1398229316(#6.17(COSE-Mac01<concise-swid-tag>))\r\n\r\n#6.1398229316(#6.18(COSE-Sign1(#6.96(cose_encrypt<concise-swid-tag>)))\r\n\r\n\u2026plus lots more combos of signing, encrypting and mac\u2019ing \r\n\r\n#6.18(COSE-Sign1<concise-swid-tag>) Signing not a CoSWID CBOR tag\r\n\r\n#6.17(COSE-Mac01<concise-swid-tag>) Mac, not a CoSWID CBOR tag\r\n\r\n#6.18(COSE-Sign1(#6.96(cose_encrypt<concise-swid-tag>)) Signed and encrypted not a CoSWID CBOR tag\r\n\r\n\u2026plus the same combos of signing, encrypting and mac'ing\r\n```\r\n\r\nWhat is NOT allowed, like CWT disallows, are these:\r\n\r\n```\r\n#6.1398229316(COSE-Sign1<concise-swid-tag>)\r\n\r\n#6.1398229316(COSE-Mac01<concise-swid-tag>)\r\n\r\n#6.1398229316(COSE-Sign1<cose_encrypt<concise-swid-tag>>)\r\n```\r\n\r\nAre we in agreement on this?\r\n\r\nAn implementor should be able to use the same COSE code that recursively removes COSE layers it identifies by the COSE tags to get to the final payload just like in CWT. Maybe even exactly the same COSE code.\r\n\r\nI think section 7 and 8 get close to this, but are not exactly right. They don't allow for encryption or mac. I think the CWT description of this is solid and correct though it doesn't use CDDL and doesn't cover UCCS.\r\n\r\nMy thought for bringing CoSWID into EAT is to have a claim that is explicitly a CoSWID so #6.1398229316() is never used. If it is COSE is used then it is a COSE tag. If COSE is not used then it is a concise-swid-tag. It is naked.\r\n\r\n",
       "createdAt": "2021-03-04T20:12:58Z",
-      "updatedAt": "2021-03-04T20:12:58Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2023-01-26T18:38:38Z",
+      "closedAt": "2023-01-26T15:49:32Z",
+      "comments": [
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "body": "Addressed in https://www.ietf.org/archive/id/draft-ietf-sacm-coswid-22.html#name-cbor-tagged-coswid-tags",
+          "createdAt": "2023-01-26T15:49:27Z",
+          "updatedAt": "2023-01-26T15:49:27Z"
+        },
+        {
+          "author": "laurencelundblade",
+          "authorAssociation": "NONE",
+          "body": "I don't think this addresses COSE encryption or MAC. I don't think this parallels CWT the way I requested.",
+          "createdAt": "2023-01-26T17:07:40Z",
+          "updatedAt": "2023-01-26T17:07:40Z"
+        },
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "body": "Oh I see! Yes. We do not cover encryption or MAC for CoSWID. That is correct.\r\n\r\nEncryption and (H)MAC are out-of-scope in alignment with the ISO text.",
+          "createdAt": "2023-01-26T17:19:52Z",
+          "updatedAt": "2023-01-26T17:19:52Z"
+        },
+        {
+          "author": "laurencelundblade",
+          "authorAssociation": "NONE",
+          "body": "It would probably be good to say \"encryption and MAC are allowed, but not specified by this document\".  \r\n\r\nIt would probably be better to not use the term \"COSE envelope\" as that is used in 9052 to refer to encryption and this shouldn't refer to COSE_*_Message because that clearly includes encryption and MAC.\r\n\r\nWhile it doesn't have CDDL, I think section 7.1 of RFC 8392 is exactly what is desirable here. Even allows for nesting of signing and encryption. But you probably want to get this done and don't want to make much of a change here.\r\n\r\nBut, I do think a change is needed -- say encryption and MAC are allowed, remove mention of \"envelope\" and mention of COSE_*_Message.",
+          "createdAt": "2023-01-26T18:38:38Z",
+          "updatedAt": "2023-01-26T18:38:38Z"
+        }
+      ]
     }
   ],
   "pulls": [
@@ -2185,25 +2214,33 @@
       "id": "PR_kwDOBK4aBM4y1sGD",
       "title": "Editorial suggestions from Benjamin Kaduk's IESG Evaluation",
       "url": "https://github.com/sacmwg/draft-ietf-sacm-coswid/pull/49",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "kaduk",
-      "authorAssociation": "FIRST_TIME_CONTRIBUTOR",
+      "authorAssociation": "NONE",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2022-02-15T07:53:36Z",
-      "updatedAt": "2022-02-15T07:55:33Z",
+      "updatedAt": "2023-01-26T15:46:09Z",
       "baseRepository": "sacmwg/draft-ietf-sacm-coswid",
       "baseRefName": "master",
       "baseRefOid": "b02c87419aa26d096ec565202cb1c7e92167c93d",
       "headRepository": "kaduk/draft-ietf-sacm-coswid",
       "headRefName": "nits",
       "headRefOid": "029ed68242d0db75b0c047cc45128ff0be465ae6",
-      "closedAt": null,
+      "closedAt": "2023-01-26T15:46:09Z",
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
-      "comments": [],
+      "comments": [
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "body": "replaced by #53 ",
+          "createdAt": "2023-01-26T15:46:08Z",
+          "updatedAt": "2023-01-26T15:46:08Z"
+        }
+      ],
       "reviews": [
         {
           "id": "PRR_kwDOBK4aBM40mzR3",
@@ -2222,6 +2259,26 @@
               "body": "Please check this.\r\nIt looked like the unprotected-sign-coswid-header construction was otherwise unused, but I'm also not sure how much interaction across CDDL snippets we intend.",
               "createdAt": "2022-02-15T07:55:33Z",
               "updatedAt": "2022-02-15T07:55:33Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOBK4aBM5Lxlrb",
+          "commit": {
+            "abbreviatedOid": "029ed68"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-01-26T15:37:17Z",
+          "updatedAt": "2023-01-26T15:37:17Z",
+          "comments": [
+            {
+              "originalPosition": 4,
+              "body": "it should be \"signed\" consistently. So we'll abandon this PR, but I'll push a type-names branch after this.\r\n(this is a late reply, but we were stuck in another \"branch\" of the publication process)",
+              "createdAt": "2023-01-26T15:37:17Z",
+              "updatedAt": "2023-01-26T15:37:17Z"
             }
           ]
         }
@@ -2364,24 +2421,68 @@
       "id": "PR_kwDOBK4aBM5Ibw_Z",
       "title": "Remove URI IANA reg request",
       "url": "https://github.com/sacmwg/draft-ietf-sacm-coswid/pull/52",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "cmschmidt",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Removed IANA registrations for swid and swidpath and updated text to note these are not technically URIs but just expressions using URI syntax.",
       "createdAt": "2023-01-24T14:51:34Z",
-      "updatedAt": "2023-01-24T14:51:34Z",
+      "updatedAt": "2023-01-26T15:38:02Z",
       "baseRepository": "sacmwg/draft-ietf-sacm-coswid",
       "baseRefName": "master",
-      "baseRefOid": "d25e4296fcb3ee30c351fbd47b22cc39f7f7ed86",
+      "baseRefOid": "feb9d401a84396011fd763ee0e2984d289861d9d",
       "headRepository": "sacmwg/draft-ietf-sacm-coswid",
       "headRefName": "jan2023-updates",
-      "headRefOid": "d563d5ca95bb6a3735b888c0fb0e5713da936c55",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "56ed3101a2591b67d7656b46a26c0bf19147590a",
+      "closedAt": "2023-01-26T15:38:02Z",
+      "mergedAt": "2023-01-26T15:38:02Z",
+      "mergedBy": "henkbirkholz",
+      "mergeCommit": {
+        "oid": "5ac27d87264b6fa7d50d1311c5bf5fac60a94ed5"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOBK4aBM5Lxl75",
+          "commit": {
+            "abbreviatedOid": "56ed310"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-01-26T15:37:52Z",
+          "updatedAt": "2023-01-26T15:37:52Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 53,
+      "id": "PR_kwDOBK4aBM5ImjQx",
+      "title": "conistent unprotected-signed-coswid-header",
+      "url": "https://github.com/sacmwg/draft-ietf-sacm-coswid/pull/53",
+      "state": "MERGED",
+      "author": "henkbirkholz",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "replaces #49",
+      "createdAt": "2023-01-26T15:45:42Z",
+      "updatedAt": "2023-01-26T15:46:43Z",
+      "baseRepository": "sacmwg/draft-ietf-sacm-coswid",
+      "baseRefName": "master",
+      "baseRefOid": "5ac27d87264b6fa7d50d1311c5bf5fac60a94ed5",
+      "headRepository": "sacmwg/draft-ietf-sacm-coswid",
+      "headRefName": "type-names",
+      "headRefOid": "87d732c9ee31c22a6975fc9ecd89d7f7a0459585",
+      "closedAt": "2023-01-26T15:46:42Z",
+      "mergedAt": "2023-01-26T15:46:42Z",
+      "mergedBy": "henkbirkholz",
+      "mergeCommit": {
+        "oid": "aed4d24d2038a221fa1f9b01fd24d93a54072d4e"
+      },
       "comments": [],
       "reviews": []
     }
