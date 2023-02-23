@@ -1095,7 +1095,13 @@ The values above are registered in the IANA "Software ID Link Use Values" regist
 
 # swid and swidpath Expressions
 
-This specification defines the following expressions for use in CoSWID and to provide interoperability with schemes used in {{SWID}}. Because both the "swid" and "swidpath" schemes are to be interpreted within a local, rather than a global, context, neither of these scheme are URIs as defined in {{RFC3986}} and the swid and swidpath scheme names are not registered as permanent schemes with IANA. That noted, swid and swidpath expressions conform to all rules for URI syntax. All uses of these expressions encountered within a CoSWID are to be interpreted as described in this section.
+This specification defines the following schemes for use in CoSWID and to provide interoperability with schemes used in {{SWID}}. 
+Because both the "swid" and "swidpath" schemes are to be interpreted within a local (rather than a global) context, neither of these are technically URI schemes as defined in {{RFC3986}}.
+For this reason, the swid and swidpath scheme names are registered with IANA as provisional, rather than permanent, schemes. 
+However, registering these schemes as provisional ensures that the schemes are reserved and that they are properly defined going forward. 
+
+The swid and swidpath expressions conform to all rules for URI syntax. 
+All uses of these expressions encountered within a CoSWID are to be interpreted as described in this section.
 
 
 [^replace-xxxx]
@@ -1522,6 +1528,67 @@ preferably with the specific value requested:
 |        Tag | Data Item | Semantics                                       |
 | 1398229316 | map       | Concise Software Identifier (CoSWID) \[RFC-AAAA\] |
 {: #tbl-cbor-tag title="CoSWID CBOR Tag"}
+
+## URI Scheme Registrations
+
+The ISO 19770-2:2015 SWID specification describes use of the "swid"
+and "swidpath" URI schemes, which are currently in use in
+implementations. This document continues this use for CoSWID. The
+following subsections provide registrations for these schemes in to
+ensure that a  registration exists for these schemes that
+is suitable for use in the SWID and CoSWID specifications.
+URI schemes are registered within the "Uniform Resource Identifier
+(URI) Schemes" registry maintained at {{!IANA.uri-schemes}}.
+
+### URI-scheme swid {#swid-reg}
+
+IANA is requested to register the URI scheme "swid".
+This registration request complies with {{RFC7595}}.
+
+Scheme name:
+: swid
+
+Status:
+: Provisional
+
+Applications/protocols that use this scheme name:
+: Applications that require Software-IDs (SWIDs) or Concise
+  Software-IDs (CoSWIDs); see {{uri-scheme-swid}} of RFC-AAAA.
+
+Contact:
+: IETF Chair \<chair@ietf.org>
+
+Change controller:
+: IESG \<iesg@ietf.org>
+
+Reference:
+:  {{uri-scheme-swid}} in RFC-AAAA
+{: vspace='0'}
+
+### URI-scheme swidpath {#swidpath-reg}
+
+IANA is requested to register the URI scheme "swidpath". This registration
+request complies with {{RFC7595}}.
+
+Scheme name:
+: swidpath
+
+Status:
+: Provisional
+
+Applications/protocols that use this scheme name:
+: Applications that require Software-IDs (SWIDs) or Concise
+  Software-IDs (CoSWIDs); see {{uri-scheme-swidpath}} of RFC-AAAA.
+
+Contact:
+: IETF Chair \<chair@ietf.org>
+
+Change controller:
+: IESG \<iesg@ietf.org>
+
+Reference:
+:  {{uri-scheme-swidpath}} in RFC-AAAA
+{: vspace='0'}
 
 ## CoSWID Model for use in SWIMA Registration {#sec-swima}
 
