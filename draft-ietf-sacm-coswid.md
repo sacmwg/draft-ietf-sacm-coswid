@@ -1095,12 +1095,12 @@ The values above are registered in the IANA "Software ID Link Use Values" regist
 
 # swid and swidpath Expressions
 
-This specification defines the following schemes for use in CoSWID and to provide interoperability with schemes used in {{SWID}}. 
+This specification defines the following schemes for use in CoSWID and to provide interoperability with schemes used in {{SWID}}.
 Because both the "swid" and "swidpath" schemes are to be interpreted within a local (rather than a global) context, neither of these are technically URI schemes as defined in {{RFC3986}}.
-For this reason, the swid and swidpath scheme names are registered with IANA as provisional, rather than permanent, schemes. 
-However, registering these schemes as provisional ensures that the schemes are reserved and that they are properly defined going forward. 
+For this reason, the swid and swidpath scheme names are registered with IANA as provisional, rather than permanent, schemes.
+However, registering these schemes as provisional ensures that the schemes are reserved and that they are properly defined going forward.
 
-The swid and swidpath expressions conform to all rules for URI syntax. 
+The swid and swidpath expressions conform to all rules for URI syntax.
 All uses of these expressions encountered within a CoSWID are to be interpreted as described in this section.
 
 
