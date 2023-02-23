@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-02-07T16:57:17.079002+00:00",
+  "timestamp": "2023-02-23T15:55:29.269883+00:00",
   "repo": "sacmwg/draft-ietf-sacm-coswid",
   "labels": [
     {
@@ -2482,6 +2482,34 @@
       "mergedBy": "henkbirkholz",
       "mergeCommit": {
         "oid": "aed4d24d2038a221fa1f9b01fd24d93a54072d4e"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 54,
+      "id": "PR_kwDOBK4aBM5Jc7sD",
+      "title": "consistent use of Software ID (again)",
+      "url": "https://github.com/sacmwg/draft-ietf-sacm-coswid/pull/54",
+      "state": "MERGED",
+      "author": "henkbirkholz",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "Signed-off-by: Henk Birkholz <henk.birkholz@sit.fraunhofer.de>",
+      "createdAt": "2023-02-07T17:07:54Z",
+      "updatedAt": "2023-02-07T17:08:04Z",
+      "baseRepository": "sacmwg/draft-ietf-sacm-coswid",
+      "baseRefName": "master",
+      "baseRefOid": "aed4d24d2038a221fa1f9b01fd24d93a54072d4e",
+      "headRepository": "sacmwg/draft-ietf-sacm-coswid",
+      "headRefName": "type-names",
+      "headRefOid": "6cdcfaa3170f6ecb5318c4b80a07454a01236577",
+      "closedAt": "2023-02-07T17:08:03Z",
+      "mergedAt": "2023-02-07T17:08:03Z",
+      "mergedBy": "henkbirkholz",
+      "mergeCommit": {
+        "oid": "cddd440b7d9d69cbb2c1886722b6fe71d1ee5907"
       },
       "comments": [],
       "reviews": []
