@@ -104,7 +104,10 @@ Table of Contents
      6.3.  swid+cbor Media Type Registration
      6.4.  CoAP Content-Format Registration
      6.5.  CBOR Tag Registration
-     6.6.  CoSWID Model for use in SWIMA Registration
+     6.6.  URI Scheme Registrations
+       6.6.1.  URI-scheme swid
+       6.6.2.  URI-scheme swidpath
+     6.7.  CoSWID Model for use in SWIMA Registration
    7.  Signed CoSWID Tags
    8.  CBOR-Tagged CoSWID Tags
    9.  Security Considerations
@@ -640,7 +643,7 @@ Table of Contents
       domain name followed by a "/" and a text string, where the domain
       name serves to ensure uniqueness across organizations.  A textual
       tag-id MUST NOT contain a sequence of two underscores ("__", see
-      Section 6.6).
+      Section 6.7).
 
    *  tag-version (index 12): An integer value that indicate the
       specific release revision of the tag.  Typically, the initial
@@ -2100,13 +2103,17 @@ Table of Contents
 
 5.  swid and swidpath Expressions
 
-   This specification defines the following expressions for use in
-   CoSWID and to provide interoperability with schemes used in [SWID].
-   Because both the "swid" and "swidpath" schemes are to be interpreted
-   within a local, rather than a global, context, neither of these
-   scheme are URIs as defined in [RFC3986] and the swid and swidpath
-   scheme names are not registered as permanent schemes with IANA.  That
-   noted, swid and swidpath expressions conform to all rules for URI
+   This specification defines the following schemes for use in CoSWID
+   and to provide interoperability with schemes used in [SWID].  Because
+   both the "swid" and "swidpath" schemes are to be interpreted within a
+   local (rather than a global) context, neither of these are
+   technically URI schemes as defined in [RFC3986].  For this reason,
+   the swid and swidpath scheme names are registered with IANA as
+   provisional, rather than permanent, schemes.  However, registering
+   these schemes as provisional ensures that the schemes are reserved
+   and that they are properly defined going forward.
+
+   The swid and swidpath expressions conform to all rules for URI
    syntax.  All uses of these expressions encountered within a CoSWID
    are to be interpreted as described in this section.
 
@@ -2771,7 +2778,66 @@ Table of Contents
 
                         Table 21: CoSWID CBOR Tag
 
-6.6.  CoSWID Model for use in SWIMA Registration
+6.6.  URI Scheme Registrations
+
+   The ISO 19770-2:2015 SWID specification describes use of the "swid"
+   and "swidpath" URI schemes, which are currently in use in
+   implementations.  This document continues this use for CoSWID.  The
+   following subsections provide registrations for these schemes in to
+   ensure that a registration exists for these schemes that is suitable
+   for use in the SWID and CoSWID specifications.  URI schemes are
+   registered within the "Uniform Resource Identifier (URI) Schemes"
+   registry maintained at [IANA.uri-schemes].
+
+6.6.1.  URI-scheme swid
+
+   IANA is requested to register the URI scheme "swid".  This
+   registration request complies with [RFC7595].
+
+   Scheme name:
+      swid
+
+   Status:
+      Provisional
+
+   Applications/protocols that use this scheme name:
+      Applications that require Software-IDs (SWIDs) or Concise
+      Software-IDs (CoSWIDs); see Section 5.1 of RFC-AAAA.
+
+   Contact:
+      IETF Chair <chair@ietf.org>
+
+   Change controller:
+      IESG <iesg@ietf.org>
+
+   Reference:
+      Section 5.1 in RFC-AAAA
+
+6.6.2.  URI-scheme swidpath
+
+   IANA is requested to register the URI scheme "swidpath".  This
+   registration request complies with [RFC7595].
+
+   Scheme name:
+      swidpath
+
+   Status:
+      Provisional
+
+   Applications/protocols that use this scheme name:
+      Applications that require Software-IDs (SWIDs) or Concise
+      Software-IDs (CoSWIDs); see Section 5.2 of RFC-AAAA.
+
+   Contact:
+      IETF Chair <chair@ietf.org>
+
+   Change controller:
+      IESG <iesg@ietf.org>
+
+   Reference:
+      Section 5.2 in RFC-AAAA
+
+6.7.  CoSWID Model for use in SWIMA Registration
 
    The Software Inventory Message and Attributes (SWIMA) for PA-TNC
    specification [RFC8412] defines a standardized method for collecting
@@ -3427,6 +3493,10 @@ Table of Contents
               IANA, "Posture Attribute (PA) Protocol Compatible with
               Trusted Network Connect (TNC) Parameters",
               <https://www.iana.org/assignments/pa-tnc-parameters>.
+
+   [IANA.uri-schemes]
+              IANA, "Uniform Resource Identifier (URI) Schemes",
+              <https://www.iana.org/assignments/uri-schemes>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
