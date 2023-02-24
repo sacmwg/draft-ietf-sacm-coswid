@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-02-23T15:55:29.269883+00:00",
+  "timestamp": "2023-02-24T19:17:11.858758+00:00",
   "repo": "sacmwg/draft-ietf-sacm-coswid",
   "labels": [
     {
@@ -2513,6 +2513,88 @@
       },
       "comments": [],
       "reviews": []
+    },
+    {
+      "number": 55,
+      "id": "PR_kwDOBK4aBM5Kn7zB",
+      "title": "Update draft-ietf-sacm-coswid.md",
+      "url": "https://github.com/sacmwg/draft-ietf-sacm-coswid/pull/55",
+      "state": "MERGED",
+      "author": "cmschmidt",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Added back IANA registrations (as provisional) for swid and swidpath URI schemes. Slight re-wording of the intro paragraph to section 5 (discussing the schemes) to reflect this modification.",
+      "createdAt": "2023-02-23T16:41:52Z",
+      "updatedAt": "2023-02-24T19:16:29Z",
+      "baseRepository": "sacmwg/draft-ietf-sacm-coswid",
+      "baseRefName": "master",
+      "baseRefOid": "cddd440b7d9d69cbb2c1886722b6fe71d1ee5907",
+      "headRepository": "sacmwg/draft-ietf-sacm-coswid",
+      "headRefName": "feb2023-uri-scheme-updates",
+      "headRefOid": "a2306d9b882c599d362a6bddc7487cedf23a9942",
+      "closedAt": "2023-02-24T19:16:29Z",
+      "mergedAt": "2023-02-24T19:16:29Z",
+      "mergedBy": "henkbirkholz",
+      "mergeCommit": {
+        "oid": "065365c0dd2dc4391b4ff3093425f2b5409b72d0"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOBK4aBM5OMB81",
+          "commit": {
+            "abbreviatedOid": "35df798"
+          },
+          "author": "cabo",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-02-23T17:14:01Z",
+          "updatedAt": "2023-02-23T17:14:02Z",
+          "comments": [
+            {
+              "originalPosition": 8,
+              "body": "s/schemes/scheme names/g",
+              "createdAt": "2023-02-23T17:14:01Z",
+              "updatedAt": "2023-02-23T17:14:02Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOBK4aBM5ONlAJ",
+          "commit": {
+            "abbreviatedOid": "35df798"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-02-23T21:40:09Z",
+          "updatedAt": "2023-02-23T21:40:09Z",
+          "comments": [
+            {
+              "originalPosition": 8,
+              "body": "Thx! Fixed in a2306d9",
+              "createdAt": "2023-02-23T21:40:09Z",
+              "updatedAt": "2023-02-23T21:40:09Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOBK4aBM5OU_iS",
+          "commit": {
+            "abbreviatedOid": "a2306d9"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-02-24T19:15:55Z",
+          "updatedAt": "2023-02-24T19:15:55Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
