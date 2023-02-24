@@ -363,7 +363,7 @@ ul.empty li, .ulEmpty li {
   margin-top: 0.5em;
 }
 :is(ul, ol).compact, .ulCompact, .olCompact {
-  line-height: 100%;
+  line-height: 1;
   margin: 0 0 0 2em;
 }
 
@@ -373,9 +373,12 @@ dl {
   --indent: 3ch;
   /* --indent: attr(indent ch); not supported in any browser, but we can dream */
 }
+dl.olPercent {
+  --indent: 5ch;
+}
 dl > dt {
   float: left;
-  margin-right: 1em;
+  margin-right: 2ch;
   min-width: 8ch;
 }
 dl.dlNewline > dt {
@@ -385,6 +388,9 @@ dl > dd {
   margin-bottom: .8em;
   margin-left: var(--indent) !important; /* stupid element overrides */
   min-height: 2ex;
+}
+dl.olPercent > dt {
+  min-width: calc(var(--indent) - 2ch);
 }
 :is(dl.compact, .dlCompact) > dd {
   margin-bottom: 0;
@@ -585,10 +591,14 @@ hr {
 .bcp14 {
   font-variant: small-caps;
   font-weight: 600;
-  font-size: 14.5px;
+  font-size: var(--small-font-size);
 }
 .role {
   font-variant: all-small-caps;
+}
+sub, sup {
+  line-height: 1;
+  font-size: 80%;
 }
 
 /* info block */
@@ -1045,7 +1055,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Birkholz, et al.</td>
-<td class="center">Expires 11 August 2023</td>
+<td class="center">Expires 28 August 2023</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1058,12 +1068,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-sacm-coswid-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2023-02-07" class="published">7 February 2023</time>
+<time datetime="2023-02-24" class="published">24 February 2023</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2023-08-11">11 August 2023</time></dd>
+<dd class="expires"><time datetime="2023-08-28">28 August 2023</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1109,7 +1119,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 11 August 2023.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 28 August 2023.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1280,7 +1290,18 @@ svg :is([fill="white"], [fill^="#fff"]) {
                 <p id="section-toc.1-1.6.2.5.1"><a href="#section-6.5" class="xref">6.5</a>.  <a href="#name-cbor-tag-registration" class="xref">CBOR Tag Registration</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.6">
-                <p id="section-toc.1-1.6.2.6.1"><a href="#section-6.6" class="xref">6.6</a>.  <a href="#name-coswid-model-for-use-in-swi" class="xref">CoSWID Model for use in SWIMA Registration</a></p>
+                <p id="section-toc.1-1.6.2.6.1"><a href="#section-6.6" class="xref">6.6</a>.  <a href="#name-uri-scheme-registrations" class="xref">URI Scheme Registrations</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.6.2.1">
+                    <p id="section-toc.1-1.6.2.6.2.1.1"><a href="#section-6.6.1" class="xref">6.6.1</a>.  <a href="#name-uri-scheme-swid" class="xref">URI-scheme swid</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.6.2.2">
+                    <p id="section-toc.1-1.6.2.6.2.2.1"><a href="#section-6.6.2" class="xref">6.6.2</a>.  <a href="#name-uri-scheme-swidpath" class="xref">URI-scheme swidpath</a></p>
+</li>
+                </ul>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.7">
+                <p id="section-toc.1-1.6.2.7.1"><a href="#section-6.7" class="xref">6.7</a>.  <a href="#name-coswid-model-for-use-in-swi" class="xref">CoSWID Model for use in SWIMA Registration</a></p>
 </li>
             </ul>
 </li>
@@ -1779,7 +1800,7 @@ processing of text-string values and an unbounded set of any-attribute items. De
 identifier <span class="bcp14">MUST</span> be globally unique. Failure to ensure global uniqueness can create ambiguity in tag use since the tag-id serves as the global key for matching and lookups. If represented as a 16-byte binary string, the identifier <span class="bcp14">MUST</span> be a valid universally unique identifier as defined by <span>[<a href="#RFC4122" class="xref">RFC4122</a>]</span>. There are no strict guidelines on
 how the identifier is structured, but examples include a 16-byte GUID (e.g.,
 class 4 UUID) <span>[<a href="#RFC4122" class="xref">RFC4122</a>]</span>, or a DNS domain name followed by a "/" and a text string, where the domain name serves to ensure uniqueness across organizations.
-A textual tag-id <span class="bcp14">MUST NOT</span> contain a sequence of two underscores ("__", see <a href="#sec-swima" class="xref">Section 6.6</a>).<a href="#section-2.3-4.2" class="pilcrow">¶</a>
+A textual tag-id <span class="bcp14">MUST NOT</span> contain a sequence of two underscores ("__", see <a href="#sec-swima" class="xref">Section 6.7</a>).<a href="#section-2.3-4.2" class="pilcrow">¶</a>
 </li>
           <li class="normal" id="section-2.3-4.3">tag-version (index 12): An integer value that indicate the specific release revision of the tag. Typically, the initial value of this field is set to 0 and the value is increased for subsequent tags produced for the same software component release. This value allows a CoSWID tag producer to correct an incorrect tag previously released without indicating a change to the underlying software component the tag represents. For example, the tag version could be changed to add new metadata, to correct a broken link, to add a missing payload entry, etc. When producing a revised tag, the new tag-version value <span class="bcp14">MUST</span> be greater than the old tag-version value.<a href="#section-2.3-4.3" class="pilcrow">¶</a>
 </li>
@@ -2964,10 +2985,15 @@ The following heuristics can be used by a CoSWID consumer, based on the version 
       <h2 id="name-swid-and-swidpath-expressio">
 <a href="#section-5" class="section-number selfRef">5. </a><a href="#name-swid-and-swidpath-expressio" class="section-name selfRef">swid and swidpath Expressions</a>
       </h2>
-<p id="section-5-1">This specification defines the following expressions for use in CoSWID and to provide interoperability with schemes used in <span>[<a href="#SWID" class="xref">SWID</a>]</span>. Because both the "swid" and "swidpath" schemes are to be interpreted within a local, rather than a global, context, neither of these scheme are URIs as defined in <span>[<a href="#RFC3986" class="xref">RFC3986</a>]</span> and the swid and swidpath scheme names are not registered as permanent schemes with IANA. That noted, swid and swidpath expressions conform to all rules for URI syntax. All uses of these expressions encountered within a CoSWID are to be interpreted as described in this section.<a href="#section-5-1" class="pilcrow">¶</a></p>
-<p id="section-5-2"><span class="cref" id="replace-xxxx">RFC Ed.: throughout this section, please replace
+<p id="section-5-1">This specification defines the following scheme names for use in CoSWID and to provide interoperability with scheme names used in <span>[<a href="#SWID" class="xref">SWID</a>]</span>.
+Because both the "swid" and "swidpath" scheme names are to be interpreted within a local (rather than a global) context, neither of these are technically URI scheme names as defined in <span>[<a href="#RFC3986" class="xref">RFC3986</a>]</span>.
+For this reason, the swid and swidpath scheme names are registered with IANA as provisional, rather than permanent, scheme names.
+However, registering these scheme names as provisional ensures that the scheme names are reserved and that they are properly defined going forward.<a href="#section-5-1" class="pilcrow">¶</a></p>
+<p id="section-5-2">The swid and swidpath expressions conform to all rules for URI syntax.
+All uses of these expressions encountered within a CoSWID are to be interpreted as described in this section.<a href="#section-5-2" class="pilcrow">¶</a></p>
+<p id="section-5-3"><span class="cref" id="replace-xxxx">RFC Ed.: throughout this section, please replace
 RFC-AAAA with the RFC number of this specification and remove this
-note.</span><a href="#section-5-2" class="pilcrow">¶</a></p>
+note.</span><a href="#section-5-3" class="pilcrow">¶</a></p>
 <div id="uri-scheme-swid">
 <section id="section-5.1">
         <h3 id="name-swid-expressions">
@@ -4033,25 +4059,124 @@ preferably with the specific value requested:<a href="#section-6.5-1" class="pil
 </div>
 </section>
 </div>
-<div id="sec-swima">
+<div id="uri-scheme-registrations">
 <section id="section-6.6">
-        <h3 id="name-coswid-model-for-use-in-swi">
-<a href="#section-6.6" class="section-number selfRef">6.6. </a><a href="#name-coswid-model-for-use-in-swi" class="section-name selfRef">CoSWID Model for use in SWIMA Registration</a>
+        <h3 id="name-uri-scheme-registrations">
+<a href="#section-6.6" class="section-number selfRef">6.6. </a><a href="#name-uri-scheme-registrations" class="section-name selfRef">URI Scheme Registrations</a>
         </h3>
-<p id="section-6.6-1">The Software Inventory Message and Attributes (SWIMA) for PA-TNC specification <span>[<a href="#RFC8412" class="xref">RFC8412</a>]</span> defines a standardized method for collecting an endpoint device's software inventory. A CoSWID can provide evidence of software installation which can then be used and exchanged with SWIMA. This registration adds a new entry to the IANA "Software Data Model Types" registry defined by <span>[<a href="#RFC8412" class="xref">RFC8412</a>]</span> <span>[<a href="#IANA.pa-tnc-parameters" class="xref">IANA.pa-tnc-parameters</a>]</span> to support CoSWID use in SWIMA as follows:<a href="#section-6.6-1" class="pilcrow">¶</a></p>
-<p id="section-6.6-2">Pen: 0<a href="#section-6.6-2" class="pilcrow">¶</a></p>
-<p id="section-6.6-3">Integer: TBD2<a href="#section-6.6-3" class="pilcrow">¶</a></p>
-<p id="section-6.6-4">Name: Concise Software Identifier (CoSWID)<a href="#section-6.6-4" class="pilcrow">¶</a></p>
-<p id="section-6.6-5">Reference: RFC-AAAA<a href="#section-6.6-5" class="pilcrow">¶</a></p>
-<p id="section-6.6-6">Deriving Software Identifiers:<a href="#section-6.6-6" class="pilcrow">¶</a></p>
-<p id="section-6.6-7">A Software Identifier generated from a CoSWID tag is expressed as a concatenation of the form in  <span>[<a href="#RFC5234" class="xref">RFC5234</a>]</span> as follows:<a href="#section-6.6-7" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-6.6-8">
+<p id="section-6.6-1">The ISO 19770-2:2015 SWID specification describes use of the "swid"
+and "swidpath" URI schemes, which are currently in use in
+implementations. This document continues this use for CoSWID. The
+following subsections provide registrations for these schemes in to
+ensure that a  registration exists for these schemes that
+is suitable for use in the SWID and CoSWID specifications.
+URI schemes are registered within the "Uniform Resource Identifier
+(URI) Schemes" registry maintained at <span>[<a href="#IANA.uri-schemes" class="xref">IANA.uri-schemes</a>]</span>.<a href="#section-6.6-1" class="pilcrow">¶</a></p>
+<div id="swid-reg">
+<section id="section-6.6.1">
+          <h4 id="name-uri-scheme-swid">
+<a href="#section-6.6.1" class="section-number selfRef">6.6.1. </a><a href="#name-uri-scheme-swid" class="section-name selfRef">URI-scheme swid</a>
+          </h4>
+<p id="section-6.6.1-1">IANA is requested to register the URI scheme "swid".
+This registration request complies with <span>[<a href="#RFC7595" class="xref">RFC7595</a>]</span>.<a href="#section-6.6.1-1" class="pilcrow">¶</a></p>
+<span class="break"></span><dl class="dlNewline" id="section-6.6.1-2">
+            <dt id="section-6.6.1-2.1">Scheme name:</dt>
+            <dd style="margin-left: 1.5em" id="section-6.6.1-2.2">
+              <p id="section-6.6.1-2.2.1">swid<a href="#section-6.6.1-2.2.1" class="pilcrow">¶</a></p>
+</dd>
+            <dd class="break"></dd>
+<dt id="section-6.6.1-2.3">Status:</dt>
+            <dd style="margin-left: 1.5em" id="section-6.6.1-2.4">
+              <p id="section-6.6.1-2.4.1">Provisional<a href="#section-6.6.1-2.4.1" class="pilcrow">¶</a></p>
+</dd>
+            <dd class="break"></dd>
+<dt id="section-6.6.1-2.5">Applications/protocols that use this scheme name:</dt>
+            <dd style="margin-left: 1.5em" id="section-6.6.1-2.6">
+              <p id="section-6.6.1-2.6.1">Applications that require Software-IDs (SWIDs) or Concise
+Software-IDs (CoSWIDs); see <a href="#uri-scheme-swid" class="xref">Section 5.1</a> of RFC-AAAA.<a href="#section-6.6.1-2.6.1" class="pilcrow">¶</a></p>
+</dd>
+            <dd class="break"></dd>
+<dt id="section-6.6.1-2.7">Contact:</dt>
+            <dd style="margin-left: 1.5em" id="section-6.6.1-2.8">
+              <p id="section-6.6.1-2.8.1">IETF Chair &lt;chair@ietf.org&gt;<a href="#section-6.6.1-2.8.1" class="pilcrow">¶</a></p>
+</dd>
+            <dd class="break"></dd>
+<dt id="section-6.6.1-2.9">Change controller:</dt>
+            <dd style="margin-left: 1.5em" id="section-6.6.1-2.10">
+              <p id="section-6.6.1-2.10.1">IESG &lt;iesg@ietf.org&gt;<a href="#section-6.6.1-2.10.1" class="pilcrow">¶</a></p>
+</dd>
+            <dd class="break"></dd>
+<dt id="section-6.6.1-2.11">Reference:</dt>
+            <dd style="margin-left: 1.5em" id="section-6.6.1-2.12">
+              <p id="section-6.6.1-2.12.1"><a href="#uri-scheme-swid" class="xref">Section 5.1</a> in RFC-AAAA<a href="#section-6.6.1-2.12.1" class="pilcrow">¶</a></p>
+</dd>
+          <dd class="break"></dd>
+</dl>
+</section>
+</div>
+<div id="swidpath-reg">
+<section id="section-6.6.2">
+          <h4 id="name-uri-scheme-swidpath">
+<a href="#section-6.6.2" class="section-number selfRef">6.6.2. </a><a href="#name-uri-scheme-swidpath" class="section-name selfRef">URI-scheme swidpath</a>
+          </h4>
+<p id="section-6.6.2-1">IANA is requested to register the URI scheme "swidpath". This registration
+request complies with <span>[<a href="#RFC7595" class="xref">RFC7595</a>]</span>.<a href="#section-6.6.2-1" class="pilcrow">¶</a></p>
+<span class="break"></span><dl class="dlNewline" id="section-6.6.2-2">
+            <dt id="section-6.6.2-2.1">Scheme name:</dt>
+            <dd style="margin-left: 1.5em" id="section-6.6.2-2.2">
+              <p id="section-6.6.2-2.2.1">swidpath<a href="#section-6.6.2-2.2.1" class="pilcrow">¶</a></p>
+</dd>
+            <dd class="break"></dd>
+<dt id="section-6.6.2-2.3">Status:</dt>
+            <dd style="margin-left: 1.5em" id="section-6.6.2-2.4">
+              <p id="section-6.6.2-2.4.1">Provisional<a href="#section-6.6.2-2.4.1" class="pilcrow">¶</a></p>
+</dd>
+            <dd class="break"></dd>
+<dt id="section-6.6.2-2.5">Applications/protocols that use this scheme name:</dt>
+            <dd style="margin-left: 1.5em" id="section-6.6.2-2.6">
+              <p id="section-6.6.2-2.6.1">Applications that require Software-IDs (SWIDs) or Concise
+Software-IDs (CoSWIDs); see <a href="#uri-scheme-swidpath" class="xref">Section 5.2</a> of RFC-AAAA.<a href="#section-6.6.2-2.6.1" class="pilcrow">¶</a></p>
+</dd>
+            <dd class="break"></dd>
+<dt id="section-6.6.2-2.7">Contact:</dt>
+            <dd style="margin-left: 1.5em" id="section-6.6.2-2.8">
+              <p id="section-6.6.2-2.8.1">IETF Chair &lt;chair@ietf.org&gt;<a href="#section-6.6.2-2.8.1" class="pilcrow">¶</a></p>
+</dd>
+            <dd class="break"></dd>
+<dt id="section-6.6.2-2.9">Change controller:</dt>
+            <dd style="margin-left: 1.5em" id="section-6.6.2-2.10">
+              <p id="section-6.6.2-2.10.1">IESG &lt;iesg@ietf.org&gt;<a href="#section-6.6.2-2.10.1" class="pilcrow">¶</a></p>
+</dd>
+            <dd class="break"></dd>
+<dt id="section-6.6.2-2.11">Reference:</dt>
+            <dd style="margin-left: 1.5em" id="section-6.6.2-2.12">
+              <p id="section-6.6.2-2.12.1"><a href="#uri-scheme-swidpath" class="xref">Section 5.2</a> in RFC-AAAA<a href="#section-6.6.2-2.12.1" class="pilcrow">¶</a></p>
+</dd>
+          <dd class="break"></dd>
+</dl>
+</section>
+</div>
+</section>
+</div>
+<div id="sec-swima">
+<section id="section-6.7">
+        <h3 id="name-coswid-model-for-use-in-swi">
+<a href="#section-6.7" class="section-number selfRef">6.7. </a><a href="#name-coswid-model-for-use-in-swi" class="section-name selfRef">CoSWID Model for use in SWIMA Registration</a>
+        </h3>
+<p id="section-6.7-1">The Software Inventory Message and Attributes (SWIMA) for PA-TNC specification <span>[<a href="#RFC8412" class="xref">RFC8412</a>]</span> defines a standardized method for collecting an endpoint device's software inventory. A CoSWID can provide evidence of software installation which can then be used and exchanged with SWIMA. This registration adds a new entry to the IANA "Software Data Model Types" registry defined by <span>[<a href="#RFC8412" class="xref">RFC8412</a>]</span> <span>[<a href="#IANA.pa-tnc-parameters" class="xref">IANA.pa-tnc-parameters</a>]</span> to support CoSWID use in SWIMA as follows:<a href="#section-6.7-1" class="pilcrow">¶</a></p>
+<p id="section-6.7-2">Pen: 0<a href="#section-6.7-2" class="pilcrow">¶</a></p>
+<p id="section-6.7-3">Integer: TBD2<a href="#section-6.7-3" class="pilcrow">¶</a></p>
+<p id="section-6.7-4">Name: Concise Software Identifier (CoSWID)<a href="#section-6.7-4" class="pilcrow">¶</a></p>
+<p id="section-6.7-5">Reference: RFC-AAAA<a href="#section-6.7-5" class="pilcrow">¶</a></p>
+<p id="section-6.7-6">Deriving Software Identifiers:<a href="#section-6.7-6" class="pilcrow">¶</a></p>
+<p id="section-6.7-7">A Software Identifier generated from a CoSWID tag is expressed as a concatenation of the form in  <span>[<a href="#RFC5234" class="xref">RFC5234</a>]</span> as follows:<a href="#section-6.7-7" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-6.7-8">
 <pre>
 TAG_CREATOR_REGID "_" "_" UNIQUE_ID
-</pre><a href="#section-6.6-8" class="pilcrow">¶</a>
+</pre><a href="#section-6.7-8" class="pilcrow">¶</a>
 </div>
-<p id="section-6.6-9">Where TAG_CREATOR_REGID is the reg-id item value of the tag's entity item having the role value of 1 (corresponding to "tag creator"), and the UNIQUE_ID is the same tag's tag-id item. If the tag-id item's value is expressed as a 16-byte binary string, the UNIQUE_ID <span class="bcp14">MUST</span> be represented using the UUID string representation defined in <span>[<a href="#RFC4122" class="xref">RFC4122</a>]</span> including the "urn:uuid:" prefix.<a href="#section-6.6-9" class="pilcrow">¶</a></p>
-<p id="section-6.6-10">The TAG_CREATOR_REGID and the UNIQUE_ID are connected with a double underscore (_), without any other connecting character or whitespace.<a href="#section-6.6-10" class="pilcrow">¶</a></p>
+<p id="section-6.7-9">Where TAG_CREATOR_REGID is the reg-id item value of the tag's entity item having the role value of 1 (corresponding to "tag creator"), and the UNIQUE_ID is the same tag's tag-id item. If the tag-id item's value is expressed as a 16-byte binary string, the UNIQUE_ID <span class="bcp14">MUST</span> be represented using the UUID string representation defined in <span>[<a href="#RFC4122" class="xref">RFC4122</a>]</span> including the "urn:uuid:" prefix.<a href="#section-6.7-9" class="pilcrow">¶</a></p>
+<p id="section-6.7-10">The TAG_CREATOR_REGID and the UNIQUE_ID are connected with a double underscore (_), without any other connecting character or whitespace.<a href="#section-6.7-10" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -4538,6 +4663,10 @@ any-element<a href="#section-11-14.5" class="pilcrow">¶</a>
 <dt id="IANA.pa-tnc-parameters">[IANA.pa-tnc-parameters]</dt>
         <dd>
 <span class="refAuthor">IANA</span>, <span class="refTitle">"Posture Attribute (PA) Protocol Compatible with Trusted Network Connect (TNC) Parameters"</span>, <span>&lt;<a href="https://www.iana.org/assignments/pa-tnc-parameters">https://www.iana.org/assignments/pa-tnc-parameters</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="IANA.uri-schemes">[IANA.uri-schemes]</dt>
+        <dd>
+<span class="refAuthor">IANA</span>, <span class="refTitle">"Uniform Resource Identifier (URI) Schemes"</span>, <span>&lt;<a href="https://www.iana.org/assignments/uri-schemes">https://www.iana.org/assignments/uri-schemes</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC2119">[RFC2119]</dt>
         <dd>
